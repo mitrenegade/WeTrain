@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class SettingsViewController: UITableViewController {
     let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -72,7 +73,17 @@ class SettingsViewController: UITableViewController {
             self.simpleAlert("About DocPronto", message: message)
             break
         case 1:
-            self.performSegueWithIdentifier("GoToCreditCard", sender: self)
+            if PFUser.currentUser() == nil {
+                var alert: UIAlertController = UIAlertController(title: "Error editing credit card", message: "You are not logged in. Please log in again to edit payment information.", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                }))
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
+            else {
+                self.performSegueWithIdentifier("GoToCreditCard", sender: self)
+            }
+            
             break;
         case 3:
             appDelegate.logout()

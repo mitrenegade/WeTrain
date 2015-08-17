@@ -208,108 +208,29 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geV-vm-Po1" userLabel="View - name">
-                                <rect key="frame" x="-1" y="79" width="602" height="40"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Credit card number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0JR-Jw-TYc">
-                                        <rect key="frame" x="21" y="5" width="561" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-textField-vUu-m2-Gbc"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="03d-e3-gdz" id="PwB-a0-Gd0"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9me-CD-6Nc" customClass="PTKView">
+                                <rect key="frame" x="16" y="79" width="568" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="WQj-5b-SED"/>
+                                    <constraint firstAttribute="height" constant="60" id="L4l-ht-QlY"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-view-5vD-Fh-RMC"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpW-4k-adt" userLabel="View - password">
-                                <rect key="frame" x="-1" y="127" width="300" height="40"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expiration" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wa7-D2-d4x">
-                                        <rect key="frame" x="21" y="5" width="258" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-textField-iZQ-aF-0Dd"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="03d-e3-gdz" id="Gd8-EG-3sn"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="8wz-VM-SFp"/>
-                                    <constraint firstAttribute="trailing" secondItem="Wa7-D2-d4x" secondAttribute="trailing" constant="21" id="CED-4b-Snz"/>
-                                    <constraint firstAttribute="bottom" secondItem="Wa7-D2-d4x" secondAttribute="bottom" constant="5" id="Gub-oJ-MgY"/>
-                                    <constraint firstItem="Wa7-D2-d4x" firstAttribute="leading" secondItem="QpW-4k-adt" secondAttribute="leading" constant="21" id="fdw-qq-DwE"/>
-                                    <constraint firstItem="Wa7-D2-d4x" firstAttribute="top" secondItem="QpW-4k-adt" secondAttribute="top" constant="5" id="tKn-J5-3Ct"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-view-jx2-9E-qkh"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="swW-qg-jY0" userLabel="View - password">
-                                <rect key="frame" x="300" y="127" width="301" height="40"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CVV" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OWr-kf-GQu">
-                                        <rect key="frame" x="21" y="5" width="258" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-textField-iZQ-aF-0Dd"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="03d-e3-gdz" id="rIU-we-vkG"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="OWr-kf-GQu" firstAttribute="leading" secondItem="swW-qg-jY0" secondAttribute="leading" constant="21" id="Rhw-lu-TvW"/>
-                                    <constraint firstAttribute="height" constant="40" id="Wji-TQ-Nua"/>
-                                    <constraint firstAttribute="bottom" secondItem="OWr-kf-GQu" secondAttribute="bottom" constant="5" id="YTX-Nl-Wcm"/>
-                                    <constraint firstAttribute="trailing" secondItem="OWr-kf-GQu" secondAttribute="trailing" constant="22" id="fox-ZX-3wp"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="oH2-TD-ucm"/>
-                                    <constraint firstItem="OWr-kf-GQu" firstAttribute="top" secondItem="swW-qg-jY0" secondAttribute="top" constant="5" id="qai-0B-WqZ"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-view-jx2-9E-qkh"/>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ZRa-ve-j6t" firstAttribute="top" secondItem="zLc-4l-vEw" secondAttribute="bottom" constant="20" id="1qu-8O-PJN"/>
-                            <constraint firstItem="swW-qg-jY0" firstAttribute="width" secondItem="QpW-4k-adt" secondAttribute="width" constant="1" id="2vt-9d-t1H"/>
-                            <constraint firstItem="swW-qg-jY0" firstAttribute="leading" secondItem="QpW-4k-adt" secondAttribute="trailing" constant="1" id="86o-PX-379"/>
-                            <constraint firstItem="geV-vm-Po1" firstAttribute="top" secondItem="ZRa-ve-j6t" secondAttribute="bottom" constant="8" id="J3H-UA-Q0w"/>
-                            <constraint firstItem="QpW-4k-adt" firstAttribute="leading" secondItem="bM4-tW-vl5" secondAttribute="leadingMargin" constant="-17" id="MnI-de-DAA"/>
-                            <constraint firstItem="swW-qg-jY0" firstAttribute="top" secondItem="geV-vm-Po1" secondAttribute="bottom" constant="8" id="OcZ-0s-2oO"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="geV-vm-Po1" secondAttribute="trailing" constant="-17" id="OhR-S7-2b8"/>
-                            <constraint firstItem="geV-vm-Po1" firstAttribute="leading" secondItem="bM4-tW-vl5" secondAttribute="leadingMargin" constant="-17" id="Z4H-43-gj5"/>
-                            <constraint firstItem="QpW-4k-adt" firstAttribute="top" secondItem="geV-vm-Po1" secondAttribute="bottom" constant="8" id="ejm-3e-IR6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="swW-qg-jY0" secondAttribute="trailing" constant="-17" id="h0w-fv-8IC"/>
+                            <constraint firstItem="9me-CD-6Nc" firstAttribute="trailing" secondItem="bM4-tW-vl5" secondAttribute="trailingMargin" id="3WB-MT-7tZ"/>
+                            <constraint firstItem="9me-CD-6Nc" firstAttribute="leading" secondItem="bM4-tW-vl5" secondAttribute="leadingMargin" id="DLi-Kv-Z24"/>
                             <constraint firstItem="ZRa-ve-j6t" firstAttribute="leading" secondItem="bM4-tW-vl5" secondAttribute="leadingMargin" id="kqq-ZN-rS6"/>
                             <constraint firstItem="ZRa-ve-j6t" firstAttribute="trailing" secondItem="bM4-tW-vl5" secondAttribute="trailingMargin" id="q94-rM-50j"/>
+                            <constraint firstItem="9me-CD-6Nc" firstAttribute="top" secondItem="ZRa-ve-j6t" secondAttribute="bottom" constant="8" id="rM6-kg-Aay"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="h0W-0N-Qrv"/>
                     <connections>
-                        <outlet property="inputCVV" destination="OWr-kf-GQu" id="a3t-de-zaG"/>
-                        <outlet property="inputCreditCard" destination="0JR-Jw-TYc" id="HAK-Hd-SwT"/>
-                        <outlet property="inputExpiration" destination="Wa7-D2-d4x" id="9Ri-Xr-2VV"/>
                         <outlet property="labelCurrentCard" destination="ZRa-ve-j6t" id="8l7-W9-nPa"/>
+                        <outlet property="paymentView" destination="9me-CD-6Nc" id="Cvk-fQ-vWo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W69-ek-Jtd" userLabel="First Responder" sceneMemberID="firstResponder"/>
