@@ -11,10 +11,10 @@ import GoogleMaps
 import Parse
 
 enum RequestState: String {
-    case NoRequest = "NoRequest"
-    case Searching = "Searching"
-    case Matched = "Matched"
-    case Cancelled = "Cancelled"
+    case NoRequest = "none"
+    case Searching = "requested"
+    case Matched = "matched"
+    case Cancelled = "cancelled"
 }
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
@@ -36,6 +36,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var requestAlert: UIAlertController?
     var requestMarker: GMSMarker?
     
+    var currentRequest: PFObject?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,24 +58,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.iconLocation.image = UIImage(named: "iconLocation")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         self.iconLocation.tintColor = UIColor(red: 215.0/255.0, green: 84.0/255.0, blue: 82.0/255.0, alpha: 1)
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Done, target: self, action: "close")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "close")
         
-        if let previousState: String = NSUserDefaults.standardUserDefaults().objectForKey("request:state") as? String {
-            let newState: RequestState = RequestState(rawValue: previousState)!
-            
-            if newState == RequestState.Searching {
-                let previousLat: Double? = NSUserDefaults.standardUserDefaults().objectForKey("request:lat") as? Double
-                let previousLon: Double? = NSUserDefaults.standardUserDefaults().objectForKey("request:lon") as? Double
+        // load previous request
+        if let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as? PFObject {
+            request.fetchIfNeeded()
+            self.currentRequest = request
+            if let previousState: String = self.currentRequest!.objectForKey("status") as? String{
+                let newState: RequestState = RequestState(rawValue: previousState)!
                 
-                if previousLat != nil && previousLon != nil {
-                    self.currentLocation = CLLocation(latitude: previousLat!, longitude: previousLon!)
-                    self.updateMapToCurrentLocation()
+                if newState == RequestState.Searching {
+                    let previousLat: Double? = self.currentRequest?.objectForKey("lat") as? Double
+                    let previousLon: Double? = self.currentRequest?.objectForKey("lon") as? Double
+                    
+                    if previousLat != nil && previousLon != nil {
+                        self.currentLocation = CLLocation(latitude: previousLat!, longitude: previousLon!)
+                        self.updateMapToCurrentLocation()
+                        self.toggleRequestState(newState)
+                    }
+                }
+                else {
                     self.toggleRequestState(newState)
                 }
             }
-            else {
-                self.toggleRequestState(newState)
-            }
+        }
+        else {
+            self.toggleRequestState(.NoRequest)
         }
     }
 
@@ -219,7 +229,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func toggleRequestState(newState: RequestState) {
         self.requestState = newState
-        NSUserDefaults.standardUserDefaults().setObject(newState.rawValue, forKey: "request:state")
 
         switch self.requestState {
         case .NoRequest:
@@ -233,18 +242,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 self.requestMarker = nil
                 self.iconLocation.hidden = false
             }
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("request:lat")
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("request:lon")
+            self.currentRequest = nil
             return
         case .Cancelled:
-            if self.requestAlert != nil {
-                self.requestAlert!.dismissViewControllerAnimated(true, completion: nil)
+            if self.currentRequest != nil {
+                self.currentRequest!.setObject(RequestState.Cancelled.rawValue, forKey: "status")
+                self.currentRequest!.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    if self.requestAlert != nil {
+                        self.requestAlert!.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                    self.requestAlert = UIAlertController(title: "Search was cancelled", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    self.requestAlert?.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                        self.toggleRequestState(RequestState.NoRequest)
+                    }))
+                    self.presentViewController(self.requestAlert!, animated: true, completion: nil)
+                })
             }
-            self.requestAlert = UIAlertController(title: "Search was cancelled", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-            self.requestAlert?.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                self.toggleRequestState(RequestState.NoRequest)
-            }))
-            self.presentViewController(self.requestAlert!, animated: true, completion: nil)
             return
         case .Searching:
             if self.requestAlert != nil {
@@ -271,9 +284,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 
                 self.iconLocation.hidden = true
             }
-            NSUserDefaults.standardUserDefaults().setObject(self.currentLocation!.coordinate.latitude, forKey: "request:lat")
-            NSUserDefaults.standardUserDefaults().setObject(self.currentLocation!.coordinate.longitude, forKey: "request:lon")
-            
             break
         case .Matched:
             if self.requestAlert != nil {
@@ -296,12 +306,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func initiateVisitRequest() {
         var dict: [String: AnyObject] = [String: AnyObject]()
-        dict = ["time": NSDate(), "lat": Double(self.currentLocation!.coordinate.latitude), "lon": Double(self.currentLocation!.coordinate.longitude), "status":"requested"]
+        dict = ["time": NSDate(), "lat": Double(self.currentLocation!.coordinate.latitude), "lon": Double(self.currentLocation!.coordinate.longitude), "status":RequestState.Searching.rawValue]
         
         let request: PFObject = PFObject(className: "VisitRequest", dictionary: dict)
         request.setObject(PFUser.currentUser()!, forKey: "patient")
         request.saveInBackgroundWithBlock { (success, error) -> Void in
             println("saved: \(success)")
+            self.currentRequest = request
+            PFUser.currentUser()!.setObject(request, forKey: "currentRequest")
+            PFUser.currentUser()!.saveInBackground()
         }
     }
     
