@@ -37,6 +37,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var requestMarker: GMSMarker?
     
     var currentRequest: PFObject?
+    var timer: NSTimer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,24 +64,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.toggleRequestState(.NoRequest)
 
         // load previous request if one exists
-        if let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as? PFObject {
-            request.fetchIfNeeded()
-            self.currentRequest = request
-            if let previousState: String = self.currentRequest!.objectForKey("status") as? String{
-                let newState: RequestState = RequestState(rawValue: previousState)!
-                
-                if newState == RequestState.Searching {
-                    let previousLat: Double? = self.currentRequest?.objectForKey("lat") as? Double
-                    let previousLon: Double? = self.currentRequest?.objectForKey("lon") as? Double
-                    
-                    if previousLat != nil && previousLon != nil {
-                        self.currentLocation = CLLocation(latitude: previousLat!, longitude: previousLon!)
-                        self.updateMapToCurrentLocation()
-                    }
-                }
-                self.toggleRequestState(newState)
-            }
-        }
+        self.updateRequestState()
     }
 
     override func didReceiveMemoryWarning() {
@@ -239,6 +223,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 self.iconLocation.hidden = false
             }
             self.currentRequest = nil
+            if self.timer != nil {
+                self.timer!.invalidate()
+                self.timer = nil
+            }
             return
         case .Cancelled:
             // request state is set to .NoRequest if cancelled from an app action. 
@@ -286,6 +274,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 
                 self.iconLocation.hidden = true
             }
+            
+            if self.timer == nil {
+                self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateRequestState", userInfo: nil, repeats: true)
+            }
             break
         case .Matched:
             if self.requestAlert != nil {
@@ -317,6 +309,45 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.currentRequest = request
             PFUser.currentUser()!.setObject(request, forKey: "currentRequest")
             PFUser.currentUser()!.saveInBackground()
+        }
+    }
+    
+    func updateRequestState() {
+        if let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as? PFObject {
+            request.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                self.currentRequest = object
+                if self.currentRequest == nil {
+                    // if request is still nil, then it got cancelled/deleted somehow.
+                    self.toggleRequestState(.NoRequest)
+                    return
+                }
+
+                if let previousState: String = self.currentRequest!.objectForKey("status") as? String{
+                    let newState: RequestState = RequestState(rawValue: previousState)!
+                    
+                    if newState == RequestState.Searching {
+                        let previousLat: Double? = self.currentRequest?.objectForKey("lat") as? Double
+                        let previousLon: Double? = self.currentRequest?.objectForKey("lon") as? Double
+                        
+                        if previousLat != nil && previousLon != nil {
+                            self.currentLocation = CLLocation(latitude: previousLat!, longitude: previousLon!)
+                            self.updateMapToCurrentLocation()
+                        }
+                    }
+                    else if newState == RequestState.Cancelled {
+                        // cancelled
+                    }
+                    else if newState == RequestState.Matched {
+                        // doctor
+                        if let doctor: PFObject = request.objectForKey("doctor") as? PFObject {
+                            doctor.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                                println("doctor: \(object)")
+                            })
+                        }
+                    }
+                    self.toggleRequestState(newState)
+                }
+            })
         }
     }
     
