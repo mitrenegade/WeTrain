@@ -243,17 +243,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 self.currentRequest!.setObject(RequestState.NoRequest.rawValue, forKey: "status")
                 self.currentRequest!.saveInBackgroundWithBlock({ (success, error) -> Void in
 
+                    let title = "Search was cancelled"
                     var message: String? = self.currentRequest!.objectForKey("cancelReason") as? String
                     if message == nil {
                         message = "You have cancelled the doctor's visit."
                     }
                     
-                    self.requestController!.updateTitle("Search was cancelled", message: message!, top: nil, bottom: "OK")
-                    /*
-                    self.requestAlert?.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    self.requestController!.updateTitle(title, message: message!, top: nil, bottom: "OK", topHandler: nil, bottomHandler: { () -> Void in
+                        self.hideRequestView()
                         self.toggleRequestState(RequestState.NoRequest)
-                    }))
-                    */
+                    })
                     self.showRequestView()
                 })
             }
@@ -263,9 +262,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             return
         case .Searching:
             
-            self.requestController!.updateTitle("Searching for a doctor near you", message: "Please be patient while we connect you with a doctor. If this is an emergency, dial 911!", top: "OK", bottom: "Cancel")
-            // cancel action
-            // self.toggleRequestState(RequestState.Cancelled)
+            let title = "Searching for a doctor near you"
+            let message = "Please be patient while we connect you with a doctor. If this is an emergency, dial 911!"
+            self.requestController!.updateTitle(title, message: message, top: nil, bottom: "Cancel", topHandler: nil, bottomHandler: { () -> Void in
+                self.toggleRequestState(RequestState.Cancelled)
+            })
+
             self.buttonRequest.enabled = false
             self.showRequestView()
             
@@ -287,18 +289,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             
             break
         case .Matched:
-            self.requestController!.updateTitle("A doctor was matched!", message: "Expect a call within the next hour from Dr. Klein.", top: "See doctor", bottom: "Close")
+            let title = "A doctor was matched!"
+            let message = "Expect a call within the next hour from Dr. Klein."
+            self.requestController!.updateTitle(title, message: message, top: "See doctor", bottom: "OK", topHandler: { () -> Void in
+                self.viewDoctorInfo()
+            }, bottomHandler: { () -> Void in
+                self.hideRequestView()
+            })
             self.showRequestView()
 
-            /*
-            self.requestAlert?.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-                self.toggleRequestState(RequestState.NoRequest)
-            }))
-            self.requestAlert?.addAction(UIAlertAction(title: "See doctor", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                self.viewDoctorInfo()
-                self.toggleRequestState(RequestState.NoRequest)
-            }))
-            */
             break
         default:
             break

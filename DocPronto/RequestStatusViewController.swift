@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias RequestStatusButtonHandler = () -> Void
+
 class RequestStatusViewController: UIViewController {
 
     @IBOutlet weak var labelTitle: UILabel!
@@ -15,16 +17,25 @@ class RequestStatusViewController: UIViewController {
     @IBOutlet weak var buttonTop: UIButton!
     @IBOutlet weak var buttonBottom: UIButton!
     
+    var topButtonHandler: RequestStatusButtonHandler? = nil
+    var bottomButtonHandler: RequestStatusButtonHandler? = nil
+    
     @IBAction func didClickButton(sender: UIButton) {
         if sender == buttonTop {
             println("top button")
+            if self.topButtonHandler != nil {
+                self.topButtonHandler!()
+            }
         }
         else if sender == buttonBottom {
             println("bottom button")
+            if self.bottomButtonHandler != nil {
+                self.bottomButtonHandler!()
+            }
         }
     }
     
-    func updateTitle(title: String, message: String, top: String?, bottom: String) {
+    func updateTitle(title: String, message: String, top: String?, bottom: String, topHandler: RequestStatusButtonHandler?, bottomHandler: RequestStatusButtonHandler) {
         self.labelTitle.text = title
         self.labelMessage.text = message
         if top == nil {
@@ -35,6 +46,9 @@ class RequestStatusViewController: UIViewController {
         }
         
         self.buttonBottom.setTitle(bottom, forState: .Normal)
+        
+        self.topButtonHandler = topHandler
+        self.bottomButtonHandler = bottomHandler
     }
     
     override func viewDidLoad() {
