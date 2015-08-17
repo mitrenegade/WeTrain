@@ -20,16 +20,18 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "close")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "save")
+        self.navigationItem.rightBarButtonItem!.enabled = false
+
         if let last4: String = PFUser.currentUser()!.objectForKey("stripeFour") as? String{
             self.labelCurrentCard.text = "Your current credit card is *\(last4)"
+            self.navigationItem.rightBarButtonItem!.title = "Update"
         }
         else {
             self.labelCurrentCard.text = "Please enter a new credit card"
         }
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "close")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "save")
-        self.navigationItem.rightBarButtonItem!.enabled = false
 
         self.paymentView!.delegate = self
     }
@@ -74,7 +76,14 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
             let number: String = self.paymentView!.card.number
             let last4:String = number.substringFromIndex(advance(number.endIndex, -4))
             PFUser.currentUser()!.setObject(last4, forKey: "stripeFour")
-            PFUser.currentUser()!.saveInBackground()
+            PFUser.currentUser()!.saveInBackgroundWithBlock { (success, error) -> Void in
+                if error != nil {
+                    self.simpleAlert("Error saving credit card", message: "Please try again.")
+                }
+                else {
+                    self.close()
+                }
+        }
     }
     
     func simpleAlert(title: String?, message: String?) {
