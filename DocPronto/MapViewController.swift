@@ -210,7 +210,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         alert.addAction(UIAlertAction(title: "Pronto!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             println("requesting")
             self.toggleRequestState(RequestState.Searching)
-            self.initiateVisitRequest()
+            self.initiateVisitRequest(addressString, coordinate: coordinate)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
@@ -262,8 +262,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             return
         case .Searching:
             
-            let title = "Searching for a doctor near you"
-            let message = "Please be patient while we connect you with a doctor. If this is an emergency, dial 911!"
+            var title = "Searching for a doctor near you"
+            var message = "Please be patient while we connect you with a doctor. If this is an emergency, dial 911!"
+            if let addressString: String = self.currentRequest?.objectForKey("address") as? String {
+                title = "Searching for a doctor near:"
+                message = "\(addressString)\n\n\(message)"
+            }
             self.requestController!.updateTitle(title, message: message, top: nil, bottom: "Cancel", topHandler: nil, bottomHandler: { () -> Void in
                 self.toggleRequestState(RequestState.Cancelled)
             })
@@ -304,9 +308,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
     }
     
-    func initiateVisitRequest() {
+    func initiateVisitRequest(addressString: String, coordinate: CLLocationCoordinate2D) {
         var dict: [String: AnyObject] = [String: AnyObject]()
-        dict = ["time": NSDate(), "lat": Double(self.currentLocation!.coordinate.latitude), "lon": Double(self.currentLocation!.coordinate.longitude), "status":RequestState.Searching.rawValue]
+        dict = ["time": NSDate(), "lat": Double(coordinate.latitude), "lon": Double(coordinate.longitude), "status":RequestState.Searching.rawValue, "address": addressString]
         
         let request: PFObject = PFObject(className: "VisitRequest", dictionary: dict)
         request.setObject(PFUser.currentUser()!, forKey: "patient")

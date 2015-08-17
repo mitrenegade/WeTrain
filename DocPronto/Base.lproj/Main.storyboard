@@ -601,18 +601,18 @@ Cg
                                 <rect key="frame" x="40" y="40" width="520" height="450"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is your current request state." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-ep-hzq">
-                                        <rect key="frame" x="8" y="8" width="504" height="68"/>
+                                        <rect key="frame" x="8" y="8" width="504" height="39"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="68" id="E98-di-xq8"/>
+                                            <constraint firstAttribute="height" constant="39" id="E98-di-xq8"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is your current request state." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gi7-vo-gQc">
-                                        <rect key="frame" x="8" y="84" width="504" height="85"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is your current request state." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gi7-vo-gQc">
+                                        <rect key="frame" x="8" y="55" width="504" height="271"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="85" id="hZ8-F4-UNo"/>
+                                            <constraint firstAttribute="height" constant="271" id="hZ8-F4-UNo"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
