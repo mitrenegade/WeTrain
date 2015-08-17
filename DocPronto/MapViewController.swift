@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import Parse
 
 enum RequestState: String {
     case NoRequest = "NoRequest"
@@ -68,7 +69,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     self.currentLocation = CLLocation(latitude: previousLat!, longitude: previousLon!)
                     self.updateMapToCurrentLocation()
                     self.toggleRequestState(newState)
-                    self.fakeSearchForDoctor()
                 }
             }
             else {
@@ -211,7 +211,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         alert.addAction(UIAlertAction(title: "Pronto!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             println("requesting")
             self.toggleRequestState(RequestState.Searching)
-            self.fakeSearchForDoctor()
+            self.initiateVisitRequest()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
@@ -294,10 +294,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
     }
     
-    func fakeSearchForDoctor() {
-        let timeInterval: NSTimeInterval = Double(arc4random() % 10) + 3
-        NSTimer.scheduledTimerWithTimeInterval(timeInterval, target: self, selector: "didGetDoctor", userInfo: nil, repeats: false)
+    func initiateVisitRequest() {
+        var dict: [String: AnyObject] = [String: AnyObject]()
+        dict = ["time": NSDate(), "lat": Double(self.currentLocation!.coordinate.latitude), "lon": Double(self.currentLocation!.coordinate.longitude), "status":"requested"]
+        
+        let request: PFObject = PFObject(className: "VisitRequest", dictionary: dict)
+        request.setObject(PFUser.currentUser()!, forKey: "patient")
+        request.saveInBackgroundWithBlock { (success, error) -> Void in
+            println("saved: \(success)")
+        }
     }
+    
     func didGetDoctor() {
         // TODO: this would be a delegate function for a parse call
         if self.requestState == RequestState.Searching {
