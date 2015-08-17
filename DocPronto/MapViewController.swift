@@ -33,7 +33,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     // request status
     var requestState: RequestState = .NoRequest
-    var requestAlert: UIAlertController?
     var requestMarker: GMSMarker?
     
     var currentRequest: PFObject?
@@ -41,6 +40,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     @IBOutlet var requestStatusView: UIView!
     var requestController: RequestStatusViewController?
+    var showingRequestStatus: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +116,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func enableRequest() {
         self.buttonRequest.enabled = true
         self.buttonRequest.layer.zPosition = 1
+        if self.showingRequestStatus {
+            self.requestStatusView.layer.zPosition = 1
+            self.buttonRequest.layer.zPosition = 2
+        }
     }
     // MARK: - GMSMapView  delegate
     func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
@@ -130,7 +134,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
         self.currentLocation = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
-        self.enableRequest()
+        if self.showingRequestStatus == false {
+            self.enableRequest()
+        }
     }
     
     // MARK: Location search
@@ -215,10 +221,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 
         switch self.requestState {
         case .NoRequest:
-            if self.requestAlert != nil {
-                self.requestAlert!.dismissViewControllerAnimated(true, completion: nil)
-            }
-            self.requestAlert = nil
             self.buttonRequest.setTitle("Request a visit here", forState: UIControlState.Normal)
             if self.requestMarker != nil {
                 self.requestMarker!.map = nil
@@ -230,6 +232,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 self.timer!.invalidate()
                 self.timer = nil
             }
+            
+            self.buttonRequest.enabled = true
+            self.hideRequestView()
             return
         case .Cancelled:
             // request state is set to .NoRequest if cancelled from an app action. 
@@ -237,34 +242,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             if self.currentRequest != nil {
                 self.currentRequest!.setObject(RequestState.NoRequest.rawValue, forKey: "status")
                 self.currentRequest!.saveInBackgroundWithBlock({ (success, error) -> Void in
-                    if self.requestAlert != nil {
-                        self.requestAlert!.dismissViewControllerAnimated(true, completion: nil)
-                    }
+
                     var message: String? = self.currentRequest!.objectForKey("cancelReason") as? String
                     if message == nil {
                         message = "You have cancelled the doctor's visit."
                     }
-                    self.requestAlert = UIAlertController(title: "Search was cancelled", message: message!, preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    self.requestController!.updateTitle("Search was cancelled", message: message!, top: nil, bottom: "OK")
+                    /*
                     self.requestAlert?.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                         self.toggleRequestState(RequestState.NoRequest)
                     }))
-                    self.presentViewController(self.requestAlert!, animated: true, completion: nil)
+                    */
+                    self.showRequestView()
                 })
+            }
+            else {
+                self.toggleRequestState(RequestState.NoRequest)
             }
             return
         case .Searching:
-            if self.requestAlert != nil {
-                self.requestAlert!.dismissViewControllerAnimated(true, completion: nil)
-            }
-            self.requestAlert = UIAlertController(title: "Searching for a doctor near you", message: "Please be patient while we connect you with a doctor. If this is an emergency, dial 911!", preferredStyle: UIAlertControllerStyle.Alert)
-            self.requestAlert?.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-                self.toggleRequestState(RequestState.Cancelled)
-            }))
-            self.requestAlert?.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            }))
-            self.presentViewController(self.requestAlert!, animated: true, completion: nil)
             
-            self.buttonRequest.setTitle("Searching for a doctor", forState: UIControlState.Normal)
+            self.requestController!.updateTitle("Searching for a doctor near you", message: "Please be patient while we connect you with a doctor. If this is an emergency, dial 911!", top: "OK", bottom: "Cancel")
+            // cancel action
+            // self.toggleRequestState(RequestState.Cancelled)
+            self.buttonRequest.enabled = false
+            self.showRequestView()
             
             if self.requestMarker == nil {
                 var marker = GMSMarker()
@@ -281,12 +284,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             if self.timer == nil {
                 self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateRequestState", userInfo: nil, repeats: true)
             }
+            
             break
         case .Matched:
-            if self.requestAlert != nil {
-                self.requestAlert!.dismissViewControllerAnimated(true, completion: nil)
-            }
-            self.requestAlert = UIAlertController(title: "A doctor was matched!", message: "Expect a call within the next hour from Dr. Klein.", preferredStyle: UIAlertControllerStyle.Alert)
+            self.requestController!.updateTitle("A doctor was matched!", message: "Expect a call within the next hour from Dr. Klein.", top: "See doctor", bottom: "Close")
+            self.showRequestView()
+
+            /*
             self.requestAlert?.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                 self.toggleRequestState(RequestState.NoRequest)
             }))
@@ -294,7 +298,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 self.viewDoctorInfo()
                 self.toggleRequestState(RequestState.NoRequest)
             }))
-            self.presentViewController(self.requestAlert!, animated: true, completion: nil)
+            */
             break
         default:
             break
@@ -351,6 +355,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     self.toggleRequestState(newState)
                 }
             })
+        }
+    }
+    
+    func hideRequestView() {
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            self.requestStatusView.alpha = 0
+        }) { (done) -> Void in
+            self.showingRequestStatus = false
+        }
+    }
+    
+    func showRequestView() {
+        UIView.animateWithDuration(0.25, animations: { () -> Void in
+            self.requestStatusView.alpha = 1
+            }) { (done) -> Void in
+                self.showingRequestStatus = true
         }
     }
     

@@ -10,6 +10,33 @@ import UIKit
 
 class RequestStatusViewController: UIViewController {
 
+    @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var labelMessage: UILabel!
+    @IBOutlet weak var buttonTop: UIButton!
+    @IBOutlet weak var buttonBottom: UIButton!
+    
+    @IBAction func didClickButton(sender: UIButton) {
+        if sender == buttonTop {
+            println("top button")
+        }
+        else if sender == buttonBottom {
+            println("bottom button")
+        }
+    }
+    
+    func updateTitle(title: String, message: String, top: String?, bottom: String) {
+        self.labelTitle.text = title
+        self.labelMessage.text = message
+        if top == nil {
+            self.buttonTop.hidden = true
+        }
+        else {
+            self.buttonTop.setTitle(top, forState: .Normal)
+        }
+        
+        self.buttonBottom.setTitle(bottom, forState: .Normal)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
