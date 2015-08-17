@@ -39,6 +39,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var currentRequest: PFObject?
     var timer: NSTimer?
     
+    @IBOutlet var requestStatusView: UIView!
+    var requestController: RequestStatusViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -372,14 +375,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "EmbedRequestStatusViewController" {
+            self.requestController = segue.destinationViewController as! RequestStatusViewController
+        }
     }
-    */
 
 }
