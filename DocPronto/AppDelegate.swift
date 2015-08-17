@@ -39,6 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // google maps
         GMSServices.provideAPIKey(GOOGLE_API_APP_KEY)
         
+        Stripe.setDefaultPublishableKey(STRIPE_TEST_PUBLISHABLE_KEY)
+        
         if (PFUser.currentUser() != nil) {
             self.didLogin()
         }

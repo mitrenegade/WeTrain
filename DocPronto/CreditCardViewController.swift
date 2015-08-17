@@ -7,23 +7,20 @@
 //
 
 import UIKit
+import Parse
 
-class CreditCardViewController: UIViewController, UITextFieldDelegate {
+class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDelegate {
 
     @IBOutlet var labelCurrentCard: UILabel!
-    @IBOutlet var inputCreditCard: UITextField!
-    @IBOutlet var inputExpiration: UITextField!
-    @IBOutlet var inputCVV: UITextField!
+    @IBOutlet var viewCreditCardBG: UIView!
 
-    var currentCard: String?
+    @IBOutlet var paymentView: PTKView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if let card: String = NSUserDefaults.standardUserDefaults().objectForKey("creditcard:cached") as? String {
-            self.currentCard = card
-            let last4:String = self.currentCard!.substringFromIndex(advance(card.endIndex, -4))
+        if let last4: String = PFUser.currentUser()!.objectForKey("stripeFour") as? String{
             self.labelCurrentCard.text = "Your current credit card is *\(last4)"
         }
         else {
@@ -31,6 +28,10 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate {
         }
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "close")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "save")
+        self.navigationItem.rightBarButtonItem!.enabled = false
+
+        self.paymentView!.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,22 +43,38 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate {
         self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // MARK: - UITextFieldDelegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    // MARK: PTKViewDelegate
+    func paymentView(paymentView: PTKView!, withCard card: PTKCard!, isValid valid: Bool) {
+        println("card entered")
+        self.navigationItem.rightBarButtonItem?.enabled = valid
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
-        if textField == self.inputCreditCard {
-            if count(textField.text) != 16 {
-                self.simpleAlert("Invalid credit card number", message: "Please make sure you enter the credit card number correctly")
-                self.inputCreditCard.becomeFirstResponder()
+    func save() {
+        println("save card")
+        let payment: PTKCard = self.paymentView!.card
+        let card: STPCard = STPCard()
+        card.number = payment.number
+        card.expMonth = payment.expMonth
+        card.expYear = payment.expYear
+        card.cvc = payment.cvc
+        STPAPIClient.sharedClient().createTokenWithCard(card, completion: { (token, error) -> Void in
+            if error != nil {
+                println("error: \(error!.userInfo)")
+                self.simpleAlert("Error updating credit card", message: "There was an error. Please try again")
             }
             else {
-                NSUserDefaults.standardUserDefaults().setObject(self.inputCreditCard.text, forKey: "creditcard:cached")
+                self.saveToken(token!)
             }
-        }
+        })
+    }
+    
+    func saveToken(token: STPToken) {
+            let tokenId: String = token.tokenId
+            PFUser.currentUser()!.setObject(tokenId, forKey: "stripeToken")
+            let number: String = self.paymentView!.card.number
+            let last4:String = number.substringFromIndex(advance(number.endIndex, -4))
+            PFUser.currentUser()!.setObject(last4, forKey: "stripeFour")
+            PFUser.currentUser()!.saveInBackground()
     }
     
     func simpleAlert(title: String?, message: String?) {
