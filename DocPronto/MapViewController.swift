@@ -60,7 +60,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "close")
         
-        // load previous request
+        self.toggleRequestState(.NoRequest)
+
+        // load previous request if one exists
         if let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as? PFObject {
             request.fetchIfNeeded()
             self.currentRequest = request
@@ -74,16 +76,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     if previousLat != nil && previousLon != nil {
                         self.currentLocation = CLLocation(latitude: previousLat!, longitude: previousLon!)
                         self.updateMapToCurrentLocation()
-                        self.toggleRequestState(newState)
                     }
                 }
-                else {
-                    self.toggleRequestState(newState)
-                }
+                self.toggleRequestState(newState)
             }
-        }
-        else {
-            self.toggleRequestState(.NoRequest)
         }
     }
 
@@ -245,13 +241,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.currentRequest = nil
             return
         case .Cancelled:
+            // request state is set to .NoRequest if cancelled from an app action. 
+            // "cancelled" state is set on the web in order to trigger this state
             if self.currentRequest != nil {
-                self.currentRequest!.setObject(RequestState.Cancelled.rawValue, forKey: "status")
+                self.currentRequest!.setObject(RequestState.NoRequest.rawValue, forKey: "status")
                 self.currentRequest!.saveInBackgroundWithBlock({ (success, error) -> Void in
                     if self.requestAlert != nil {
                         self.requestAlert!.dismissViewControllerAnimated(true, completion: nil)
                     }
-                    self.requestAlert = UIAlertController(title: "Search was cancelled", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+                    var message: String? = self.currentRequest!.objectForKey("cancelReason") as? String
+                    if message == nil {
+                        message = "You have cancelled the doctor's visit."
+                    }
+                    self.requestAlert = UIAlertController(title: "Search was cancelled", message: message!, preferredStyle: UIAlertControllerStyle.Alert)
                     self.requestAlert?.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                         self.toggleRequestState(RequestState.NoRequest)
                     }))
