@@ -138,9 +138,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func didLogin() {
-        PFUser.currentUser()?.fetchIfNeeded()
-        let controller: UIViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UIViewController
-        self.window!.rootViewController = controller
+        PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user, error) -> Void in
+            if error != nil {
+                if let userInfo: [NSObject: AnyObject] = error!.userInfo! as? [NSObject: AnyObject] {
+                    let code = userInfo["code"] as! Int
+                    println("code: \(code)")
+                    
+                    // if code == 209, invalid token; just display login
+                }
+                self.goToLogin()
+            }
+            else {
+                let controller: UIViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UIViewController
+                self.window!.rootViewController = controller
+            }
+        })
     }
     
     func goToLogin() {
