@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class DoctorProfileViewController: UIViewController {
 
@@ -14,6 +15,8 @@ class DoctorProfileViewController: UIViewController {
     @IBOutlet var labelName: UILabel!
     @IBOutlet var buttonMeet: UIButton!
     @IBOutlet var labelInfo: UILabel!
+    
+    var doctor: PFObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,10 @@ class DoctorProfileViewController: UIViewController {
         self.photoView.layer.cornerRadius = 5
         
         self.buttonMeet.layer.cornerRadius = 5
+        
+        doctor?.fetchInBackgroundWithBlock({ (object, error) -> Void in
+            self.updateDoctorInfo()
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,18 +38,56 @@ class DoctorProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func updateDoctorInfo() {
+        let file = self.doctor!.objectForKey("photo") as! PFFile
+        file.getDataInBackgroundWithBlock { (data, error) -> Void in
+            if data != nil {
+                let photo: UIImage = UIImage(data: data!)!
+                self.photoView.image = photo
+            }
+        }
+        let name = self.doctor!.objectForKey("name") as! String
+        self.labelName.text = "Meet Dr. \(name)"
+        
+        let cred = self.doctor!.objectForKey("credentials") as! String
+        let spec = self.doctor!.objectForKey("specialty") as! String
+        let text: String = "Credentials: \(cred)\nSpecialty: \(spec)\n\nEstimated Time of Arrival: NOW"
+        
+        var attributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 16)!])
+        let string = text as NSString
+        var range = string.rangeOfString("Credentials:")
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: 16)!, range: range)
+        range = string.rangeOfString("Specialty:")
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: 16)!, range: range)
+        range = string.rangeOfString("Estimated Time of Arrival:")
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: 16)!, range: range)
+        
+        self.labelInfo.attributedText = attributedString
+    }
+    
     @IBAction func didClickButton(button: UIButton) {
         self.callDoctor()
     }
     
     func callDoctor() {
-        var str = "tel://9192740582"
-        let url = NSURL(string: str) as NSURL?
-        if (url != nil) {
-            UIApplication.sharedApplication().openURL(url!)
+        if let phone: String = self.doctor!.objectForKey("phone") as? String {
+            var str = "tel://\(phone)"
+            let url = NSURL(string: str) as NSURL?
+            if (url != nil) {
+                UIApplication.sharedApplication().openURL(url!)
+                return
+            }
         }
+        
+        let name = self.doctor!.objectForKey("name") as! String
+        self.simpleAlert("Could not call phone", message: "The number we had for Dr. \(name) was invalid.")
     }
 
+    func simpleAlert(title: String?, message: String?) {
+        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

@@ -138,6 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func didLogin() {
+        PFUser.currentUser()?.fetchIfNeeded()
         let controller: UIViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UIViewController
         self.window!.rootViewController = controller
     }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */; };
+		AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */; };
 		AC7909341B6C455F00085FB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909331B6C455F00085FB6 /* AppDelegate.swift */; };
 		AC7909371B6C455F00085FB6 /* DocPronto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC7909351B6C455F00085FB6 /* DocPronto.xcdatamodeld */; };
 		AC79093C1B6C455F00085FB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC79093A1B6C455F00085FB6 /* Main.storyboard */; };
@@ -55,6 +56,7 @@
 		7BEEAF65A38F5FAC21F6B91A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardViewController.swift; sourceTree = "<group>"; };
 		AC6FB2C61B820702004109B6 /* DocPronto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DocPronto-Bridging-Header.h"; sourceTree = "<group>"; };
+		AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStatusViewController.swift; sourceTree = "<group>"; };
 		AC79092E1B6C455F00085FB6 /* DocPronto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocPronto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7909321B6C455F00085FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC7909331B6C455F00085FB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				AC79093A1B6C455F00085FB6 /* Main.storyboard */,
 				ACA6B8EE1B6E62B800AAA992 /* VisitRequestViewController.swift */,
 				AC7909821B6D618C00085FB6 /* MapViewController.swift */,
+				AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */,
 				ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */,
 				AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */,
 				AC9760EE1B7167F70060D5D1 /* DoctorProfileViewController.swift */,
@@ -384,6 +387,7 @@
 				AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */,
 				AC9760EF1B7167F70060D5D1 /* DoctorProfileViewController.swift in Sources */,
 				AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */,
+				AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */,
 				ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
