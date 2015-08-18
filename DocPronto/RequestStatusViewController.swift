@@ -48,7 +48,7 @@ class RequestStatusViewController: UIViewController {
         
         self.buttonBottom.setTitle(bottom, forState: .Normal)
         
-        self.topButtonHandler = topHandler!
+        self.topButtonHandler = topHandler
         self.bottomButtonHandler = bottomHandler
     }
     
