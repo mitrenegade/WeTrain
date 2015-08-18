@@ -15,9 +15,9 @@ import Crashlytics
 import GoogleMaps
 
 let GOOGLE_API_APP_KEY = "AIzaSyDjj-mmJxrtTSIp7nVgSRi911_LTL8obYY"
-let STRIPE_TEST_PUBLISHABLE_KEY = "pk_test_M4hJpN0oxzECg5b9GVg03AVD"
+//let STRIPE_PUBLISHABLE_KEY = "pk_test_M4hJpN0oxzECg5b9GVg03AVD"
 // TODO: switch to this when published
-//let STRIPE_LIVE_PUBLISHABLE_KEY = "pk_live_WonaiOuQx7sH7OW8Iws3YjO4"
+let STRIPE_PUBLISHABLE_KEY = "pk_live_WonaiOuQx7sH7OW8Iws3YjO4"
 
 @UIApplicationMain
 
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // google maps
         GMSServices.provideAPIKey(GOOGLE_API_APP_KEY)
         
-        Stripe.setDefaultPublishableKey(STRIPE_TEST_PUBLISHABLE_KEY)
+        Stripe.setDefaultPublishableKey(STRIPE_PUBLISHABLE_KEY)
         
         if (PFUser.currentUser() != nil) {
             self.didLogin()
@@ -138,9 +138,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func didLogin() {
-        PFUser.currentUser()?.fetchIfNeeded()
-        let controller: UIViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UIViewController
-        self.window!.rootViewController = controller
+        PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user, error) -> Void in
+            if error != nil {
+                if let userInfo: [NSObject: AnyObject] = error!.userInfo! as? [NSObject: AnyObject] {
+                    let code = userInfo["code"] as! Int
+                    println("code: \(code)")
+                    
+                    // if code == 209, invalid token; just display login
+                }
+                self.goToLogin()
+            }
+            else {
+                let controller: UIViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UIViewController
+                self.window!.rootViewController = controller
+            }
+        })
     }
     
     func goToLogin() {

@@ -70,7 +70,8 @@ class DoctorProfileViewController: UIViewController {
     }
     
     func callDoctor() {
-        if let phone: String = self.doctor!.objectForKey("phone") as? String {
+        if var phone: String = self.doctor!.objectForKey("phone") as? String {
+            phone = phone.stringByReplacingOccurrencesOfString("(", withString: "").stringByReplacingOccurrencesOfString(")", withString: "").stringByReplacingOccurrencesOfString("-", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
             var str = "tel://\(phone)"
             let url = NSURL(string: str) as NSURL?
             if (url != nil) {

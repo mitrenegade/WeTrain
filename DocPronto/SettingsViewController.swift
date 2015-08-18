@@ -84,7 +84,10 @@ class SettingsViewController: UITableViewController {
                 self.performSegueWithIdentifier("GoToCreditCard", sender: self)
             }
             
-            break;
+            break
+        case 2:
+            self.simpleAlert("Insurance information coming", message: "Future updates of DocPronto will have insurance information entry.")
+            break
         case 3:
             appDelegate.logout()
         default:

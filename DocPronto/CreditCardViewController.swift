@@ -61,8 +61,14 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
         card.cvc = payment.cvc
         STPAPIClient.sharedClient().createTokenWithCard(card, completion: { (token, error) -> Void in
             if error != nil {
+                var message = "There was an error. Please try again"
                 println("error: \(error!.userInfo)")
-                self.simpleAlert("Error updating credit card", message: "There was an error. Please try again")
+                if let dict: [NSObject: AnyObject] = error!.userInfo! as? [NSObject: AnyObject] {
+                    if let msg: String = dict["NSLocalizedDescription"] as? String {
+                        message = msg
+                    }
+                }
+                self.simpleAlert("Error updating credit card", message: message)
             }
             else {
                 self.saveToken(token!)
