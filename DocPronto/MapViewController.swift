@@ -180,6 +180,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             return
         }
         
+        let payment = PFUser.currentUser()!.objectForKey("stripeToken")
+        if payment == nil {
+            self.simpleAlert("Please enter payment", message: "You must enter a credit card before requesting a doctor. Go to the Account tab to update your payment.")
+            return
+        }
+        
         if self.currentLocation != nil {
             let coder = GMSGeocoder()
             coder.reverseGeocodeCoordinate(self.currentLocation!.coordinate, completionHandler: { (response, error) -> Void in
