@@ -399,6 +399,7 @@
                         <outlet property="mapView" destination="qxs-j6-BaT" id="nfw-F3-OnU"/>
                         <outlet property="requestStatusView" destination="fKs-Xq-bfp" id="yRJ-fS-Bl2"/>
                         <outlet property="viewAddress" destination="Rz8-Ed-b4l" id="9ax-wB-DMy"/>
+                        <segue destination="8hA-p3-zea" kind="show" identifier="GoToViewDoctor" id="JuH-sP-KEC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5h-ee-x57" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -414,17 +415,17 @@
                         <viewControllerLayoutGuide type="bottom" id="VAu-aT-buD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="O2g-Bs-KtS">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="DocKlein" translatesAutoresizingMaskIntoConstraints="NO" id="HDq-mK-ZWI">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HDq-mK-ZWI">
                                 <rect key="frame" x="200" y="44" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="16l-dr-jKf"/>
                                     <constraint firstAttribute="width" secondItem="HDq-mK-ZWI" secondAttribute="height" multiplier="1:1" id="b0X-9M-rBW"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Meet Doctor Klein!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7r-pv-MK3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meet the Doctor!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7r-pv-MK3">
                                 <rect key="frame" x="16" y="252" width="568" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="LLc-uZ-oxV"/>
@@ -433,7 +434,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLz-XP-zfb">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLz-XP-zfb">
                                 <rect key="frame" x="16" y="311" width="568" height="40"/>
                                 <color key="backgroundColor" red="0.84313725490000002" green="0.3294117647" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -448,14 +449,14 @@
                                     <action selector="didClickButton:" destination="8hA-p3-zea" eventType="touchUpInside" id="deb-SW-Hx1"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85W-j6-3pP">
-                                <rect key="frame" x="200" y="359.5" width="200" height="132.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85W-j6-3pP">
+                                <rect key="frame" x="200" y="359" width="200" height="132.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="NCT-29-Wu2"/>
                                     <constraint firstAttribute="height" priority="950" constant="132.5" id="uez-Py-eOL"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="Credentials: ">
+                                    <fragment content="Credentials:">
                                         <attributes>
                                             <color key="NSBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -464,11 +465,11 @@
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content="MD">
+                                    <fragment content=" ">
                                         <attributes>
                                             <color key="NSBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                            <font key="NSFont" size="16" name="HelveticaNeue-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
@@ -579,7 +580,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uD7-bO-ERn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4269" y="-214"/>
+            <point key="canvasLocation" x="3512" y="453"/>
         </scene>
         <!--Request Status View Controller-->
         <scene sceneID="1Sx-G5-gKh">
@@ -690,7 +691,6 @@ Cg
         </scene>
     </scenes>
     <resources>
-        <image name="DocKlein" width="450" height="450"/>
         <image name="iconAlert" width="60" height="60"/>
         <image name="iconChecklist" width="30" height="30"/>
         <image name="iconDoctor" width="30" height="30"/>

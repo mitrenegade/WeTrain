@@ -38,6 +38,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var currentRequest: PFObject?
     var timer: NSTimer?
     
+    var currentDoctor: PFObject?
+    
     @IBOutlet var requestStatusView: UIView!
     var requestController: RequestStatusViewController?
     var showingRequestStatus: Bool = false
@@ -293,8 +295,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             break
         case .Matched:
             let title = "A doctor was matched!"
-            let message = "Expect a call within the next hour from Dr. Klein."
-            self.requestController!.updateTitle(title, message: message, top: "See doctor", bottom: "OK", topHandler: { () -> Void in
+            let name = self.currentDoctor!["name"] as! String
+            let message = "Expect a call within the next hour from Dr. \(name)."
+            self.requestController!.updateTitle(title, message: message, top: "View doctor's profile", bottom: "OK", topHandler: { () -> Void in
                 self.viewDoctorInfo()
             }, bottomHandler: { () -> Void in
                 self.hideRequestView()
@@ -344,19 +347,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             self.currentLocation = CLLocation(latitude: previousLat!, longitude: previousLon!)
                             self.updateMapToCurrentLocation()
                         }
+                        
+                        self.toggleRequestState(newState)
+
                     }
                     else if newState == RequestState.Cancelled {
                         // cancelled
+                        self.toggleRequestState(newState)
                     }
                     else if newState == RequestState.Matched {
                         // doctor
                         if let doctor: PFObject = request.objectForKey("doctor") as? PFObject {
                             doctor.fetchInBackgroundWithBlock({ (object, error) -> Void in
                                 println("doctor: \(object)")
+                                self.currentDoctor = doctor
+                                self.toggleRequestState(newState)
                             })
                         }
                     }
-                    self.toggleRequestState(newState)
                 }
             })
         }
@@ -378,16 +386,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
     }
     
-    func didGetDoctor() {
-        // TODO: this would be a delegate function for a parse call
-        if self.requestState == RequestState.Searching {
-            self.toggleRequestState(RequestState.Matched)
-            if self.currentLocation != nil {
-            }
-        }
-    }
-
-    // TODO
     func viewDoctorInfo() {
         println("display doctor info")
         self.performSegueWithIdentifier("GoToViewDoctor", sender: nil)
@@ -407,6 +405,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         // Pass the selected object to the new view controller.
         if segue.identifier == "EmbedRequestStatusViewController" {
             self.requestController = segue.destinationViewController as! RequestStatusViewController
+        }
+        else if segue.identifier == "GoToViewDoctor" {
+            let controller: DoctorProfileViewController = segue.destinationViewController as! DoctorProfileViewController
+            controller.doctor = self.currentDoctor
         }
     }
 
