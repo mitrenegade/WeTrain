@@ -42,12 +42,13 @@ class RequestStatusViewController: UIViewController {
             self.buttonTop.hidden = true
         }
         else {
-            self.buttonTop.setTitle(top, forState: .Normal)
+            self.buttonTop.hidden = false
+            self.buttonTop.setTitle(top!, forState: .Normal)
         }
         
         self.buttonBottom.setTitle(bottom, forState: .Normal)
         
-        self.topButtonHandler = topHandler
+        self.topButtonHandler = topHandler!
         self.bottomButtonHandler = bottomHandler
     }
     
