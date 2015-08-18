@@ -209,7 +209,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         var alert: UIAlertController = UIAlertController(title: "Request doctor?", message: "Do you want to schedule a visit at \(addressString)?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Pronto!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             println("requesting")
-            self.toggleRequestState(RequestState.Searching)
             self.initiateVisitRequest(addressString, coordinate: coordinate)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -319,6 +318,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.currentRequest = request
             PFUser.currentUser()!.setObject(request, forKey: "currentRequest")
             PFUser.currentUser()!.saveInBackground()
+            
+            self.toggleRequestState(RequestState.Searching)
         }
     }
     
