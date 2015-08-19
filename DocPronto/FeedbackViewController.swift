@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
@@ -74,14 +75,18 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     }
     
     // MARK: - TextFieldDelegate
+    func textFieldDidEndEditing(textField: UITextField) {
+        if textField == self.inputEmail {
+            if count(self.inputEmail.text) > 0 {
+                self.navigationItem.rightBarButtonItem?.enabled = true
+            }
+            else {
+                self.navigationItem.rightBarButtonItem?.enabled = false
+            }
+        }
+    }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.view.endEditing(true)
-        if count(self.inputEmail.text) > 0 {
-            self.navigationItem.rightBarButtonItem?.enabled = true
-        }
-        else {
-            self.navigationItem.rightBarButtonItem?.enabled = false
-        }
         return true
     }
     // MARK: - TextViewDelegate
@@ -118,6 +123,7 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
             let star: UIButton = self.stars[i]
             star.tintColor = UIColor(red: 55/255.0, green: 123/255.0, blue: 181/255.0, alpha: 1)
         }
+        self.rating = sender.tag as Int
     }
     
     func close() {
@@ -127,11 +133,46 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     func submit() {
         let email = self.inputEmail.text
         let category = self.inputCategory.text
-        let message = self.inputMessage.text
         let rating = self.rating
+        var message = self.inputMessage.text
         println("email: \(email) category: \(category) message: \(message) rating: \(rating)")
+        
+        let info = NSBundle.mainBundle().infoDictionary as [NSObject: AnyObject]?
+        let version: AnyObject = info!["CFBundleShortVersionString"]!
+        message = "\(message)\n\nVersion: \(version)"
+        if PFUser.currentUser() != nil && PFUser.currentUser()?.objectId != nil {
+            message = "\(message)\nUser id: \(PFUser.currentUser()!.objectId!)"
+        }
+        
+        var dict: [NSObject: AnyObject] = ["email": email, "message": message]
+        if count(category) > 0 {
+            dict["category"] = category
+        }
+        if rating > 0 {
+            dict["rating"] = rating
+        }
+        let feedback: PFObject = PFObject(className: "Feedback", dictionary: dict)
+        feedback.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                var alert: UIAlertController = UIAlertController(title:"Thanks!", message: "Your feedback has been submitted", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                    self.close()
+                }))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            else {
+                let alert: UIAlertController = self.simpleAlert("Error submitting feedback", message: "There was an issue sending your feedback. Please try again!")
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        }
     }
     
+    func simpleAlert(title: String?, message: String?) -> UIAlertController {
+        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
+        return alert
+    }
+
     /*
     // MARK: - Navigation
 
