@@ -60,6 +60,8 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         self.inputMessage.layer.borderColor = UIColor.lightGrayColor().CGColor
         
         self.stars = [star1, star2, star3, star4, star5]
+        
+        //self.notifyByEmail()
     }
 
     override func didReceiveMemoryWarning() {
@@ -173,6 +175,13 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         return alert
     }
 
+    func notifyByEmail() {
+        // this currently works with our mandrill account. There is a limit of 2000 free messages.
+        let params = ["toEmail":"bobbyren@gmail.com","toName":"Bobby Ren","fromEmail":"bobbyren@gmail.com","fromName":"Bobby Ren","text":"testing ManDrill email","subject":"this is just a test"]
+        PFCloud.callFunctionInBackground("sendMail", withParameters: params) { (results, error) -> Void in
+            println("results: \(results) error: \(error)")
+        }
+    }
     /*
     // MARK: - Navigation
 
