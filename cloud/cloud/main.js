@@ -1,32 +1,57 @@
+var sendMail = function(text, subject) {
+    var Mandrill = require('mandrill');
+    Mandrill.initialize('aC8uXsVJlJHJw46uo8kTqA');
+    
+    Mandrill.sendEmail({
+                       message: {
+                       text: text,
+                       subject: subject,
+                       from_email: "bobbyren@gmail.com",
+                       from_name: "DocPronto team",
+                       to: [
+                            {
+                            email: "bobbyren@gmail.com",
+                            name: "bobbyren"
+                            }
+                            ]
+                       },
+                       async: true
+                       },{
+                       success: function(httpResponse) {
+                       console.log(httpResponse);
+                       },
+                       error: function(httpResponse) {
+                       console.error(httpResponse);
+                       }
+                       });
+}
+
+
 Parse.Cloud.define("sendMail", function(request, response) {
-                   var Mandrill = require('mandrill');
-                   Mandrill.initialize('aC8uXsVJlJHJw46uo8kTqA');
-                   
-                   Mandrill.sendEmail({
-                                      message: {
-                                      text: request.params.text,
-                                      subject: request.params.subject,
-                                      from_email: request.params.fromEmail,
-                                      from_name: request.params.fromName,
-                                      to: [
-                                           {
-                                           email: request.params.toEmail,
-                                           name: request.params.toName
-                                           }
-                                           ]
-                                      },
-                                      async: true
-                                      },{
-                                      success: function(httpResponse) {
-                                      console.log(httpResponse);
-                                      response.success("Email sent!");
-                                      },
-                                      error: function(httpResponse) {
-                                      console.error(httpResponse);
-                                      response.error("Uh oh, something went wrong");
-                                      }
-                                      });
+                   sendMail(request, response)
                    });
 
+Parse.Cloud.afterSave("Feedback", function(request) {
+                      var feedback = request.object
+                      console.log("Feedback id: " + feedback.id )
+                      console.log("Message: " + feedback.get("message"))
+
+                      var subject = "Feedback received"
+                      var text = "Feedback id: " + feedback.id + "\nMessage: \n" + feedback.get("message")
+                      sendMail(text, subject)
+
+                      });
+
+Parse.Cloud.afterSave("VisitRequest", function(request) {
+                      var visit = request.object
+                      console.log("VisitRequest id: " + visit.id )
+                      console.log("Lat: " + visit.get("lat") + " Lon: " + visit.get("lon"))
+                      console.log("Time: " + visit.get("time"))
+                      
+                      var subject = "Visit requested"
+                      var text = "VisitRequest id: " + visit.id + "\nLat: " + visit.get("lat") + " Lon: " + visit.get("lon") + "\nTime: " + visit.get("time")
+                      sendMail(text, subject)
+                      
+                      });
 
 //curl -X POST -H "X-Parse-Application-Id: mxzbQxv3lYPBJoOpbnkMDgnDoFFkFuUW6Sm3Of9d" -H "X-Parse-REST-API-Key: v4uFmG5hgfhJKejsDqLBRFbq15gWBxnA6yZd9Dvm" -H "Content-Type: application/json" -d '{"toEmail":"bobbyren@gmail.com","toName":"Bobby Ren","fromEmail":"bobbyren@gmail.com","fromName":"Bobby Ren","text":"testing ManDrill email","subject":"this is just a test"}' https://api.parse.com/1/functions/sendMail
