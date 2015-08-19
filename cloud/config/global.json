@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.5.0"
+  },
+  "applications": {
+    "DocPronto": {
+      "applicationId": "mxzbQxv3lYPBJoOpbnkMDgnDoFFkFuUW6Sm3Of9d",
+      "masterKey": "9eB1urZVVNTRVzFnPCxdjA65RG3rgS8YMes2tl59"
+    },
+    "_default": {
+      "link": "DocPronto"
+    }
+  }
+}
