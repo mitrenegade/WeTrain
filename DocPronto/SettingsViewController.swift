@@ -35,9 +35,8 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 4
+        return 5
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -53,6 +52,8 @@ class SettingsViewController: UITableViewController {
         case 2:
             cell.textLabel!.text = "Insurance"
         case 3:
+            cell.textLabel!.text = "Feedback"
+        case 4:
             cell.textLabel!.text = "Logout"
         default:
             break
@@ -89,12 +90,26 @@ class SettingsViewController: UITableViewController {
             self.simpleAlert("Insurance information coming", message: "Future updates of DocPronto will have insurance information entry.")
             break
         case 3:
+            if PFUser.currentUser() == nil {
+                var alert: UIAlertController = UIAlertController(title: "Log in first?", message: "You are not logged in. Please log in first so we can respond to you.", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                }))
+                alert.addAction(UIAlertAction(title: "Leave Anonymous Feedback", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                    self.performSegueWithIdentifier("GoToFeedback", sender: self)
+                }))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            else {
+                self.performSegueWithIdentifier("GoToFeedback", sender: self)
+            }
+            break
+        case 4:
             appDelegate.logout()
         default:
             break
         }
     }
-    
+        
     func simpleAlert(title: String?, message: String?) {
         var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))

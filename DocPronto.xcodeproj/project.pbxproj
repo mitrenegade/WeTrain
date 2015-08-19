@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */; };
+		AC51D1741B84A57B00E1DF02 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */; };
+		AC51D1761B84BBFF00E1DF02 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = AC51D1751B84BBFF00E1DF02 /* main.js */; };
 		AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */; };
 		AC7909341B6C455F00085FB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909331B6C455F00085FB6 /* AppDelegate.swift */; };
 		AC7909371B6C455F00085FB6 /* DocPronto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC7909351B6C455F00085FB6 /* DocPronto.xcdatamodeld */; };
@@ -55,6 +57,8 @@
 		2161FFB5DEECA8224FEC534E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7BEEAF65A38F5FAC21F6B91A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardViewController.swift; sourceTree = "<group>"; };
+		AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		AC51D1751B84BBFF00E1DF02 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = cloud/cloud/main.js; sourceTree = "<group>"; };
 		AC6FB2C61B820702004109B6 /* DocPronto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DocPronto-Bridging-Header.h"; sourceTree = "<group>"; };
 		AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStatusViewController.swift; sourceTree = "<group>"; };
 		AC79092E1B6C455F00085FB6 /* DocPronto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocPronto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +152,7 @@
 		AC7909251B6C455F00085FB6 = {
 			isa = PBXGroup;
 			children = (
+				AC51D1751B84BBFF00E1DF02 /* main.js */,
 				AC79097C1B6D549700085FB6 /* Fabric.framework */,
 				AC79097D1B6D549700085FB6 /* Crashlytics.framework */,
 				AC7909791B6D517E00085FB6 /* Social.framework */,
@@ -192,6 +197,7 @@
 				AC7909821B6D618C00085FB6 /* MapViewController.swift */,
 				AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */,
 				ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */,
+				AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */,
 				AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */,
 				AC9760EE1B7167F70060D5D1 /* DoctorProfileViewController.swift */,
 				AC7909801B6D5D7000085FB6 /* Map.storyboard */,
@@ -315,6 +321,7 @@
 				AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */,
 				AC79093C1B6C455F00085FB6 /* Main.storyboard in Resources */,
 				AC7909411B6C455F00085FB6 /* LaunchScreen.xib in Resources */,
+				AC51D1761B84BBFF00E1DF02 /* main.js in Resources */,
 				AC79093E1B6C455F00085FB6 /* Images.xcassets in Resources */,
 				AC7909811B6D5D7000085FB6 /* Map.storyboard in Resources */,
 			);
@@ -383,6 +390,7 @@
 				ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */,
 				AC7909371B6C455F00085FB6 /* DocPronto.xcdatamodeld in Sources */,
 				AC7909341B6C455F00085FB6 /* AppDelegate.swift in Sources */,
+				AC51D1741B84A57B00E1DF02 /* FeedbackViewController.swift in Sources */,
 				ACA6B8EF1B6E62B800AAA992 /* VisitRequestViewController.swift in Sources */,
 				AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */,
 				AC9760EF1B7167F70060D5D1 /* DoctorProfileViewController.swift in Sources */,
