@@ -47,9 +47,13 @@ Parse.Cloud.afterSave("VisitRequest", function(request) {
                       console.log("VisitRequest id: " + visit.id )
                       console.log("Lat: " + visit.get("lat") + " Lon: " + visit.get("lon"))
                       console.log("Time: " + visit.get("time"))
+                      console.log("status: " + visit.get("status"))
                       
                       var subject = "Visit requested"
-                      var text = "VisitRequest id: " + visit.id + "\nLat: " + visit.get("lat") + " Lon: " + visit.get("lon") + "\nTime: " + visit.get("time")
+                      if (visit.get("status") == "none") {
+                        subject = "Visit cancelled"
+                      }
+                      var text = "VisitRequest id: " + visit.id + " Status: " + visit.get("status") + "\nLat: " + visit.get("lat") + " Lon: " + visit.get("lon") + "\nTime: " + visit.get("time")
                       sendMail(text, subject)
                       
                       });
