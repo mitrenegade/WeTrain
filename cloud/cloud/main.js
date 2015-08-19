@@ -7,11 +7,11 @@ var sendMail = function(text, subject) {
                        text: text,
                        subject: subject,
                        from_email: "bobbyren@gmail.com",
-                       from_name: "DocPronto team",
+                       from_name: "DocPronto Team",
                        to: [
                             {
-                            email: "bobbyren@gmail.com",
-                            name: "bobbyren"
+                            email: "sockol@wharton.upenn.edu",
+                            name: "DocPronto Dispatch"
                             }
                             ]
                        },
