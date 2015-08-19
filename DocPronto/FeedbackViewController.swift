@@ -24,8 +24,9 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     @IBOutlet weak var star3: UIButton!
     @IBOutlet weak var star4: UIButton!
     @IBOutlet weak var star5: UIButton!
+    var stars: [UIButton] = [UIButton]()
     
-    var PICKER_TITLES = ["App issues", "Account issues", "General feedback"]
+    var PICKER_TITLES = ["Select a category", "App issues", "Account issues", "General feedback"]
     
     var rating: Int = 0
     
@@ -43,9 +44,21 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         self.navigationItem.rightBarButtonItem = right
         
         self.navigationItem.rightBarButtonItem?.enabled = false
+
+        // input/text types
+        let keyboardDoneButtonView: UIToolbar = UIToolbar()
+        keyboardDoneButtonView.sizeToFit()
+        keyboardDoneButtonView.barStyle = UIBarStyle.Black
+        keyboardDoneButtonView.tintColor = UIColor.whiteColor()
+        let button: UIBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "dismissKeyboard")
+        let flex: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        keyboardDoneButtonView.setItems([flex, button], animated: true)
+        self.inputMessage.inputAccessoryView = keyboardDoneButtonView
         
         self.inputMessage.layer.borderWidth = 1
         self.inputMessage.layer.borderColor = UIColor.lightGrayColor().CGColor
+        
+        self.stars = [star1, star2, star3, star4, star5]
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,7 +67,7 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     }
     
     func resetStars() {
-        for star: UIButton in [star1, star2, star3, star4, star5] {
+        for star: UIButton in self.stars {
             star.setImage(UIImage(named: "star")?.imageWithRenderingMode(.AlwaysTemplate), forState: UIControlState.Normal)
             star.tintColor = UIColor.blackColor()
         }
@@ -72,7 +85,9 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         return true
     }
     // MARK: - TextViewDelegate
-    
+    func dismissKeyboard() {
+        self.inputMessage.resignFirstResponder()
+    }
     
     // MARK: - PickerViewDelegate
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -88,6 +103,9 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if row == 0 {
+            self.inputCategory.text = nil
+        }
         self.inputCategory.text = self.pickerView(pickerView, titleForRow: row, forComponent: component)
         self.inputCategory.resignFirstResponder()
     }
@@ -96,7 +114,10 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     @IBAction func didClickStar(sender: UIButton) {
         // rating stars
         self.resetStars()
-        sender.tintColor = UIColor.yellowColor()
+        for var i=0; i<sender.tag; i++ {
+            let star: UIButton = self.stars[i]
+            star.tintColor = UIColor(red: 55/255.0, green: 123/255.0, blue: 181/255.0, alpha: 1)
+        }
     }
     
     func close() {
