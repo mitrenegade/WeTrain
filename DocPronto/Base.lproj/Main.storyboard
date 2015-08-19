@@ -281,7 +281,6 @@
                                                 <rect key="frame" x="0.0" y="29" width="112" height="43"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="43" id="8Bs-j1-CqY"/>
-                                                    <constraint firstAttribute="width" constant="112" id="Grn-hb-eTM"/>
                                                 </constraints>
                                                 <state key="normal" image="star">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -294,7 +293,6 @@
                                                 <rect key="frame" x="112" y="29" width="112" height="43"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="43" id="28K-ES-2vk"/>
-                                                    <constraint firstAttribute="width" constant="112" id="EVi-7M-o93"/>
                                                 </constraints>
                                                 <state key="normal" image="star">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -306,7 +304,6 @@
                                             <button opaque="NO" tag="3" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHA-uy-rAB">
                                                 <rect key="frame" x="224" y="29" width="112" height="43"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="112" id="Vdm-to-TO7"/>
                                                     <constraint firstAttribute="height" constant="43" id="mZb-xu-UmU"/>
                                                 </constraints>
                                                 <state key="normal" image="star">
@@ -319,7 +316,6 @@
                                             <button opaque="NO" tag="4" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huG-Dd-FAB">
                                                 <rect key="frame" x="336" y="29" width="112" height="43"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="112" id="66r-Th-RZo"/>
                                                     <constraint firstAttribute="height" constant="43" id="FsL-pH-rou"/>
                                                 </constraints>
                                                 <state key="normal" image="star">
@@ -333,7 +329,6 @@
                                                 <rect key="frame" x="448" y="29" width="112" height="43"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="43" id="4XD-z4-EjF"/>
-                                                    <constraint firstAttribute="width" constant="112" id="HcT-vH-ylh"/>
                                                 </constraints>
                                                 <state key="normal" image="star">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -349,7 +344,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="vXO-mH-Bgr" firstAttribute="leading" secondItem="ISD-qO-ZlO" secondAttribute="trailing" id="0Ah-Lf-dKB"/>
                                             <constraint firstItem="PHA-uy-rAB" firstAttribute="leading" secondItem="vXO-mH-Bgr" secondAttribute="trailing" id="0a5-f7-Cvs"/>
@@ -360,13 +355,17 @@
                                             <constraint firstItem="kzn-Cm-obH" firstAttribute="top" secondItem="5ky-zo-H4J" secondAttribute="bottom" constant="8" id="KTv-KJ-Sby"/>
                                             <constraint firstAttribute="bottom" secondItem="huG-Dd-FAB" secondAttribute="bottom" constant="8" id="LFx-26-Z72"/>
                                             <constraint firstAttribute="bottom" secondItem="vXO-mH-Bgr" secondAttribute="bottom" constant="8" id="Q5H-ow-242"/>
+                                            <constraint firstItem="ISD-qO-ZlO" firstAttribute="width" secondItem="vXO-mH-Bgr" secondAttribute="width" id="RAE-MC-Lc6"/>
+                                            <constraint firstItem="ISD-qO-ZlO" firstAttribute="width" secondItem="kzn-Cm-obH" secondAttribute="width" id="X16-3G-kMy"/>
                                             <constraint firstItem="5ky-zo-H4J" firstAttribute="top" secondItem="sSW-Gx-cuD" secondAttribute="top" id="Yu0-aE-fL5"/>
+                                            <constraint firstItem="ISD-qO-ZlO" firstAttribute="width" secondItem="huG-Dd-FAB" secondAttribute="width" id="Ywa-j5-mKs"/>
                                             <constraint firstAttribute="bottom" secondItem="PHA-uy-rAB" secondAttribute="bottom" constant="8" id="Z3S-D1-lSV"/>
                                             <constraint firstItem="kzn-Cm-obH" firstAttribute="leading" secondItem="huG-Dd-FAB" secondAttribute="trailing" id="aSI-I5-jzT"/>
                                             <constraint firstItem="huG-Dd-FAB" firstAttribute="leading" secondItem="PHA-uy-rAB" secondAttribute="trailing" id="bKh-Kd-HlU"/>
                                             <constraint firstAttribute="trailing" secondItem="kzn-Cm-obH" secondAttribute="trailing" id="bbY-TB-Mk8"/>
                                             <constraint firstAttribute="bottom" secondItem="kzn-Cm-obH" secondAttribute="bottom" constant="8" id="e7Q-B0-UN2"/>
                                             <constraint firstItem="5ky-zo-H4J" firstAttribute="leading" secondItem="sSW-Gx-cuD" secondAttribute="leading" id="jKa-io-722"/>
+                                            <constraint firstItem="ISD-qO-ZlO" firstAttribute="width" secondItem="PHA-uy-rAB" secondAttribute="width" id="vtk-Fq-vSI"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -408,9 +407,17 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="8nX-Kr-O4F"/>
                     <connections>
+                        <outlet property="constraintBottomOffset" destination="ysB-bg-Kyv" id="8eF-8A-iPq"/>
+                        <outlet property="constraintTopOffset" destination="3Ba-wB-Wuq" id="fFv-bS-G0T"/>
+                        <outlet property="inputCategory" destination="S19-c2-h02" id="Ic5-Gd-Kzh"/>
                         <outlet property="inputEmail" destination="RHM-Ah-CiS" id="1D9-b1-nod"/>
                         <outlet property="inputMessage" destination="I0k-P7-14z" id="eD0-Qu-2Bp"/>
                         <outlet property="keyboardShiftView" destination="06E-yk-Zgm" id="8Cc-Kd-MZC"/>
+                        <outlet property="star1" destination="ISD-qO-ZlO" id="QwW-oM-ulB"/>
+                        <outlet property="star2" destination="vXO-mH-Bgr" id="peE-5Z-X4l"/>
+                        <outlet property="star3" destination="PHA-uy-rAB" id="s7d-LL-q4w"/>
+                        <outlet property="star4" destination="huG-Dd-FAB" id="3Wq-bf-dxh"/>
+                        <outlet property="star5" destination="kzn-Cm-obH" id="yBl-aj-Atd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BuR-q3-lxE" userLabel="First Responder" sceneMemberID="firstResponder"/>
