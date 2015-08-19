@@ -138,15 +138,18 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         let rating = self.rating
         var message = self.inputMessage.text
         println("email: \(email) category: \(category) message: \(message) rating: \(rating)")
+
+        var dict: [NSObject: AnyObject] = ["email": email]
         
         let info = NSBundle.mainBundle().infoDictionary as [NSObject: AnyObject]?
         let version: AnyObject = info!["CFBundleShortVersionString"]!
         message = "\(message)\n\nVersion: \(version)"
         if PFUser.currentUser() != nil && PFUser.currentUser()?.objectId != nil {
             message = "\(message)\nUser id: \(PFUser.currentUser()!.objectId!)"
+            dict["user"] = PFUser.currentUser()!
         }
+        dict["message"] = message
         
-        var dict: [NSObject: AnyObject] = ["email": email, "message": message]
         if count(category) > 0 {
             dict["category"] = category
         }
