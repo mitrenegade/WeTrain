@@ -179,6 +179,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.toggleRequestState(self.requestState)
             return
         }
+        if self.requestState == RequestState.Matched {
+            self.viewDoctorInfo()
+            return
+        }
         
         let payment = PFUser.currentUser()!.objectForKey("stripeToken")
         if payment == nil {
@@ -241,6 +245,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             }
             
             self.buttonRequest.enabled = true
+            self.buttonRequest.setTitle("Request a visit here", forState: .Normal)
             self.hideRequestView()
             return
         case .Cancelled:
@@ -266,6 +271,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             else {
                 self.toggleRequestState(RequestState.NoRequest)
             }
+            self.buttonRequest.enabled = true
+            self.buttonRequest.setTitle("Request a visit here", forState: .Normal)
             return
         case .Searching:
             
@@ -297,6 +304,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             if self.timer == nil {
                 self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateRequestState", userInfo: nil, repeats: true)
             }
+            self.buttonRequest.enabled = false
+            self.buttonRequest.setTitle("Searching for doctor", forState: .Normal)
             
             break
         case .Matched:
@@ -309,7 +318,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 self.hideRequestView()
             })
             self.showRequestView()
-
+            
+            self.buttonRequest.enabled = false
+            self.buttonRequest.setTitle("View doctor", forState: .Normal)
             break
         default:
             break
