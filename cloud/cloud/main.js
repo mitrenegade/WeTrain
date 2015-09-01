@@ -1,16 +1,18 @@
-var sendMail = function(text, subject) {
+var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
     Mandrill.initialize('aC8uXsVJlJHJw46uo8kTqA');
+    
+    console.log("sending to " + from + " with text " + text)
     
     Mandrill.sendEmail({
                        message: {
                        text: text,
                        subject: subject,
-                       from_email: "bobbyren@gmail.com",
-                       from_name: "DocPronto Team",
+                       from_email: from,
+                       from_name: fromName,
                        to: [
                             {
-                            email: "sockol@wharton.upenn.edu",
+                            email: "bobbyren@gmail.com",
                             name: "DocPronto Dispatch"
                             }
                             ]
@@ -18,9 +20,11 @@ var sendMail = function(text, subject) {
                        async: true
                        },{
                        success: function(httpResponse) {
+                       console.log("mandril email sent successfully")
                        console.log(httpResponse);
                        },
                        error: function(httpResponse) {
+                       console.log("mandril email error")
                        console.error(httpResponse);
                        }
                        });
@@ -35,11 +39,14 @@ Parse.Cloud.afterSave("Feedback", function(request) {
                       var feedback = request.object
                       console.log("Feedback id: " + feedback.id )
                       console.log("Message: " + feedback.get("message"))
-
+                      console.log("feedback email " + feedback.get("email"))
+                      
                       var subject = "Feedback received"
                       var text = "Feedback id: " + feedback.id + "\nMessage: \n" + feedback.get("message")
-                      sendMail(text, subject)
 
+                      email = feedback.get("email")
+                      fromName = email
+                      sendMail(email, fromName, text, subject)
                       });
 
 Parse.Cloud.afterSave("VisitRequest", function(request) {
@@ -54,7 +61,25 @@ Parse.Cloud.afterSave("VisitRequest", function(request) {
                         subject = "Visit cancelled"
                       }
                       var text = "VisitRequest id: " + visit.id + " Status: " + visit.get("status") + "\nLat: " + visit.get("lat") + " Lon: " + visit.get("lon") + "\nTime: " + visit.get("time")
-                      sendMail(text, subject)
+
+                      userQuery.get(request.object.get("patient").id, {
+                                    success: function(user) {
+                                    email = user.get("email")
+                                    fromName = "DocPronto Patient"
+                                    if (email == undefined) {
+                                        email = "bobbyren+docpronto@gmail.com"
+                                        fromName = "DocPronto Team"
+                                    }
+                                    console.log("visit by user " + email)
+                                    sendMail(email, fromName, text, subject)
+                                    },
+                                    error : function(error) {
+                                    console.error("errrrrrrrr" + error);
+                                    email = "bobbyren+docpronto@gmail.com"
+                                    fromName = "DocPronto Team"
+                                    sendMail(email, fromName, text, subject)
+                                    }
+                                    });
                       
                       });
 
