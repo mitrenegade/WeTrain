@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC463FB61B95F3F500935F45 /* NSString+ValidateEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */; };
 		AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */; };
 		AC51D1741B84A57B00E1DF02 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */; };
 		AC51D1761B84BBFF00E1DF02 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = AC51D1751B84BBFF00E1DF02 /* main.js */; };
@@ -56,6 +57,8 @@
 /* Begin PBXFileReference section */
 		2161FFB5DEECA8224FEC534E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7BEEAF65A38F5FAC21F6B91A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ValidateEmail.h"; sourceTree = "<group>"; };
+		AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ValidateEmail.m"; sourceTree = "<group>"; };
 		AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardViewController.swift; sourceTree = "<group>"; };
 		AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		AC51D1751B84BBFF00E1DF02 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = cloud/cloud/main.js; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 		AC7909301B6C455F00085FB6 /* DocPronto */ = {
 			isa = PBXGroup;
 			children = (
+				AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */,
+				AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */,
 				AC7909331B6C455F00085FB6 /* AppDelegate.swift */,
 				ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */,
 				AC7909841B6D710900085FB6 /* Login.Storyboard */,
@@ -397,6 +402,7 @@
 				AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */,
 				AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */,
 				ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */,
+				AC463FB61B95F3F500935F45 /* NSString+ValidateEmail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
