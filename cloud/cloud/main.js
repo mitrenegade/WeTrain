@@ -62,6 +62,7 @@ Parse.Cloud.afterSave("VisitRequest", function(request) {
                       }
                       var text = "VisitRequest id: " + visit.id + " Status: " + visit.get("status") + "\nLat: " + visit.get("lat") + " Lon: " + visit.get("lon") + "\nTime: " + visit.get("time")
 
+                      var userQuery = new Parse.Query("User");
                       userQuery.get(request.object.get("patient").id, {
                                     success: function(user) {
                                     email = user.get("email")
