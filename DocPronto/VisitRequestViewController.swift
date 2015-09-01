@@ -13,7 +13,7 @@ class VisitRequestViewController: UITableViewController {
     let TAG_TITLE = 2
     let TAG_DETAILS = 3
     
-    var shouldShowEmergencyAlert: Bool = true
+    var shouldHighlightEmergencyAlert: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class VisitRequestViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.shouldShowEmergencyAlert = true
+        self.shouldHighlightEmergencyAlert = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,10 +45,7 @@ class VisitRequestViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        if self.shouldShowEmergencyAlert {
-            return 3
-        }
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -82,11 +79,17 @@ class VisitRequestViewController: UITableViewController {
         }
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("EmergencyCell", forIndexPath: indexPath) as! UITableViewCell
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
             let icon: UIImageView = cell.contentView.viewWithTag(TAG_ICON) as! UIImageView
             let labelTitle: UILabel = cell.contentView.viewWithTag(TAG_TITLE) as! UILabel
             icon.image = icon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             icon.tintColor = UIColor.whiteColor()
-            
+            if self.shouldHighlightEmergencyAlert {
+                cell.contentView.backgroundColor = UIColor.redColor()
+            }
+            else {
+                cell.contentView.backgroundColor = UIColor.lightGrayColor()
+            }
             return cell
         }
     }
@@ -96,8 +99,15 @@ class VisitRequestViewController: UITableViewController {
         
         let row = indexPath.row
         if row == 2 {
-            self.shouldShowEmergencyAlert = false
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Top)
+            let alert = UIAlertController(title: "Call 911?", message: "Do you want to close DocPronto and call contact emergency services?", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                self.shouldHighlightEmergencyAlert = false
+                self.tableView.reloadData()
+            }))
+            alert.addAction(UIAlertAction(title: "Call 911", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                self.call911()
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
         else {
             self.goToMap()
@@ -108,4 +118,19 @@ class VisitRequestViewController: UITableViewController {
         self.performSegueWithIdentifier("GoToMap", sender: self)
     }
 
+    func call911() {
+        var phone: String = "911"
+        var str = "tel://\(phone)"
+        let url = NSURL(string: str) as NSURL?
+        if (url != nil) {
+            let success: Bool = UIApplication.sharedApplication().openURL(url!)
+            if success {
+                return
+            }
+        }
+        let alert = UIAlertController(title: "Could not call 911", message: "Close the app manually and call 911 if you need to.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 }

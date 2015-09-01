@@ -41,7 +41,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func didClickLogin(sender: UIButton) {
         if count(self.inputLogin.text) == 0 {
-            self.simpleAlert("Please enter a login name", message: nil)
+            self.simpleAlert("Please enter a login email", message: nil)
             return
         }
         if count(self.inputPassword.text) == 0 {
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     message = "Please check your internet connection"
                 }
                 else if error?.code == 101 {
-                    message = "Invalid username or password"
+                    message = "Invalid email or password"
                 }
                 
                 self.simpleAlert(title, message: message)
@@ -73,11 +73,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func didClickSignup(sender: UIButton) {
         if count(self.inputLogin.text) == 0 {
-            self.simpleAlert("Please enter a login name", message: nil)
+            self.simpleAlert("Please enter an email address", message: nil)
             return
         }
         if count(self.inputPassword.text) == 0 {
             self.simpleAlert("Please enter a password", message: nil)
+            return
+        }
+        
+        let email:NSString = self.inputLogin.text as NSString
+        if !email.isValidEmail() {
+            self.simpleAlert("Please enter a valid email address", message: nil)
             return
         }
         
@@ -88,6 +94,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         user.username = username
         user.password = password
         
+        if email.isValidEmail() {
+            user.email = username
+        }
         user.signUpInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 println("signup succeeded")
