@@ -60,8 +60,13 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         self.inputMessage.layer.borderColor = UIColor.lightGrayColor().CGColor
         
         self.stars = [star1, star2, star3, star4, star5]
-        
-        //self.notifyByEmail()
+
+        if (PFUser.currentUser() != nil) {
+            if PFUser.currentUser()!.email != nil {
+                self.inputEmail.text = PFUser.currentUser()!.email
+                self.navigationItem.rightBarButtonItem?.enabled = true
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
