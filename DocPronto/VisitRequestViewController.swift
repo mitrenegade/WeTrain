@@ -79,6 +79,7 @@ class VisitRequestViewController: UITableViewController {
         }
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("EmergencyCell", forIndexPath: indexPath) as! UITableViewCell
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
             let icon: UIImageView = cell.contentView.viewWithTag(TAG_ICON) as! UIImageView
             let labelTitle: UILabel = cell.contentView.viewWithTag(TAG_TITLE) as! UILabel
             icon.image = icon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
@@ -87,7 +88,7 @@ class VisitRequestViewController: UITableViewController {
                 cell.contentView.backgroundColor = UIColor.redColor()
             }
             else {
-                cell.contentView.backgroundColor = UIColor.whiteColor()
+                cell.contentView.backgroundColor = UIColor.lightGrayColor()
             }
             return cell
         }
