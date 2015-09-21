@@ -15,9 +15,9 @@ import Crashlytics
 import GoogleMaps
 
 let GOOGLE_API_APP_KEY = "AIzaSyDjj-mmJxrtTSIp7nVgSRi911_LTL8obYY"
-//let STRIPE_PUBLISHABLE_KEY = "pk_test_M4hJpN0oxzECg5b9GVg03AVD"
+//let STRIPE_PUBLISHABLE_KEY = "pk_test_xG5SMQiERYrdgLdukSEnH46E"
 // TODO: switch to this when published
-let STRIPE_PUBLISHABLE_KEY = "pk_live_WonaiOuQx7sH7OW8Iws3YjO4"
+let STRIPE_PUBLISHABLE_KEY = "pk_live_MzmtjIQ0XLqVuhWXzPzmVCX9"
 
 @UIApplicationMain
 
