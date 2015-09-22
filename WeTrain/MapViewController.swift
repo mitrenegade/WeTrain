@@ -1,6 +1,6 @@
 //
 //  MapViewController.swift
-//  DocPronto
+//  WeTrain
 //
 //  Created by Bobby Ren on 8/1/15.
 //  Copyright (c) 2015 Bobby Ren. All rights reserved.
@@ -83,22 +83,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     // MARK: - CLLocationManagerDelegate
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedWhenInUse {
             locationManager.startUpdatingLocation()
             mapView.myLocationEnabled = true
             mapView.settings.myLocationButton = true
         }
         else if status == .Denied {
-            println("Authorization is not available")
+            print("Authorization is not available")
         }
         else {
-            println("status unknown")
+            print("status unknown")
         }
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        if let location = locations.first as? CLLocation {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first as CLLocation? {
             locationManager.stopUpdatingLocation()
             
             self.currentLocation = location
@@ -144,21 +144,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     // MARK: Location search
     @IBAction func didClickSearch(button: UIButton) {
         var address: String = "\(self.inputStreet.text) \(self.inputCity.text)"
-        println("address: \(address)")
+        print("address: \(address)")
         
         self.view.endEditing(true)
         
         let coder = CLGeocoder()
         coder.geocodeAddressString(address, completionHandler: { (results, error) -> Void in
             if error != nil {
-                println("error: \(error.userInfo)")
+                print("error: \(error!.userInfo)")
                 self.simpleAlert("Could not find that location", message: "Please check your address and try again")
             }
             else {
-                println("result: \(results)")
-                if let placemarks: [CLPlacemark] = results as? [CLPlacemark] {
-                    if let placemark: CLPlacemark = placemarks.first as CLPlacemark! {
-                        self.currentLocation = CLLocation(latitude: placemark.location.coordinate.latitude, longitude: placemark.location.coordinate.longitude)
+                print("result: \(results)")
+                if let placemarks: [CLPlacemark]? = results as [CLPlacemark]? {
+                    if let placemark: CLPlacemark = placemarks!.first as CLPlacemark! {
+                        self.currentLocation = CLLocation(latitude: placemark.location!.coordinate.latitude, longitude: placemark.location!.coordinate.longitude)
                         self.updateMapToCurrentLocation()
                         self.enableRequest()
                     }
@@ -203,7 +203,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     for line: String in lines {
                         addressString = "\(addressString)\n\(line)"
                     }
-                    println("Address: \(addressString)")
+                    print("Address: \(addressString)")
                     
                     self.confirmRequestForAddress(addressString, coordinate: address.coordinate)
                 }
@@ -220,7 +220,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func confirmRequestForAddress(addressString: String, coordinate: CLLocationCoordinate2D) {
         var alert: UIAlertController = UIAlertController(title: "Request doctor?", message: "Do you want to schedule a visit at \(addressString)?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Pronto!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            println("requesting")
+            print("requesting")
             self.initiateVisitRequest(addressString, coordinate: coordinate)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -334,7 +334,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let request: PFObject = PFObject(className: "VisitRequest", dictionary: dict)
         request.setObject(PFUser.currentUser()!, forKey: "patient")
         request.saveInBackgroundWithBlock { (success, error) -> Void in
-            println("saved: \(success)")
+            print("saved: \(success)")
             self.currentRequest = request
             PFUser.currentUser()!.setObject(request, forKey: "currentRequest")
             PFUser.currentUser()!.saveInBackground()
@@ -376,7 +376,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         // doctor
                         if let doctor: PFObject = request.objectForKey("doctor") as? PFObject {
                             doctor.fetchInBackgroundWithBlock({ (object, error) -> Void in
-                                println("doctor: \(object)")
+                                print("doctor: \(object)")
                                 self.currentDoctor = doctor
                                 self.toggleRequestState(newState)
                             })
@@ -404,7 +404,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func viewDoctorInfo() {
-        println("display doctor info")
+        print("display doctor info")
         self.performSegueWithIdentifier("GoToViewDoctor", sender: nil)
     }
     

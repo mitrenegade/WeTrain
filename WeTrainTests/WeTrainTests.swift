@@ -1,6 +1,6 @@
 //
-//  DocProntoTests.swift
-//  DocProntoTests
+//  WeTrainTests.swift
+//  WeTrainTests
 //
 //  Created by Bobby Ren on 7/31/15.
 //  Copyright (c) 2015 Bobby Ren. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import XCTest
 
-class DocProntoTests: XCTestCase {
+class WeTrainTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

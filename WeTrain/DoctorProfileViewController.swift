@@ -1,6 +1,6 @@
 //
 //  DoctorProfileViewController.swift
-//  DocPronto
+//  WeTrain
 //
 //  Created by Bobby Ren on 8/4/15.
 //  Copyright (c) 2015 Bobby Ren. All rights reserved.

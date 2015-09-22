@@ -2,9 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:DocPronto.xcodeproj">
+      location = "group:/Users/BobboMac/Dropbox/Projects/WeTrain/WeTrain.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:WeTrain.xcodeproj">
    </FileRef>
 </Workspace>

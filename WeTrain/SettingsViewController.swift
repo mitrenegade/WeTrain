@@ -1,6 +1,6 @@
 //
 //  SettingsViewController.swift
-//  DocPronto
+//  WeTrain
 //
 //  Created by Bobby Ren on 8/2/15.
 //  Copyright (c) 2015 Bobby Ren. All rights reserved.
@@ -46,7 +46,7 @@ class SettingsViewController: UITableViewController {
         let row = indexPath.row
         switch row {
         case 0:
-            cell.textLabel!.text = "About DocPronto"
+            cell.textLabel!.text = "About WeTrain"
         case 1:
             cell.textLabel!.text = "Update your credit card"
         case 2:
@@ -71,7 +71,7 @@ class SettingsViewController: UITableViewController {
             let info = NSBundle.mainBundle().infoDictionary as [NSObject: AnyObject]?
             let version: AnyObject = info!["CFBundleShortVersionString"]!
             let message = "Copyright 2015 Bobby Ren\nVersion \(version)"
-            self.simpleAlert("About DocPronto", message: message)
+            self.simpleAlert("About WeTrain", message: message)
             break
         case 1:
             if PFUser.currentUser() == nil {
@@ -87,7 +87,7 @@ class SettingsViewController: UITableViewController {
             
             break
         case 2:
-            self.simpleAlert("Insurance information coming", message: "Future updates of DocPronto will have insurance information entry.")
+            self.simpleAlert("Insurance information coming", message: "Future updates of WeTrain will have insurance information entry.")
             break
         case 3:
             if PFUser.currentUser() == nil {

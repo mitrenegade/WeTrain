@@ -1,6 +1,6 @@
 //
 //  VisitRequestViewController.swift
-//  DocPronto
+//  WeTrain
 //
 //  Created by Bobby Ren on 8/2/15.
 //  Copyright (c) 2015 Bobby Ren. All rights reserved.
@@ -99,7 +99,7 @@ class VisitRequestViewController: UITableViewController {
         
         let row = indexPath.row
         if row == 2 {
-            let alert = UIAlertController(title: "Call 911?", message: "Do you want to close DocPronto and call contact emergency services?", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Call 911?", message: "Do you want to close WeTrain and call contact emergency services?", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                 self.shouldHighlightEmergencyAlert = false
                 self.tableView.reloadData()

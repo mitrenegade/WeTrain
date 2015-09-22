@@ -1,6 +1,6 @@
 //
 //  RequestStatusViewController.swift
-//  DocPronto
+//  WeTrain
 //
 //  Created by Bobby Ren on 8/17/15.
 //  Copyright (c) 2015 Bobby Ren. All rights reserved.
@@ -22,13 +22,13 @@ class RequestStatusViewController: UIViewController {
     
     @IBAction func didClickButton(sender: UIButton) {
         if sender == buttonTop {
-            println("top button")
+            print("top button")
             if self.topButtonHandler != nil {
                 self.topButtonHandler!()
             }
         }
         else if sender == buttonBottom {
-            println("bottom button")
+            print("bottom button")
             if self.bottomButtonHandler != nil {
                 self.bottomButtonHandler!()
             }
