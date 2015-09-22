@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="p9D-z5-Sgd">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Map View Controller-->
+        <scene sceneID="DjT-XP-2JV">
+            <objects>
+                <viewController id="p9D-z5-Sgd" customClass="MapViewController" customModule="DocPronto" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wco-eX-oW6"/>
+                        <viewControllerLayoutGuide type="bottom" id="QOz-rg-SPa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nfh-2Z-FgW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u0l-k8-F94" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="u0l-k8-F94" firstAttribute="leading" secondItem="nfh-2Z-FgW" secondAttribute="leadingMargin" constant="-16" id="B7H-I1-J8W"/>
+                            <constraint firstItem="QOz-rg-SPa" firstAttribute="top" secondItem="u0l-k8-F94" secondAttribute="bottom" id="Hkp-G7-umd"/>
+                            <constraint firstItem="u0l-k8-F94" firstAttribute="top" secondItem="nfh-2Z-FgW" secondAttribute="topMargin" id="IoR-fe-I3O"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="u0l-k8-F94" secondAttribute="trailing" constant="-16" id="J73-Nh-vPG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="u0l-k8-F94" id="JwF-YK-ckO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QgM-eT-hPo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="377" y="489"/>
+        </scene>
+    </scenes>
+</document>
