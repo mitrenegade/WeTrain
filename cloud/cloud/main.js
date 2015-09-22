@@ -13,7 +13,7 @@ var sendMail = function(from, fromName, text, subject) {
                        to: [
                             {
                             email: "sockol@wharton.upenn.edu",
-                            name: "DocPronto Dispatch"
+                            name: "WeTrain Dispatch"
                             }
                             ]
                        },
@@ -66,18 +66,18 @@ Parse.Cloud.afterSave("VisitRequest", function(request) {
                       userQuery.get(request.object.get("patient").id, {
                                     success: function(user) {
                                     email = user.get("email")
-                                    fromName = "DocPronto Patient"
+                                    fromName = "WeTrain Patient"
                                     if (email == undefined) {
-                                        email = "bobbyren+docpronto@gmail.com"
-                                        fromName = "DocPronto Team"
+                                        email = "bobbyren+WeTrain@gmail.com"
+                                        fromName = "WeTrain Team"
                                     }
                                     console.log("visit by user " + email)
                                     sendMail(email, fromName, text, subject)
                                     },
                                     error : function(error) {
                                     console.error("errrrrrrrr" + error);
-                                    email = "bobbyren+docpronto@gmail.com"
-                                    fromName = "DocPronto Team"
+                                    email = "bobbyren+WeTrain@gmail.com"
+                                    fromName = "WeTrain Team"
                                     sendMail(email, fromName, text, subject)
                                     }
                                     });

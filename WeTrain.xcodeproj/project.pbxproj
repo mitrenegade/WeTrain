@@ -13,11 +13,11 @@
 		AC51D1761B84BBFF00E1DF02 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = AC51D1751B84BBFF00E1DF02 /* main.js */; };
 		AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */; };
 		AC7909341B6C455F00085FB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909331B6C455F00085FB6 /* AppDelegate.swift */; };
-		AC7909371B6C455F00085FB6 /* DocPronto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC7909351B6C455F00085FB6 /* DocPronto.xcdatamodeld */; };
+		AC7909371B6C455F00085FB6 /* WeTrain.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC7909351B6C455F00085FB6 /* WeTrain.xcdatamodeld */; };
 		AC79093C1B6C455F00085FB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC79093A1B6C455F00085FB6 /* Main.storyboard */; };
 		AC79093E1B6C455F00085FB6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC79093D1B6C455F00085FB6 /* Images.xcassets */; };
 		AC7909411B6C455F00085FB6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC79093F1B6C455F00085FB6 /* LaunchScreen.xib */; };
-		AC79094D1B6C455F00085FB6 /* DocProntoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79094C1B6C455F00085FB6 /* DocProntoTests.swift */; };
+		AC79094D1B6C455F00085FB6 /* WeTrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79094C1B6C455F00085FB6 /* WeTrainTests.swift */; };
 		AC7909611B6D513100085FB6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC79095F1B6D513100085FB6 /* Bolts.framework */; };
 		AC7909621B6D513100085FB6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909601B6D513100085FB6 /* Parse.framework */; };
 		AC7909641B6D514200085FB6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909631B6D514200085FB6 /* AudioToolbox.framework */; };
@@ -61,18 +61,18 @@
 		AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardViewController.swift; sourceTree = "<group>"; };
 		AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
 		AC51D1751B84BBFF00E1DF02 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = cloud/cloud/main.js; sourceTree = "<group>"; };
-		AC6FB2C61B820702004109B6 /* DocPronto-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DocPronto-Bridging-Header.h"; sourceTree = "<group>"; };
+		AC6FB2C61B820702004109B6 /* WeTrain-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeTrain-Bridging-Header.h"; sourceTree = "<group>"; };
 		AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStatusViewController.swift; sourceTree = "<group>"; };
-		AC79092E1B6C455F00085FB6 /* DocPronto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DocPronto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC79092E1B6C455F00085FB6 /* WeTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7909321B6C455F00085FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC7909331B6C455F00085FB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AC7909361B6C455F00085FB6 /* DocPronto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DocPronto.xcdatamodel; sourceTree = "<group>"; };
+		AC7909361B6C455F00085FB6 /* WeTrain.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeTrain.xcdatamodel; sourceTree = "<group>"; };
 		AC79093B1B6C455F00085FB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC79093D1B6C455F00085FB6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AC7909401B6C455F00085FB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		AC7909461B6C455F00085FB6 /* DocProntoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocProntoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC7909461B6C455F00085FB6 /* WeTrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeTrainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC79094B1B6C455F00085FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AC79094C1B6C455F00085FB6 /* DocProntoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocProntoTests.swift; sourceTree = "<group>"; };
+		AC79094C1B6C455F00085FB6 /* WeTrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeTrainTests.swift; sourceTree = "<group>"; };
 		AC79095F1B6D513100085FB6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		AC7909601B6D513100085FB6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		AC7909631B6D514200085FB6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -168,8 +168,8 @@
 				AC7909631B6D514200085FB6 /* AudioToolbox.framework */,
 				AC79095F1B6D513100085FB6 /* Bolts.framework */,
 				AC7909601B6D513100085FB6 /* Parse.framework */,
-				AC7909301B6C455F00085FB6 /* DocPronto */,
-				AC7909491B6C455F00085FB6 /* DocProntoTests */,
+				AC7909301B6C455F00085FB6 /* WeTrain */,
+				AC7909491B6C455F00085FB6 /* WeTrainTests */,
 				AC79092F1B6C455F00085FB6 /* Products */,
 				271E7A18146076B0C8BED4F3 /* Pods */,
 				58E896E55C69332B7809E4D8 /* Frameworks */,
@@ -179,13 +179,13 @@
 		AC79092F1B6C455F00085FB6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AC79092E1B6C455F00085FB6 /* DocPronto.app */,
-				AC7909461B6C455F00085FB6 /* DocProntoTests.xctest */,
+				AC79092E1B6C455F00085FB6 /* WeTrain.app */,
+				AC7909461B6C455F00085FB6 /* WeTrainTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AC7909301B6C455F00085FB6 /* DocPronto */ = {
+		AC7909301B6C455F00085FB6 /* WeTrain */ = {
 			isa = PBXGroup;
 			children = (
 				AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */,
@@ -203,11 +203,11 @@
 				AC9760EE1B7167F70060D5D1 /* DoctorProfileViewController.swift */,
 				AC7909801B6D5D7000085FB6 /* Map.storyboard */,
 				AC79093F1B6C455F00085FB6 /* LaunchScreen.xib */,
-				AC7909351B6C455F00085FB6 /* DocPronto.xcdatamodeld */,
+				AC7909351B6C455F00085FB6 /* WeTrain.xcdatamodeld */,
 				AC7909311B6C455F00085FB6 /* Supporting Files */,
-				AC6FB2C61B820702004109B6 /* DocPronto-Bridging-Header.h */,
+				AC6FB2C61B820702004109B6 /* WeTrain-Bridging-Header.h */,
 			);
-			path = DocPronto;
+			path = WeTrain;
 			sourceTree = "<group>";
 		};
 		AC7909311B6C455F00085FB6 /* Supporting Files */ = {
@@ -219,13 +219,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		AC7909491B6C455F00085FB6 /* DocProntoTests */ = {
+		AC7909491B6C455F00085FB6 /* WeTrainTests */ = {
 			isa = PBXGroup;
 			children = (
-				AC79094C1B6C455F00085FB6 /* DocProntoTests.swift */,
+				AC79094C1B6C455F00085FB6 /* WeTrainTests.swift */,
 				AC79094A1B6C455F00085FB6 /* Supporting Files */,
 			);
-			path = DocProntoTests;
+			path = WeTrainTests;
 			sourceTree = "<group>";
 		};
 		AC79094A1B6C455F00085FB6 /* Supporting Files */ = {
@@ -239,9 +239,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AC79092D1B6C455F00085FB6 /* DocPronto */ = {
+		AC79092D1B6C455F00085FB6 /* WeTrain */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC7909501B6C455F00085FB6 /* Build configuration list for PBXNativeTarget "DocPronto" */;
+			buildConfigurationList = AC7909501B6C455F00085FB6 /* Build configuration list for PBXNativeTarget "WeTrain" */;
 			buildPhases = (
 				6EBD1DF4AC39DA492E6B9C2C /* Check Pods Manifest.lock */,
 				AC79092A1B6C455F00085FB6 /* Sources */,
@@ -254,14 +254,14 @@
 			);
 			dependencies = (
 			);
-			name = DocPronto;
+			name = WeTrain;
 			productName = DocPronto;
-			productReference = AC79092E1B6C455F00085FB6 /* DocPronto.app */;
+			productReference = AC79092E1B6C455F00085FB6 /* WeTrain.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AC7909451B6C455F00085FB6 /* DocProntoTests */ = {
+		AC7909451B6C455F00085FB6 /* WeTrainTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AC7909531B6C455F00085FB6 /* Build configuration list for PBXNativeTarget "DocProntoTests" */;
+			buildConfigurationList = AC7909531B6C455F00085FB6 /* Build configuration list for PBXNativeTarget "WeTrainTests" */;
 			buildPhases = (
 				AC7909421B6C455F00085FB6 /* Sources */,
 				AC7909431B6C455F00085FB6 /* Frameworks */,
@@ -272,9 +272,9 @@
 			dependencies = (
 				AC7909481B6C455F00085FB6 /* PBXTargetDependency */,
 			);
-			name = DocProntoTests;
+			name = WeTrainTests;
 			productName = DocProntoTests;
-			productReference = AC7909461B6C455F00085FB6 /* DocProntoTests.xctest */;
+			productReference = AC7909461B6C455F00085FB6 /* WeTrainTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -283,6 +283,7 @@
 		AC7909261B6C455F00085FB6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Bobby Ren";
 				TargetAttributes = {
@@ -301,7 +302,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AC7909291B6C455F00085FB6 /* Build configuration list for PBXProject "DocPronto" */;
+			buildConfigurationList = AC7909291B6C455F00085FB6 /* Build configuration list for PBXProject "WeTrain" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -314,8 +315,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AC79092D1B6C455F00085FB6 /* DocPronto */,
-				AC7909451B6C455F00085FB6 /* DocProntoTests */,
+				AC79092D1B6C455F00085FB6 /* WeTrain */,
+				AC7909451B6C455F00085FB6 /* WeTrainTests */,
 			);
 		};
 /* End PBXProject section */
@@ -395,7 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */,
-				AC7909371B6C455F00085FB6 /* DocPronto.xcdatamodeld in Sources */,
+				AC7909371B6C455F00085FB6 /* WeTrain.xcdatamodeld in Sources */,
 				AC7909341B6C455F00085FB6 /* AppDelegate.swift in Sources */,
 				AC51D1741B84A57B00E1DF02 /* FeedbackViewController.swift in Sources */,
 				ACA6B8EF1B6E62B800AAA992 /* VisitRequestViewController.swift in Sources */,
@@ -412,7 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC79094D1B6C455F00085FB6 /* DocProntoTests.swift in Sources */,
+				AC79094D1B6C455F00085FB6 /* WeTrainTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,7 +422,7 @@
 /* Begin PBXTargetDependency section */
 		AC7909481B6C455F00085FB6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AC79092D1B6C455F00085FB6 /* DocPronto */;
+			target = AC79092D1B6C455F00085FB6 /* WeTrain */;
 			targetProxy = AC7909471B6C455F00085FB6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -537,12 +538,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = DocPronto/Info.plist;
+				INFOPLIST_FILE = WeTrain/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WeTrain;
 				PROVISIONING_PROFILE = "61a94c6a-4944-4257-a15b-ef8e9d82c808";
-				SWIFT_OBJC_BRIDGING_HEADER = "DocPronto/DocPronto-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -559,12 +560,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = DocPronto/Info.plist;
+				INFOPLIST_FILE = WeTrain/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = WeTrain;
 				PROVISIONING_PROFILE = "61a94c6a-4944-4257-a15b-ef8e9d82c808";
-				SWIFT_OBJC_BRIDGING_HEADER = "DocPronto/DocPronto-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -581,10 +582,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = DocProntoTests/Info.plist;
+				INFOPLIST_FILE = WeTrainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DocPronto.app/DocPronto";
+				PRODUCT_NAME = WeTrainTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeTrain.app/WeTrain";
 			};
 			name = Debug;
 		};
@@ -596,17 +597,17 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = DocProntoTests/Info.plist;
+				INFOPLIST_FILE = WeTrainTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DocPronto.app/DocPronto";
+				PRODUCT_NAME = WeTrainTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeTrain.app/WeTrain";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AC7909291B6C455F00085FB6 /* Build configuration list for PBXProject "DocPronto" */ = {
+		AC7909291B6C455F00085FB6 /* Build configuration list for PBXProject "WeTrain" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC79094E1B6C455F00085FB6 /* Debug */,
@@ -615,7 +616,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC7909501B6C455F00085FB6 /* Build configuration list for PBXNativeTarget "DocPronto" */ = {
+		AC7909501B6C455F00085FB6 /* Build configuration list for PBXNativeTarget "WeTrain" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC7909511B6C455F00085FB6 /* Debug */,
@@ -624,7 +625,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AC7909531B6C455F00085FB6 /* Build configuration list for PBXNativeTarget "DocProntoTests" */ = {
+		AC7909531B6C455F00085FB6 /* Build configuration list for PBXNativeTarget "WeTrainTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AC7909541B6C455F00085FB6 /* Debug */,
@@ -636,13 +637,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		AC7909351B6C455F00085FB6 /* DocPronto.xcdatamodeld */ = {
+		AC7909351B6C455F00085FB6 /* WeTrain.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				AC7909361B6C455F00085FB6 /* DocPronto.xcdatamodel */,
+				AC7909361B6C455F00085FB6 /* WeTrain.xcdatamodel */,
 			);
-			currentVersion = AC7909361B6C455F00085FB6 /* DocPronto.xcdatamodel */;
-			path = DocPronto.xcdatamodeld;
+			currentVersion = AC7909361B6C455F00085FB6 /* WeTrain.xcdatamodel */;
+			path = WeTrain.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
