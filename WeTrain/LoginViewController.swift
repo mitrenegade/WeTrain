@@ -40,19 +40,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func didClickLogin(sender: UIButton) {
-        if count(self.inputLogin.text) == 0 {
+        if self.inputLogin.text?.characters.count == 0 {
             self.simpleAlert("Please enter a login email", message: nil)
             return
         }
-        if count(self.inputPassword.text) == 0 {
+        if self.inputPassword.text?.characters.count == 0 {
             self.simpleAlert("Please enter a password", message: nil)
             return
         }
         
-        let username = self.inputLogin.text
-        let password = self.inputPassword.text
+        let username: String = self.inputLogin.text!
+        let password: String = self.inputPassword.text!
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) -> Void in
-            println("logged in")
+            print("logged in")
             if user != nil {
                 self.loggedIn()
             }
@@ -72,16 +72,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func didClickSignup(sender: UIButton) {
-        if count(self.inputLogin.text) == 0 {
+        if self.inputLogin.text?.characters.count == 0 {
             self.simpleAlert("Please enter an email address", message: nil)
             return
         }
-        if count(self.inputPassword.text) == 0 {
+        if self.inputPassword.text?.characters.count == 0 {
             self.simpleAlert("Please enter a password", message: nil)
             return
         }
         
-        let email:NSString = self.inputLogin.text as NSString
+        let email:NSString = self.inputLogin.text! as NSString
         if !email.isValidEmail() {
             self.simpleAlert("Please enter a valid email address", message: nil)
             return
@@ -99,7 +99,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         user.signUpInBackgroundWithBlock { (success, error) -> Void in
             if success {
-                println("signup succeeded")
+                print("signup succeeded")
                 self.loggedIn()
             }
             else {

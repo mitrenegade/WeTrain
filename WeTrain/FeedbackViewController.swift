@@ -84,7 +84,7 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     // MARK: - TextFieldDelegate
     func textFieldDidEndEditing(textField: UITextField) {
         if textField == self.inputEmail {
-            if count(self.inputEmail.text) > 0 {
+            if self.inputEmail.text?.characters.count > 0 {
                 self.navigationItem.rightBarButtonItem?.enabled = true
             }
             else {
@@ -142,9 +142,9 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         let category = self.inputCategory.text
         let rating = self.rating
         var message = self.inputMessage.text
-        println("email: \(email) category: \(category) message: \(message) rating: \(rating)")
+        print("email: \(email) category: \(category) message: \(message) rating: \(rating)")
 
-        var dict: [NSObject: AnyObject] = ["email": email]
+        var dict: [NSObject: AnyObject] = ["email": email!]
         
         let info = NSBundle.mainBundle().infoDictionary as [NSObject: AnyObject]?
         let version: AnyObject = info!["CFBundleShortVersionString"]!
@@ -155,7 +155,7 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         }
         dict["message"] = message
         
-        if count(category) > 0 {
+        if category!.characters.count > 0 {
             dict["category"] = category
         }
         if rating > 0 {
@@ -187,7 +187,7 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         // this currently works with our mandrill account. There is a limit of 2000 free messages.
         let params = ["toEmail":"bobbyren@gmail.com","toName":"Bobby Ren","fromEmail":"bobbyren@gmail.com","fromName":"Bobby Ren","text":"testing ManDrill email","subject":"this is just a test"]
         PFCloud.callFunctionInBackground("sendMail", withParameters: params) { (results, error) -> Void in
-            println("results: \(results) error: \(error)")
+            print("results: \(results) error: \(error)")
         }
     }
     /*

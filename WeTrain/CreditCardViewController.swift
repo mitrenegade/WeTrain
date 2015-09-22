@@ -47,12 +47,12 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
     
     // MARK: PTKViewDelegate
     func paymentView(paymentView: PTKView!, withCard card: PTKCard!, isValid valid: Bool) {
-        println("card entered")
+        print("card entered")
         self.navigationItem.rightBarButtonItem?.enabled = valid
     }
     
     func save() {
-        println("save card")
+        print("save card")
         let payment: PTKCard = self.paymentView!.card
         let card: STPCard = STPCard()
         card.number = payment.number
@@ -62,8 +62,8 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
         STPAPIClient.sharedClient().createTokenWithCard(card, completion: { (token, error) -> Void in
             if error != nil {
                 var message = "There was an error. Please try again"
-                println("error: \(error!.userInfo)")
-                if let dict: [NSObject: AnyObject] = error!.userInfo! as? [NSObject: AnyObject] {
+                print("error: \(error!.userInfo)")
+                if let dict: [NSObject: AnyObject] = error!.userInfo as? [NSObject: AnyObject] {
                     if let msg: String = dict["NSLocalizedDescription"] as? String {
                         message = msg
                     }
@@ -80,7 +80,7 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
             let tokenId: String = token.tokenId
             PFUser.currentUser()!.setObject(tokenId, forKey: "stripeToken")
             let number: String = self.paymentView!.card.number
-            let last4:String = number.substringFromIndex(advance(number.endIndex, -4))
+            let last4:String = number.substringFromIndex(number.endIndex.advancedBy(-4))
             PFUser.currentUser()!.setObject(last4, forKey: "stripeFour")
             PFUser.currentUser()!.saveInBackgroundWithBlock { (success, error) -> Void in
                 if error != nil {
@@ -93,7 +93,7 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
     }
     
     func simpleAlert(title: String?, message: String?) {
-        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
