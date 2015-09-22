@@ -3,5 +3,4 @@
 //
 
 #import "Stripe.h"
-#import "PTKView.h"
 #import "NSString+ValidateEmail.h"

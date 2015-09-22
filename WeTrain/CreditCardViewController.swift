@@ -79,7 +79,7 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
     func saveToken(token: STPToken) {
             let tokenId: String = token.tokenId
             PFUser.currentUser()!.setObject(tokenId, forKey: "stripeToken")
-            let number: String = self.paymentView!.card.number
+            let number: String = self.paymentView!.cardNumber!
             let last4:String = number.substringFromIndex(number.endIndex.advancedBy(-4))
             PFUser.currentUser()!.setObject(last4, forKey: "stripeFour")
             PFUser.currentUser()!.saveInBackgroundWithBlock { (success, error) -> Void in
