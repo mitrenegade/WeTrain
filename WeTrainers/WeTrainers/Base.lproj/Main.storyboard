@@ -172,7 +172,7 @@
         <!--Navigation Controller-->
         <scene sceneID="9Dy-Nv-wbc">
             <objects>
-                <navigationController id="f0B-oG-QVm" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SignupNavigationController" id="f0B-oG-QVm" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sZK-Ua-fQ2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -207,6 +207,9 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-textField-vUu-m2-Gbc"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="xGL-HD-BxJ" id="6aE-Re-zgY"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -232,7 +235,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-textField-iZQ-aF-0Dd"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="delegate" destination="F6s-0z-bKw" id="CDn-hJ-VTc"/>
+                                            <outlet property="delegate" destination="xGL-HD-BxJ" id="m12-Pr-68R"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -268,7 +271,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-textField-iZQ-aF-0Dd"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="delegate" destination="F6s-0z-bKw" id="row-ew-TbM"/>
+                                            <outlet property="delegate" destination="xGL-HD-BxJ" id="EjQ-br-4zg"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -295,7 +298,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-textField-iZQ-aF-0Dd"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="delegate" destination="F6s-0z-bKw" id="ubc-9G-qOo"/>
+                                            <outlet property="delegate" destination="xGL-HD-BxJ" id="3DG-Rp-HS0"/>
                                         </connections>
                                     </textField>
                                 </subviews>

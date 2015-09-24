@@ -22,14 +22,14 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Done, target: self, action: "didSignup:")
     }
 
     @IBAction func didClickAddPhoto(sender: UIButton) {
         
     }
     
-    @IBAction func didClickSignup(sender: UIButton) {
+    func didSignup(sender: AnyObject) {
         let firstName = self.inputFirstName.text
         if firstName?.characters.count == 0 {
             self.simpleAlert("Please enter your first name", message: nil)

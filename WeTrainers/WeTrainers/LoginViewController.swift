@@ -51,7 +51,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) -> Void in
             print("logged in")
             if user != nil {
-                self.loggedIn()
+                self.appDelegate().didLogin()
             }
             else {
                 let title = "Login error"
@@ -88,7 +88,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         user.signUpInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 print("signup succeeded")
-                self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
+                let trainerObject: PFObject = PFObject(className: "Trainer")
+                trainerObject.setObject(user, forKey: "user")
+                trainerObject.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    user.setObject(trainerObject, forKey: "trainer")
+                    user.saveInBackground()
+                    
+                    self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
+                })
             }
             else {
                 let title = "Signup error"
@@ -103,10 +110,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.simpleAlert(title, message: message)
             }
         }
-    }
-    
-    func loggedIn() {
-        self.appDelegate().didLogin()
     }
     
     // MARK: - TextFieldDelegate

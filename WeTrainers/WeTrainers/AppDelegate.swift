@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Bolts
 import Parse
-import GoogleMaps
+//import GoogleMaps
 
 //import Crashlytics
 //import GoogleMaps
@@ -141,11 +141,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("code: \(code)")
                     
                     // if code == 209, invalid token; just display login
+                    self.invalidLogin()
                 }
-                if let trainer: PFObject? = user!.objectForKey("trainer") as? PFObject {
-                    trainer!.fetchInBackgroundWithBlock({ (object, error) -> Void in
+            }
+            else {
+                if let trainer: PFObject = user!.objectForKey("trainer") as? PFObject {
+                    trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
                         if object != nil {
-                            self.goToLogin()
+                            if trainer.objectForKey("firstName") != nil && trainer.objectForKey("email") != nil && trainer.objectForKey("phone") != nil {
+
+                                // TODO: logged in
+                                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
+                                self.window!.rootViewController = controller
+                                
+                            }
+                            else {
+                                self.goToUserProfile()
+                            }
                         }
                         else {
                             self.invalidLogin()
@@ -156,10 +168,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.invalidLogin()
                 }
             }
-            else {
-                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
-                self.window!.rootViewController = controller
-            }
         })
     }
     
@@ -167,7 +175,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let controller: LoginViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         self.window!.rootViewController = controller
     }
-    
+
+    func goToUserProfile() {
+        let nav: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SignupNavigationController") as! UINavigationController
+        self.window!.rootViewController = nav
+    }
+
     func logout() {
         PFUser.logOutInBackgroundWithBlock { (error) -> Void in
             self.goToLogin()
