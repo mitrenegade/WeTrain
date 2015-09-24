@@ -127,9 +127,9 @@
 		AC26A2291BB0ED3A0068EFE3 /* WeTrainers */ = {
 			isa = PBXGroup;
 			children = (
-				AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */,
-				AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */,
 				AC26A2311BB0ED3A0068EFE3 /* Model.xcdatamodeld */,
+				AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */,
+				AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */,
 				ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */,
 				ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */,
 				ACFA6F121BB42C3400AC3927 /* Supporting Files */,

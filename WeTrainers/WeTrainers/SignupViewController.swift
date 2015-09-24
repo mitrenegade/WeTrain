@@ -23,6 +23,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Done, target: self, action: "didSignup:")
+
     }
 
     @IBAction func didClickAddPhoto(sender: UIButton) {
@@ -35,7 +36,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             self.simpleAlert("Please enter your first name", message: nil)
             return
         }
-        let lastName: String? = self.inputLastName.text
 
         let email = self.inputEmail.text
         if email?.characters.count == 0 {
@@ -61,21 +61,44 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             })
         }
 
-        // create trainer object
-        var trainerDict = ["firstName": firstName!, "email": email!, "phone": phone!];
-        if lastName != nil {
-            trainerDict["lastName"] = lastName!
+        // load existing trainer or create one
+        var trainer: PFObject!
+        if let trainerObject: PFObject = PFUser.currentUser()!.objectForKey("trainer") as? PFObject {
+            trainer = trainerObject
+            trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                if error != nil {
+                    self.simpleAlert("Error fetching trainer", message: "We could not load your trainer profile to update it.", completion: nil)
+                    return
+                }
+                else {
+                    self.updateTrainerProfile(trainer)
+                }
+            })
         }
-        let trainerObject: PFObject = PFObject(className: "Trainer", dictionary: trainerDict)
-        trainerObject.setObject(user!, forKey: "user")
-        trainerObject.saveInBackgroundWithBlock { (success, error) -> Void in
+        else {
+            trainer = PFObject(className: "Trainer")
+            self.updateTrainerProfile(trainer)
+        }
+    }
+    
+    func updateTrainerProfile(trainer: PFObject) {
+        // create trainer object
+        var trainerDict = ["firstName": self.inputFirstName.text!, "email": self.inputEmail.text!, "phone": self.inputPhone.text!];
+        if self.inputLastName.text != nil {
+            trainerDict["lastName"] = self.inputLastName.text!
+        }
+        trainer.setValuesForKeysWithDictionary(trainerDict)
+        let user = PFUser.currentUser()!
+        trainer.setObject(user, forKey: "user")
+
+        trainer.saveInBackgroundWithBlock { (success, error) -> Void in
             if error != nil {
                 self.simpleAlert("Error creating trainer", message: "We could not create your trainer profile.", completion: nil)
                 return
             }
             else {
-                user?.setObject(trainerObject, forKey: "trainer")
-                user?.saveInBackgroundWithBlock({ (success, error) -> Void in
+                user.setObject(trainer, forKey: "trainer")
+                user.saveInBackgroundWithBlock({ (success, error) -> Void in
                     if success {
                         print("signup succeeded")
                         self.appDelegate().didLogin()
