@@ -7,8 +7,14 @@
 //
 
 import UIKit
+import Parse
 
 class LoginViewController: UIViewController {
+
+    @IBOutlet var inputLogin: UITextField!
+    @IBOutlet var inputPassword: UITextField!
+    @IBOutlet var buttonLogin: UIButton!
+    @IBOutlet var buttonSignup: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +69,7 @@ class LoginViewController: UIViewController {
     }
     
     func loggedIn() {
-        appDelegate.didLogin()
+        self.appDelegate().didLogin()
     }
     
     // MARK: - TextFieldDelegate
@@ -71,14 +77,7 @@ class LoginViewController: UIViewController {
         textField.resignFirstResponder()
         return true
     }
-    
-    func simpleAlert(title: String?, message: String?) {
-        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-
-    
+        
     /*
     // MARK: - Navigation
 

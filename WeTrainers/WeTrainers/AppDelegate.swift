@@ -8,9 +8,10 @@
 
 import UIKit
 import CoreData
-import Parse
 import Bolts
-import Fabric
+import Parse
+import GoogleMaps
+
 //import Crashlytics
 //import GoogleMaps
 

@@ -29,7 +29,7 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func didClickSignup(sender: UIButton) {
-        if self.inputLogin.text?.characters.count == 0 {
+        if self.inputFirstName.text?.characters.count == 0 {
             self.simpleAlert("Please enter an email address", message: nil)
             return
         }

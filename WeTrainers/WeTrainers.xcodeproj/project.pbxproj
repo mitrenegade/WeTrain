@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20B82F9050D92C29A273B1BF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5610427FD486BBCD4DA2921 /* libPods.a */; };
 		AC26A22B1BB0ED3A0068EFE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */; };
 		AC26A2301BB0ED3A0068EFE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */; };
 		AC26A2331BB0ED3A0068EFE3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC26A2311BB0ED3A0068EFE3 /* Model.xcdatamodeld */; };
@@ -17,6 +16,8 @@
 		AC26A24E1BB0ED3B0068EFE3 /* WeTrainersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */; };
 		ACFA6F111BB41D6100AC3927 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */; };
 		ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */; };
+		ACFA6F1C1BB4323500AC3927 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */; settings = {ASSET_TAGS = (); }; };
+		D85DF688BAA691AA4613E87E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBE5EDDF73FB68B5782D451 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +40,7 @@
 /* Begin PBXFileReference section */
 		150346556E958FA747E2755F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		1A28A66F01E4403D66FC9EE0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		A5610427FD486BBCD4DA2921 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FBE5EDDF73FB68B5782D451 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC26A2271BB0ED3A0068EFE3 /* WeTrainers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeTrainers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC26A22F1BB0ED3A0068EFE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,6 +56,7 @@
 		AC26A24F1BB0ED3B0068EFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20B82F9050D92C29A273B1BF /* libPods.a in Frameworks */,
+				D85DF688BAA691AA4613E87E /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +97,7 @@
 		71ECB2DB9291E33A5FD455FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A5610427FD486BBCD4DA2921 /* libPods.a */,
+				1FBE5EDDF73FB68B5782D451 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -131,6 +133,7 @@
 				ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */,
 				ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */,
 				ACFA6F121BB42C3400AC3927 /* Supporting Files */,
+				ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */,
 			);
 			path = WeTrainers;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				AC26A2241BB0ED3A0068EFE3 /* Frameworks */,
 				AC26A2251BB0ED3A0068EFE3 /* Resources */,
 				4518479C4954078792B17B4B /* Copy Pods Resources */,
+				C29F58761C5D7285F5C0142B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -321,6 +325,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		C29F58761C5D7285F5C0142B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -332,6 +351,7 @@
 				AC26A22B1BB0ED3A0068EFE3 /* AppDelegate.swift in Sources */,
 				ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */,
 				AC26A2331BB0ED3A0068EFE3 /* Model.xcdatamodeld in Sources */,
+				ACFA6F1C1BB4323500AC3927 /* UIViewController+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
