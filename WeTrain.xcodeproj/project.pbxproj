@@ -13,13 +13,11 @@
 		AC51D1761B84BBFF00E1DF02 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = AC51D1751B84BBFF00E1DF02 /* main.js */; };
 		AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */; };
 		AC7909341B6C455F00085FB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909331B6C455F00085FB6 /* AppDelegate.swift */; };
-		AC7909371B6C455F00085FB6 /* WeTrain.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC7909351B6C455F00085FB6 /* WeTrain.xcdatamodeld */; };
+		AC7909371B6C455F00085FB6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC7909351B6C455F00085FB6 /* Model.xcdatamodeld */; };
 		AC79093C1B6C455F00085FB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC79093A1B6C455F00085FB6 /* Main.storyboard */; };
 		AC79093E1B6C455F00085FB6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC79093D1B6C455F00085FB6 /* Images.xcassets */; };
 		AC7909411B6C455F00085FB6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC79093F1B6C455F00085FB6 /* LaunchScreen.xib */; };
 		AC79094D1B6C455F00085FB6 /* WeTrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC79094C1B6C455F00085FB6 /* WeTrainTests.swift */; };
-		AC7909611B6D513100085FB6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC79095F1B6D513100085FB6 /* Bolts.framework */; };
-		AC7909621B6D513100085FB6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909601B6D513100085FB6 /* Parse.framework */; };
 		AC7909641B6D514200085FB6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909631B6D514200085FB6 /* AudioToolbox.framework */; };
 		AC7909661B6D514700085FB6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909651B6D514700085FB6 /* CFNetwork.framework */; };
 		AC7909681B6D514C00085FB6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909671B6D514C00085FB6 /* CoreGraphics.framework */; };
@@ -66,15 +64,13 @@
 		AC79092E1B6C455F00085FB6 /* WeTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC7909321B6C455F00085FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC7909331B6C455F00085FB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AC7909361B6C455F00085FB6 /* WeTrain.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeTrain.xcdatamodel; sourceTree = "<group>"; };
+		AC7909361B6C455F00085FB6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		AC79093B1B6C455F00085FB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC79093D1B6C455F00085FB6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AC7909401B6C455F00085FB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		AC7909461B6C455F00085FB6 /* WeTrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeTrainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC79094B1B6C455F00085FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC79094C1B6C455F00085FB6 /* WeTrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeTrainTests.swift; sourceTree = "<group>"; };
-		AC79095F1B6D513100085FB6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		AC7909601B6D513100085FB6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		AC7909631B6D514200085FB6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		AC7909651B6D514700085FB6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		AC7909671B6D514C00085FB6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -116,8 +112,6 @@
 				AC7909661B6D514700085FB6 /* CFNetwork.framework in Frameworks */,
 				AC79097E1B6D549700085FB6 /* Fabric.framework in Frameworks */,
 				AC7909641B6D514200085FB6 /* AudioToolbox.framework in Frameworks */,
-				AC7909621B6D513100085FB6 /* Parse.framework in Frameworks */,
-				AC7909611B6D513100085FB6 /* Bolts.framework in Frameworks */,
 				E84A72A6D85BF4E26410543A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,15 +138,6 @@
 		58E896E55C69332B7809E4D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7BEEAF65A38F5FAC21F6B91A /* libPods.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AC7909251B6C455F00085FB6 = {
-			isa = PBXGroup;
-			children = (
-				AC51D1751B84BBFF00E1DF02 /* main.js */,
 				AC79097C1B6D549700085FB6 /* Fabric.framework */,
 				AC79097D1B6D549700085FB6 /* Crashlytics.framework */,
 				AC7909791B6D517E00085FB6 /* Social.framework */,
@@ -166,8 +151,15 @@
 				AC7909671B6D514C00085FB6 /* CoreGraphics.framework */,
 				AC7909651B6D514700085FB6 /* CFNetwork.framework */,
 				AC7909631B6D514200085FB6 /* AudioToolbox.framework */,
-				AC79095F1B6D513100085FB6 /* Bolts.framework */,
-				AC7909601B6D513100085FB6 /* Parse.framework */,
+				7BEEAF65A38F5FAC21F6B91A /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AC7909251B6C455F00085FB6 = {
+			isa = PBXGroup;
+			children = (
+				AC51D1751B84BBFF00E1DF02 /* main.js */,
 				AC7909301B6C455F00085FB6 /* WeTrain */,
 				AC7909491B6C455F00085FB6 /* WeTrainTests */,
 				AC79092F1B6C455F00085FB6 /* Products */,
@@ -203,7 +195,7 @@
 				AC9760EE1B7167F70060D5D1 /* DoctorProfileViewController.swift */,
 				AC7909801B6D5D7000085FB6 /* Map.storyboard */,
 				AC79093F1B6C455F00085FB6 /* LaunchScreen.xib */,
-				AC7909351B6C455F00085FB6 /* WeTrain.xcdatamodeld */,
+				AC7909351B6C455F00085FB6 /* Model.xcdatamodeld */,
 				AC7909311B6C455F00085FB6 /* Supporting Files */,
 				AC6FB2C61B820702004109B6 /* WeTrain-Bridging-Header.h */,
 			);
@@ -396,7 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */,
-				AC7909371B6C455F00085FB6 /* WeTrain.xcdatamodeld in Sources */,
+				AC7909371B6C455F00085FB6 /* Model.xcdatamodeld in Sources */,
 				AC7909341B6C455F00085FB6 /* AppDelegate.swift in Sources */,
 				AC51D1741B84A57B00E1DF02 /* FeedbackViewController.swift in Sources */,
 				ACA6B8EF1B6E62B800AAA992 /* VisitRequestViewController.swift in Sources */,
@@ -642,13 +634,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		AC7909351B6C455F00085FB6 /* WeTrain.xcdatamodeld */ = {
+		AC7909351B6C455F00085FB6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				AC7909361B6C455F00085FB6 /* WeTrain.xcdatamodel */,
+				AC7909361B6C455F00085FB6 /* Model.xcdatamodel */,
 			);
-			currentVersion = AC7909361B6C455F00085FB6 /* WeTrain.xcdatamodel */;
-			path = WeTrain.xcdatamodeld;
+			currentVersion = AC7909361B6C455F00085FB6 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

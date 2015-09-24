@@ -1,18 +1,19 @@
 //
 //  AppDelegate.swift
-//  WeTrain
+//  WeTrainers
 //
-//  Created by Bobby Ren on 7/31/15.
-//  Copyright (c) 2015 Bobby Ren. All rights reserved.
+//  Created by Bobby Ren on 9/21/15.
+//  Copyright © 2015 Bobby Ren. All rights reserved.
 //
 
 import UIKit
 import CoreData
-import Parse
 import Bolts
-import Fabric
-import Crashlytics
-import GoogleMaps
+import Parse
+//import GoogleMaps
+
+//import Crashlytics
+//import GoogleMaps
 
 let GOOGLE_API_APP_KEY = "AIzaSyA7aDRZVW3-ruvbeB25tzJF5WKr0FjyRac"
 //let STRIPE_PUBLISHABLE_KEY = "pk_test_xG5SMQiERYrdgLdukSEnH46E"
@@ -22,7 +23,6 @@ let PARSE_APP_ID = "hezlwzG8F2RaalhHOVsUrpn5xN2KNtDa8VTgd8ea"
 let PARSE_CLIENT_KEY = "J0ZkdjRLVBIgaPKAAkVEvGzBQymjv2nUeaPBZkM7"
 
 @UIApplicationMain
-
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -35,20 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-        
-        Fabric.with([Crashlytics()])
-        
-        // google maps
-        GMSServices.provideAPIKey(GOOGLE_API_APP_KEY)
-        
-        Stripe.setDefaultPublishableKey(STRIPE_PUBLISHABLE_KEY)
-        
+
         if (PFUser.currentUser() != nil) {
             self.didLogin()
         }
         else {
             self.goToLogin()
         }
+
         return true
     }
 
@@ -77,24 +71,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Core Data stack
-    
+
     lazy var applicationDocumentsDirectory: NSURL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "tech.bobbyren.TestCoreData" in the application's documents Application Support directory.
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "com.wetrain.WeTrainers" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
-        }()
-    
+        return urls[urls.count-1]
+    }()
+
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
         let modelURL = NSBundle.mainBundle().URLForResource("Model", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
-        }()
-    
+    }()
+
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("WeTrain.sqlite")
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("WeTrainPT")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
@@ -103,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var dict = [String: AnyObject]()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
-            
+
             dict[NSUnderlyingErrorKey] = error as NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
@@ -113,18 +107,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return coordinator
-        }()
-    
+    }()
+
     lazy var managedObjectContext: NSManagedObjectContext = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
-        }()
-    
+    }()
+
     // MARK: - Core Data Saving support
-    
+
     func saveContext () {
         if managedObjectContext.hasChanges {
             do {
@@ -138,28 +132,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
+
     func didLogin() {
-        PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user, error) -> Void in
+        PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user: PFObject?, error) -> Void in
             if error != nil {
-                if let userInfo: [NSObject: AnyObject] = error!.userInfo as? [NSObject: AnyObject] {
+                if let userInfo: [NSObject: AnyObject] = error!.userInfo {
                     let code = userInfo["code"] as! Int
                     print("code: \(code)")
                     
                     // if code == 209, invalid token; just display login
+                    self.invalidLogin()
                 }
-                self.goToLogin()
             }
             else {
-                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
-                self.window!.rootViewController = controller
+                if let trainer: PFObject = user!.objectForKey("trainer") as? PFObject {
+                    trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                        if object != nil {
+                            if trainer.objectForKey("firstName") != nil && trainer.objectForKey("email") != nil && trainer.objectForKey("phone") != nil {
+
+                                // TODO: logged in
+                                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
+                                self.window!.rootViewController = controller
+                                
+                            }
+                            else {
+                                self.goToUserProfile()
+                            }
+                        }
+                        else {
+                            self.invalidLogin()
+                        }
+                    })
+                }
+                else {
+                    self.invalidLogin()
+                }
             }
         })
     }
     
     func goToLogin() {
-        let controller: UIViewController?  = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController() as UIViewController?
+        let controller: LoginViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         self.window!.rootViewController = controller
+    }
+
+    func goToUserProfile() {
+        let nav: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SignupNavigationController") as! UINavigationController
+        self.window!.rootViewController = nav
     }
 
     func logout() {
@@ -167,5 +186,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.goToLogin()
         }
     }
+    
+    func invalidLogin() {
+        let alert = UIViewController.simpleAlert("Invalid trainer", message: "We could not log you in as a trainer.", completion: { () -> Void in
+            self.logout()
+        })
+        self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+    }
+
 }
+
 
