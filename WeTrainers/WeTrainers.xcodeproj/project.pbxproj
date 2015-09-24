@@ -1,0 +1,597 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		20B82F9050D92C29A273B1BF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5610427FD486BBCD4DA2921 /* libPods.a */; };
+		AC26A22B1BB0ED3A0068EFE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */; };
+		AC26A2301BB0ED3A0068EFE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */; };
+		AC26A2331BB0ED3A0068EFE3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC26A2311BB0ED3A0068EFE3 /* Model.xcdatamodeld */; };
+		AC26A2351BB0ED3A0068EFE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC26A2341BB0ED3A0068EFE3 /* Assets.xcassets */; };
+		AC26A2381BB0ED3A0068EFE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC26A2361BB0ED3A0068EFE3 /* LaunchScreen.storyboard */; };
+		AC26A2431BB0ED3B0068EFE3 /* WeTrainersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A2421BB0ED3B0068EFE3 /* WeTrainersTests.swift */; };
+		AC26A24E1BB0ED3B0068EFE3 /* WeTrainersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */; };
+		ACFA6F111BB41D6100AC3927 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */; };
+		ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AC26A23F1BB0ED3B0068EFE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC26A21F1BB0ED3A0068EFE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC26A2261BB0ED3A0068EFE3;
+			remoteInfo = WeTrainers;
+		};
+		AC26A24A1BB0ED3B0068EFE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC26A21F1BB0ED3A0068EFE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC26A2261BB0ED3A0068EFE3;
+			remoteInfo = WeTrainers;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		150346556E958FA747E2755F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		1A28A66F01E4403D66FC9EE0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		A5610427FD486BBCD4DA2921 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC26A2271BB0ED3A0068EFE3 /* WeTrainers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeTrainers.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AC26A22F1BB0ED3A0068EFE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AC26A2321BB0ED3A0068EFE3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		AC26A2341BB0ED3A0068EFE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AC26A2371BB0ED3A0068EFE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AC26A2391BB0ED3A0068EFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC26A23E1BB0ED3B0068EFE3 /* WeTrainersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeTrainersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC26A2421BB0ED3B0068EFE3 /* WeTrainersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeTrainersTests.swift; sourceTree = "<group>"; };
+		AC26A2441BB0ED3B0068EFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC26A2491BB0ED3B0068EFE3 /* WeTrainersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeTrainersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeTrainersUITests.swift; sourceTree = "<group>"; };
+		AC26A24F1BB0ED3B0068EFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC26A2241BB0ED3A0068EFE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20B82F9050D92C29A273B1BF /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC26A23B1BB0ED3B0068EFE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC26A2461BB0ED3B0068EFE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		219E97399EED09F90D60176A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				150346556E958FA747E2755F /* Pods.debug.xcconfig */,
+				1A28A66F01E4403D66FC9EE0 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		71ECB2DB9291E33A5FD455FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5610427FD486BBCD4DA2921 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AC26A21E1BB0ED3A0068EFE3 = {
+			isa = PBXGroup;
+			children = (
+				AC26A2291BB0ED3A0068EFE3 /* WeTrainers */,
+				AC26A2411BB0ED3B0068EFE3 /* WeTrainersTests */,
+				AC26A24C1BB0ED3B0068EFE3 /* WeTrainersUITests */,
+				AC26A2281BB0ED3A0068EFE3 /* Products */,
+				219E97399EED09F90D60176A /* Pods */,
+				71ECB2DB9291E33A5FD455FB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AC26A2281BB0ED3A0068EFE3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC26A2271BB0ED3A0068EFE3 /* WeTrainers.app */,
+				AC26A23E1BB0ED3B0068EFE3 /* WeTrainersTests.xctest */,
+				AC26A2491BB0ED3B0068EFE3 /* WeTrainersUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC26A2291BB0ED3A0068EFE3 /* WeTrainers */ = {
+			isa = PBXGroup;
+			children = (
+				AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */,
+				AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */,
+				AC26A2311BB0ED3A0068EFE3 /* Model.xcdatamodeld */,
+				ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */,
+				ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */,
+				ACFA6F121BB42C3400AC3927 /* Supporting Files */,
+			);
+			path = WeTrainers;
+			sourceTree = "<group>";
+		};
+		AC26A2411BB0ED3B0068EFE3 /* WeTrainersTests */ = {
+			isa = PBXGroup;
+			children = (
+				AC26A2421BB0ED3B0068EFE3 /* WeTrainersTests.swift */,
+				AC26A2441BB0ED3B0068EFE3 /* Info.plist */,
+			);
+			path = WeTrainersTests;
+			sourceTree = "<group>";
+		};
+		AC26A24C1BB0ED3B0068EFE3 /* WeTrainersUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */,
+				AC26A24F1BB0ED3B0068EFE3 /* Info.plist */,
+			);
+			path = WeTrainersUITests;
+			sourceTree = "<group>";
+		};
+		ACFA6F121BB42C3400AC3927 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AC26A2341BB0ED3A0068EFE3 /* Assets.xcassets */,
+				AC26A2361BB0ED3A0068EFE3 /* LaunchScreen.storyboard */,
+				AC26A2391BB0ED3A0068EFE3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AC26A2261BB0ED3A0068EFE3 /* WeTrainers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC26A2521BB0ED3B0068EFE3 /* Build configuration list for PBXNativeTarget "WeTrainers" */;
+			buildPhases = (
+				97EB4FE62671A996FC3FC4A5 /* Check Pods Manifest.lock */,
+				AC26A2231BB0ED3A0068EFE3 /* Sources */,
+				AC26A2241BB0ED3A0068EFE3 /* Frameworks */,
+				AC26A2251BB0ED3A0068EFE3 /* Resources */,
+				4518479C4954078792B17B4B /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeTrainers;
+			productName = WeTrainers;
+			productReference = AC26A2271BB0ED3A0068EFE3 /* WeTrainers.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AC26A23D1BB0ED3B0068EFE3 /* WeTrainersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC26A2551BB0ED3B0068EFE3 /* Build configuration list for PBXNativeTarget "WeTrainersTests" */;
+			buildPhases = (
+				AC26A23A1BB0ED3B0068EFE3 /* Sources */,
+				AC26A23B1BB0ED3B0068EFE3 /* Frameworks */,
+				AC26A23C1BB0ED3B0068EFE3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC26A2401BB0ED3B0068EFE3 /* PBXTargetDependency */,
+			);
+			name = WeTrainersTests;
+			productName = WeTrainersTests;
+			productReference = AC26A23E1BB0ED3B0068EFE3 /* WeTrainersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AC26A2481BB0ED3B0068EFE3 /* WeTrainersUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC26A2581BB0ED3B0068EFE3 /* Build configuration list for PBXNativeTarget "WeTrainersUITests" */;
+			buildPhases = (
+				AC26A2451BB0ED3B0068EFE3 /* Sources */,
+				AC26A2461BB0ED3B0068EFE3 /* Frameworks */,
+				AC26A2471BB0ED3B0068EFE3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC26A24B1BB0ED3B0068EFE3 /* PBXTargetDependency */,
+			);
+			name = WeTrainersUITests;
+			productName = WeTrainersUITests;
+			productReference = AC26A2491BB0ED3B0068EFE3 /* WeTrainersUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC26A21F1BB0ED3A0068EFE3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Bobby Ren";
+				TargetAttributes = {
+					AC26A2261BB0ED3A0068EFE3 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					AC26A23D1BB0ED3B0068EFE3 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = AC26A2261BB0ED3A0068EFE3;
+					};
+					AC26A2481BB0ED3B0068EFE3 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = AC26A2261BB0ED3A0068EFE3;
+					};
+				};
+			};
+			buildConfigurationList = AC26A2221BB0ED3A0068EFE3 /* Build configuration list for PBXProject "WeTrainers" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AC26A21E1BB0ED3A0068EFE3;
+			productRefGroup = AC26A2281BB0ED3A0068EFE3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC26A2261BB0ED3A0068EFE3 /* WeTrainers */,
+				AC26A23D1BB0ED3B0068EFE3 /* WeTrainersTests */,
+				AC26A2481BB0ED3B0068EFE3 /* WeTrainersUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC26A2251BB0ED3A0068EFE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC26A2381BB0ED3A0068EFE3 /* LaunchScreen.storyboard in Resources */,
+				AC26A2351BB0ED3A0068EFE3 /* Assets.xcassets in Resources */,
+				AC26A2301BB0ED3A0068EFE3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC26A23C1BB0ED3B0068EFE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC26A2471BB0ED3B0068EFE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4518479C4954078792B17B4B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97EB4FE62671A996FC3FC4A5 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC26A2231BB0ED3A0068EFE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACFA6F111BB41D6100AC3927 /* LoginViewController.swift in Sources */,
+				AC26A22B1BB0ED3A0068EFE3 /* AppDelegate.swift in Sources */,
+				ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */,
+				AC26A2331BB0ED3A0068EFE3 /* Model.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC26A23A1BB0ED3B0068EFE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC26A2431BB0ED3B0068EFE3 /* WeTrainersTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC26A2451BB0ED3B0068EFE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC26A24E1BB0ED3B0068EFE3 /* WeTrainersUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AC26A2401BB0ED3B0068EFE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC26A2261BB0ED3A0068EFE3 /* WeTrainers */;
+			targetProxy = AC26A23F1BB0ED3B0068EFE3 /* PBXContainerItemProxy */;
+		};
+		AC26A24B1BB0ED3B0068EFE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC26A2261BB0ED3A0068EFE3 /* WeTrainers */;
+			targetProxy = AC26A24A1BB0ED3B0068EFE3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC26A22F1BB0ED3A0068EFE3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AC26A2361BB0ED3A0068EFE3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC26A2371BB0ED3A0068EFE3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AC26A2501BB0ED3B0068EFE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AC26A2511BB0ED3B0068EFE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AC26A2531BB0ED3B0068EFE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 150346556E958FA747E2755F /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = WeTrainers/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainers.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AC26A2541BB0ED3B0068EFE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A28A66F01E4403D66FC9EE0 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = WeTrainers/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainers.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		AC26A2561BB0ED3B0068EFE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = WeTrainersTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.WeTrainersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeTrainers.app/WeTrainers";
+			};
+			name = Debug;
+		};
+		AC26A2571BB0ED3B0068EFE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = WeTrainersTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.WeTrainersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeTrainers.app/WeTrainers";
+			};
+			name = Release;
+		};
+		AC26A2591BB0ED3B0068EFE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = WeTrainersUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.WeTrainersUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = WeTrainers;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		AC26A25A1BB0ED3B0068EFE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = WeTrainersUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.WeTrainersUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = WeTrainers;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC26A2221BB0ED3A0068EFE3 /* Build configuration list for PBXProject "WeTrainers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC26A2501BB0ED3B0068EFE3 /* Debug */,
+				AC26A2511BB0ED3B0068EFE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC26A2521BB0ED3B0068EFE3 /* Build configuration list for PBXNativeTarget "WeTrainers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC26A2531BB0ED3B0068EFE3 /* Debug */,
+				AC26A2541BB0ED3B0068EFE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC26A2551BB0ED3B0068EFE3 /* Build configuration list for PBXNativeTarget "WeTrainersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC26A2561BB0ED3B0068EFE3 /* Debug */,
+				AC26A2571BB0ED3B0068EFE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC26A2581BB0ED3B0068EFE3 /* Build configuration list for PBXNativeTarget "WeTrainersUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC26A2591BB0ED3B0068EFE3 /* Debug */,
+				AC26A25A1BB0ED3B0068EFE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AC26A2311BB0ED3A0068EFE3 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AC26A2321BB0ED3A0068EFE3 /* Model.xcdatamodel */,
+			);
+			currentVersion = AC26A2321BB0ED3A0068EFE3 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = AC26A21F1BB0ED3A0068EFE3 /* Project object */;
+}
