@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4Ok-g1-ZfQ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="Rx2-YJ-6fd">
+            <objects>
+                <viewController id="4Ok-g1-ZfQ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ss8-26-T1L"/>
+                        <viewControllerLayoutGuide type="bottom" id="h8P-Tg-Of5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Kgf-8w-HHb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="68e-pK-Eob" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1635" y="258"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="xzm-NT-MqK">
             <objects>
@@ -52,7 +70,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="didClickSignup:" destination="F6s-0z-bKw" eventType="touchUpInside" id="sPe-ba-56O"/>
-                                    <segue destination="f0B-oG-QVm" kind="presentation" id="8pK-V1-0c1"/>
                                 </connections>
                             </button>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Logo Only v4b" translatesAutoresizingMaskIntoConstraints="NO" id="l7e-TC-JjZ">
@@ -145,6 +162,7 @@
                         <outlet property="buttonSignup" destination="VTo-53-0RB" id="7P3-1f-qQ7"/>
                         <outlet property="inputLogin" destination="f88-bF-zo7" id="Dzc-5V-qvM"/>
                         <outlet property="inputPassword" destination="yQu-Gk-5Y7" id="DoN-Oq-MtC"/>
+                        <segue destination="f0B-oG-QVm" kind="presentation" identifier="GoToUserInfo" id="aKm-96-x2a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Du-e6-6QJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -160,17 +178,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="xGL-HD-BxJ" kind="relationship" relationship="rootViewController" id="k6K-5h-qBi"/>
+                        <segue destination="xGL-HD-BxJ" kind="relationship" relationship="rootViewController" id="Mxv-Yr-AaE"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="etw-AE-O8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-221" y="252"/>
         </scene>
-        <!--View Controller-->
+        <!--Signup View Controller-->
         <scene sceneID="xqy-ad-9hL">
             <objects>
-                <viewController id="xGL-HD-BxJ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignupViewController" id="xGL-HD-BxJ" customClass="SignupViewController" customModule="WeTrainers" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Smb-qm-cQg"/>
                         <viewControllerLayoutGuide type="bottom" id="ejT-ju-RBJ"/>
@@ -189,9 +207,6 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-textField-vUu-m2-Gbc"/>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="F6s-0z-bKw" id="tlu-A2-8bI"/>
-                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -340,6 +355,12 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="aac-bf-XEf"/>
+                    <connections>
+                        <outlet property="inputEmail" destination="N7I-TU-Sz8" id="4f5-tb-Xz6"/>
+                        <outlet property="inputFirstName" destination="B0Y-oj-1Tc" id="lA8-ya-7yU"/>
+                        <outlet property="inputLastName" destination="agW-VZ-2UD" id="Cus-W5-WgL"/>
+                        <outlet property="inputPhone" destination="LJu-zH-4eI" id="tjY-uZ-UqK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yWo-KO-79s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

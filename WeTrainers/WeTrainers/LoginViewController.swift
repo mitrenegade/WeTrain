@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var inputLogin: UITextField!
     @IBOutlet var inputPassword: UITextField!
@@ -61,6 +61,43 @@ class LoginViewController: UIViewController {
                 }
                 else if error?.code == 101 {
                     message = "Invalid username or password"
+                }
+                
+                self.simpleAlert(title, message: message)
+            }
+        }
+    }
+    
+    @IBAction func didClickSignup(sender: UIButton) {
+        if self.inputLogin.text?.characters.count == 0 {
+            self.simpleAlert("Please enter a username", message: nil)
+            return
+        }
+        if self.inputPassword.text?.characters.count == 0 {
+            self.simpleAlert("Please enter a password", message: nil)
+            return
+        }
+        
+        let username = self.inputLogin.text
+        let password = self.inputPassword.text
+        
+        let user = PFUser()
+        user.username = username
+        user.password = password
+        
+        user.signUpInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                print("signup succeeded")
+                self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
+            }
+            else {
+                let title = "Signup error"
+                var message: String?
+                if error?.code == 100 {
+                    message = "Please check your internet connection"
+                }
+                else if error?.code == 202 {
+                    message = "Username already taken"
                 }
                 
                 self.simpleAlert(title, message: message)

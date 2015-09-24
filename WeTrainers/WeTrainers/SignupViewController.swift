@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Parse
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var inputFirstName: UITextField!
     @IBOutlet var inputLastName: UITextField!
@@ -29,47 +30,69 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func didClickSignup(sender: UIButton) {
-        if self.inputFirstName.text?.characters.count == 0 {
-            self.simpleAlert("Please enter an email address", message: nil)
+        let firstName = self.inputFirstName.text
+        if firstName?.characters.count == 0 {
+            self.simpleAlert("Please enter your first name", message: nil)
             return
         }
-        if self.inputPassword.text?.characters.count == 0 {
-            self.simpleAlert("Please enter a password", message: nil)
+        let lastName: String? = self.inputLastName.text
+
+        let email = self.inputEmail.text
+        if email?.characters.count == 0 {
+            self.simpleAlert("Please enter an email", message: nil)
             return
         }
-        
-        let email:NSString = self.inputLogin.text! as NSString
-        if !email.isValidEmail() {
+        if !self.isValidEmail(email!) {
             self.simpleAlert("Please enter a valid email address", message: nil)
             return
         }
-        
-        let username = self.inputLogin.text
-        let password = self.inputPassword.text
-        
-        let user = PFUser()
-        user.username = username
-        user.password = password
-        
-        if email.isValidEmail() {
-            user.email = username
+
+        let phone = self.inputPhone.text
+        if phone?.characters.count == 0 {
+            self.simpleAlert("Please enter a valid phone number", message: nil)
+            return
         }
-        user.signUpInBackgroundWithBlock { (success, error) -> Void in
-            if success {
-                print("signup succeeded")
-                self.loggedIn()
+
+        // make sure user exists
+        let user = PFUser.currentUser()
+        if user == nil {
+            self.simpleAlert("Invalid user", message: "You are not currently signed in. Please sign in again", completion: { () -> Void in
+                self.appDelegate().goToLogin()
+            })
+        }
+
+        // create trainer object
+        var trainerDict = ["firstName": firstName!, "email": email!, "phone": phone!];
+        if lastName != nil {
+            trainerDict["lastName"] = lastName!
+        }
+        let trainerObject: PFObject = PFObject(className: "Trainer", dictionary: trainerDict)
+        trainerObject.setObject(user!, forKey: "user")
+        trainerObject.saveInBackgroundWithBlock { (success, error) -> Void in
+            if error != nil {
+                self.simpleAlert("Error creating trainer", message: "We could not create your trainer profile.", completion: nil)
+                return
             }
             else {
-                let title = "Signup error"
-                var message: String?
-                if error?.code == 100 {
-                    message = "Please check your internet connection"
-                }
-                else if error?.code == 202 {
-                    message = "Username already taken"
-                }
-                
-                self.simpleAlert(title, message: message)
+                user?.setObject(trainerObject, forKey: "trainer")
+                user?.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    if success {
+                        print("signup succeeded")
+                        self.appDelegate().didLogin()
+                    }
+                    else {
+                        let title = "Signup error"
+                        var message: String?
+                        if error?.code == 100 {
+                            message = "Please check your internet connection"
+                        }
+                        else if error?.code == 202 {
+                            message = "Username already taken"
+                        }
+                        
+                        self.simpleAlert(title, message: message)
+                    }
+                })
             }
         }
     }
@@ -79,6 +102,11 @@ class SignupViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - TextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
     /*
     // MARK: - Navigation

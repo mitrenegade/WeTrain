@@ -134,15 +134,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func didLogin() {
-        PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user, error) -> Void in
+        PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user: PFObject?, error) -> Void in
             if error != nil {
-                if let userInfo: [NSObject: AnyObject] = error!.userInfo as? [NSObject: AnyObject] {
+                if let userInfo: [NSObject: AnyObject] = error!.userInfo {
                     let code = userInfo["code"] as! Int
                     print("code: \(code)")
                     
                     // if code == 209, invalid token; just display login
                 }
-                self.goToLogin()
+                if let trainer: PFObject? = user!.objectForKey("trainer") as? PFObject {
+                    trainer!.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                        if object != nil {
+                            self.goToLogin()
+                        }
+                        else {
+                            self.invalidLogin()
+                        }
+                    })
+                }
+                else {
+                    self.invalidLogin()
+                }
             }
             else {
                 let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
@@ -152,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func goToLogin() {
-        let controller: UIViewController?  = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController() as UIViewController?
+        let controller: LoginViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         self.window!.rootViewController = controller
     }
     
@@ -160,6 +172,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFUser.logOutInBackgroundWithBlock { (error) -> Void in
             self.goToLogin()
         }
+    }
+    
+    func invalidLogin() {
+        let alert = UIViewController.simpleAlert("Invalid trainer", message: "We could not log you in as a trainer.", completion: { () -> Void in
+            self.logout()
+        })
+        self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
     }
 
 }
