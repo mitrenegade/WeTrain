@@ -18,6 +18,8 @@ let GOOGLE_API_APP_KEY = "AIzaSyA7aDRZVW3-ruvbeB25tzJF5WKr0FjyRac"
 //let STRIPE_PUBLISHABLE_KEY = "pk_test_xG5SMQiERYrdgLdukSEnH46E"
 // TODO: switch to this when published
 let STRIPE_PUBLISHABLE_KEY = "pk_live_MzmtjIQ0XLqVuhWXzPzmVCX9"
+let PARSE_APP_ID = "hezlwzG8F2RaalhHOVsUrpn5xN2KNtDa8VTgd8ea"
+let PARSE_CLIENT_KEY = "J0ZkdjRLVBIgaPKAAkVEvGzBQymjv2nUeaPBZkM7"
 
 @UIApplicationMain
 
@@ -28,8 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        Parse.setApplicationId("hezlwzG8F2RaalhHOVsUrpn5xN2KNtDa8VTgd8ea",
-            clientKey: "J0ZkdjRLVBIgaPKAAkVEvGzBQymjv2nUeaPBZkM7")
+        Parse.setApplicationId(PARSE_APP_ID,
+            clientKey: PARSE_CLIENT_KEY)
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
@@ -84,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("WeTrain", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource("Model", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
         }()
     
