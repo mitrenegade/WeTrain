@@ -239,6 +239,12 @@
 				TargetAttributes = {
 					AC26A2261BB0ED3A0068EFE3 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = H799H8B8DD;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					AC26A23D1BB0ED3B0068EFE3 = {
 						CreatedOnToolsVersion = 7.0;
@@ -496,10 +502,14 @@
 			baseConfigurationReference = 150346556E958FA747E2755F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WeTrainers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainers.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainer.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2947b7dd-1f34-4d7e-a64c-23404ec43bcc";
 			};
 			name = Debug;
 		};
@@ -508,10 +518,14 @@
 			baseConfigurationReference = 1A28A66F01E4403D66FC9EE0 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WeTrainers/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainers.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainer.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2947b7dd-1f34-4d7e-a64c-23404ec43bcc";
 			};
 			name = Release;
 		};
