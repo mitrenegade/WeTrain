@@ -24,15 +24,22 @@ class ConnectViewController: UIViewController {
         // Do any additional setup after loading the view.
         if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
             self.status = "disconnected"
-            self.labelStatus.text = "Notifications are not enabled"
-            self.buttonAction.setTitle("Enable Notifications", forState: .Normal)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "pushEnabled", name: "push:enabled", object: nil)
         }
         else {
-            self.refreshStatus()
+            let user = PFUser.currentUser()!
+            let trainer = user.objectForKey("trainer") as! PFObject
+            status = trainer.objectForKey("status") as? String
         }
-        
+        self.refreshStatus()
+
+        // listen for push enabled
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "pushEnabled", name: "push:enabled", object: nil)
+
+        // listen for push failure
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "warnForRemoteNotificationRegistrationFailure", name: "push:enable:failed", object: nil)
+
+        // listen for request notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveRequest:", name: "request:received", object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -45,42 +52,6 @@ class ConnectViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func didClickButton(sender: UIButton) {
-        let user = PFUser.currentUser()!
-        let trainer = user.objectForKey("trainer") as! PFObject
-        self.status = trainer.objectForKey("status") as? String
-
-        if self.status == "disconnected" {
-            self.registerForRemoteNotifications()
-        }
-        else if self.status == "off" || self.status == nil {
-            // start a shift
-            trainer.setObject("available", forKey: "status")
-            trainer.saveInBackgroundWithBlock({ (success, error) -> Void in
-                self.refreshStatus()
-            })
-        }
-        else if self.status == "available" {
-            // end a shift
-            trainer.setObject("off", forKey: "status")
-            trainer.saveInBackgroundWithBlock({ (success, error) -> Void in
-                self.refreshStatus()
-            })
-        }
-        else if self.status == "connecting" {
-            trainer.setObject("training", forKey: "status")
-            trainer.saveInBackgroundWithBlock({ (success, error) -> Void in
-                self.refreshStatus()
-            })
-        }
-        else if self.status == "training" {
-            trainer.setObject("available", forKey: "status")
-            trainer.saveInBackgroundWithBlock({ (success, error) -> Void in
-                self.refreshStatus()
-            })
-        }
-    }
-
     func registerForRemoteNotifications() {
         let alert = UIAlertController(title: "Enable push notifications?", message: "To receive client notifications you must enable push. In the next popup, please click Yes.", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
@@ -124,13 +95,51 @@ class ConnectViewController: UIViewController {
         self.refreshStatus()
     }
     
-    func refreshStatus() {
+    // MARK: - Status
+    @IBAction func didClickButton(sender: UIButton) {
+        if self.status == "disconnected" {
+            self.registerForRemoteNotifications()
+        }
+        else if self.status == "off" || self.status == nil {
+            // start a shift
+            self.updateStatus("available")
+        }
+        else if self.status == "available" {
+            // end a shift
+            self.updateStatus("off")
+        }
+        else if self.status == "connecting" {
+            self.updateStatus("training")
+        }
+        else if self.status == "training" {
+            self.updateStatus("available")
+        }
+    }
+    
+    func updateStatus(newStatus: String) {
+        self.status = newStatus
+        
         let user = PFUser.currentUser()!
         let trainer = user.objectForKey("trainer") as! PFObject
-        let status: String? = trainer.objectForKey("status") as? String
+        trainer.setObject(self.status!, forKey: "status")
+        trainer.saveInBackgroundWithBlock({ (success, error) -> Void in
+            if success {
+                self.refreshStatus()
+            }
+            else {
+                self.simpleAlert("Error", message: "Your status could not be updated. Please try again")
+            }
+        })
+    }
+    
+    func refreshStatus() {
         if status == nil || status! == "off" {
             self.labelStatus.text = "Off duty"
             self.buttonAction.setTitle("Start shift", forState: .Normal)
+        }
+        else if status == "disconnected" {
+            self.labelStatus.text = "Notifications are not enabled"
+            self.buttonAction.setTitle("Enable Notifications", forState: .Normal)
         }
         else if status == "available" {
             self.labelStatus.text = "Waiting for client"
@@ -144,6 +153,20 @@ class ConnectViewController: UIViewController {
             self.labelStatus.text = "Training session"
             self.buttonAction.setTitle("Complete workout", forState: .Normal)
         }
+    }
+
+    // MARK: - Requests
+    func didReceiveRequest(notification: NSNotification) {
+        let userInfo = notification.userInfo as? [String: AnyObject]
+        print("Sent info: \(userInfo!)")
+
+        let requestId = userInfo?["requestId"] as? String
+        // TODO: get request data from Parse
+        
+        if self.status == "available" {
+            self.status = "connecting"
+        }
+        self.refreshStatus()
     }
     /*
     // MARK: - Navigation
