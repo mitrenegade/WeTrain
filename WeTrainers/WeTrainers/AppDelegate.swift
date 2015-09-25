@@ -216,6 +216,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("failed")
         NSNotificationCenter.defaultCenter().postNotificationName("push:enable:failed", object: nil)
     }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        print("notification received: \(userInfo)")
+        /* format:
+        [aps: {
+            alert = "test push 2";
+            sound = default;
+            }]
+        
+        // With info:
+        [message: i want to lose weight, aps: {
+            }, userid: 1]
+        */
+        if let requestId = userInfo["requestId"] as? Int {
+            NSNotificationCenter.defaultCenter().postNotificationName("request:received", object: nil, userInfo: userInfo)
+        }
+    }
+
 }
 
 
