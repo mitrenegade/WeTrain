@@ -62,6 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        if UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            NSNotificationCenter.defaultCenter().postNotificationName("push:enabled", object: nil)
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -133,6 +137,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    // MARK: - Login
+    
     func didLogin() {
         PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user: PFObject?, error) -> Void in
             if error != nil {
@@ -151,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             if trainer.objectForKey("firstName") != nil && trainer.objectForKey("email") != nil && trainer.objectForKey("phone") != nil {
 
                                 // TODO: logged in
-                                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
+                                let controller: ConnectViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ConnectViewController") as! ConnectViewController
                                 self.window!.rootViewController = controller
                                 
                             }
@@ -193,7 +199,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
     }
-
+    
+    // MARK: - Push Notifications
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        // Store the deviceToken in the current Installation and save it to Parse
+        let installation = PFInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        installation.addUniqueObject("Trainers", forKey: "channels") // subscribe to trainers channel
+        installation.saveInBackground()
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("push:enabled", object: nil)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("failed")
+        NSNotificationCenter.defaultCenter().postNotificationName("push:enable:failed", object: nil)
+    }
 }
 
 
