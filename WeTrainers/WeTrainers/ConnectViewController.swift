@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Parse
 
 class ConnectViewController: UIViewController {
 
+    var firstAppear: Bool = true
+    
     @IBOutlet var labelStatus: UILabel!
     @IBOutlet var buttonAction: UIButton!
     
@@ -17,6 +20,20 @@ class ConnectViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            self.buttonAction.setTitle("Enable Notifications", forState: .Normal)
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if firstAppear {
+            firstAppear = false
+            if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+                self.warnForRemoteNotifications()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,9 +42,31 @@ class ConnectViewController: UIViewController {
     }
     
     @IBAction func didClickButton(sender: UIButton) {
-    
+        if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            self.warnForRemoteNotifications()
+            return
+        }
+        
+        let alert = UIAlertController(title: "Enable push notifications?", message: "To receive client notifications you must enable push. In the next popup, please click Yes.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+            let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
+    func warnForRemoteNotifications() {
+        self.labelStatus.text = "Notifications are disabled"
+        let alert = UIAlertController(title: "Change notification settings?", message: "You have disabled push notifications, so you can't receive client requests. Would you like to go to the Settings to update them?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            print("go to settings")
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

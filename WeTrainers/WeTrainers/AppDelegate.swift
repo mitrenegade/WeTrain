@@ -151,7 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             if trainer.objectForKey("firstName") != nil && trainer.objectForKey("email") != nil && trainer.objectForKey("phone") != nil {
 
                                 // TODO: logged in
-                                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
+                                let controller: ConnectViewController  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ConnectViewController") as! ConnectViewController
                                 self.window!.rootViewController = controller
                                 
                             }
