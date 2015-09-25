@@ -109,7 +109,7 @@ class ConnectViewController: UIViewController {
             self.updateStatus("off")
         }
         else if self.status == "connecting" {
-            self.updateStatus("training")
+            self.connect()
         }
         else if self.status == "training" {
             self.updateStatus("available")
@@ -162,11 +162,23 @@ class ConnectViewController: UIViewController {
 
         let requestId = userInfo?["requestId"] as? String
         // TODO: get request data from Parse
+        // load client id, information from request data
+        // display client information, maybe a timer
         
         if self.status == "available" {
             self.status = "connecting"
         }
         self.refreshStatus()
+    }
+    
+    func connect() {
+        self.updateStatus("training")
+
+        // TODO:
+        // attempt to update the request with current trainer information. check to make sure request hasn't been accepted.
+        // do this on Parse Cloudcode.
+        // if request successfully updates, set request status to accepted
+        // start a workout.
     }
     /*
     // MARK: - Navigation
