@@ -10,15 +10,11 @@ import UIKit
 import GoogleMaps
 import Parse
 
-enum RequestState: String {
-    case NoRequest = "none"
-    case Searching = "requested"
-    case Matched = "matched"
-    case Cancelled = "cancelled"
-}
-
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
 
+    var requestedTrainingType: Int?
+    var requestedTrainingLength: Int?
+    
     @IBOutlet var mapView: GMSMapView!
     @IBOutlet var iconLocation: UIImageView!
     let locationManager = CLLocationManager()
@@ -32,17 +28,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     @IBOutlet var inputCity: UITextField!
     
     // request status
-    var requestState: RequestState = .NoRequest
     var requestMarker: GMSMarker?
     
     var currentRequest: PFObject?
-    var timer: NSTimer?
     
-    var currentDoctor: PFObject?
-    
-    @IBOutlet var requestStatusView: UIView!
-    var requestController: RequestStatusViewController?
-    var showingRequestStatus: Bool = false
+    let TRAINING_TITLES = ["Healthy Heart", "Liposuction", "Mobi-Fit", "The BLT", "Belly Busters", "Tyrannosaurus Rex", "Sports Endurance", "The Shred Factory"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,11 +55,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.iconLocation.tintColor = UIColor(red: 215.0/255.0, green: 84.0/255.0, blue: 82.0/255.0, alpha: 1)
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "close")
-        
-        self.toggleRequestState(.NoRequest)
-
-        // load previous request if one exists
-        self.updateRequestState()
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,7 +63,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func close() {
-        self.toggleRequestState(RequestState.NoRequest)
         self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -118,10 +102,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func enableRequest() {
         self.buttonRequest.enabled = true
         self.buttonRequest.layer.zPosition = 1
-        if self.showingRequestStatus {
-            self.requestStatusView.layer.zPosition = 1
-            self.buttonRequest.layer.zPosition = 2
-        }
     }
     // MARK: - GMSMapView  delegate
     func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
@@ -136,14 +116,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
         self.currentLocation = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
-        if self.showingRequestStatus == false {
-            self.enableRequest()
-        }
+        self.enableRequest()
     }
     
     // MARK: Location search
     @IBAction func didClickSearch(button: UIButton) {
-        var address: String = "\(self.inputStreet.text) \(self.inputCity.text)"
+        let address: String = "\(self.inputStreet.text) \(self.inputCity.text)"
         print("address: \(address)")
         
         self.view.endEditing(true)
@@ -175,18 +153,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 
     // MARK: - request
     @IBAction func didClickRequest(sender: UIButton) {
-        if self.requestState == RequestState.Searching {
-            self.toggleRequestState(self.requestState)
-            return
-        }
-        if self.requestState == RequestState.Matched {
-            self.viewDoctorInfo()
-            return
-        }
-        
-        let payment = PFUser.currentUser()!.objectForKey("stripeToken")
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        let payment = client.objectForKey("stripeToken")
         if payment == nil {
-            self.simpleAlert("Please enter payment", message: "You must enter a credit card before requesting a doctor. Go to the Account tab to update your payment.")
+            self.simpleAlert("Please enter payment", message: "You must enter a credit card before requesting a trainer. Go to the Account tab to update your payment.")
             return
         }
         
@@ -218,209 +188,50 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func confirmRequestForAddress(addressString: String, coordinate: CLLocationCoordinate2D) {
-        var alert: UIAlertController = UIAlertController(title: "Request doctor?", message: "Do you want to schedule a visit at \(addressString)?", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Pronto!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+        let alert: UIAlertController = UIAlertController(title: "Request trainer?", message: "Do you want to schedule a workout session around \(addressString)?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Let's Go", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             print("requesting")
             self.initiateVisitRequest(addressString, coordinate: coordinate)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
-    
-    func toggleRequestState(newState: RequestState) {
-        self.requestState = newState
-
-        switch self.requestState {
-        case .NoRequest:
-            self.buttonRequest.setTitle("Request a visit here", forState: UIControlState.Normal)
-            if self.requestMarker != nil {
-                self.requestMarker!.map = nil
-                self.requestMarker = nil
-                self.iconLocation.hidden = false
-            }
-            self.currentRequest = nil
-            if self.timer != nil {
-                self.timer!.invalidate()
-                self.timer = nil
-            }
-            
-            self.buttonRequest.enabled = true
-            self.buttonRequest.setTitle("Request a visit here", forState: .Normal)
-            self.hideRequestView()
-            return
-        case .Cancelled:
-            // request state is set to .NoRequest if cancelled from an app action. 
-            // "cancelled" state is set on the web in order to trigger this state
-            if self.currentRequest != nil {
-                self.currentRequest!.setObject(RequestState.NoRequest.rawValue, forKey: "status")
-                self.currentRequest!.saveInBackgroundWithBlock({ (success, error) -> Void in
-
-                    let title = "Search was cancelled"
-                    var message: String? = self.currentRequest!.objectForKey("cancelReason") as? String
-                    if message == nil {
-                        message = "You have cancelled the doctor's visit."
-                    }
-                    
-                    self.requestController!.updateTitle(title, message: message!, top: nil, bottom: "OK", topHandler: nil, bottomHandler: { () -> Void in
-                        self.hideRequestView()
-                        self.toggleRequestState(RequestState.NoRequest)
-                    })
-                    self.showRequestView()
-                })
-            }
-            else {
-                self.toggleRequestState(RequestState.NoRequest)
-            }
-            self.buttonRequest.enabled = true
-            self.buttonRequest.setTitle("Request a visit here", forState: .Normal)
-            return
-        case .Searching:
-            
-            var title = "Searching for a doctor near you"
-            var message = "Please be patient while we connect you with a doctor. If this is an emergency, dial 911!"
-            if let addressString: String = self.currentRequest?.objectForKey("address") as? String {
-                title = "Searching for a doctor near:"
-                message = "\(addressString)\n\n\(message)"
-            }
-            self.requestController!.updateTitle(title, message: message, top: nil, bottom: "Cancel", topHandler: nil, bottomHandler: { () -> Void in
-                self.toggleRequestState(RequestState.Cancelled)
-            })
-
-            self.buttonRequest.enabled = false
-            self.showRequestView()
-            
-            if self.requestMarker == nil {
-                var marker = GMSMarker()
-                marker.position = self.currentLocation!.coordinate
-                marker.title = "Doctor's Visit"
-                marker.snippet = "I need a doc, pronto"
-                marker.map = self.mapView
-                marker.icon = UIImage(named: "iconLocation")!
-                self.requestMarker = marker
-                
-                self.iconLocation.hidden = true
-            }
-            
-            if self.timer == nil {
-                self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateRequestState", userInfo: nil, repeats: true)
-            }
-            self.buttonRequest.enabled = false
-            self.buttonRequest.setTitle("Searching for doctor", forState: .Normal)
-            
-            break
-        case .Matched:
-            let title = "A doctor was matched!"
-            let name = self.currentDoctor!["name"] as! String
-            let message = "Expect a call within the next hour from Dr. \(name)."
-            self.requestController!.updateTitle(title, message: message, top: "View doctor's profile", bottom: "OK", topHandler: { () -> Void in
-                self.viewDoctorInfo()
-            }, bottomHandler: { () -> Void in
-                self.hideRequestView()
-            })
-            self.showRequestView()
-            
-            self.buttonRequest.enabled = false
-            self.buttonRequest.setTitle("View doctor", forState: .Normal)
-            break
-        default:
-            break
-        }
-    }
-    
+        
     func initiateVisitRequest(addressString: String, coordinate: CLLocationCoordinate2D) {
         var dict: [String: AnyObject] = [String: AnyObject]()
         dict = ["time": NSDate(), "lat": Double(coordinate.latitude), "lon": Double(coordinate.longitude), "status":RequestState.Searching.rawValue, "address": addressString]
         
         let request: PFObject = PFObject(className: "VisitRequest", dictionary: dict)
-        request.setObject(PFUser.currentUser()!, forKey: "patient")
+        request.setObject(PFUser.currentUser()!, forKey: "client")
+        if self.requestedTrainingType != nil {
+            let title = TRAINING_TITLES[self.requestedTrainingType!]
+            request.setObject(title, forKey: "type")
+        }
+        if self.requestedTrainingLength != nil {
+            request.setObject(self.requestedTrainingLength!, forKey: "length")
+        }
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
         request.saveInBackgroundWithBlock { (success, error) -> Void in
             print("saved: \(success)")
+            client.setObject(request, forKey: "currentRequest")
+            client.saveInBackground()
+
             self.currentRequest = request
-            PFUser.currentUser()!.setObject(request, forKey: "currentRequest")
-            PFUser.currentUser()!.saveInBackground()
-            
-            self.toggleRequestState(RequestState.Searching)
+            self.performSegueWithIdentifier("GoToRequestState", sender: nil)
         }
     }
-    
-    func updateRequestState() {
-        if let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as? PFObject {
-            request.fetchInBackgroundWithBlock({ (object, error) -> Void in
-                self.currentRequest = object
-                if self.currentRequest == nil {
-                    // if request is still nil, then it got cancelled/deleted somehow.
-                    self.toggleRequestState(.NoRequest)
-                    return
-                }
-
-                if let previousState: String = self.currentRequest!.objectForKey("status") as? String{
-                    let newState: RequestState = RequestState(rawValue: previousState)!
-                    
-                    if newState == RequestState.Searching {
-                        let previousLat: Double? = self.currentRequest?.objectForKey("lat") as? Double
-                        let previousLon: Double? = self.currentRequest?.objectForKey("lon") as? Double
-                        
-                        if previousLat != nil && previousLon != nil {
-                            self.currentLocation = CLLocation(latitude: previousLat!, longitude: previousLon!)
-                            self.updateMapToCurrentLocation()
-                        }
-                        
-                        self.toggleRequestState(newState)
-
-                    }
-                    else if newState == RequestState.Cancelled {
-                        // cancelled
-                        self.toggleRequestState(newState)
-                    }
-                    else if newState == RequestState.Matched {
-                        // doctor
-                        if let doctor: PFObject = request.objectForKey("doctor") as? PFObject {
-                            doctor.fetchInBackgroundWithBlock({ (object, error) -> Void in
-                                print("doctor: \(object)")
-                                self.currentDoctor = doctor
-                                self.toggleRequestState(newState)
-                            })
-                        }
-                    }
-                }
-            })
-        }
-    }
-    
-    func hideRequestView() {
-        UIView.animateWithDuration(0.25, animations: { () -> Void in
-            self.requestStatusView.alpha = 0
-        }) { (done) -> Void in
-            self.showingRequestStatus = false
-        }
-    }
-    
-    func showRequestView() {
-        UIView.animateWithDuration(0.25, animations: { () -> Void in
-            self.requestStatusView.alpha = 1
-            }) { (done) -> Void in
-                self.showingRequestStatus = true
-        }
-    }
-    
-    func viewDoctorInfo() {
-        print("display doctor info")
-        self.performSegueWithIdentifier("GoToViewDoctor", sender: nil)
-    }
-    
+        
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "EmbedRequestStatusViewController" {
-            self.requestController = segue.destinationViewController as! RequestStatusViewController
+        if segue.identifier == "GoToRequestState" {
+            let controller: RequestStatusViewController = segue.destinationViewController as! RequestStatusViewController
+            controller.currentRequest = self.currentRequest
         }
-        else if segue.identifier == "GoToViewDoctor" {
-            let controller: DoctorProfileViewController = segue.destinationViewController as! DoctorProfileViewController
-            controller.doctor = self.currentDoctor
+        else if segue.identifier == "GoToViewTrainer" {
+            let controller: TrainerProfileViewController = segue.destinationViewController as! TrainerProfileViewController
         }
     }
-
 }

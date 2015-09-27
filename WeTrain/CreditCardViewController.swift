@@ -24,7 +24,8 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "save")
         self.navigationItem.rightBarButtonItem!.enabled = false
 
-        if let last4: String = PFUser.currentUser()!.objectForKey("stripeFour") as? String{
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        if let last4: String = client.objectForKey("stripeFour") as? String{
             self.labelCurrentCard.text = "Your current credit card is *\(last4)"
             self.navigationItem.rightBarButtonItem!.title = "Update"
         }
@@ -77,18 +78,19 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
     }
     
     func saveToken(token: STPToken) {
-            let tokenId: String = token.tokenId
-            PFUser.currentUser()!.setObject(tokenId, forKey: "stripeToken")
-            let number: String = self.paymentView!.cardNumber!
-            let last4:String = number.substringFromIndex(number.endIndex.advancedBy(-4))
-            PFUser.currentUser()!.setObject(last4, forKey: "stripeFour")
-            PFUser.currentUser()!.saveInBackgroundWithBlock { (success, error) -> Void in
-                if error != nil {
-                    self.simpleAlert("Error saving credit card", message: "Please try again.")
-                }
-                else {
-                    self.close()
-                }
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        let tokenId: String = token.tokenId
+        client.setObject(tokenId, forKey: "stripeToken")
+        let number: String = self.paymentView!.cardNumber!
+        let last4:String = number.substringFromIndex(number.endIndex.advancedBy(-4))
+        client.setObject(last4, forKey: "stripeFour")
+        client.saveInBackgroundWithBlock { (success, error) -> Void in
+            if error != nil {
+                self.simpleAlert("Error saving credit card", message: "Please try again.")
+            }
+            else {
+                self.close()
+            }
         }
     }
     
