@@ -353,6 +353,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="800"/>
                     <connections>
+                        <outlet property="constraintBottomOffset" destination="UGM-lR-bhj" id="Glg-cQ-Kt3"/>
                         <outlet property="constraintContentHeight" destination="StJ-bS-Yu5" id="bDY-eK-ycE"/>
                         <outlet property="constraintContentWidth" destination="S5y-wl-G5u" id="ISR-NI-jHU"/>
                         <outlet property="constraintTopOffset" destination="3c3-Nd-45T" id="FWK-wX-qLY"/>

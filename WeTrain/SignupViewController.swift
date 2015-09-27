@@ -25,12 +25,16 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var constraintContentHeight: NSLayoutConstraint!
     
     @IBOutlet var constraintTopOffset: NSLayoutConstraint!
+    @IBOutlet var constraintBottomOffset: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Done, target: self, action: "didSignup:")
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
 
     }
     
@@ -159,6 +163,22 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - keyboard notifications
+    func keyboardWillShow(n: NSNotification) {
+        let size = n.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
+        
+//        self.constraintTopOffset.constant = -size!.height
+        self.constraintBottomOffset.constant = size!.height
+        self.view.layoutIfNeeded()
+    }
+    
+    func keyboardWillHide(n: NSNotification) {
+        self.constraintTopOffset.constant = 0
+        self.constraintBottomOffset.constant = 0
+        
+        self.view.layoutIfNeeded()
     }
     
     // MARK: - TextFieldDelegate
