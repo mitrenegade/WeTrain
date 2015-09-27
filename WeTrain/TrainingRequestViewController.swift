@@ -17,6 +17,9 @@ class TrainingRequestViewController: UITableViewController {
     let TRAINING_SUBTITLES = ["Cardio", "Weight Loss", "Mobility", "Butt, Legs, Thighs", "Core", "Strength and Hypertrophy", "Muscular Endurance", "Toning"]
     let TRAINING_ICONS = ["exercise_healthyHeart", "exercise_lipo", "exercise_mobiFit", "exercise_blt", "exercise_bellyBusters", "exercise_trex", "exercise_sportsEndurance", "exercise_shredFactory"]
     
+    var selectedExerciseType: Int?
+    var selectedExerciseLength: Int?
+    
     var shouldHighlightEmergencyAlert: Bool = true
 
     override func viewDidLoad() {
@@ -75,40 +78,38 @@ class TrainingRequestViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let row = indexPath.row
-        if row == 2 {
-            let alert = UIAlertController(title: "Call 911?", message: "Do you want to close WeTrain and call contact emergency services?", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-                self.shouldHighlightEmergencyAlert = false
-                self.tableView.reloadData()
-            }))
-            alert.addAction(UIAlertAction(title: "Call 911", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                self.call911()
-            }))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-        else {
+        let alert = UIAlertController(title: "Select length", message: "Please select the training session length you want.", preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "30 minutes", style: .Default, handler: { (action) -> Void in
+            self.selectedExerciseType = indexPath.row
+            self.selectedExerciseLength = 30
             self.goToMap()
-        }
+        }))
+        alert.addAction(UIAlertAction(title: "60 minutes", style: .Default, handler: { (action) -> Void in
+            self.selectedExerciseType = indexPath.row
+            self.selectedExerciseLength = 60
+            self.goToMap()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler:  { (action) -> Void in
+            self.selectedExerciseType = nil
+            self.selectedExerciseLength = nil
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
-
+    
     func goToMap() {
         self.performSegueWithIdentifier("GoToMap", sender: self)
     }
 
-    func call911() {
-        var phone: String = "911"
-        var str = "tel://\(phone)"
-        let url = NSURL(string: str) as NSURL?
-        if (url != nil) {
-            let success: Bool = UIApplication.sharedApplication().openURL(url!)
-            if success {
-                return
-            }
-        }
-        let alert = UIAlertController(title: "Could not call 911", message: "Close the app manually and call 911 if you need to.", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-        }))
-        self.presentViewController(alert, animated: true, completion: nil)
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+
+        let controller = segue.destinationViewController as! MapViewController
+        controller.requestedTrainingType = self.selectedExerciseType
+        controller.requestedTrainingLength = self.selectedExerciseLength
     }
+
 }

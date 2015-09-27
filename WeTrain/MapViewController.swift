@@ -19,6 +19,9 @@ enum RequestState: String {
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
 
+    var requestedTrainingType: Int?
+    var requestedTrainingLength: Int?
+    
     @IBOutlet var mapView: GMSMapView!
     @IBOutlet var iconLocation: UIImageView!
     let locationManager = CLLocationManager()
