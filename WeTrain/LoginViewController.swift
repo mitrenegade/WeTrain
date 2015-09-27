@@ -16,8 +16,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var buttonLogin: UIButton!
     @IBOutlet var buttonSignup: UIButton!
     
-    let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -100,7 +98,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         user.signUpInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 print("signup succeeded")
-                self.loggedIn()
+                let clientObject: PFObject = PFObject(className: "Client")
+                clientObject.setObject(user, forKey: "user")
+                clientObject.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    user.setObject(clientObject, forKey: "client")
+                    user.saveInBackground()
+                    
+                    self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
+                })
             }
             else {
                 let title = "Signup error"
@@ -118,19 +123,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loggedIn() {
-        appDelegate.didLogin()
+        self.appDelegate().didLogin()
     }
     
     // MARK: - TextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    func simpleAlert(title: String?, message: String?) {
-        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     /*

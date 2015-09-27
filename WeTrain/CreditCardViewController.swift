@@ -92,12 +92,6 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
         }
     }
     
-    func simpleAlert(title: String?, message: String?) {
-        let alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-
     /*
     // MARK: - Navigation
 

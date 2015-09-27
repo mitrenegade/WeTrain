@@ -84,12 +84,6 @@ class DoctorProfileViewController: UIViewController {
         self.simpleAlert("Could not call phone", message: "The number we had for Dr. \(name) was invalid.")
     }
 
-    func simpleAlert(title: String?, message: String?) {
-        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-
     /*
     // MARK: - Navigation
 
