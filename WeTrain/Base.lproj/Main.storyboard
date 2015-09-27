@@ -46,13 +46,13 @@
         <!--Schedule a visit-->
         <scene sceneID="dHw-ha-Lce">
             <objects>
-                <tableViewController id="kMn-tD-FMD" customClass="VisitRequestViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="kMn-tD-FMD" customClass="TrainingRequestViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="bBJ-82-ufk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="VisitRequestCell" rowHeight="80" id="57l-Dt-K6x">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrainingRequestCell" rowHeight="80" id="57l-Dt-K6x" userLabel="TrainingRequestCell">
                                 <rect key="frame" x="0.0" y="86" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="57l-Dt-K6x" id="zMY-b9-eOZ">
@@ -71,7 +71,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="29" id="eTC-JE-ddJ"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -96,38 +96,6 @@
                                         <constraint firstItem="w0C-PX-uhM" firstAttribute="trailing" secondItem="zMY-b9-eOZ" secondAttribute="trailingMargin" id="y33-Zz-bfv"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmergencyCell" id="jki-hL-cXI">
-                                <rect key="frame" x="0.0" y="166" width="600" height="80"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jki-hL-cXI" id="6uM-rZ-34P">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconAlert" translatesAutoresizingMaskIntoConstraints="NO" id="Pfl-G4-ArA">
-                                            <rect key="frame" x="10" y="10" width="60" height="60"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="QuQ-X7-ZSX"/>
-                                                <constraint firstAttribute="height" constant="60" id="r0W-ag-zCN"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If this is an emergency, close this app and call 911" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am5-kb-5aP">
-                                            <rect key="frame" x="78" y="12" width="514" height="56"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="am5-kb-5aP" firstAttribute="leading" secondItem="Pfl-G4-ArA" secondAttribute="trailing" constant="8" id="H8B-u0-s0U"/>
-                                        <constraint firstItem="am5-kb-5aP" firstAttribute="trailing" secondItem="6uM-rZ-34P" secondAttribute="trailingMargin" id="HOa-yt-alR"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="am5-kb-5aP" secondAttribute="bottom" constant="3.5" id="OvL-hr-sXq"/>
-                                        <constraint firstItem="am5-kb-5aP" firstAttribute="top" secondItem="6uM-rZ-34P" secondAttribute="topMargin" constant="4" id="WLA-YK-Le6"/>
-                                        <constraint firstAttribute="centerY" secondItem="Pfl-G4-ArA" secondAttribute="centerY" id="mPI-Fe-tQg"/>
-                                        <constraint firstItem="Pfl-G4-ArA" firstAttribute="leading" secondItem="6uM-rZ-34P" secondAttribute="leadingMargin" constant="2" id="mlj-fY-msY"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="0.020100812990000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -934,7 +902,6 @@ Cg
         </scene>
     </scenes>
     <resources>
-        <image name="iconAlert" width="60" height="60"/>
         <image name="iconChecklist" width="30" height="30"/>
         <image name="iconDoctor" width="30" height="30"/>
         <image name="iconLocation" width="26" height="26"/>

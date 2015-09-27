@@ -1,5 +1,5 @@
 //
-//  VisitRequestViewController.swift
+//  TrainingRequestViewController.swift
 //  WeTrain
 //
 //  Created by Bobby Ren on 8/2/15.
@@ -8,10 +8,13 @@
 
 import UIKit
 
-class VisitRequestViewController: UITableViewController {
+class TrainingRequestViewController: UITableViewController {
     let TAG_ICON = 1
     let TAG_TITLE = 2
     let TAG_DETAILS = 3
+    
+    let TRAINING_TITLES = ["Healthy Heart", "Liposuction", "Mobi-Fit", "The BLT", "Belly Busters", "Tyrannosaurus Rex", "Sports Endurance", "The Shred Factory"]
+    let TRAINING_SUBTITLES = ["Cardio", "Weight Loss", "Mobility", "Butt, Legs, Thighs", "Core", "Strength and Hypertrophy", "Muscular Endurance", "Toning"]
     
     var shouldHighlightEmergencyAlert: Bool = true
 
@@ -45,53 +48,25 @@ class VisitRequestViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return 3
+        return 8
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0 || indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("VisitRequestCell", forIndexPath: indexPath) as! UITableViewCell
-            
-            // Configure the cell...
-            let icon: UIImageView = cell.contentView.viewWithTag(TAG_ICON) as! UIImageView
-            let labelTitle: UILabel = cell.contentView.viewWithTag(TAG_TITLE) as! UILabel
-            let labelDetails: UILabel = cell.contentView.viewWithTag(TAG_DETAILS) as! UILabel
-            
-            switch indexPath.row {
-            case 0:
-                icon.image = UIImage(named: "iconPill")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-                icon.tintColor = UIColor(red: 215.0/255.0, green: 84.0/255.0, blue: 82.0/255.0, alpha: 1)
-                labelTitle.text = "Sickness or injury"
-                labelDetails.text = "See a doctor for a sickness, illness or malady"
-                break
-            case 1:
-                icon.image = UIImage(named: "iconStethoscope")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-                icon.tintColor = UIColor(red: 55/255.0, green: 123/255.0, blue: 181/255.0, alpha: 1)
-                labelTitle.text = "Physical"
-                labelDetails.text = "See a doctor for a physical exam or checkup"
-                break
-            default:
-                break
-            }
-            
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            return cell
-        }
-        else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("EmergencyCell", forIndexPath: indexPath) as! UITableViewCell
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
-            let icon: UIImageView = cell.contentView.viewWithTag(TAG_ICON) as! UIImageView
-            let labelTitle: UILabel = cell.contentView.viewWithTag(TAG_TITLE) as! UILabel
-            icon.image = icon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-            icon.tintColor = UIColor.whiteColor()
-            if self.shouldHighlightEmergencyAlert {
-                cell.contentView.backgroundColor = UIColor.redColor()
-            }
-            else {
-                cell.contentView.backgroundColor = UIColor.lightGrayColor()
-            }
-            return cell
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("TrainingRequestCell", forIndexPath: indexPath) as! UITableViewCell
+        
+        // Configure the cell...
+        let icon: UIImageView = cell.contentView.viewWithTag(TAG_ICON) as! UIImageView
+        let labelTitle: UILabel = cell.contentView.viewWithTag(TAG_TITLE) as! UILabel
+        let labelDetails: UILabel = cell.contentView.viewWithTag(TAG_DETAILS) as! UILabel
+        
+        let row = indexPath.row
+        icon.image = UIImage(named: "iconPill")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        icon.tintColor = UIColor(red: 215.0/255.0, green: 84.0/255.0, blue: 82.0/255.0, alpha: 1)
+        labelTitle.text = TRAINING_TITLES[row]
+        labelDetails.text = TRAINING_SUBTITLES[row]
+        
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        return cell
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
