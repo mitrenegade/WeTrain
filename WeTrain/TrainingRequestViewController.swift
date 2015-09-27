@@ -15,6 +15,7 @@ class TrainingRequestViewController: UITableViewController {
     
     let TRAINING_TITLES = ["Healthy Heart", "Liposuction", "Mobi-Fit", "The BLT", "Belly Busters", "Tyrannosaurus Rex", "Sports Endurance", "The Shred Factory"]
     let TRAINING_SUBTITLES = ["Cardio", "Weight Loss", "Mobility", "Butt, Legs, Thighs", "Core", "Strength and Hypertrophy", "Muscular Endurance", "Toning"]
+    let TRAINING_ICONS = ["exercise_healthyHeart", "exercise_lipo", "exercise_mobiFit", "exercise_bellyBusters", "exercise_trex", "exercise_sportsEndurance", "exercise_shredFactory"]
     
     var shouldHighlightEmergencyAlert: Bool = true
 
@@ -60,7 +61,8 @@ class TrainingRequestViewController: UITableViewController {
         let labelDetails: UILabel = cell.contentView.viewWithTag(TAG_DETAILS) as! UILabel
         
         let row = indexPath.row
-        icon.image = UIImage(named: "iconPill")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        let name = TRAINING_ICONS[row] as String
+        icon.image = UIImage(named: name)!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         icon.tintColor = UIColor(red: 215.0/255.0, green: 84.0/255.0, blue: 82.0/255.0, alpha: 1)
         labelTitle.text = TRAINING_TITLES[row]
         labelDetails.text = TRAINING_SUBTITLES[row]

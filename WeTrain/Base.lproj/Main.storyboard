@@ -26,11 +26,11 @@
             </objects>
             <point key="canvasLocation" x="-89" y="117"/>
         </scene>
-        <!--Doctor-->
+        <!--Train-->
         <scene sceneID="6Z4-22-9Fo">
             <objects>
                 <navigationController id="wnW-JE-HV2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Doctor" image="iconDoctor" id="Zzs-zw-mJn"/>
+                    <tabBarItem key="tabBarItem" title="Train" image="iconDoctor" id="Zzs-zw-mJn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BeJ-ts-uXf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
