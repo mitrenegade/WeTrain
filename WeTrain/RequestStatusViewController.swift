@@ -70,7 +70,8 @@ class RequestStatusViewController: UIViewController {
     }
     
     func updateRequestState() {
-        if let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as? PFObject {
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        if let request: PFObject = client.objectForKey("currentRequest") as? PFObject {
             request.fetchInBackgroundWithBlock({ (object, error) -> Void in
                 self.currentRequest = object
                 if self.currentRequest == nil {

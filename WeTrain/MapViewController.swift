@@ -153,7 +153,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 
     // MARK: - request
     @IBAction func didClickRequest(sender: UIButton) {
-        let payment = PFUser.currentUser()!.objectForKey("stripeToken")
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        let payment = client.objectForKey("stripeToken")
         if payment == nil {
             self.simpleAlert("Please enter payment", message: "You must enter a credit card before requesting a trainer. Go to the Account tab to update your payment.")
             return
@@ -209,10 +210,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         if self.requestedTrainingLength != nil {
             request.setObject(self.requestedTrainingLength!, forKey: "length")
         }
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
         request.saveInBackgroundWithBlock { (success, error) -> Void in
             print("saved: \(success)")
-            PFUser.currentUser()!.setObject(request, forKey: "currentRequest")
-            PFUser.currentUser()!.saveInBackground()
+            client.setObject(request, forKey: "currentRequest")
+            client.saveInBackground()
 
             self.currentRequest = request
             self.performSegueWithIdentifier("GoToRequestState", sender: nil)

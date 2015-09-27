@@ -105,7 +105,8 @@ class TrainingRequestViewController: UITableViewController {
     }
     
     func loadExistingRequest() {
-        if let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as? PFObject {
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        if let request: PFObject = client.objectForKey("currentRequest") as? PFObject {
             request.fetchInBackgroundWithBlock({ (requestObject, error) -> Void in
                 if let state = request.objectForKey("status") as? String {
                     if state == RequestState.Matched.rawValue || state == RequestState.Searching.rawValue {
@@ -132,7 +133,8 @@ class TrainingRequestViewController: UITableViewController {
         if segue.identifier == "GoToRequestState" {
             let nav = segue.destinationViewController as! UINavigationController
             let controller = nav.viewControllers[0] as! RequestStatusViewController
-            let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as! PFObject
+            let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+            let request: PFObject = client.objectForKey("currentRequest") as! PFObject
             controller.currentRequest = request
         }
     }
