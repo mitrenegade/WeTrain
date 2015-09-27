@@ -16,8 +16,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var buttonLogin: UIButton!
     @IBOutlet var buttonSignup: UIButton!
     
-    let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -81,12 +79,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let email:NSString = self.inputLogin.text! as NSString
-        if !email.isValidEmail() {
-            self.simpleAlert("Please enter a valid email address", message: nil)
-            return
-        }
-        
         let username = self.inputLogin.text
         let password = self.inputPassword.text
 
@@ -94,13 +86,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         user.username = username
         user.password = password
         
-        if email.isValidEmail() {
-            user.email = username
-        }
         user.signUpInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 print("signup succeeded")
-                self.loggedIn()
+                let clientObject: PFObject = PFObject(className: "Client")
+                clientObject.setObject(user, forKey: "user")
+                let email:NSString = self.inputLogin.text! as NSString
+                if email.isValidEmail() {
+                    clientObject.setObject(email, forKey: "email")
+                }
+                clientObject.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    user.setObject(clientObject, forKey: "client")
+                    user.saveInBackground()
+                    
+                    self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
+                })
             }
             else {
                 let title = "Signup error"
@@ -118,19 +118,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loggedIn() {
-        appDelegate.didLogin()
+        self.appDelegate().didLogin()
     }
     
     // MARK: - TextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    func simpleAlert(title: String?, message: String?) {
-        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     /*

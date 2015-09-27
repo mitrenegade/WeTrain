@@ -164,25 +164,14 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         let feedback: PFObject = PFObject(className: "Feedback", dictionary: dict)
         feedback.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
-                var alert: UIAlertController = UIAlertController(title:"Thanks!", message: "Your feedback has been submitted", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-                    self.close()
-                }))
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.simpleAlert("Thanks!", message: "Your feedback has been submitted")
             }
             else {
-                let alert: UIAlertController = self.simpleAlert("Error submitting feedback", message: "There was an issue sending your feedback. Please try again!")
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.simpleAlert("Error submitting feedback", message: "There was an issue sending your feedback. Please try again!")
             }
         }
     }
     
-    func simpleAlert(title: String?, message: String?) -> UIAlertController {
-        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
-        return alert
-    }
-
     func notifyByEmail() {
         // this currently works with our mandrill account. There is a limit of 2000 free messages.
         let params = ["toEmail":"bobbyren@gmail.com","toName":"Bobby Ren","fromEmail":"bobbyren@gmail.com","fromName":"Bobby Ren","text":"testing ManDrill email","subject":"this is just a test"]

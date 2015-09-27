@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,14 +12,15 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="FullLogo" translatesAutoresizingMaskIntoConstraints="NO" id="nbz-3L-W7R">
-                    <rect key="frame" x="40" y="178" width="400" height="124"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Logo Only v4b" translatesAutoresizingMaskIntoConstraints="NO" id="nbz-3L-W7R">
+                    <rect key="frame" x="40" y="180" width="400" height="120"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="nbz-3L-W7R" secondAttribute="centerX" id="Kde-IL-Jxp"/>
                 <constraint firstAttribute="trailing" secondItem="nbz-3L-W7R" secondAttribute="trailing" constant="40" id="PJH-KN-hFz"/>
+                <constraint firstItem="nbz-3L-W7R" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.25" id="fDH-k2-XpU"/>
                 <constraint firstItem="nbz-3L-W7R" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="fwr-KY-kKb"/>
                 <constraint firstAttribute="centerY" secondItem="nbz-3L-W7R" secondAttribute="centerY" id="uE5-Wp-2bK"/>
             </constraints>
@@ -28,6 +30,6 @@
         </view>
     </objects>
     <resources>
-        <image name="FullLogo" width="400" height="124"/>
+        <image name="Logo Only v4b" width="1443" height="579"/>
     </resources>
 </document>

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49598075F067030CF7F480EA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A7B8DD840A03B62D311EAEE /* libPods.a */; };
+		AC05584F1BB79DFB0065D21E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584D1BB79DFB0065D21E /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
+		AC0558501BB79DFB0065D21E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584E1BB79DFB0065D21E /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
+		AC0558521BB79ED80065D21E /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */; settings = {ASSET_TAGS = (); }; };
+		AC235FF91BB51F06000AEA40 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC235FF81BB51F06000AEA40 /* SignupViewController.swift */; };
 		AC463FB61B95F3F500935F45 /* NSString+ValidateEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */; };
 		AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */; };
 		AC51D1741B84A57B00E1DF02 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */; };
@@ -38,7 +43,6 @@
 		ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */; };
 		ACA6B8EF1B6E62B800AAA992 /* VisitRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EE1B6E62B800AAA992 /* VisitRequestViewController.swift */; };
 		ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */; };
-		E84A72A6D85BF4E26410543A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BEEAF65A38F5FAC21F6B91A /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +57,11 @@
 
 /* Begin PBXFileReference section */
 		2161FFB5DEECA8224FEC534E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		7BEEAF65A38F5FAC21F6B91A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A7B8DD840A03B62D311EAEE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC05584D1BB79DFB0065D21E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		AC05584E1BB79DFB0065D21E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
+		AC235FF81BB51F06000AEA40 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ValidateEmail.h"; sourceTree = "<group>"; };
 		AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ValidateEmail.m"; sourceTree = "<group>"; };
 		AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardViewController.swift; sourceTree = "<group>"; };
@@ -99,11 +107,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC05584F1BB79DFB0065D21E /* Bolts.framework in Frameworks */,
 				AC79097A1B6D517E00085FB6 /* Social.framework in Frameworks */,
 				AC7909781B6D517B00085FB6 /* Accounts.framework in Frameworks */,
 				AC7909761B6D516F00085FB6 /* libsqlite3.dylib in Frameworks */,
 				AC7909741B6D516800085FB6 /* libz.dylib in Frameworks */,
 				AC7909721B6D516200085FB6 /* SystemConfiguration.framework in Frameworks */,
+				AC0558501BB79DFB0065D21E /* Parse.framework in Frameworks */,
 				AC79096E1B6D515900085FB6 /* Security.framework in Frameworks */,
 				AC79096C1B6D515500085FB6 /* QuartzCore.framework in Frameworks */,
 				AC79096A1B6D515000085FB6 /* CoreLocation.framework in Frameworks */,
@@ -112,7 +122,7 @@
 				AC7909661B6D514700085FB6 /* CFNetwork.framework in Frameworks */,
 				AC79097E1B6D549700085FB6 /* Fabric.framework in Frameworks */,
 				AC7909641B6D514200085FB6 /* AudioToolbox.framework in Frameworks */,
-				E84A72A6D85BF4E26410543A /* libPods.a in Frameworks */,
+				49598075F067030CF7F480EA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +148,8 @@
 		58E896E55C69332B7809E4D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC05584D1BB79DFB0065D21E /* Bolts.framework */,
+				AC05584E1BB79DFB0065D21E /* Parse.framework */,
 				AC79097C1B6D549700085FB6 /* Fabric.framework */,
 				AC79097D1B6D549700085FB6 /* Crashlytics.framework */,
 				AC7909791B6D517E00085FB6 /* Social.framework */,
@@ -151,7 +163,7 @@
 				AC7909671B6D514C00085FB6 /* CoreGraphics.framework */,
 				AC7909651B6D514700085FB6 /* CFNetwork.framework */,
 				AC7909631B6D514200085FB6 /* AudioToolbox.framework */,
-				7BEEAF65A38F5FAC21F6B91A /* libPods.a */,
+				2A7B8DD840A03B62D311EAEE /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -182,10 +194,12 @@
 			children = (
 				AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */,
 				AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */,
-				AC7909331B6C455F00085FB6 /* AppDelegate.swift */,
-				ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */,
+				AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */,
 				AC7909841B6D710900085FB6 /* Login.Storyboard */,
 				AC79093A1B6C455F00085FB6 /* Main.storyboard */,
+				AC7909331B6C455F00085FB6 /* AppDelegate.swift */,
+				ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */,
+				AC235FF81BB51F06000AEA40 /* SignupViewController.swift */,
 				ACA6B8EE1B6E62B800AAA992 /* VisitRequestViewController.swift */,
 				AC7909821B6D618C00085FB6 /* MapViewController.swift */,
 				AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */,
@@ -393,10 +407,12 @@
 				AC51D1741B84A57B00E1DF02 /* FeedbackViewController.swift in Sources */,
 				ACA6B8EF1B6E62B800AAA992 /* VisitRequestViewController.swift in Sources */,
 				AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */,
+				AC235FF91BB51F06000AEA40 /* SignupViewController.swift in Sources */,
 				AC9760EF1B7167F70060D5D1 /* DoctorProfileViewController.swift in Sources */,
 				AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */,
 				AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */,
 				ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */,
+				AC0558521BB79ED80065D21E /* UIViewController+Utils.swift in Sources */,
 				AC463FB61B95F3F500935F45 /* NSString+ValidateEmail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

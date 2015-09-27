@@ -408,12 +408,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.performSegueWithIdentifier("GoToViewDoctor", sender: nil)
     }
     
-    func simpleAlert(title: String?, message: String?) {
-        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

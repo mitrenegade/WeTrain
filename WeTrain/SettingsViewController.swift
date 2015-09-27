@@ -10,7 +10,6 @@ import UIKit
 import Parse
 
 class SettingsViewController: UITableViewController {
-    let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,15 +103,9 @@ class SettingsViewController: UITableViewController {
             }
             break
         case 4:
-            appDelegate.logout()
+            self.appDelegate().logout()
         default:
             break
         }
-    }
-        
-    func simpleAlert(title: String?, message: String?) {
-        var alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
     }
 }
