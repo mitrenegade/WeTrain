@@ -15,9 +15,9 @@ import Crashlytics
 import GoogleMaps
 
 let GOOGLE_API_APP_KEY = "AIzaSyA7aDRZVW3-ruvbeB25tzJF5WKr0FjyRac"
-//let STRIPE_PUBLISHABLE_KEY = "pk_test_xG5SMQiERYrdgLdukSEnH46E"
+let STRIPE_PUBLISHABLE_KEY = "pk_test_xG5SMQiERYrdgLdukSEnH46E"
 // TODO: switch to this when published
-let STRIPE_PUBLISHABLE_KEY = "pk_live_MzmtjIQ0XLqVuhWXzPzmVCX9"
+//let STRIPE_PUBLISHABLE_KEY = "pk_live_MzmtjIQ0XLqVuhWXzPzmVCX9"
 let PARSE_APP_ID = "hezlwzG8F2RaalhHOVsUrpn5xN2KNtDa8VTgd8ea"
 let PARSE_CLIENT_KEY = "J0ZkdjRLVBIgaPKAAkVEvGzBQymjv2nUeaPBZkM7"
 

@@ -103,7 +103,6 @@
                             <outlet property="delegate" destination="kMn-tD-FMD" id="3RS-b5-gKf"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Doctor" id="PGi-ph-iBI"/>
                     <navigationItem key="navigationItem" title="Select Workout" id="chG-rN-L39"/>
                     <connections>
                         <segue destination="pEL-eK-Myt" kind="presentation" identifier="GoToMap" id="lGz-a4-ui5"/>
@@ -419,7 +418,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9me-CD-6Nc" customClass="PTKView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9me-CD-6Nc" customClass="PTKView">
                                 <rect key="frame" x="16" y="79" width="568" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -430,8 +429,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ZRa-ve-j6t" firstAttribute="top" secondItem="zLc-4l-vEw" secondAttribute="bottom" constant="20" id="1qu-8O-PJN"/>
-                            <constraint firstItem="9me-CD-6Nc" firstAttribute="trailing" secondItem="bM4-tW-vl5" secondAttribute="trailingMargin" id="3WB-MT-7tZ"/>
-                            <constraint firstItem="9me-CD-6Nc" firstAttribute="leading" secondItem="bM4-tW-vl5" secondAttribute="leadingMargin" id="DLi-Kv-Z24"/>
+                            <constraint firstItem="9me-CD-6Nc" firstAttribute="trailing" secondItem="bM4-tW-vl5" secondAttribute="trailingMargin" constant="4" id="3WB-MT-7tZ"/>
+                            <constraint firstItem="9me-CD-6Nc" firstAttribute="leading" secondItem="bM4-tW-vl5" secondAttribute="leadingMargin" constant="-4" id="DLi-Kv-Z24"/>
                             <constraint firstItem="ZRa-ve-j6t" firstAttribute="leading" secondItem="bM4-tW-vl5" secondAttribute="leadingMargin" id="kqq-ZN-rS6"/>
                             <constraint firstItem="ZRa-ve-j6t" firstAttribute="trailing" secondItem="bM4-tW-vl5" secondAttribute="trailingMargin" id="q94-rM-50j"/>
                             <constraint firstItem="9me-CD-6Nc" firstAttribute="top" secondItem="ZRa-ve-j6t" secondAttribute="bottom" constant="8" id="rM6-kg-Aay"/>
@@ -610,17 +609,17 @@
                         <outlet property="mapView" destination="qxs-j6-BaT" id="nfw-F3-OnU"/>
                         <outlet property="requestStatusView" destination="fKs-Xq-bfp" id="yRJ-fS-Bl2"/>
                         <outlet property="viewAddress" destination="Rz8-Ed-b4l" id="9ax-wB-DMy"/>
-                        <segue destination="8hA-p3-zea" kind="show" identifier="GoToViewDoctor" id="JuH-sP-KEC"/>
+                        <segue destination="8hA-p3-zea" kind="show" identifier="GoToViewTrainer" id="JuH-sP-KEC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5h-ee-x57" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2816" y="-209"/>
         </scene>
-        <!--Doctor Profile View Controller-->
+        <!--Trainer Profile View Controller-->
         <scene sceneID="YtA-Lk-sRN">
             <objects>
-                <viewController id="8hA-p3-zea" customClass="DoctorProfileViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8hA-p3-zea" customClass="TrainerProfileViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Aon-da-1jN"/>
                         <viewControllerLayoutGuide type="bottom" id="VAu-aT-buD"/>
@@ -636,7 +635,7 @@
                                     <constraint firstAttribute="width" secondItem="HDq-mK-ZWI" secondAttribute="height" multiplier="1:1" id="b0X-9M-rBW"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Meet the Doctor!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7r-pv-MK3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meet your Trainer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7r-pv-MK3">
                                 <rect key="frame" x="16" y="252" width="568" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="LLc-uZ-oxV"/>
@@ -645,14 +644,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLz-XP-zfb">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLz-XP-zfb">
                                 <rect key="frame" x="16" y="311" width="568" height="40"/>
                                 <color key="backgroundColor" red="0.84313725490000002" green="0.3294117647" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Kjm-Tc-mQj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Contact Doctor">
+                                <state key="normal" title="Contact Trainer">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -767,13 +766,13 @@ Cg
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="F7r-pv-MK3" firstAttribute="top" secondItem="HDq-mK-ZWI" secondAttribute="bottom" constant="8" id="AlH-v3-ha8"/>
-                            <constraint firstItem="CLz-XP-zfb" firstAttribute="trailing" secondItem="O2g-Bs-KtS" secondAttribute="trailingMargin" id="Co5-if-AcP"/>
-                            <constraint firstItem="CLz-XP-zfb" firstAttribute="leading" secondItem="O2g-Bs-KtS" secondAttribute="leadingMargin" id="DW6-uU-6aE"/>
-                            <constraint firstItem="F7r-pv-MK3" firstAttribute="trailing" secondItem="O2g-Bs-KtS" secondAttribute="trailingMargin" id="HG2-n2-3CF"/>
+                            <constraint firstItem="CLz-XP-zfb" firstAttribute="trailing" secondItem="O2g-Bs-KtS" secondAttribute="trailingMargin" constant="4" id="Co5-if-AcP"/>
+                            <constraint firstItem="CLz-XP-zfb" firstAttribute="leading" secondItem="O2g-Bs-KtS" secondAttribute="leadingMargin" constant="-4" id="DW6-uU-6aE"/>
+                            <constraint firstItem="F7r-pv-MK3" firstAttribute="trailing" secondItem="O2g-Bs-KtS" secondAttribute="trailingMargin" constant="4" id="HG2-n2-3CF"/>
                             <constraint firstItem="CLz-XP-zfb" firstAttribute="top" secondItem="F7r-pv-MK3" secondAttribute="bottom" constant="8" id="HcX-Y3-cfY"/>
                             <constraint firstAttribute="centerX" secondItem="F7r-pv-MK3" secondAttribute="centerX" id="VPa-XX-KHt"/>
                             <constraint firstItem="HDq-mK-ZWI" firstAttribute="top" secondItem="Aon-da-1jN" secondAttribute="bottom" constant="44" id="f2E-wc-U4K"/>
-                            <constraint firstItem="F7r-pv-MK3" firstAttribute="leading" secondItem="O2g-Bs-KtS" secondAttribute="leadingMargin" id="htw-gI-gcO"/>
+                            <constraint firstItem="F7r-pv-MK3" firstAttribute="leading" secondItem="O2g-Bs-KtS" secondAttribute="leadingMargin" constant="-4" id="htw-gI-gcO"/>
                             <constraint firstAttribute="centerX" secondItem="HDq-mK-ZWI" secondAttribute="centerX" id="rLI-Xi-5oj"/>
                             <constraint firstAttribute="centerX" secondItem="CLz-XP-zfb" secondAttribute="centerX" id="srl-ub-xfs"/>
                             <constraint firstAttribute="centerX" secondItem="85W-j6-3pP" secondAttribute="centerX" id="vKq-Bh-zua"/>

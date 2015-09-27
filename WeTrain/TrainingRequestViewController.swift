@@ -107,7 +107,8 @@ class TrainingRequestViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
 
-        let controller = segue.destinationViewController as! MapViewController
+        let nav = segue.destinationViewController as! UINavigationController
+        let controller = nav.viewControllers[0] as! MapViewController
         controller.requestedTrainingType = self.selectedExerciseType
         controller.requestedTrainingLength = self.selectedExerciseLength
     }

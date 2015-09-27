@@ -39,7 +39,7 @@
 		AC7909811B6D5D7000085FB6 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909801B6D5D7000085FB6 /* Map.storyboard */; };
 		AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909821B6D618C00085FB6 /* MapViewController.swift */; };
 		AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909841B6D710900085FB6 /* Login.Storyboard */; };
-		AC9760EF1B7167F70060D5D1 /* DoctorProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9760EE1B7167F70060D5D1 /* DoctorProfileViewController.swift */; };
+		AC9760EF1B7167F70060D5D1 /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */; };
 		ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */; };
 		ACA6B8EF1B6E62B800AAA992 /* TrainingRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */; };
 		ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */; };
@@ -95,7 +95,7 @@
 		AC7909801B6D5D7000085FB6 /* Map.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		AC7909821B6D618C00085FB6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AC7909841B6D710900085FB6 /* Login.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.Storyboard; sourceTree = "<group>"; };
-		AC9760EE1B7167F70060D5D1 /* DoctorProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorProfileViewController.swift; sourceTree = "<group>"; };
+		AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileViewController.swift; sourceTree = "<group>"; };
 		ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingRequestViewController.swift; sourceTree = "<group>"; };
 		ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 				ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */,
 				AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */,
 				AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */,
-				AC9760EE1B7167F70060D5D1 /* DoctorProfileViewController.swift */,
+				AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */,
 				AC7909801B6D5D7000085FB6 /* Map.storyboard */,
 				AC79093F1B6C455F00085FB6 /* LaunchScreen.xib */,
 				AC7909351B6C455F00085FB6 /* Model.xcdatamodeld */,
@@ -408,7 +408,7 @@
 				ACA6B8EF1B6E62B800AAA992 /* TrainingRequestViewController.swift in Sources */,
 				AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */,
 				AC235FF91BB51F06000AEA40 /* SignupViewController.swift in Sources */,
-				AC9760EF1B7167F70060D5D1 /* DoctorProfileViewController.swift in Sources */,
+				AC9760EF1B7167F70060D5D1 /* TrainerProfileViewController.swift in Sources */,
 				AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */,
 				AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */,
 				ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */,
