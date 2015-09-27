@@ -81,7 +81,6 @@ class RequestStatusViewController: UIViewController {
                 
                 if let previousState: String = self.currentRequest!.objectForKey("status") as? String{
                     let newState: RequestState = RequestState(rawValue: previousState)!
-                    self.toggleRequestState(newState)
                     
                     if let trainer: PFObject = request.objectForKey("trainer") as? PFObject {
                         trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
@@ -89,6 +88,9 @@ class RequestStatusViewController: UIViewController {
                             self.currentTrainer = trainer
                             self.toggleRequestState(newState)
                         })
+                    }
+                    else {
+                        self.toggleRequestState(newState)
                     }
                 }
             })
@@ -124,6 +126,11 @@ class RequestStatusViewController: UIViewController {
                 // dismiss the current stack and go back
                 self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
             })
+            
+            if self.timer != nil {
+                self.timer!.invalidate()
+                self.timer = nil
+            }
         case .Cancelled:
             // request state is set to .NoRequest if cancelled from an app action.
             // "cancelled" state is set on the web in order to trigger this state
@@ -138,6 +145,11 @@ class RequestStatusViewController: UIViewController {
                 // dismiss the current stack and go back
                 self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
             })
+            
+            if self.timer != nil {
+                self.timer!.invalidate()
+                self.timer = nil
+            }
         case .Searching:
             
             var title = "Calling all trainers near you"
@@ -151,13 +163,21 @@ class RequestStatusViewController: UIViewController {
             })
         case .Matched:
             let title = "A trainer has been matched"
-            let name = self.currentTrainer!["name"] as! String
-            let message = "\(name) has accepted your training session."
+            var message = "Your session has been accepted by a WeTrain personal trainer."
+            if self.currentTrainer != nil {
+                let name = self.currentTrainer!["firstName"] as! String
+                message = "\(name) has accepted your training session."
+            }
             self.updateTitle(title, message: message, top: "View trainer's profile", bottom: "Start workout", topHandler: { () -> Void in
                 self.goToTrainerInfo()
             }, bottomHandler: { () -> Void in
                 self.goToStartWorkout()
             })
+            
+            if self.timer != nil {
+                self.timer!.invalidate()
+                self.timer = nil
+            }
         default:
             break
         }
