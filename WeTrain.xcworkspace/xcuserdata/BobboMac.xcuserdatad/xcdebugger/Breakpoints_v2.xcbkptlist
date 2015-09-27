@@ -20,7 +20,7 @@
                   moduleName = "Bolts"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/BobboMac/Dropbox/Projects/WeTrain/Pods/Bolts/Bolts/Common/BFTask.m"
-                  timestampString = "465021042.142331"
+                  timestampString = "465068461.324784"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "18"
@@ -28,6 +28,22 @@
                   offsetFromSymbolStart = "11">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeTrain/TrainingRequestViewController.swift"
+            timestampString = "465068451.291381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

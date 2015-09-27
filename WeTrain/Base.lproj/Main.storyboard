@@ -30,7 +30,7 @@
         <scene sceneID="6Z4-22-9Fo">
             <objects>
                 <navigationController id="wnW-JE-HV2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Train" image="iconDoctor" id="Zzs-zw-mJn"/>
+                    <tabBarItem key="tabBarItem" title="Train" image="iconDumbbell" selectedImage="iconDumbbell" id="Zzs-zw-mJn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BeJ-ts-uXf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -43,7 +43,7 @@
             </objects>
             <point key="canvasLocation" x="711" y="-214"/>
         </scene>
-        <!--Schedule a visit-->
+        <!--Select Workout-->
         <scene sceneID="dHw-ha-Lce">
             <objects>
                 <tableViewController id="kMn-tD-FMD" customClass="TrainingRequestViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
@@ -104,7 +104,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Doctor" id="PGi-ph-iBI"/>
-                    <navigationItem key="navigationItem" title="Schedule a visit" id="chG-rN-L39"/>
+                    <navigationItem key="navigationItem" title="Select Workout" id="chG-rN-L39"/>
                     <connections>
                         <segue destination="pEL-eK-Myt" kind="presentation" identifier="GoToMap" id="lGz-a4-ui5"/>
                     </connections>
@@ -903,7 +903,7 @@ Cg
     </scenes>
     <resources>
         <image name="iconChecklist" width="30" height="30"/>
-        <image name="iconDoctor" width="30" height="30"/>
+        <image name="iconDumbbell" width="30" height="30"/>
         <image name="iconLocation" width="26" height="26"/>
         <image name="star" width="42" height="42"/>
     </resources>
