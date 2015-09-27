@@ -140,32 +140,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func didLogin() {
-        PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user, error) -> Void in
+        PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user: PFObject?, error) -> Void in
             if error != nil {
-                if let userInfo: [NSObject: AnyObject] = error!.userInfo as? [NSObject: AnyObject] {
+                if let userInfo: [NSObject: AnyObject] = error!.userInfo {
                     let code = userInfo["code"] as! Int
                     print("code: \(code)")
                     
                     // if code == 209, invalid token; just display login
+                    self.invalidLogin()
                 }
-                self.goToLogin()
             }
             else {
-                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
-                self.window!.rootViewController = controller
+                if let client: PFObject = user!.objectForKey("client") as? PFObject {
+                    client.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                        if object != nil {
+                            if client.objectForKey("firstName") != nil && client.objectForKey("email") != nil && client.objectForKey("phone") != nil {
+                                
+                                // TODO: logged in
+                                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
+                                self.window!.rootViewController = controller
+                            }
+                            else {
+                                self.goToUserProfile()
+                            }
+                        }
+                        else {
+                            self.invalidLogin()
+                        }
+                    })
+                }
+                else {
+                    self.invalidLogin()
+                }
             }
         })
     }
     
+    
     func goToLogin() {
-        let controller: UIViewController?  = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController() as UIViewController?
+        let controller: LoginViewController  = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         self.window!.rootViewController = controller
     }
-
+    
+    func goToUserProfile() {
+        let nav: UINavigationController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("SignupNavigationController") as! UINavigationController
+        self.window!.rootViewController = nav
+    }
+    
     func logout() {
         PFUser.logOutInBackgroundWithBlock { (error) -> Void in
             self.goToLogin()
         }
     }
+    
+    func invalidLogin() {
+        let alert = UIViewController.simpleAlert("Invalid user", message: "We could not log you in.", completion: { () -> Void in
+            self.logout()
+        })
+        self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+    }
+    
 }
 

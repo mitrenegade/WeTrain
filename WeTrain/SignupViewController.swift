@@ -18,7 +18,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var inputGender: UITextField!
     @IBOutlet var inputAge: UITextField!
     @IBOutlet var inputInjuries: UITextField!
-
+    
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var viewScrollContent: UIView!
+    @IBOutlet var constraintContentWidth: NSLayoutConstraint!
+    @IBOutlet var constraintContentHeight: NSLayoutConstraint!
+    
     @IBOutlet var constraintTopOffset: NSLayoutConstraint!
 
     override func viewDidLoad() {
@@ -27,6 +32,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         // Do any additional setup after loading the view.
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Done, target: self, action: "didSignup:")
 
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.constraintContentWidth.constant = (self.appDelegate().window?.bounds.size.width)!
+        self.constraintContentHeight.constant = self.inputInjuries.frame.origin.y + self.inputInjuries.frame.size.height + 50
     }
 
     @IBAction func didClickAddPhoto(sender: UIButton) {

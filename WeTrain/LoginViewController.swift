@@ -79,12 +79,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        let email:NSString = self.inputLogin.text! as NSString
-        if !email.isValidEmail() {
-            self.simpleAlert("Please enter a valid email address", message: nil)
-            return
-        }
-        
         let username = self.inputLogin.text
         let password = self.inputPassword.text
 
@@ -92,14 +86,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         user.username = username
         user.password = password
         
-        if email.isValidEmail() {
-            user.email = username
-        }
         user.signUpInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 print("signup succeeded")
                 let clientObject: PFObject = PFObject(className: "Client")
                 clientObject.setObject(user, forKey: "user")
+                let email:NSString = self.inputLogin.text! as NSString
+                if email.isValidEmail() {
+                    clientObject.setObject(email, forKey: "email")
+                }
                 clientObject.saveInBackgroundWithBlock({ (success, error) -> Void in
                     user.setObject(clientObject, forKey: "client")
                     user.saveInBackground()
