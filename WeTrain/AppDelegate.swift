@@ -155,9 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     client.fetchInBackgroundWithBlock({ (object, error) -> Void in
                         if object != nil {
                             if client.objectForKey("firstName") != nil && client.objectForKey("email") != nil && client.objectForKey("phone") != nil {
-                                
-                                // TODO: logged in
-                                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as UIViewController?
+                                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainTabController") as UIViewController?
                                 self.window!.rootViewController = controller
                             }
                             else {

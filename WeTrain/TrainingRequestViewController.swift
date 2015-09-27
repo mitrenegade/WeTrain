@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class TrainingRequestViewController: UITableViewController {
     let TAG_ICON = 1
@@ -30,6 +31,9 @@ class TrainingRequestViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // if there's a current request and we return to the app, go to that
+        self.loadExistingRequest()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -99,6 +103,18 @@ class TrainingRequestViewController: UITableViewController {
     func goToMap() {
         self.performSegueWithIdentifier("GoToMap", sender: self)
     }
+    
+    func loadExistingRequest() {
+        if let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as? PFObject {
+            request.fetchInBackgroundWithBlock({ (requestObject, error) -> Void in
+                if let state = request.objectForKey("status") as? String {
+                    if state == RequestState.Matched.rawValue || state == RequestState.Searching.rawValue {
+                        self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+                    }
+                }
+            })
+        }
+    }
 
     // MARK: - Navigation
     
@@ -107,10 +123,18 @@ class TrainingRequestViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
 
-        let nav = segue.destinationViewController as! UINavigationController
-        let controller = nav.viewControllers[0] as! MapViewController
-        controller.requestedTrainingType = self.selectedExerciseType
-        controller.requestedTrainingLength = self.selectedExerciseLength
+        if segue.identifier == "GoToMap" {
+            let nav = segue.destinationViewController as! UINavigationController
+            let controller = nav.viewControllers[0] as! MapViewController
+            controller.requestedTrainingType = self.selectedExerciseType
+            controller.requestedTrainingLength = self.selectedExerciseLength
+        }
+        if segue.identifier == "GoToRequestState" {
+            let nav = segue.destinationViewController as! UINavigationController
+            let controller = nav.viewControllers[0] as! RequestStatusViewController
+            let request: PFObject = PFUser.currentUser()!.objectForKey("currentRequest") as! PFObject
+            controller.currentRequest = request
+        }
     }
 
 }
