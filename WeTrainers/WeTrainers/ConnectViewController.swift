@@ -13,6 +13,7 @@ class ConnectViewController: UIViewController {
 
     @IBOutlet var labelStatus: UILabel!
     @IBOutlet var buttonAction: UIButton!
+    @IBOutlet var trainingRequests: [PFObject]?
     
     var status: String?
     
@@ -31,7 +32,7 @@ class ConnectViewController: UIViewController {
             status = trainer.objectForKey("status") as? String
         }
         self.refreshStatus()
-
+        
         // listen for push enabled
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "pushEnabled", name: "push:enabled", object: nil)
 
@@ -40,6 +41,9 @@ class ConnectViewController: UIViewController {
 
         // listen for request notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveRequest:", name: "request:received", object: nil)
+        
+        // make a call to load any existing requests that we won't get through notifications because they were made already
+        self.loadExistingRequests()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -103,6 +107,8 @@ class ConnectViewController: UIViewController {
         else if self.status == "off" || self.status == nil {
             // start a shift
             self.updateStatus("available")
+            
+            self.loadExistingRequests()
         }
         else if self.status == "available" {
             // end a shift
@@ -147,7 +153,7 @@ class ConnectViewController: UIViewController {
         }
         else if status == "connecting" {
             self.labelStatus.text = "A client is available"
-            self.buttonAction.setTitle("Accept training request", forState: .Normal)
+            self.buttonAction.setTitle("View client", forState: .Normal)
         }
         else if status == "training" {
             self.labelStatus.text = "Training session"
@@ -159,11 +165,23 @@ class ConnectViewController: UIViewController {
     func didReceiveRequest(notification: NSNotification) {
         let userInfo = notification.userInfo as? [String: AnyObject]
         print("Sent info: \(userInfo!)")
+        
+        self.loadExistingRequests()
+    }
 
-        let requestId = userInfo?["requestId"] as? String
-        // TODO: get request data from Parse
-        // load client id, information from request data
-        // display client information, maybe a timer
+    func loadExistingRequests() {
+        let query = PFQuery(className: "TrainingRequest")
+        // don't actually need to search for given training request - display all active requests
+        query.whereKey("status", equalTo: "searching")
+        query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
+            if error != nil {
+                print("could not query")
+            }
+            else {
+                print("results: \(results!)")
+                self.trainingRequests = results
+            }
+        }
         
         if self.status == "available" {
             self.status = "connecting"
@@ -172,13 +190,12 @@ class ConnectViewController: UIViewController {
     }
     
     func connect() {
-        self.updateStatus("training")
-
         // TODO:
         // attempt to update the request with current trainer information. check to make sure request hasn't been accepted.
         // do this on Parse Cloudcode.
         // if request successfully updates, set request status to accepted
         // start a workout.
+        self.performSegueWithIdentifier("GoToClientRequests", sender: nil)
     }
     /*
     // MARK: - Navigation

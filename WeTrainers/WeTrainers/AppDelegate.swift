@@ -229,7 +229,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         [message: i want to lose weight, aps: {
             }, userid: 1]
         */
-        if let requestId = userInfo["requestId"] as? Int {
+        if let requestId = userInfo["request"] as? Int {
             NSNotificationCenter.defaultCenter().postNotificationName("request:received", object: nil, userInfo: userInfo)
         }
     }
