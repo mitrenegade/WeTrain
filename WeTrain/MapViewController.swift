@@ -191,18 +191,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let alert: UIAlertController = UIAlertController(title: "Request trainer?", message: "Do you want to schedule a workout session around \(addressString)?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Let's Go", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             print("requesting")
-            self.initiateVisitRequest(addressString, coordinate: coordinate)
+            self.initiateTrainingRequest(addressString, coordinate: coordinate)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
         
-    func initiateVisitRequest(addressString: String, coordinate: CLLocationCoordinate2D) {
+    func initiateTrainingRequest(addressString: String, coordinate: CLLocationCoordinate2D) {
         var dict: [String: AnyObject] = [String: AnyObject]()
         dict = ["time": NSDate(), "lat": Double(coordinate.latitude), "lon": Double(coordinate.longitude), "status":RequestState.Searching.rawValue, "address": addressString]
         
-        let request: PFObject = PFObject(className: "VisitRequest", dictionary: dict)
-        request.setObject(PFUser.currentUser()!, forKey: "client")
+        let request: PFObject = PFObject(className: "TrainingRequest", dictionary: dict)
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        let id = client.objectId
+        print("client: \(client) \(id)")
+        request.setObject(client, forKey: "client")
         if self.requestedTrainingType != nil {
             let title = TRAINING_TITLES[self.requestedTrainingType!]
             request.setObject(title, forKey: "type")
@@ -210,7 +213,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         if self.requestedTrainingLength != nil {
             request.setObject(self.requestedTrainingLength!, forKey: "length")
         }
-        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        print("request: \(request)")
         request.saveInBackgroundWithBlock { (success, error) -> Void in
             print("saved: \(success)")
             client.setObject(request, forKey: "currentRequest")
