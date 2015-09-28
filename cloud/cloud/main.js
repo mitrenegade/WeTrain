@@ -12,7 +12,7 @@ var sendMail = function(from, fromName, text, subject) {
                        from_name: fromName,
                        to: [
                             {
-                            email: "sockol@wharton.upenn.edu",
+                            email: "bobbyren@gmail.com",
                             name: "WeTrain Dispatch"
                             }
                             ]
@@ -30,6 +30,27 @@ var sendMail = function(from, fromName, text, subject) {
                        });
 }
 
+var sendPushTrainingRequest = function(clientId, requestId) {
+    console.log("inside send push")
+    Parse.Push.send({
+                    channels: [ "Trainers" ],
+                    data: {
+                    alert: "New training request available.",
+                    badge: "Increment",
+                    client: clientId,
+                    request: requestId
+                    }
+                    }, {
+                    success: function() {
+                    // Push was successful
+                    console.log("Push to Trainers successful")
+                    },
+                    error: function(error) {
+                    // Handle error
+                    console.log("Push to Trainers failed" + error)
+                    }
+                    });
+}
 
 Parse.Cloud.define("sendMail", function(request, response) {
                    sendMail(request, response)
@@ -49,38 +70,55 @@ Parse.Cloud.afterSave("Feedback", function(request) {
                       sendMail(email, fromName, text, subject)
                       });
 
-Parse.Cloud.afterSave("VisitRequest", function(request) {
-                      var visit = request.object
-                      console.log("VisitRequest id: " + visit.id )
-                      console.log("Lat: " + visit.get("lat") + " Lon: " + visit.get("lon"))
-                      console.log("Time: " + visit.get("time"))
-                      console.log("status: " + visit.get("status"))
+Parse.Cloud.afterSave("TrainingRequest", function(request) {
+                      var trainingObject = request.object
+                      console.log("TrainingRequest id: " + trainingObject.id )
+                      console.log("Lat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon"))
+                      console.log("Time: " + trainingObject.get("time"))
+                      console.log("status: " + trainingObject.get("status"))
                       
-                      var subject = "Visit requested"
-                      if (visit.get("status") == "none") {
-                        subject = "Visit cancelled"
+                      var status = trainingObject.get("status")
+                      if (status == "cancelled") {
+                      console.log("cancelled ==================")
+                      return
                       }
-                      var text = "VisitRequest id: " + visit.id + " Status: " + visit.get("status") + "\nLat: " + visit.get("lat") + " Lon: " + visit.get("lon") + "\nTime: " + visit.get("time")
-
-                      var userQuery = new Parse.Query("User");
-                      userQuery.get(request.object.get("patient").id, {
-                                    success: function(user) {
-                                    email = user.get("email")
-                                    fromName = "WeTrain Patient"
-                                    if (email == undefined) {
-                                        email = "bobbyren+WeTrain@gmail.com"
-                                        fromName = "WeTrain Team"
-                                    }
-                                    console.log("visit by user " + email)
-                                    sendMail(email, fromName, text, subject)
-                                    },
-                                    error : function(error) {
-                                    console.error("errrrrrrrr" + error);
-                                    email = "bobbyren+WeTrain@gmail.com"
-                                    fromName = "WeTrain Team"
-                                    sendMail(email, fromName, text, subject)
-                                    }
-                                    });
+                      
+                      var subject = "Training requested"
+                      if (trainingObject.get("status") == "none") {
+                      subject = "Training cancelled"
+                      }
+                      var text = "TrainingRequest id: " + trainingObject.id + " Status: " + trainingObject.get("status") + "\nLat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon") + "\nTime: " + trainingObject.get("time")
+                      
+                      var clientObject = request.object.get("client")
+                      var clientQuery = new Parse.Query("Client");
+                      clientQuery.get(clientObject.id, {
+                                      success: function(client) {
+                                      email = client.get("email")
+                                      if (email == undefined) {
+                                      email = "bobbyren+WeTrain@gmail.com"
+                                      }
+                                      fromName = client.get("firstName")
+                                      if (fromName == undefined) {
+                                      fromName = "WeTrain Team"
+                                      }
+                                      
+                                      // sending email
+                                      console.log("visit by user " + email)
+                                      sendMail(email, fromName, text, subject)
+                                      
+                                      // send push notification
+                                      console.log("Client object: " + clientObject + " id: " + clientObject.id)
+                                      console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
+                                      sendPushTrainingRequest(clientObject.id, trainingObject.id)
+                                      
+                                      },
+                                      error : function(error) {
+                                      console.error("errrrrrrrr" + error);
+                                      email = "bobbyren+WeTrain@gmail.com"
+                                      fromName = "WeTrain Team"
+                                      sendMail(email, fromName, text, subject)
+                                      }
+                                      });
                       
                       });
 
