@@ -12,7 +12,8 @@ import Bolts
 import Parse
 //import GoogleMaps
 
-//import Crashlytics
+import Crashlytics
+import Fabric
 //import GoogleMaps
 
 let GOOGLE_API_APP_KEY = "AIzaSyA7aDRZVW3-ruvbeB25tzJF5WKr0FjyRac"
@@ -35,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+
+        Fabric.with([Crashlytics.self()])
 
         if (PFUser.currentUser() != nil) {
             self.didLogin()

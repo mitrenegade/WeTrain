@@ -185,6 +185,7 @@
 				AC26A2251BB0ED3A0068EFE3 /* Resources */,
 				4518479C4954078792B17B4B /* Copy Pods Resources */,
 				C29F58761C5D7285F5C0142B /* Embed Pods Frameworks */,
+				AC7A09FB1BBA02FB00583DA6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -336,6 +337,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		AC7A09FB1BBA02FB00583DA6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 70160b7dec925a91c6fe09e38bf1f8659c1eda41 0fa711cea5cca0c6a4b57c1a8955f0518514bfdd7a9e6f28b3eca2c60d905a9c\n";
 		};
 		C29F58761C5D7285F5C0142B /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -508,6 +522,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -524,6 +539,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
