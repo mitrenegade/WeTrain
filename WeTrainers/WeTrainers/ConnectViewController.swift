@@ -210,6 +210,13 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 print("results: \(results!)")
                 self.trainingRequests = results
+                if results != nil {
+                    for requestObj: PFObject in results! {
+                        let clientObj: PFObject = requestObj.objectForKey("client") as! PFObject
+                        clientObj.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                            self.tableView.reloadData()
+                        })
+                    }
             }
             self.refreshStatus()
             self.tableView.reloadData()

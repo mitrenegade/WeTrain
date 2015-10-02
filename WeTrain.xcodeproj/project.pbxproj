@@ -40,6 +40,7 @@
 		AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909821B6D618C00085FB6 /* MapViewController.swift */; };
 		AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909841B6D710900085FB6 /* Login.Storyboard */; };
 		AC9760EF1B7167F70060D5D1 /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */; };
+		AC9F6F771BBE2C8000F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F761BBE2C8000F91B92 /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
 		ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */; };
 		ACA6B8EF1B6E62B800AAA992 /* TrainingRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */; };
 		ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */; };
@@ -97,6 +98,7 @@
 		AC7909841B6D710900085FB6 /* Login.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.Storyboard; sourceTree = "<group>"; };
 		AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileViewController.swift; sourceTree = "<group>"; };
 		AC9F6F751BBE272A00F91B92 /* WeTrain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WeTrain.entitlements; sourceTree = "<group>"; };
+		AC9F6F761BBE2C8000F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingRequestViewController.swift; sourceTree = "<group>"; };
 		ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			children = (
 				AC79093D1B6C455F00085FB6 /* Images.xcassets */,
 				AC7909321B6C455F00085FB6 /* Info.plist */,
+				AC9F6F761BBE2C8000F91B92 /* Constants.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */,
 				AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */,
 				ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */,
+				AC9F6F771BBE2C8000F91B92 /* Constants.swift in Sources */,
 				AC0558521BB79ED80065D21E /* UIViewController+Utils.swift in Sources */,
 				AC463FB61B95F3F500935F45 /* NSString+ValidateEmail.m in Sources */,
 			);
