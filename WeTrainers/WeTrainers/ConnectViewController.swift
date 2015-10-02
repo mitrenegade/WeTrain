@@ -9,11 +9,14 @@
 import UIKit
 import Parse
 
-class ConnectViewController: UIViewController {
+class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var labelStatus: UILabel!
     @IBOutlet var buttonAction: UIButton!
+    @IBOutlet var buttonShift: UIButton!
     @IBOutlet var trainingRequests: [PFObject]?
+    
+    @IBOutlet var tableView: UITableView!
     
     var status: String?
     
@@ -31,6 +34,8 @@ class ConnectViewController: UIViewController {
             let trainer = user.objectForKey("trainer") as! PFObject
             status = trainer.objectForKey("status") as? String
         }
+        
+        // updates UI based on web
         self.refreshStatus()
         
         // listen for push enabled
@@ -96,38 +101,47 @@ class ConnectViewController: UIViewController {
         self.buttonAction.enabled = true
         self.buttonAction.alpha = 1
         self.shouldWarnIfRegisterPushFails = false
-        self.refreshStatus()
+        self.updateStatus("off")
     }
     
     // MARK: - Status
     @IBAction func didClickButton(sender: UIButton) {
-        if self.status == "disconnected" {
-            self.registerForRemoteNotifications()
+        // the status is made of two parts: the first part is what actually gets saved to parse, and the second part is a local status
+        
+        if sender == self.buttonShift {
+            if self.status == "disconnected" {
+                self.registerForRemoteNotifications()
+            }
+            else if self.status == "off" || self.status == nil {
+                // start a shift
+                self.updateStatus("available")
+                self.loadExistingRequests()
+                self.buttonAction.hidden = false
+            }
+            else if self.status == "available" {
+                // end a shift
+                self.updateStatus("off")
+            }
         }
-        else if self.status == "off" || self.status == nil {
-            // start a shift
-            self.updateStatus("available")
-            
+        else if sender == self.buttonAction {
             self.loadExistingRequests()
-        }
-        else if self.status == "available" {
-            // end a shift
-            self.updateStatus("off")
-        }
-        else if self.status == "connecting" {
-            self.connect()
-        }
-        else if self.status == "training" {
-            self.updateStatus("available")
         }
     }
     
     func updateStatus(newStatus: String) {
         self.status = newStatus
+
+        let statusString = newStatus as NSString
+        let location = statusString.rangeOfString(".").location
+        var trainerStatus = newStatus
+        if location != NSNotFound {
+            let index = newStatus.startIndex.advancedBy(location)
+            trainerStatus = newStatus.substringToIndex(index)
+        }
         
         let user = PFUser.currentUser()!
         let trainer = user.objectForKey("trainer") as! PFObject
-        trainer.setObject(self.status!, forKey: "status")
+        trainer.setObject(trainerStatus, forKey: "status")
         trainer.saveInBackgroundWithBlock({ (success, error) -> Void in
             if success {
                 self.refreshStatus()
@@ -139,26 +153,41 @@ class ConnectViewController: UIViewController {
     }
     
     func refreshStatus() {
+        self.tableView.hidden = true
+        
         if status == nil || status! == "off" {
             self.labelStatus.text = "Off duty"
-            self.buttonAction.setTitle("Start shift", forState: .Normal)
+            self.buttonShift.setTitle("Start shift", forState: .Normal)
+            self.buttonAction.hidden = true
         }
         else if status == "disconnected" {
             self.labelStatus.text = "Notifications are not enabled"
-            self.buttonAction.setTitle("Enable Notifications", forState: .Normal)
+            self.buttonShift.setTitle("Enable Notifications", forState: .Normal)
+            self.buttonAction.hidden = true
         }
         else if status == "available" {
-            self.labelStatus.text = "Waiting for client"
-            self.buttonAction.setTitle("Go off duty", forState: .Normal)
+            self.buttonAction.setTitle("Refresh list", forState: .Normal)
+            self.buttonAction.hidden = false
+            self.buttonShift.setTitle("End shift", forState: .Normal)
+            if self.clientsAvailable() {
+                self.labelStatus.text = "Clients available"
+                self.tableView.hidden = false
+            }
+            else {
+                self.labelStatus.text = "Waiting for client"
+                self.tableView.hidden = true
+            }
         }
-        else if status == "connecting" {
-            self.labelStatus.text = "A client is available"
-            self.buttonAction.setTitle("View client", forState: .Normal)
+    }
+    
+    func clientsAvailable() -> Bool {
+        if self.trainingRequests == nil {
+            return false
         }
-        else if status == "training" {
-            self.labelStatus.text = "Training session"
-            self.buttonAction.setTitle("Complete workout", forState: .Normal)
+        if self.trainingRequests!.count == 0 {
+            return false
         }
+        return true
     }
 
     // MARK: - Requests
@@ -172,7 +201,8 @@ class ConnectViewController: UIViewController {
     func loadExistingRequests() {
         let query = PFQuery(className: "TrainingRequest")
         // don't actually need to search for given training request - display all active requests
-        query.whereKey("status", equalTo: "searching")
+        query.whereKey("status", equalTo: "requested")
+        self.labelStatus.text = "Searching for clients"
         query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
             if error != nil {
                 print("could not query")
@@ -181,12 +211,9 @@ class ConnectViewController: UIViewController {
                 print("results: \(results!)")
                 self.trainingRequests = results
             }
+            self.refreshStatus()
+            self.tableView.reloadData()
         }
-        
-        if self.status == "available" {
-            self.status = "connecting"
-        }
-        self.refreshStatus()
     }
     
     func connect() {
@@ -196,6 +223,27 @@ class ConnectViewController: UIViewController {
         // if request successfully updates, set request status to accepted
         // start a workout.
         self.performSegueWithIdentifier("GoToClientRequests", sender: nil)
+    }
+    
+    // MARK: - TableViewDatasource
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.trainingRequests != nil {
+        return self.trainingRequests!.count
+        }
+        return 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        
+        cell.textLabel!.text = "name"
+        
+        return cell
     }
     /*
     // MARK: - Navigation

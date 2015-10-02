@@ -38,6 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
 
         Fabric.with([Crashlytics.self()])
+        
+        // reregister for relevant channels
+        if UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+        }
 
         if (PFUser.currentUser() != nil) {
             self.didLogin()
@@ -232,7 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         [message: i want to lose weight, aps: {
             }, userid: 1]
         */
-        if let requestId = userInfo["request"] as? Int {
+        if let requestId = userInfo["request"] as? String {
             NSNotificationCenter.defaultCenter().postNotificationName("request:received", object: nil, userInfo: userInfo)
         }
     }
