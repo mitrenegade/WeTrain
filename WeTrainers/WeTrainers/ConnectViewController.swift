@@ -210,13 +210,6 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 print("results: \(results!)")
                 self.trainingRequests = results
-                if results != nil {
-                    for requestObj: PFObject in results! {
-                        let clientObj: PFObject = requestObj.objectForKey("client") as! PFObject
-                        clientObj.fetchInBackgroundWithBlock({ (object, error) -> Void in
-                            self.tableView.reloadData()
-                        })
-                    }
             }
             self.refreshStatus()
             self.tableView.reloadData()
@@ -245,12 +238,17 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! TrainingRequestCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        
-        cell.textLabel!.text = "name"
+
+        let request: PFObject = self.trainingRequests![indexPath.row] as PFObject
+        cell.setupWithRequest(request)
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1
     }
     /*
     // MARK: - Navigation
