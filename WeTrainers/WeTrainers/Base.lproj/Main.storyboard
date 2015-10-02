@@ -177,11 +177,30 @@
                         <outlet property="buttonShift" destination="TcV-of-xkp" id="RfF-H7-GcT"/>
                         <outlet property="labelStatus" destination="G1m-oN-zRb" id="CDa-fX-hYU"/>
                         <outlet property="tableView" destination="RCR-fb-pBE" id="B80-lK-Vk7"/>
+                        <segue destination="bgl-Mi-Mf7" kind="show" identifier="GoToClientRequest" id="Zen-lY-f4G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="68e-pK-Eob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-17" y="904"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cm0-Y1-Y0z">
+            <objects>
+                <viewController id="bgl-Mi-Mf7" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="emy-Ub-3X8"/>
+                        <viewControllerLayoutGuide type="bottom" id="OzU-iD-msq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vr3-hi-axu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BIr-Qb-d6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="715" y="904"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="xzm-NT-MqK">

@@ -216,15 +216,6 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func connect() {
-        // TODO:
-        // attempt to update the request with current trainer information. check to make sure request hasn't been accepted.
-        // do this on Parse Cloudcode.
-        // if request successfully updates, set request status to accepted
-        // start a workout.
-        self.performSegueWithIdentifier("GoToClientRequests", sender: nil)
-    }
-    
     // MARK: - TableViewDatasource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -250,6 +241,23 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let request: PFObject = self.trainingRequests![indexPath.row] as PFObject
+        self.connect(request)
+    }
+    
+    func connect(request: PFObject) {
+        // TODO:
+        // attempt to update the request with current trainer information. check to make sure request hasn't been accepted.
+        // do this on Parse Cloudcode.
+        // if request successfully updates, set request status to accepted
+        // start a workout.
+        self.performSegueWithIdentifier("GoToClientRequests", sender: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

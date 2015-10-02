@@ -140,9 +140,9 @@
 				AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */,
 				AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */,
 				ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */,
+				ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */,
 				AC235FF61BB4F577000AEA40 /* ConnectViewController.swift */,
 				AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */,
-				ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */,
 				ACFA6F121BB42C3400AC3927 /* Supporting Files */,
 				ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */,
 			);
