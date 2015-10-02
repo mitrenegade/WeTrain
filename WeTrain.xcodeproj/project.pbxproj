@@ -96,6 +96,7 @@
 		AC7909821B6D618C00085FB6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AC7909841B6D710900085FB6 /* Login.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.Storyboard; sourceTree = "<group>"; };
 		AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileViewController.swift; sourceTree = "<group>"; };
+		AC9F6F751BBE272A00F91B92 /* WeTrain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WeTrain.entitlements; sourceTree = "<group>"; };
 		ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingRequestViewController.swift; sourceTree = "<group>"; };
 		ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +193,7 @@
 		AC7909301B6C455F00085FB6 /* WeTrain */ = {
 			isa = PBXGroup;
 			children = (
+				AC9F6F751BBE272A00F91B92 /* WeTrain.entitlements */,
 				AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */,
 				AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */,
 				AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */,
@@ -297,7 +299,13 @@
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = H799H8B8DD;
 						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 0;
+							};
 							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+							com.apple.OMC = {
 								enabled = 0;
 							};
 						};
@@ -543,7 +551,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_ENTITLEMENTS = WeTrain/WeTrain.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bobby Ren (UQA7D88UV9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -554,7 +564,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.client.app;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "acc86800-11e9-479c-9593-0dea0fb65c72";
+				PROVISIONING_PROFILE = "0e3f4233-c94a-4ede-8e9b-947e4de2fdf3";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -567,7 +577,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Bobby Ren (H799H8B8DD)";
+				CODE_SIGN_ENTITLEMENTS = WeTrain/WeTrain.entitlements;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -578,7 +590,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.client.app;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "acc86800-11e9-479c-9593-0dea0fb65c72";
+				PROVISIONING_PROFILE = "0e3f4233-c94a-4ede-8e9b-947e4de2fdf3";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
