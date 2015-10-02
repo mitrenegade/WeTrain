@@ -12,7 +12,8 @@ import Bolts
 import Parse
 //import GoogleMaps
 
-//import Crashlytics
+import Crashlytics
+import Fabric
 //import GoogleMaps
 
 let GOOGLE_API_APP_KEY = "AIzaSyA7aDRZVW3-ruvbeB25tzJF5WKr0FjyRac"
@@ -35,6 +36,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+
+        Fabric.with([Crashlytics.self()])
+        
+        // reregister for relevant channels
+        if UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+        }
 
         if (PFUser.currentUser() != nil) {
             self.didLogin()
@@ -229,7 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         [message: i want to lose weight, aps: {
             }, userid: 1]
         */
-        if let requestId = userInfo["requestId"] as? Int {
+        if let requestId = userInfo["request"] as? String {
             NSNotificationCenter.defaultCenter().postNotificationName("request:received", object: nil, userInfo: userInfo)
         }
     }

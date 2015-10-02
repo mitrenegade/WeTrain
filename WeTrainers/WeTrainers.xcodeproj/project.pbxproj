@@ -15,6 +15,9 @@
 		AC26A2381BB0ED3A0068EFE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC26A2361BB0ED3A0068EFE3 /* LaunchScreen.storyboard */; };
 		AC26A2431BB0ED3B0068EFE3 /* WeTrainersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A2421BB0ED3B0068EFE3 /* WeTrainersTests.swift */; };
 		AC26A24E1BB0ED3B0068EFE3 /* WeTrainersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */; };
+		AC9F6F791BBE2CEE00F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F781BBE2CEE00F91B92 /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
+		AC9F6F7B1BBE2E3100F91B92 /* TrainingRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */; settings = {ASSET_TAGS = (); }; };
+		ACE377371BB98B14009D18AA /* ClientRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE377361BB98B14009D18AA /* ClientRequestsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		ACFA6F111BB41D6100AC3927 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */; };
 		ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */; };
 		ACFA6F1C1BB4323500AC3927 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */; settings = {ASSET_TAGS = (); }; };
@@ -56,6 +59,9 @@
 		AC26A2491BB0ED3B0068EFE3 /* WeTrainersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeTrainersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeTrainersUITests.swift; sourceTree = "<group>"; };
 		AC26A24F1BB0ED3B0068EFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC9F6F781BBE2CEE00F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../WeTrain/Constants.swift; sourceTree = "<group>"; };
+		AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingRequestCell.swift; sourceTree = "<group>"; };
+		ACE377361BB98B14009D18AA /* ClientRequestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientRequestsViewController.swift; sourceTree = "<group>"; };
 		ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
@@ -129,12 +135,14 @@
 		AC26A2291BB0ED3A0068EFE3 /* WeTrainers */ = {
 			isa = PBXGroup;
 			children = (
+				ACE377361BB98B14009D18AA /* ClientRequestsViewController.swift */,
 				AC26A2311BB0ED3A0068EFE3 /* Model.xcdatamodeld */,
 				AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */,
 				AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */,
 				ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */,
-				AC235FF61BB4F577000AEA40 /* ConnectViewController.swift */,
 				ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */,
+				AC235FF61BB4F577000AEA40 /* ConnectViewController.swift */,
+				AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */,
 				ACFA6F121BB42C3400AC3927 /* Supporting Files */,
 				ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */,
 			);
@@ -162,6 +170,7 @@
 		ACFA6F121BB42C3400AC3927 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AC9F6F781BBE2CEE00F91B92 /* Constants.swift */,
 				AC26A2341BB0ED3A0068EFE3 /* Assets.xcassets */,
 				AC26A2361BB0ED3A0068EFE3 /* LaunchScreen.storyboard */,
 				AC26A2391BB0ED3A0068EFE3 /* Info.plist */,
@@ -182,6 +191,7 @@
 				AC26A2251BB0ED3A0068EFE3 /* Resources */,
 				4518479C4954078792B17B4B /* Copy Pods Resources */,
 				C29F58761C5D7285F5C0142B /* Embed Pods Frameworks */,
+				AC7A09FB1BBA02FB00583DA6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -334,6 +344,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		AC7A09FB1BBA02FB00583DA6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 70160b7dec925a91c6fe09e38bf1f8659c1eda41 0fa711cea5cca0c6a4b57c1a8955f0518514bfdd7a9e6f28b3eca2c60d905a9c\n";
+		};
 		C29F58761C5D7285F5C0142B /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -358,10 +381,13 @@
 			files = (
 				ACFA6F111BB41D6100AC3927 /* LoginViewController.swift in Sources */,
 				AC26A22B1BB0ED3A0068EFE3 /* AppDelegate.swift in Sources */,
+				AC9F6F7B1BBE2E3100F91B92 /* TrainingRequestCell.swift in Sources */,
 				ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */,
 				AC235FF71BB4F577000AEA40 /* ConnectViewController.swift in Sources */,
 				AC26A2331BB0ED3A0068EFE3 /* Model.xcdatamodeld in Sources */,
+				ACE377371BB98B14009D18AA /* ClientRequestsViewController.swift in Sources */,
 				ACFA6F1C1BB4323500AC3927 /* UIViewController+Utils.swift in Sources */,
+				AC9F6F791BBE2CEE00F91B92 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +530,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -520,6 +547,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

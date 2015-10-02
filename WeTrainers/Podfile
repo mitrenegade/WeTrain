@@ -5,3 +5,5 @@ use_frameworks!
 #pod 'GoogleMaps'
 #pod 'Stripe'
 pod 'Parse'
+pod 'Fabric'
+pod 'Crashlytics'
