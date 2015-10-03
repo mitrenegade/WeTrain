@@ -19,12 +19,16 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var viewInfo: UIView!
     @IBOutlet weak var labelInfo: UILabel!
     @IBOutlet weak var constraintLabelInfoHeight: NSLayoutConstraint?
-    
+
+    @IBOutlet weak var viewPasscode: UIView!
     @IBOutlet weak var labelPasscode: UILabel!
     @IBOutlet weak var inputPasscode: UITextField!
     
-    @IBOutlet weak var labelStart: UILabel!
+    @IBOutlet weak var buttonAction: UIButton!
     
+    let trainer: PFObject = PFUser.currentUser()!.objectForKey("trainer") as! PFObject
+    var status: String = "loading"
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.layer.borderWidth = 1
@@ -73,13 +77,12 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
                 }
                 
                 self.labelInfo.text = info
+                
+                self.status = self.request.objectForKey("status") as! String
+                self.updateState()
             })
         }
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Start", style: .Done, target: self, action: "startWorkout")
-        self.validatePasscode()
-        self.labelStart.hidden = true;
-    }
+        }
     
     func ageOfClient(client: PFObject) -> String? {
         // TODO: use birthdate to calculate age
@@ -104,26 +107,82 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func updateState() {
+        if self.status == "loading" {
+            self.viewPasscode.hidden = true
+            self.buttonAction.setTitle("Loading", forState: .Normal)
+            self.buttonAction.enabled = false
+        }
+        else if self.status == RequestState.Searching.rawValue {
+            self.viewPasscode.hidden = true
+            self.buttonAction.setTitle("Accept client", forState: .Normal)
+            self.buttonAction.enabled = true
+        }
+        else if self.status == RequestState.Matched.rawValue {
+            self.viewPasscode.hidden = false
+            self.buttonAction.setTitle("Start workout", forState: .Normal)
+            self.buttonAction.enabled = true
+        }
+        else if self.status == RequestState.Training.rawValue {
+            self.viewPasscode.hidden = true
+            self.buttonAction.setTitle("Workout in progress", forState: .Normal)
+            self.buttonAction.enabled = false
+        }
+    }
+    @IBAction func didClickButton(sender: UIButton) {
+        let trainerId: String = self.trainer.objectId! as String
+        if self.status == RequestState.Searching.rawValue {
+            self.acceptTrainingRequest()
+        }
+        else if self.status == RequestState.Matched.rawValue && request.objectForKey("trainer")! as! String == trainerId {
+            self.inputPasscode.resignFirstResponder()
+            self.validatePasscode()
+        }
+    }
+    
+    func acceptTrainingRequest() {
+        let trainerId: String = self.trainer.objectId! as String
+        let params = ["trainingRequestId": self.request.objectId!, "trainerId": trainerId]
+        PFCloud.callFunctionInBackground("acceptTrainingRequest", withParameters: params) { (results, error) -> Void in
+            if error != nil {
+                print("could not request training request")
+                self.simpleAlert("Could not accept client", message: "The client's training session is no longer available.")
+            }
+            else {
+                print("training session is yours")
+                self.request.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                    self.status = self.request.objectForKey("status") as! String
+                    self.updateState()
+                })
+            }
+        }
+    }
+    
     func validatePasscode() {
         let text = self.inputPasscode.text
         let validCode = self.request.objectForKey("passcode") as? String
         
         if validCode == nil || text?.lowercaseString == validCode! {
-            self.navigationItem.rightBarButtonItem?.enabled = true
+            self.startWorkout()
         }
         else {
-            self.navigationItem.rightBarButtonItem?.enabled = false
+            self.simpleAlert("Invalid passcode", message: "Please enter the correct passcode given to you by your client.")
         }
     }
     
     func startWorkout() {
-        self.labelStart.hidden = false
-        self.labelPasscode.hidden = true
-        self.inputPasscode.hidden = true
-        
-        self.navigationItem.rightBarButtonItem = nil
-        
-        self.request.saveInBackground()
+        self.request.setObject(RequestState.Training.rawValue, forKey: "status")
+        self.request.saveInBackgroundWithBlock { (success, error) -> Void in
+            if error != nil {
+                self.simpleAlert("Could not start workout", message: "Please try again")
+            }
+            else {
+                self.request.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                    self.status = self.request.objectForKey("status") as! String
+                    self.updateState()
+                })
+            }
+        }
     }
 
     /*
