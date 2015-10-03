@@ -56,9 +56,37 @@ var randomPasscode = function() {
     return "workout"
 }
 
-Parse.Cloud.define("sendMail", function(request, response) {
-                   sendMail(request, response)
-                   });
+Parse.Cloud.define("acceptTrainingRequest", function(request, response) {
+                   var trainerId = request.trainer
+                   var trainingObjectId = request.trainingRequest
+                   console.log("training request = " + trainingObjectId + " Trainer " + trainerId)
+                   
+                   var trainingQuery = new Parse.Query("TrainingRequest");
+                   trainingQuery.get(trainingObjectId, {
+                                   success: function(trainingObject) {
+                                     console.log("found training request with id " + trainingObjectId)
+                                     var existingTrainer = trainingObject.get("trainer")
+                                     if (existingTrainer == undefined) {
+                                        console.log("no trainer - you are it")
+                                        trainingObject.set("trainer", trainerId)
+                                        trainingObject.set("status", "matched")
+                                        trainingObject.save()
+                                        response.success()
+                                     }
+                                     else if (existingTrainer != trainerId) {
+                                        console.log("Trainer already exists!")
+                                        response.error()
+                                     }
+                                   }
+                                   ,
+                                   error : function(error) {
+                                   console.error("errrrrrrrr" + error);
+                                     response.error()
+                                   }
+                                     });
+                   
+                   })
+
 
 Parse.Cloud.afterSave("Feedback", function(request) {
                       var feedback = request.object
@@ -104,7 +132,7 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
 
                       var text = "TrainingRequest id: " + trainingObject.id + " Status: " + status + "\nLat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon") + "\nTime: " + trainingObject.get("time")
                       
-                      var clientObject = request.object.get("client")
+                      var clientObject = trainingObject.get("client")
                       var clientQuery = new Parse.Query("Client");
                       clientQuery.get(clientObject.id, {
                                       success: function(client) {
