@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ClientInfoDelegate {
 
     @IBOutlet var labelStatus: UILabel!
     @IBOutlet var buttonAction: UIButton!
@@ -229,6 +229,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         let query = PFQuery(className: "TrainingRequest")
         // don't actually need to search for given training request - display all active requests
         query.whereKey("status", equalTo: "requested")
+        query.whereKeyDoesNotExist("trainer")
         self.labelStatus.text = "Searching for clients"
         query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
             if error != nil {
@@ -285,6 +286,13 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.performSegueWithIdentifier("GoToClientRequest", sender: request)
     }
     
+    // MARK: - ClientInfoDelegate
+    func clientsDidChange() {
+        self.loadExistingRequestsWithCompletion({ (results) -> Void in
+            self.refreshStatus()
+            self.tableView.reloadData()
+        })
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -295,6 +303,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             let request = sender as! PFObject
             let controller = segue.destinationViewController as! ClientInfoViewController
             controller.request = request
+            controller.delegate = self
         }
     }
 

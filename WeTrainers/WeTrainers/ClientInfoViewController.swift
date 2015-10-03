@@ -9,6 +9,10 @@
 import UIKit
 import Parse
 
+protocol ClientInfoDelegate: class {
+    func clientsDidChange()
+}
+
 class ClientInfoViewController: UIViewController, UITextFieldDelegate {
 
     var request: PFObject!
@@ -25,6 +29,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var inputPasscode: UITextField!
     
     @IBOutlet weak var buttonAction: UIButton!
+    weak var delegate: ClientInfoDelegate?
     
     let trainer: PFObject = PFUser.currentUser()!.objectForKey("trainer") as! PFObject
     var status: String = "loading"
@@ -147,6 +152,9 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
             if error != nil {
                 print("could not request training request")
                 self.simpleAlert("Could not accept client", message: "The client's training session is no longer available.", completion: { () -> Void in
+                    if self.delegate != nil {
+                        self.delegate!.clientsDidChange()
+                    }
                     self.navigationController!.popViewControllerAnimated(true)
                 })
             }
