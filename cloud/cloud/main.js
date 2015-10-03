@@ -98,11 +98,11 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
                       }
                       
                       var subject = "Training requested"
-                      if (trainingObject.get("status") == "none") {
+                      if (status == "none") {
                         subject = "Training cancelled"
                       }
 
-                      var text = "TrainingRequest id: " + trainingObject.id + " Status: " + trainingObject.get("status") + "\nLat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon") + "\nTime: " + trainingObject.get("time")
+                      var text = "TrainingRequest id: " + trainingObject.id + " Status: " + status + "\nLat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon") + "\nTime: " + trainingObject.get("time")
                       
                       var clientObject = request.object.get("client")
                       var clientQuery = new Parse.Query("Client");
@@ -122,18 +122,22 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
                                       sendMail(email, fromName, text, subject)
                                       
                                       // send push notification
-                                      console.log("Client object: " + clientObject + " id: " + clientObject.id)
-                                      console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
-                                      sendPushTrainingRequest(clientObject.id, trainingObject.id)
+                                      if (status == "requested") {
+                                        console.log("Client object: " + clientObject + " id: " + clientObject.id)
+                                        console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
+                                        sendPushTrainingRequest(clientObject.id, trainingObject.id)
                                       
-                                      },
-                                      error : function(error) {
-                                      console.error("errrrrrrrr" + error);
-                                      email = "bobbyren+WeTrain@gmail.com"
-                                      fromName = "WeTrain Team"
-                                      sendMail(email, fromName, text, subject)
+                                        }
                                       }
-                                      });
+                                      
+                                      ,
+                                    error : function(error) {
+                                    console.error("errrrrrrrr" + error);
+                                    email = "bobbyren+WeTrain@gmail.com"
+                                    fromName = "WeTrain Team"
+                                    sendMail(email, fromName, text, subject)
+                                    }
+                                    });
                       
                       });
 

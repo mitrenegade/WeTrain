@@ -122,6 +122,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         self.inputPasscode.hidden = true
         
         self.navigationItem.rightBarButtonItem = nil
+        
+        self.request.saveInBackground()
     }
 
     /*
