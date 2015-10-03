@@ -52,6 +52,10 @@ var sendPushTrainingRequest = function(clientId, requestId) {
                     });
 }
 
+var randomPasscode = function() {
+    return "workout"
+}
+
 Parse.Cloud.define("sendMail", function(request, response) {
                    sendMail(request, response)
                    });
@@ -70,6 +74,16 @@ Parse.Cloud.afterSave("Feedback", function(request) {
                       sendMail(email, fromName, text, subject)
                       });
 
+Parse.Cloud.beforeSave("TrainingRequest", function(request, response) {
+                        var trainingObject = request.object
+                       
+                        if (trainingObject.get("passcode") == undefined) {
+                            trainingObject.set("passcode", randomPasscode())
+                            console.log("added passcode " + trainingObject.get("passcode") + " to training object " + trainingObject.id)
+                        }
+                       response.success()
+                       });
+
 Parse.Cloud.afterSave("TrainingRequest", function(request) {
                       var trainingObject = request.object
                       console.log("TrainingRequest id: " + trainingObject.id )
@@ -85,8 +99,9 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
                       
                       var subject = "Training requested"
                       if (trainingObject.get("status") == "none") {
-                      subject = "Training cancelled"
+                        subject = "Training cancelled"
                       }
+
                       var text = "TrainingRequest id: " + trainingObject.id + " Status: " + trainingObject.get("status") + "\nLat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon") + "\nTime: " + trainingObject.get("time")
                       
                       var clientObject = request.object.get("client")

@@ -119,6 +119,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         self.labelStart.hidden = false
         self.labelPasscode.hidden = true
         self.inputPasscode.hidden = true
+        
+        self.navigationItem.rightBarButtonItem = nil
     }
 
     /*
