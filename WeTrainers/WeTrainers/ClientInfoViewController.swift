@@ -146,7 +146,9 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         PFCloud.callFunctionInBackground("acceptTrainingRequest", withParameters: params) { (results, error) -> Void in
             if error != nil {
                 print("could not request training request")
-                self.simpleAlert("Could not accept client", message: "The client's training session is no longer available.")
+                self.simpleAlert("Could not accept client", message: "The client's training session is no longer available.", completion: { () -> Void in
+                    self.navigationController!.popViewControllerAnimated(true)
+                })
             }
             else {
                 print("training session is yours")
