@@ -57,8 +57,8 @@ var randomPasscode = function() {
 }
 
 Parse.Cloud.define("acceptTrainingRequest", function(request, response) {
-                   var trainerId = request.trainer
-                   var trainingObjectId = request.trainingRequest
+                   var trainerId = request.params.trainerId
+                   var trainingObjectId = request.params.trainingRequestId
                    console.log("training request = " + trainingObjectId + " Trainer " + trainerId)
                    
                    var trainingQuery = new Parse.Query("TrainingRequest");
