@@ -26,13 +26,21 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
-            self.status = "disconnected"
-        }
-        else {
-            let user = PFUser.currentUser()!
-            let trainer = user.objectForKey("trainer") as! PFObject
-            status = trainer.objectForKey("status") as? String
+        let user = PFUser.currentUser()!
+        let trainer = user.objectForKey("trainer") as! PFObject
+        status = trainer.objectForKey("status") as? String
+
+        if status == "available" {
+            // make a call to load any existing requests that we won't get through notifications because they were made already
+            self.loadExistingRequestsWithCompletion({ (results) -> Void in
+                if results == nil || results!.count == 0 {
+                    if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+                        self.status = "disconnected"
+                    }
+                }
+                self.refreshStatus()
+                self.tableView.reloadData()
+            })
         }
         
         // updates UI based on web
@@ -46,9 +54,6 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         // listen for request notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveRequest:", name: "request:received", object: nil)
-        
-        // make a call to load any existing requests that we won't get through notifications because they were made already
-        self.loadExistingRequests()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -115,7 +120,10 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             else if self.status == "off" || self.status == nil {
                 // start a shift
                 self.updateStatus("available")
-                self.loadExistingRequests()
+                self.loadExistingRequestsWithCompletion({ (results) -> Void in
+                    self.refreshStatus()
+                    self.tableView.reloadData()
+                })
                 self.buttonAction.hidden = false
             }
             else if self.status == "available" {
@@ -124,7 +132,22 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         else if sender == self.buttonAction {
-            self.loadExistingRequests()
+            if self.status == "disconnected" {
+                // skip notifications
+                let user = PFUser.currentUser()!
+                let trainer = user.objectForKey("trainer") as! PFObject
+                var actualStatus = trainer.objectForKey("status") as? String
+                if actualStatus == nil {
+                    actualStatus = "off"
+                }
+                self.updateStatus(actualStatus!)
+            }
+            else {
+                self.loadExistingRequestsWithCompletion({ (results) -> Void in
+                    self.refreshStatus()
+                    self.tableView.reloadData()
+                })
+            }
         }
     }
     
@@ -163,7 +186,8 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         else if status == "disconnected" {
             self.labelStatus.text = "Notifications are not enabled"
             self.buttonShift.setTitle("Enable Notifications", forState: .Normal)
-            self.buttonAction.hidden = true
+            self.buttonAction.setTitle("Remind me later", forState: .Normal)
+            self.buttonAction.hidden = false
         }
         else if status == "available" {
             self.buttonAction.setTitle("Refresh list", forState: .Normal)
@@ -195,10 +219,13 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         let userInfo = notification.userInfo as? [String: AnyObject]
         print("Sent info: \(userInfo!)")
         
-        self.loadExistingRequests()
+        self.loadExistingRequestsWithCompletion { (results) -> Void in
+            self.refreshStatus()
+            self.tableView.reloadData()
+        }
     }
 
-    func loadExistingRequests() {
+    func loadExistingRequestsWithCompletion(completion: (results: [PFObject]?) -> Void) {
         let query = PFQuery(className: "TrainingRequest")
         // don't actually need to search for given training request - display all active requests
         query.whereKey("status", equalTo: "requested")
@@ -211,8 +238,8 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
                 print("results: \(results!)")
                 self.trainingRequests = results
             }
-            self.refreshStatus()
-            self.tableView.reloadData()
+            
+            completion(results: results!)
         }
     }
     

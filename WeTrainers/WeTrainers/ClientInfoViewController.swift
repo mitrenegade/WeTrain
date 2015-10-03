@@ -106,8 +106,9 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
     
     func validatePasscode() {
         let text = self.inputPasscode.text
+        let validCode = self.request.objectForKey("passcode") as? String
         
-        if text?.lowercaseString == "lift" {
+        if validCode == nil || text?.lowercaseString == validCode! {
             self.navigationItem.rightBarButtonItem?.enabled = true
         }
         else {
