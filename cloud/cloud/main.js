@@ -70,12 +70,29 @@ Parse.Cloud.define("acceptTrainingRequest", function(request, response) {
                                         console.log("no trainer - you are it")
                                         trainingObject.set("trainer", trainerId)
                                         trainingObject.set("status", "matched")
-                                        trainingObject.save()
-                                        response.success()
+                                        Parse.Object.saveAll([trainingObject], {
+                                                          success: function(objects) {
+                                                          response.success()
+                                                          }, error: function(objects, error) {
+                                                          response.success()
+                                                          }
+                                                          });
+                                        }
                                      }
                                      else if (existingTrainer != trainerId) {
                                         console.log("Trainer already exists!")
                                         response.error()
+                                     }
+                                     else {
+                                     console.log("Trainer already exists but is you! state must have been changed elsewhere")
+                                     trainingObject.set("status", "matched")
+                                     Parse.Object.saveAll([trainingObject], {
+                                                          success: function(objects) {
+                                                          response.success()
+                                                          }, error: function(objects, error) {
+                                                          response.success()
+                                                          }
+                                                          });
                                      }
                                    }
                                    ,
@@ -146,9 +163,10 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
                                       }
                                       
                                       // sending email
+                                      if (status == "requested" || status == "cancelled") {
                                       console.log("visit by user " + email)
                                       sendMail(email, fromName, text, subject)
-                                      
+                                      }
                                       // send push notification
                                       if (status == "requested") {
                                         console.log("Client object: " + clientObject + " id: " + clientObject.id)
