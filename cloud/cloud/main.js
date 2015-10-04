@@ -80,7 +80,6 @@ Parse.Cloud.define("acceptTrainingRequest", function(request, response) {
                                         console.log("no trainer - you are it")
                                         trainingObject.set("trainer", trainerId)
                                         trainingObject.set("status", "matched")
-                                        trainingObject.set("start", new Date())
                                         trainerObject.set("workout", trainingObject)
                                         Parse.Object.saveAll([trainingObject, trainerObject], {
                                                           success: function(objects) {
@@ -126,6 +125,11 @@ Parse.Cloud.beforeSave("TrainingRequest", function(request, response) {
                             trainingObject.set("passcode", randomPasscode())
                             console.log("added passcode " + trainingObject.get("passcode") + " to training object " + trainingObject.id)
                         }
+                       if (trainingObject.get("status") == "training" || trainingObject.get("start") == undefined) {
+                        var start = new Date()
+                        trainingObject.set("start", start)
+                        console.log("started training " + trainingObject.id + " at " + start)
+                       }
                        response.success()
                        });
 

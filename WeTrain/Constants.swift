@@ -18,4 +18,5 @@ enum RequestState: String {
     case Matched = "matched"
     case Training = "training"
     case Cancelled = "cancelled"
+    case Complete = "complete"
 }

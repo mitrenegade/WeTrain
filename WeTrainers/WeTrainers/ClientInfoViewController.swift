@@ -34,6 +34,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
     let trainer: PFObject = PFUser.currentUser()!.objectForKey("trainer") as! PFObject
     var client: PFObject?
     var status: String = "loading"
+    
+    var timer: NSTimer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +69,6 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
                     self.imageView.image = nil
                 }
                 
-                self.updateLabelInfo()
-                
                 self.status = self.request.objectForKey("status") as! String
                 self.updateState()
             })
@@ -92,18 +92,29 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         let injuries = self.client!.objectForKey("injuries") as? String
         
         var info = "Exercise: \(exercise!)"
-        if let start = self.request.objectForKey("start") as? NSDate {
-            let interval = NSDate().timeIntervalSinceDate(start)
-            print("interval since workout started: \(interval)")
-            let seconds = Int(interval % 60)
-            let minutes = Int((interval / 60) % 60)
-            let hours = Int((interval / 3600))
-            let timeString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-            info = "\(info)\nTime elapsed: \(timeString)"
-        }
+        if self.status == RequestState.Training.rawValue || self.status == RequestState.Complete.rawValue {
+            if let start = self.request.objectForKey("start") as? NSDate {
+                let interval = NSDate().timeIntervalSinceDate(start)
+                print("interval since workout started: \(interval)")
+                let seconds = Int(interval % 60)
+                let minutes = Int((interval / 60) % 60)
+                let hours = Int((interval / 3600))
+                let timeString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+                
+                if self.status == RequestState.Complete.rawValue {
+                    info = "\(info)\nTotal time elapsed: \(timeString)"
+                }
+                else {
+                    info = "\(info)\nTime elapsed: \(timeString)"
 
+                    if self.timer == nil {
+                        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "tick", userInfo: nil, repeats: true)
+                    }
+                }
+            }
+        }
         if gender != nil {
-            info = "\(info)\nGender: \(gender!)"
+            info = "\(info)\n\nGender: \(gender!)"
         }
         if age != nil {
             info = "\(info)\nAge: \(age!)"
@@ -149,6 +160,11 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
             self.buttonAction.setTitle("Workout in progress", forState: .Normal)
             self.buttonAction.enabled = false
         }
+        else if self.status == RequestState.Complete.rawValue {
+            self.viewPasscode.hidden = true
+            self.buttonAction.setTitle("Complete workout", forState: .Normal)
+            self.buttonAction.enabled = true
+        }
         
         self.updateLabelInfo()
     }
@@ -161,6 +177,9 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
             self.inputPasscode.resignFirstResponder()
             self.validatePasscode()
         }
+        else if self.status == RequestState.Complete.rawValue {
+            self.close()
+        }
     }
     
     func acceptTrainingRequest() {
@@ -170,10 +189,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
             if error != nil {
                 print("could not request training request")
                 self.simpleAlert("Could not accept client", message: "The client's training session is no longer available.", completion: { () -> Void in
-                    if self.delegate != nil {
-                        self.delegate!.clientsDidChange()
-                    }
-                    self.navigationController!.popViewControllerAnimated(true)
+                    self.close()
                 })
             }
             else {
@@ -212,7 +228,47 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    func tick() {
+        self.updateLabelInfo()
+        
+        if let start = self.request.objectForKey("start") as? NSDate {
+            if let _ = self.request.objectForKey("end") as? NSDate {
+                // if workout has ended but somehow we still have a timer, just end it
+                self.updateState()
+                self.timer?.invalidate()
+                self.timer = nil
+                return
+            }
+            
+            let interval = NSDate().timeIntervalSinceDate(start)
+            let length = self.request.objectForKey("length") as! NSNumber
+            let minutes = Int(length) + 5
+            if Int(interval) > 60*(minutes) {
+                self.endWorkout()
+            }
+        }
+    }
+    
+    func endWorkout() {
+        self.request.setObject(RequestState.Complete.rawValue, forKey: "status")
+        self.request.setObject(NSDate(), forKey: "end")
+        self.trainer.removeObjectForKey("workout")
+        self.request.saveInBackgroundWithBlock { (success, error) -> Void in
+            self.status = self.request.objectForKey("status") as! String
+            self.trainer.saveInBackgroundWithBlock({ (success, error) -> Void in
+                self.updateState()
+            })
+        }
+        print("end workout")
+    }
 
+    func close() {
+        if self.delegate != nil {
+            self.delegate!.clientsDidChange()
+        }
+        self.navigationController!.popViewControllerAnimated(true)
+    }
     /*
     // MARK: - Navigation
 
