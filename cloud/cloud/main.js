@@ -168,7 +168,7 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
                                       
                                       // sending email
                                       if (status == "requested" || status == "cancelled") {
-                                      console.log("visit by user " + email)
+                                      console.log("training request by user " + email + " with status " + status)
                                       sendMail(email, fromName, text, subject)
                                       }
                                       // send push notification

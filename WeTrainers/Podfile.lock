@@ -1,6 +1,6 @@
 PODS:
   - Bolts/Tasks (1.3.0)
-  - Crashlytics (3.3.1)
+  - Crashlytics (3.3.4)
   - Fabric (1.5.1):
     - Fabric/Base (= 1.5.1)
   - Fabric/Base (1.5.1)
@@ -14,7 +14,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
-  Crashlytics: 0e61bdda9def51f1e99720f804eebe94865442b2
+  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
   Fabric: 03c3b3fe77e11a2bc31421b989a9c7adaa4779a5
   Parse: 17ad8e0677ed682f7f00503860fcda0f4eb74168
 
