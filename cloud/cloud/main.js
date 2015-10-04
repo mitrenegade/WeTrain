@@ -80,6 +80,7 @@ Parse.Cloud.define("acceptTrainingRequest", function(request, response) {
                                         console.log("no trainer - you are it")
                                         trainingObject.set("trainer", trainerId)
                                         trainingObject.set("status", "matched")
+                                        trainingObject.set("start", new Date())
                                         trainerObject.set("workout", trainingObject)
                                         Parse.Object.saveAll([trainingObject, trainerObject], {
                                                           success: function(objects) {

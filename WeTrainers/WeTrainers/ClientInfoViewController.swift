@@ -32,6 +32,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
     weak var delegate: ClientInfoDelegate?
     
     let trainer: PFObject = PFUser.currentUser()!.objectForKey("trainer") as! PFObject
+    var client: PFObject?
     var status: String = "loading"
 
     override func viewDidLoad() {
@@ -46,10 +47,10 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         request.fetchIfNeededInBackgroundWithBlock { (object, error) -> Void in
-            let clientObj: PFObject = self.request.objectForKey("client") as! PFObject
-            clientObj.fetchIfNeededInBackgroundWithBlock({ (object, error) -> Void in
-                let firstName = clientObj.objectForKey("firstName") as? String
-                let lastName = clientObj.objectForKey("lastName") as? String
+            self.client = self.request.objectForKey("client") as! PFObject
+            self.client!.fetchIfNeededInBackgroundWithBlock({ (object, error) -> Void in
+                let firstName = self.client!.objectForKey("firstName") as? String
+                let lastName = self.client!.objectForKey("lastName") as? String
                 self.labelName.text = firstName!
                 if lastName != nil {
                     self.labelName.text = "\(firstName!) \(lastName!)"
@@ -66,22 +67,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
                     self.imageView.image = nil
                 }
                 
-                let gender = clientObj.objectForKey("gender") as? String
-                let age = self.ageOfClient(clientObj) as String?
-                let injuries = clientObj.objectForKey("injuries") as? String
-
-                var info = "Exercise: \(exercise!)"
-                if gender != nil {
-                    info = "\(info)\nGender: \(gender!)"
-                }
-                if age != nil {
-                    info = "\(info)\nAge: \(age!)"
-                }
-                if injuries != nil {
-                    info = "\(info)\nAge: \(injuries!)"
-                }
-                
-                self.labelInfo.text = info
+                self.updateLabelInfo()
                 
                 self.status = self.request.objectForKey("status") as! String
                 self.updateState()
@@ -99,6 +85,36 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
+    func updateLabelInfo() {
+        let exercise = self.request.objectForKey("type") as? String
+        let gender = self.client!.objectForKey("gender") as? String
+        let age = self.ageOfClient(self.client!) as String?
+        let injuries = self.client!.objectForKey("injuries") as? String
+        
+        var info = "Exercise: \(exercise!)"
+        if let start = self.request.objectForKey("start") as? NSDate {
+            let interval = NSDate().timeIntervalSinceDate(start)
+            print("interval since workout started: \(interval)")
+            let seconds = Int(interval % 60)
+            let minutes = Int((interval / 60) % 60)
+            let hours = Int((interval / 3600))
+            let timeString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+            info = "\(info)\nTime elapsed: \(timeString)"
+        }
+
+        if gender != nil {
+            info = "\(info)\nGender: \(gender!)"
+        }
+        if age != nil {
+            info = "\(info)\nAge: \(age!)"
+        }
+        if injuries != nil {
+            info = "\(info)\nInjuries: \(injuries!)"
+        }
+        
+        self.labelInfo.text = info
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -133,6 +149,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
             self.buttonAction.setTitle("Workout in progress", forState: .Normal)
             self.buttonAction.enabled = false
         }
+        
+        self.updateLabelInfo()
     }
     @IBAction func didClickButton(sender: UIButton) {
         let trainerId: String = self.trainer.objectId! as String

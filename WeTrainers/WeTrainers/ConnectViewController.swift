@@ -45,7 +45,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         if trainer.objectForKey("workout") != nil {
-            let request = trainer.objectForKey("workout") as! PFObject 
+            let request = trainer.objectForKey("workout") as! PFObject
             self.performSegueWithIdentifier("GoToClientRequest", sender: request)
         }
         
