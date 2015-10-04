@@ -33,7 +33,13 @@ class RequestStatusViewController: UIViewController {
         // Do any additional setup after loading the view.
         if let previousState: String = self.currentRequest?.objectForKey("status") as? String{
             let newState: RequestState = RequestState(rawValue: previousState)!
-            self.toggleRequestState(newState)
+            if newState == RequestState.Matched {
+                self.goToTrainerInfo()
+                return
+            }
+            else {
+                self.updateRequestState()
+            }
         }
         
         if self.timer == nil {
@@ -157,7 +163,6 @@ class RequestStatusViewController: UIViewController {
             })
         case .Matched:
             self.goToTrainerInfo()
-            
             if self.timer != nil {
                 self.timer!.invalidate()
                 self.timer = nil
@@ -169,7 +174,13 @@ class RequestStatusViewController: UIViewController {
 
     func goToTrainerInfo() {
         print("display info")
-        self.performSegueWithIdentifier("GoToViewTrainer", sender: nil)
+        if let trainer: PFObject = self.currentRequest!.objectForKey("trainer") as? PFObject {
+            trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                print("trainer: \(object)")
+                self.currentTrainer = trainer
+                self.performSegueWithIdentifier("GoToViewTrainer", sender: nil)
+            })
+        }
     }
     
     func promptForCancel() {
@@ -186,14 +197,15 @@ class RequestStatusViewController: UIViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let controller: TrainerProfileViewController = segue.destinationViewController as! TrainerProfileViewController
+        controller.request = self.currentRequest
+        controller.trainer = self.currentTrainer
     }
-    */
 
 }
