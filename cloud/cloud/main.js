@@ -61,38 +61,37 @@ Parse.Cloud.define("acceptTrainingRequest", function(request, response) {
                    var trainingObjectId = request.params.trainingRequestId
                    console.log("training request = " + trainingObjectId + " Trainer " + trainerId)
                    
+                   var trainerQuery = new Parse.Query("Trainer")
+                   var trainerObject
+                   trainerQuery.get(trainerId, {
+                                    success: function(object){
+                                        trainerObject = object
+                                    },
+                                    error: function(error) {
+                                    
+                                    }
+                                    })
                    var trainingQuery = new Parse.Query("TrainingRequest");
                    trainingQuery.get(trainingObjectId, {
                                    success: function(trainingObject) {
                                      console.log("found training request with id " + trainingObjectId)
                                      var existingTrainer = trainingObject.get("trainer")
-                                     if (existingTrainer == undefined) {
+                                     if (existingTrainer == undefined || existingTrainer == trainerId) {
                                         console.log("no trainer - you are it")
                                         trainingObject.set("trainer", trainerId)
                                         trainingObject.set("status", "matched")
-                                        Parse.Object.saveAll([trainingObject], {
+                                        trainerObject.set("workout", trainingObject)
+                                        Parse.Object.saveAll([trainingObject, trainerObject], {
                                                           success: function(objects) {
                                                           response.success()
                                                           }, error: function(objects, error) {
                                                           response.success()
                                                           }
                                                           });
-                                        }
-                                     }
-                                     else if (existingTrainer != trainerId) {
-                                        console.log("Trainer already exists!")
-                                        response.error()
                                      }
                                      else {
-                                     console.log("Trainer already exists but is you! state must have been changed elsewhere")
-                                     trainingObject.set("status", "matched")
-                                     Parse.Object.saveAll([trainingObject], {
-                                                          success: function(objects) {
-                                                          response.success()
-                                                          }, error: function(objects, error) {
-                                                          response.success()
-                                                          }
-                                                          });
+                                        console.log("Trainer already exists!")
+                                        response.error()
                                      }
                                    }
                                    ,

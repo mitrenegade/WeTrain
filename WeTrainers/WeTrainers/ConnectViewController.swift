@@ -29,6 +29,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         let user = PFUser.currentUser()!
         let trainer = user.objectForKey("trainer") as! PFObject
         status = trainer.objectForKey("status") as? String
+        
 
         if status == "available" {
             // make a call to load any existing requests that we won't get through notifications because they were made already
@@ -41,6 +42,11 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.refreshStatus()
                 self.tableView.reloadData()
             })
+        }
+        
+        if trainer.objectForKey("workout") != nil {
+            let request = trainer.objectForKey("workout") as! PFObject 
+            self.performSegueWithIdentifier("GoToClientRequest", sender: request)
         }
         
         // updates UI based on web

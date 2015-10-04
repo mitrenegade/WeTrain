@@ -18,7 +18,6 @@
 		AC9F6F791BBE2CEE00F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F781BBE2CEE00F91B92 /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
 		AC9F6F7B1BBE2E3100F91B92 /* TrainingRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */; settings = {ASSET_TAGS = (); }; };
 		AC9F6F7D1BBE356B00F91B92 /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		ACE377371BB98B14009D18AA /* ClientRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE377361BB98B14009D18AA /* ClientRequestsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		ACFA6F111BB41D6100AC3927 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */; };
 		ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */; };
 		ACFA6F1C1BB4323500AC3927 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */; settings = {ASSET_TAGS = (); }; };
@@ -63,7 +62,6 @@
 		AC9F6F781BBE2CEE00F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../WeTrain/Constants.swift; sourceTree = "<group>"; };
 		AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingRequestCell.swift; sourceTree = "<group>"; };
 		AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientInfoViewController.swift; sourceTree = "<group>"; };
-		ACE377361BB98B14009D18AA /* ClientRequestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientRequestsViewController.swift; sourceTree = "<group>"; };
 		ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 		AC26A2291BB0ED3A0068EFE3 /* WeTrainers */ = {
 			isa = PBXGroup;
 			children = (
-				ACE377361BB98B14009D18AA /* ClientRequestsViewController.swift */,
 				AC26A2311BB0ED3A0068EFE3 /* Model.xcdatamodeld */,
 				AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */,
 				AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */,
@@ -389,7 +386,6 @@
 				AC235FF71BB4F577000AEA40 /* ConnectViewController.swift in Sources */,
 				AC9F6F7D1BBE356B00F91B92 /* ClientInfoViewController.swift in Sources */,
 				AC26A2331BB0ED3A0068EFE3 /* Model.xcdatamodeld in Sources */,
-				ACE377371BB98B14009D18AA /* ClientRequestsViewController.swift in Sources */,
 				ACFA6F1C1BB4323500AC3927 /* UIViewController+Utils.swift in Sources */,
 				AC9F6F791BBE2CEE00F91B92 /* Constants.swift in Sources */,
 			);
