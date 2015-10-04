@@ -23,6 +23,8 @@ class TrainerProfileViewController: UIViewController {
     var trainer: PFObject?
     var request: PFObject?
     
+    var timer: NSTimer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,6 +44,14 @@ class TrainerProfileViewController: UIViewController {
         
         trainer?.fetchInBackgroundWithBlock({ (object, error) -> Void in
             self.updateTrainerInfo()
+            
+            if self.request!.objectForKey("status") as! String == RequestState.Matched.rawValue {
+                // start a timer
+                if self.timer == nil {
+                    self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateRequestState", userInfo: nil, repeats: true)
+                    self.timer?.fire()
+                }
+            }
         })
     }
 
@@ -92,7 +102,13 @@ class TrainerProfileViewController: UIViewController {
     }
     
     @IBAction func didClickButton(button: UIButton) {
-        self.contact()
+        let status: String = self.request!.objectForKey("status") as! String
+        if status == RequestState.Matched.rawValue {
+            self.contact()
+        }
+        else if status == RequestState.Complete.rawValue {
+            self.navigationController!.popToRootViewControllerAnimated(true)
+        }
     }
     
     func contact() {
@@ -110,6 +126,33 @@ class TrainerProfileViewController: UIViewController {
         self.simpleAlert("Could not call phone", message: "The number we had for \(name) was invalid.")
     }
 
+    func updateRequestState() {
+        self.request!.fetchInBackgroundWithBlock({ (object, error) -> Void in
+            self.refreshState()
+        })
+    }
+    
+    func refreshState() {
+        let status: String = self.request!.objectForKey("status") as! String
+        if status == RequestState.Matched.rawValue {
+            let firstName = self.trainer!.objectForKey("firstName") as! String
+            self.buttonMeet.setTitle("Contact \(firstName)", forState: .Normal)
+            self.buttonMeet.enabled = true
+        }
+        else if status == RequestState.Training.rawValue {
+            self.buttonMeet.setTitle("Workout In Progress", forState: .Normal)
+            self.buttonMeet.enabled = false
+        }
+        else if status == RequestState.Complete.rawValue {
+            self.buttonMeet.setTitle("Workout Complete", forState: .Normal)
+            self.buttonMeet.enabled = true
+            
+            if self.timer != nil {
+                self.timer?.invalidate()
+                self.timer = nil
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 
