@@ -169,16 +169,26 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         self.updateLabelInfo()
     }
     @IBAction func didClickButton(sender: UIButton) {
-        let trainerId: String = self.trainer.objectId! as String
         if self.status == RequestState.Searching.rawValue {
             self.acceptTrainingRequest()
         }
-        else if self.status == RequestState.Matched.rawValue && request.objectForKey("trainer")! as! String == trainerId {
-            self.inputPasscode.resignFirstResponder()
-            self.validatePasscode()
+        else if self.status == RequestState.Matched.rawValue {
+            let trainer = request.objectForKey("trainer") as! PFObject
+            if trainer.objectId == self.trainer.objectId {
+                self.inputPasscode.resignFirstResponder()
+                self.validatePasscode()
+            }
+            else {
+                self.simpleAlert("Could not start workout", message: "The client's training session is no longer available.", completion: { () -> Void in
+                    self.close()
+                })
+            }
         }
         else if self.status == RequestState.Complete.rawValue {
             self.close()
+        }
+        else {
+            self.updateState()
         }
     }
     
