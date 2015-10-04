@@ -32,8 +32,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     var currentRequest: PFObject?
     
-    let TRAINING_TITLES = ["Healthy Heart", "Liposuction", "Mobi-Fit", "The BLT", "Belly Busters", "Tyrannosaurus Rex", "Sports Endurance", "The Shred Factory"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

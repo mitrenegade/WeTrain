@@ -33,8 +33,8 @@ class TrainingRequestCell: UITableViewCell {
         self.icon.layer.borderColor = UIColor.darkGrayColor().CGColor
         self.icon.layer.cornerRadius = 5
         
-        let clientObj: PFObject = request.objectForKey("client") as! PFObject
         request.fetchIfNeededInBackgroundWithBlock { (object, error) -> Void in
+            let clientObj: PFObject = request.objectForKey("client") as! PFObject
             clientObj.fetchIfNeededInBackgroundWithBlock({ (object, error) -> Void in
                 let firstName = clientObj.objectForKey("firstName") as? String
                 let lastName = clientObj.objectForKey("lastName") as? String

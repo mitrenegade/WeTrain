@@ -11,13 +11,6 @@ import Parse
 
 typealias RequestStatusButtonHandler = () -> Void
 
-enum RequestState: String {
-    case NoRequest = "none"
-    case Searching = "requested"
-    case Matched = "matched"
-    case Cancelled = "cancelled"
-}
-
 class RequestStatusViewController: UIViewController {
 
     @IBOutlet weak var labelTitle: UILabel!
