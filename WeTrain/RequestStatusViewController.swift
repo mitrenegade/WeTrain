@@ -156,17 +156,7 @@ class RequestStatusViewController: UIViewController {
                 self.promptForCancel()
             })
         case .Matched:
-            let title = "A trainer has been matched"
-            var message = "Your session has been accepted by a WeTrain personal trainer."
-            if self.currentTrainer != nil {
-                let name = self.currentTrainer!["firstName"] as! String
-                message = "\(name) has accepted your training session."
-            }
-            self.updateTitle(title, message: message, top: "View trainer's profile", bottom: "Start workout", topHandler: { () -> Void in
-                self.goToTrainerInfo()
-            }, bottomHandler: { () -> Void in
-                self.goToStartWorkout()
-            })
+            self.goToTrainerInfo()
             
             if self.timer != nil {
                 self.timer!.invalidate()
@@ -180,11 +170,6 @@ class RequestStatusViewController: UIViewController {
     func goToTrainerInfo() {
         print("display info")
         self.performSegueWithIdentifier("GoToViewTrainer", sender: nil)
-    }
-    
-    func goToStartWorkout() {
-        print("display info")
-        self.simpleAlert("Workout started", message: "Please tell your trainer the workout phrase of the day: COCOAPUFFS")
     }
     
     func promptForCancel() {

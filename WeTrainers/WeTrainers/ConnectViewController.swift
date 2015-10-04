@@ -46,7 +46,12 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if trainer.objectForKey("workout") != nil {
             let request = trainer.objectForKey("workout") as! PFObject
-            self.performSegueWithIdentifier("GoToClientRequest", sender: request)
+            request.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                let status = request.objectForKey("status") as! String
+                if status == RequestState.Matched.rawValue || status == RequestState.Training.rawValue {
+                    self.performSegueWithIdentifier("GoToClientRequest", sender: request)
+                }
+            })
         }
         
         // updates UI based on web

@@ -105,9 +105,11 @@ class TrainingRequestViewController: UITableViewController {
         if let request: PFObject = client.objectForKey("currentRequest") as? PFObject {
             request.fetchInBackgroundWithBlock({ (requestObject, error) -> Void in
                 if let state = request.objectForKey("status") as? String {
+                    self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+                    /*
                     if state == RequestState.Matched.rawValue || state == RequestState.Searching.rawValue {
-                        self.performSegueWithIdentifier("GoToRequestState", sender: nil)
                     }
+                    */
                 }
             })
         }
