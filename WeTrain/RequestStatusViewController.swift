@@ -33,7 +33,13 @@ class RequestStatusViewController: UIViewController {
         // Do any additional setup after loading the view.
         if let previousState: String = self.currentRequest?.objectForKey("status") as? String{
             let newState: RequestState = RequestState(rawValue: previousState)!
-            self.toggleRequestState(newState)
+            if newState == RequestState.Matched {
+                self.goToTrainerInfo()
+                return
+            }
+            else {
+                self.updateRequestState()
+            }
         }
         
         if self.timer == nil {
@@ -156,18 +162,7 @@ class RequestStatusViewController: UIViewController {
                 self.promptForCancel()
             })
         case .Matched:
-            let title = "A trainer has been matched"
-            var message = "Your session has been accepted by a WeTrain personal trainer."
-            if self.currentTrainer != nil {
-                let name = self.currentTrainer!["firstName"] as! String
-                message = "\(name) has accepted your training session."
-            }
-            self.updateTitle(title, message: message, top: "View trainer's profile", bottom: "Start workout", topHandler: { () -> Void in
-                self.goToTrainerInfo()
-            }, bottomHandler: { () -> Void in
-                self.goToStartWorkout()
-            })
-            
+            self.goToTrainerInfo()
             if self.timer != nil {
                 self.timer!.invalidate()
                 self.timer = nil
@@ -179,12 +174,13 @@ class RequestStatusViewController: UIViewController {
 
     func goToTrainerInfo() {
         print("display info")
-        self.performSegueWithIdentifier("GoToViewTrainer", sender: nil)
-    }
-    
-    func goToStartWorkout() {
-        print("display info")
-        self.simpleAlert("Workout started", message: "Please tell your trainer the workout phrase of the day: COCOAPUFFS")
+        if let trainer: PFObject = self.currentRequest!.objectForKey("trainer") as? PFObject {
+            trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                print("trainer: \(object)")
+                self.currentTrainer = trainer
+                self.performSegueWithIdentifier("GoToViewTrainer", sender: nil)
+            })
+        }
     }
     
     func promptForCancel() {
@@ -201,14 +197,15 @@ class RequestStatusViewController: UIViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let controller: TrainerProfileViewController = segue.destinationViewController as! TrainerProfileViewController
+        controller.request = self.currentRequest
+        controller.trainer = self.currentTrainer
     }
-    */
 
 }
