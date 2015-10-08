@@ -179,7 +179,7 @@
                                     <constraint firstAttribute="height" constant="86" id="qnv-9Y-1H3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1lh-9f-MYB">
@@ -293,6 +293,17 @@
                                                     <outlet property="delegate" destination="kEv-e0-lgh" id="vEI-hy-ZbC"/>
                                                 </connections>
                                             </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Credit Card Info" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LFE-W6-GUR">
+                                                <rect key="frame" x="20" y="280" width="560" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="IIR-hy-tkA"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="kEv-e0-lgh" id="AQs-z7-3Wk"/>
+                                                </connections>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -310,17 +321,20 @@
                                             <constraint firstItem="scp-Xp-mqt" firstAttribute="top" secondItem="zZp-dS-V5g" secondAttribute="bottom" constant="8" id="UfG-Mt-82m"/>
                                             <constraint firstItem="XHB-hm-Msf" firstAttribute="leading" secondItem="UG0-RT-boq" secondAttribute="leading" constant="20" id="VAz-II-x44"/>
                                             <constraint firstAttribute="trailing" secondItem="XHB-hm-Msf" secondAttribute="trailing" constant="20" id="Vlu-q1-Aoz"/>
+                                            <constraint firstItem="LFE-W6-GUR" firstAttribute="top" secondItem="XHB-hm-Msf" secondAttribute="bottom" constant="8" id="W2b-cp-eZx"/>
                                             <constraint firstAttribute="trailing" secondItem="gw7-vP-CZb" secondAttribute="trailing" constant="20" id="XZ9-8k-Jvf"/>
                                             <constraint firstItem="zZp-dS-V5g" firstAttribute="top" secondItem="VUs-UE-6Gh" secondAttribute="bottom" constant="8" id="ajv-0q-Bf3"/>
                                             <constraint firstItem="XHB-hm-Msf" firstAttribute="top" secondItem="gBP-Wf-ati" secondAttribute="bottom" constant="8" id="duC-SM-csX"/>
                                             <constraint firstItem="Z9t-dO-Sg3" firstAttribute="top" secondItem="scp-Xp-mqt" secondAttribute="bottom" constant="8" id="ePR-NL-TD3"/>
                                             <constraint firstAttribute="trailing" secondItem="gBP-Wf-ati" secondAttribute="trailing" constant="20" id="gdS-z3-A7S"/>
+                                            <constraint firstAttribute="trailing" secondItem="LFE-W6-GUR" secondAttribute="trailing" constant="20" id="hWo-XQ-0fv"/>
                                             <constraint firstItem="zZp-dS-V5g" firstAttribute="top" secondItem="VUs-UE-6Gh" secondAttribute="bottom" constant="8" id="id4-Ge-b0w"/>
                                             <constraint firstAttribute="trailing" secondItem="zZp-dS-V5g" secondAttribute="trailing" constant="20" id="ivL-6o-Yd1"/>
                                             <constraint firstItem="gw7-vP-CZb" firstAttribute="leading" secondItem="UG0-RT-boq" secondAttribute="leading" constant="20" id="kDF-1A-1v0"/>
                                             <constraint firstItem="VUs-UE-6Gh" firstAttribute="leading" secondItem="UG0-RT-boq" secondAttribute="leading" constant="20" id="lPe-Sv-ydC"/>
                                             <constraint firstItem="gBP-Wf-ati" firstAttribute="top" secondItem="gw7-vP-CZb" secondAttribute="bottom" constant="8" id="lSi-oi-PXx"/>
                                             <constraint firstItem="Z9t-dO-Sg3" firstAttribute="leading" secondItem="UG0-RT-boq" secondAttribute="leading" constant="20" id="maW-YW-lcN"/>
+                                            <constraint firstItem="LFE-W6-GUR" firstAttribute="leading" secondItem="UG0-RT-boq" secondAttribute="leading" constant="20" id="nmb-fc-mJ2"/>
                                             <constraint firstItem="gw7-vP-CZb" firstAttribute="top" secondItem="Z9t-dO-Sg3" secondAttribute="bottom" constant="8" id="s6j-Hb-WcF"/>
                                             <constraint firstItem="zZp-dS-V5g" firstAttribute="leading" secondItem="UG0-RT-boq" secondAttribute="leading" constant="20" id="uJO-pH-AUC"/>
                                             <constraint firstItem="gBP-Wf-ati" firstAttribute="leading" secondItem="UG0-RT-boq" secondAttribute="leading" constant="20" id="xeK-wW-OdV"/>
@@ -358,6 +372,7 @@
                         <outlet property="constraintContentWidth" destination="S5y-wl-G5u" id="ISR-NI-jHU"/>
                         <outlet property="constraintTopOffset" destination="3c3-Nd-45T" id="FWK-wX-qLY"/>
                         <outlet property="inputAge" destination="gBP-Wf-ati" id="EAp-sN-CcA"/>
+                        <outlet property="inputCreditCard" destination="LFE-W6-GUR" id="LMs-c6-9qs"/>
                         <outlet property="inputEmail" destination="scp-Xp-mqt" id="daT-L1-7KD"/>
                         <outlet property="inputFirstName" destination="VUs-UE-6Gh" id="qMD-ko-p6n"/>
                         <outlet property="inputGender" destination="gw7-vP-CZb" id="dJ2-qJ-NgA"/>

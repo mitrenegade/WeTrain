@@ -195,7 +195,7 @@
         <!--Navigation Controller-->
         <scene sceneID="8El-3F-8RT">
             <objects>
-                <navigationController id="wXy-qc-fI5" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CreditCardNavigationController" id="wXy-qc-fI5" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lAV-6S-ndl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
