@@ -35,7 +35,7 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return 5
+        return 4
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -49,10 +49,8 @@ class SettingsViewController: UITableViewController {
         case 1:
             cell.textLabel!.text = "Update your credit card"
         case 2:
-            cell.textLabel!.text = "Insurance"
-        case 3:
             cell.textLabel!.text = "Feedback"
-        case 4:
+        case 3:
             cell.textLabel!.text = "Logout"
         default:
             break
@@ -86,9 +84,6 @@ class SettingsViewController: UITableViewController {
             
             break
         case 2:
-            self.simpleAlert("Insurance information coming", message: "Future updates of WeTrain will have insurance information entry.")
-            break
-        case 3:
             if PFUser.currentUser() == nil {
                 var alert: UIAlertController = UIAlertController(title: "Log in first?", message: "You are not logged in. Please log in first so we can respond to you.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
@@ -102,7 +97,7 @@ class SettingsViewController: UITableViewController {
                 self.performSegueWithIdentifier("GoToFeedback", sender: self)
             }
             break
-        case 4:
+        case 3:
             self.appDelegate().logout()
         default:
             break
