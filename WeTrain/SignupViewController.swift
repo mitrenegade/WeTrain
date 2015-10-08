@@ -87,7 +87,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, CreditCardDel
 */
         let four = self.inputCreditCard.text
         if four?.characters.count == 0 {
-            self.simpleAlert("Please enter a payment method", message: nil)
+            self.simpleAlert("Please enter a payment method. (For the test app, use credit card number 4242424242424242", message: nil)
             return
         }
         
