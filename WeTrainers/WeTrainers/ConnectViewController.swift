@@ -48,12 +48,33 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             let request = trainer.objectForKey("workout") as! PFObject
             request.fetchInBackgroundWithBlock({ (object, error) -> Void in
                 let status = request.objectForKey("status") as! String
-                if status == RequestState.Matched.rawValue || status == RequestState.Training.rawValue {
+                if status == RequestState.Matched.rawValue {
                     self.performSegueWithIdentifier("GoToClientRequest", sender: request)
+                }
+                else if status == RequestState.Training.rawValue {
+                    if let start = request.objectForKey("start") as? NSDate {
+                        let minElapsed = NSDate().timeIntervalSinceDate(start) / 60
+                        let length = request.objectForKey("length") as! Int
+                        print("started at \(start) time passed \(minElapsed) workout length \(length)")
+                        if Int(minElapsed) > length {
+                            print("completing training")
+                            /*
+                            var params: ["trainingRequest": request]
+                            PFCloud.callFunctionInBackground("endWorkoutForTimeElapsed", withParameters: params) { (results, error) -> Void in
+                            print("results: \(results) error: \(error)")
+                            }
+                            */
+                            request.setObject(RequestState.Complete.rawValue, forKey: "status")
+                            request.saveInBackground()
+                        }
+                        else {
+                            self.performSegueWithIdentifier("GoToClientRequest", sender: nil)
+                        }
+                    }
                 }
             })
         }
-        
+    
         // updates UI based on web
         self.refreshStatus()
         

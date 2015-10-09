@@ -112,7 +112,6 @@
 		AC8CCD781BC8075100675036 /* LocationParis.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LocationParis.gpx; sourceTree = "<group>"; };
 		AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LocationPhiladelphia.gpx; sourceTree = "<group>"; };
 		AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileViewController.swift; sourceTree = "<group>"; };
-		AC9F6F751BBE272A00F91B92 /* WeTrain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WeTrain.entitlements; sourceTree = "<group>"; };
 		AC9F6F761BBE2C8000F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingRequestViewController.swift; sourceTree = "<group>"; };
@@ -224,7 +223,6 @@
 		AC7909301B6C455F00085FB6 /* WeTrain */ = {
 			isa = PBXGroup;
 			children = (
-				AC9F6F751BBE272A00F91B92 /* WeTrain.entitlements */,
 				AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */,
 				AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */,
 				AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */,
@@ -593,7 +591,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = WeTrain/WeTrain.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Bobby Ren (UQA7D88UV9)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -618,7 +616,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = WeTrain/WeTrain.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Bobby Ren (H799H8B8DD)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
