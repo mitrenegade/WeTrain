@@ -10,6 +10,10 @@ import UIKit
 import GoogleMaps
 import Parse
 
+let PHILADELPHIA_LAT = 39.949508
+let PHILADELPHIA_LON = -75.171886
+let SERVICE_RANGE_METERS: Double = 8000 // 5 mile radius
+
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
 
     var requestedTrainingType: Int?
@@ -31,6 +35,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var requestMarker: GMSMarker?
     
     var currentRequest: PFObject?
+    
+    var warnedAboutService: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +89,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         if let location = locations.first as CLLocation? {
             locationManager.stopUpdatingLocation()
             
+            if self.warnedAboutService == false {
+                if !self.inServiceRange() {
+                    self.warnedAboutService = true
+                    self.simpleAlert("WeTrain unavailable", message: "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!")
+                }
+            }
             self.currentLocation = location
             self.updateMapToCurrentLocation()
             self.enableRequest()
@@ -98,8 +110,29 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func enableRequest() {
-        self.buttonRequest.enabled = true
-        self.buttonRequest.layer.zPosition = 1
+        if self.inServiceRange() {
+            self.buttonRequest.enabled = true
+            self.buttonRequest.layer.zPosition = 1
+            self.buttonRequest.alpha = 1
+        }
+        else {
+            self.buttonRequest.enabled = false
+            self.buttonRequest.layer.zPosition = 1
+            self.buttonRequest.alpha = 0.5
+        }
+    }
+    
+    func inServiceRange() -> Bool {
+        let phila: CLLocation = CLLocation(latitude: PHILADELPHIA_LAT, longitude: PHILADELPHIA_LON)
+        if self.currentLocation == nil {
+            return false
+        }
+        let dist = self.currentLocation!.distanceFromLocation(phila)
+        print("distance from center city: \(dist)")
+        if dist > SERVICE_RANGE_METERS {
+            return false
+        }
+        return true
     }
     // MARK: - GMSMapView  delegate
     func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
@@ -114,6 +147,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
         self.currentLocation = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
+        let coder = CLGeocoder()
+        coder.reverseGeocodeLocation(self.currentLocation!) { (results, error) -> Void in
+            if error != nil {
+                print("error: \(error!.userInfo)")
+                self.simpleAlert("Could not find your current address", message: "Please reposition the map and try again")
+            }
+            else {
+                print("result: \(results)")
+                if let placemarks: [CLPlacemark]? = results as [CLPlacemark]? {
+                    if let placemark: CLPlacemark = placemarks!.first as CLPlacemark! {
+                        print("name \(placemark.name) address \(placemark.addressDictionary)")
+                        if let dict: [String: AnyObject] = placemark.addressDictionary as? [String: AnyObject] {
+                            if let lines = dict["FormattedAddressLines"] {
+                                print("lines: \(lines)")
+                                self.inputStreet.text = lines[0] as? String
+                                self.inputCity.text = lines[1] as? String
+                            }
+                        }
+                    }
+                }
+            }
+        }
         self.enableRequest()
     }
     

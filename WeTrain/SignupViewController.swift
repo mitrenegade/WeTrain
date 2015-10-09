@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class SignupViewController: UIViewController, UITextFieldDelegate {
+class SignupViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate {
     
     @IBOutlet var inputFirstName: UITextField!
     @IBOutlet var inputLastName: UITextField!
@@ -18,6 +18,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var inputGender: UITextField!
     @IBOutlet var inputAge: UITextField!
     @IBOutlet var inputInjuries: UITextField!
+    @IBOutlet var inputCreditCard: UITextField!
     
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var viewScrollContent: UIView!
@@ -84,6 +85,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             return
         }
 */
+        let four = self.inputCreditCard.text
+        if four?.characters.count == 0 {
+            self.simpleAlert("Please enter a payment method. (For the test app, use credit card number 4242424242424242", message: nil)
+            return
+        }
+        
         // make sure user exists
         let user = PFUser.currentUser()
         if user == nil {
@@ -186,7 +193,32 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if textField == self.inputCreditCard {
+            self.view.endEditing(true)
+            self.goToCreditCard()
+            return false
+        }
+        return true
+    }
+    
+    func goToCreditCard() {
+        let nav = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CreditCardNavigationController") as! UINavigationController
+        let controller: CreditCardViewController = nav.viewControllers[0] as! CreditCardViewController
+        controller.delegate = self
+        
+        self.presentViewController(nav, animated: true) { () -> Void in
+        }
+    }
 
+    // MARK: - CreditCardDelegate
+    func didSaveCreditCard() {
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        if let last4: String = client.objectForKey("stripeFour") as? String{
+            self.inputCreditCard.text = "Credit Card: *\(last4)"
+        }
+    }
     /*
     // MARK: - Navigation
 

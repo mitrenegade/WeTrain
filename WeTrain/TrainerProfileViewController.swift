@@ -45,7 +45,8 @@ class TrainerProfileViewController: UIViewController {
         trainer?.fetchInBackgroundWithBlock({ (object, error) -> Void in
             self.updateTrainerInfo()
             
-            if self.request!.objectForKey("status") as! String == RequestState.Matched.rawValue {
+            let status = self.request!.objectForKey("status") as! String
+            if status == RequestState.Matched.rawValue || status == RequestState.Training.rawValue {
                 // start a timer
                 if self.timer == nil {
                     self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateRequestState", userInfo: nil, repeats: true)

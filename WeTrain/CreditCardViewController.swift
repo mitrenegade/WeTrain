@@ -9,12 +9,17 @@
 import UIKit
 import Parse
 
+protocol CreditCardDelegate: class {
+    func didSaveCreditCard()
+}
+
 class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDelegate {
 
     @IBOutlet var labelCurrentCard: UILabel!
     @IBOutlet var viewCreditCardBG: UIView!
 
     @IBOutlet var paymentView: PTKView?
+    weak var delegate: CreditCardDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +48,9 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
     }
     
     func close() {
+        if self.delegate != nil {
+            self.delegate!.didSaveCreditCard()
+        }
         self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     

@@ -27,6 +27,8 @@ class RequestStatusViewController: UIViewController {
     var topButtonHandler: RequestStatusButtonHandler? = nil
     var bottomButtonHandler: RequestStatusButtonHandler? = nil
     
+    var trainerController: TrainerProfileViewController? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,7 +86,7 @@ class RequestStatusViewController: UIViewController {
                     
                     if let trainer: PFObject = request.objectForKey("trainer") as? PFObject {
                         trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
-                            print("trainer: \(object)")
+                            print("trainer: \(object) newState: \(newState.rawValue)")
                             self.currentTrainer = trainer
                             self.toggleRequestState(newState)
                         })
@@ -117,6 +119,7 @@ class RequestStatusViewController: UIViewController {
     
     func toggleRequestState(newState: RequestState) {
         self.state = newState
+        print("going to state \(newState.rawValue)")
         
         switch self.state {
         case .NoRequest:
@@ -162,6 +165,20 @@ class RequestStatusViewController: UIViewController {
                 self.promptForCancel()
             })
         case .Matched:
+            var title = "Trainer found"
+            var message = "You have been matched with a trainer!"
+            self.updateTitle(title, message: message, top: nil, bottom: "Cancel Request", topHandler: nil, bottomHandler: { () -> Void in
+            })
+            self.goToTrainerInfo()
+            if self.timer != nil {
+                self.timer!.invalidate()
+                self.timer = nil
+            }
+        case .Training:
+            var title = "Training in session"
+            var message = ""
+            self.updateTitle(title, message: message, top: nil, bottom: "Cancel Request", topHandler: nil, bottomHandler: { () -> Void in
+            })
             self.goToTrainerInfo()
             if self.timer != nil {
                 self.timer!.invalidate()
@@ -173,6 +190,9 @@ class RequestStatusViewController: UIViewController {
     }
 
     func goToTrainerInfo() {
+        if self.trainerController != nil {
+            return
+        }
         print("display info")
         if let trainer: PFObject = self.currentRequest!.objectForKey("trainer") as? PFObject {
             trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
@@ -206,6 +226,8 @@ class RequestStatusViewController: UIViewController {
         let controller: TrainerProfileViewController = segue.destinationViewController as! TrainerProfileViewController
         controller.request = self.currentRequest
         controller.trainer = self.currentTrainer
+        
+        self.trainerController = controller
     }
 
 }
