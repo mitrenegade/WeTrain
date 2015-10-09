@@ -10,6 +10,9 @@ import UIKit
 import GoogleMaps
 import Parse
 
+let PHILADELPHIA_LAT = 39.949508
+let PHILADELPHIA_LON = -75.171886
+
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
 
     var requestedTrainingType: Int?
@@ -83,6 +86,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         if let location = locations.first as CLLocation? {
             locationManager.stopUpdatingLocation()
             
+            if self.currentLocation == nil {
+                if !self.inServiceRange() {
+                    self.simpleAlert("WeTrain unavailable", message: "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!")
+                }
+            }
             self.currentLocation = location
             self.updateMapToCurrentLocation()
             self.enableRequest()
@@ -98,8 +106,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func enableRequest() {
-        self.buttonRequest.enabled = true
-        self.buttonRequest.layer.zPosition = 1
+        if self.inServiceRange() {
+            self.buttonRequest.enabled = true
+            self.buttonRequest.layer.zPosition = 1
+        }
+        else {
+            self.buttonRequest.enabled = false
+            self.buttonRequest.layer.zPosition = 1
+        }
+    }
+    
+    func inServiceRange() -> Bool {
+        let phila: CLLocation = CLLocation(latitude: PHILADELPHIA_LAT, longitude: PHILADELPHIA_LON)
+        if self.currentLocation == nil {
+            return false
+        }
+        if self.currentLocation!.distanceFromLocation(phila) > 50 {
+            return false
+        }
+        return true
     }
     // MARK: - GMSMapView  delegate
     func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
