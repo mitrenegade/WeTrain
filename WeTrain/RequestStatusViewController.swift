@@ -84,7 +84,7 @@ class RequestStatusViewController: UIViewController {
                     
                     if let trainer: PFObject = request.objectForKey("trainer") as? PFObject {
                         trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
-                            print("trainer: \(object)")
+                            print("trainer: \(object) newState: \(newState.rawValue)")
                             self.currentTrainer = trainer
                             self.toggleRequestState(newState)
                         })
@@ -117,6 +117,7 @@ class RequestStatusViewController: UIViewController {
     
     func toggleRequestState(newState: RequestState) {
         self.state = newState
+        print("going to state \(newState.rawValue)")
         
         switch self.state {
         case .NoRequest:

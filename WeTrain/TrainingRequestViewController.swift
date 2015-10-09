@@ -105,8 +105,21 @@ class TrainingRequestViewController: UITableViewController {
         if let request: PFObject = client.objectForKey("currentRequest") as? PFObject {
             request.fetchInBackgroundWithBlock({ (requestObject, error) -> Void in
                 if let state = request.objectForKey("status") as? String {
-                    if state == RequestState.Matched.rawValue || state == RequestState.Searching.rawValue || state == RequestState.Training.rawValue {
+                    if state == RequestState.Matched.rawValue {
                         self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+                    }
+                    else if state == RequestState.Searching.rawValue || state == RequestState.Training.rawValue {
+                        if let start = request.objectForKey("start") as? NSDate {
+                            let minElapsed = NSDate().timeIntervalSinceDate(start) / 60
+                            let length = request.objectForKey("length") as? Int
+                            print("started at \(start) time passed \(minElapsed) workout length \(length)")
+                            if minElapsed > length {
+                                var params: ["trainingRequest": request]
+                                PFCloud.callFunctionInBackground("endWorkoutForTimeElapsed", withParameters: params) { (results, error) -> Void in
+                                    print("results: \(results) error: \(error)")
+                                }
+                            }
+                        }
                     }
                 }
             })
