@@ -9,12 +9,15 @@
 import UIKit
 import Parse
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
 
     @IBOutlet var inputLogin: UITextField!
     @IBOutlet var inputPassword: UITextField!
     @IBOutlet var buttonLogin: UIButton!
     @IBOutlet var buttonSignup: UIButton!
+    
+    @IBOutlet weak var tutorialView: TutorialScrollView!
+    var tutorialCreated: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.inputLogin.superview!.layer.borderColor = UIColor.lightGrayColor().CGColor;
         self.inputPassword.superview!.layer.borderWidth = 1;
         self.inputPassword.superview!.layer.borderColor = UIColor.lightGrayColor().CGColor;
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if PFUser.currentUser() == nil {
+            if !self.tutorialCreated {
+                self.tutorialView.setTutorialPages(["IntroTutorial0", "IntroTutorial1", "IntroTutorial2", "IntroTutorial3", "IntroTutorial4"])
+                self.tutorialCreated = true
+            }
+        }
     }
     
     @IBAction func didClickLogin(sender: UIButton) {

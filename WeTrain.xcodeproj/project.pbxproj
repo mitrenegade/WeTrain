@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		49598075F067030CF7F480EA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A7B8DD840A03B62D311EAEE /* libPods.a */; };
+		AC0503741BC82426008022BD /* TutorialScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0503731BC82426008022BD /* TutorialScrollView.m */; settings = {ASSET_TAGS = (); }; };
+		AC0503791BC8242F008022BD /* IntroTutorial0.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503751BC8242F008022BD /* IntroTutorial0.xib */; settings = {ASSET_TAGS = (); }; };
+		AC05037A1BC8242F008022BD /* IntroTutorial1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503761BC8242F008022BD /* IntroTutorial1.xib */; settings = {ASSET_TAGS = (); }; };
+		AC05037B1BC8242F008022BD /* IntroTutorial2.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503771BC8242F008022BD /* IntroTutorial2.xib */; settings = {ASSET_TAGS = (); }; };
+		AC05037C1BC8242F008022BD /* IntroTutorial3.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503781BC8242F008022BD /* IntroTutorial3.xib */; settings = {ASSET_TAGS = (); }; };
+		AC0503801BC82541008022BD /* IntroTutorial4.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC05037F1BC82541008022BD /* IntroTutorial4.xib */; settings = {ASSET_TAGS = (); }; };
 		AC05584F1BB79DFB0065D21E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584D1BB79DFB0065D21E /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
 		AC0558501BB79DFB0065D21E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584E1BB79DFB0065D21E /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
 		AC0558521BB79ED80065D21E /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */; settings = {ASSET_TAGS = (); }; };
@@ -60,6 +66,13 @@
 /* Begin PBXFileReference section */
 		2161FFB5DEECA8224FEC534E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		2A7B8DD840A03B62D311EAEE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC0503721BC82426008022BD /* TutorialScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialScrollView.h; sourceTree = "<group>"; };
+		AC0503731BC82426008022BD /* TutorialScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialScrollView.m; sourceTree = "<group>"; };
+		AC0503751BC8242F008022BD /* IntroTutorial0.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial0.xib; sourceTree = "<group>"; };
+		AC0503761BC8242F008022BD /* IntroTutorial1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial1.xib; sourceTree = "<group>"; };
+		AC0503771BC8242F008022BD /* IntroTutorial2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial2.xib; sourceTree = "<group>"; };
+		AC0503781BC8242F008022BD /* IntroTutorial3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial3.xib; sourceTree = "<group>"; };
+		AC05037F1BC82541008022BD /* IntroTutorial4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial4.xib; sourceTree = "<group>"; };
 		AC05584D1BB79DFB0065D21E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		AC05584E1BB79DFB0065D21E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
@@ -173,6 +186,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AC0503711BC8241A008022BD /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				AC0503721BC82426008022BD /* TutorialScrollView.h */,
+				AC0503731BC82426008022BD /* TutorialScrollView.m */,
+				AC0503751BC8242F008022BD /* IntroTutorial0.xib */,
+				AC0503761BC8242F008022BD /* IntroTutorial1.xib */,
+				AC0503771BC8242F008022BD /* IntroTutorial2.xib */,
+				AC0503781BC8242F008022BD /* IntroTutorial3.xib */,
+				AC05037F1BC82541008022BD /* IntroTutorial4.xib */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
 		AC7909251B6C455F00085FB6 = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +239,7 @@
 				ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */,
 				AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */,
 				AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */,
+				AC0503711BC8241A008022BD /* Tutorial */,
 				AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */,
 				AC79093F1B6C455F00085FB6 /* LaunchScreen.xib */,
 				AC7909351B6C455F00085FB6 /* Model.xcdatamodeld */,
@@ -349,8 +377,13 @@
 				AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */,
 				AC79093C1B6C455F00085FB6 /* Main.storyboard in Resources */,
 				AC7909411B6C455F00085FB6 /* LaunchScreen.xib in Resources */,
+				AC0503801BC82541008022BD /* IntroTutorial4.xib in Resources */,
+				AC05037C1BC8242F008022BD /* IntroTutorial3.xib in Resources */,
+				AC0503791BC8242F008022BD /* IntroTutorial0.xib in Resources */,
 				AC8CCD7B1BC8075100675036 /* LocationPhiladelphia.gpx in Resources */,
+				AC05037B1BC8242F008022BD /* IntroTutorial2.xib in Resources */,
 				AC51D1761B84BBFF00E1DF02 /* main.js in Resources */,
+				AC05037A1BC8242F008022BD /* IntroTutorial1.xib in Resources */,
 				AC79093E1B6C455F00085FB6 /* Images.xcassets in Resources */,
 				AC8CCD7A1BC8075100675036 /* LocationParis.gpx in Resources */,
 			);
@@ -427,6 +460,7 @@
 				AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */,
 				AC6FB2CB1B82272E004109B6 /* RequestStatusViewController.swift in Sources */,
 				ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */,
+				AC0503741BC82426008022BD /* TutorialScrollView.m in Sources */,
 				AC9F6F771BBE2C8000F91B92 /* Constants.swift in Sources */,
 				AC0558521BB79ED80065D21E /* UIViewController+Utils.swift in Sources */,
 				AC463FB61B95F3F500935F45 /* NSString+ValidateEmail.m in Sources */,
