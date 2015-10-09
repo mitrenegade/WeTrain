@@ -39,6 +39,8 @@
 		AC7909811B6D5D7000085FB6 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909801B6D5D7000085FB6 /* Map.storyboard */; };
 		AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909821B6D618C00085FB6 /* MapViewController.swift */; };
 		AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909841B6D710900085FB6 /* Login.Storyboard */; };
+		AC8CCD7A1BC8075100675036 /* LocationParis.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD781BC8075100675036 /* LocationParis.gpx */; settings = {ASSET_TAGS = (); }; };
+		AC8CCD7B1BC8075100675036 /* LocationPhiladelphia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */; settings = {ASSET_TAGS = (); }; };
 		AC9760EF1B7167F70060D5D1 /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */; };
 		AC9F6F771BBE2C8000F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F761BBE2C8000F91B92 /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
 		ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */; };
@@ -96,6 +98,8 @@
 		AC7909801B6D5D7000085FB6 /* Map.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		AC7909821B6D618C00085FB6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AC7909841B6D710900085FB6 /* Login.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.Storyboard; sourceTree = "<group>"; };
+		AC8CCD781BC8075100675036 /* LocationParis.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LocationParis.gpx; sourceTree = "<group>"; };
+		AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LocationPhiladelphia.gpx; sourceTree = "<group>"; };
 		AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileViewController.swift; sourceTree = "<group>"; };
 		AC9F6F751BBE272A00F91B92 /* WeTrain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = WeTrain.entitlements; sourceTree = "<group>"; };
 		AC9F6F761BBE2C8000F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -223,6 +227,8 @@
 		AC7909311B6C455F00085FB6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AC8CCD781BC8075100675036 /* LocationParis.gpx */,
+				AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */,
 				AC79093D1B6C455F00085FB6 /* Images.xcassets */,
 				AC7909321B6C455F00085FB6 /* Info.plist */,
 				AC9F6F761BBE2C8000F91B92 /* Constants.swift */,
@@ -346,8 +352,10 @@
 				AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */,
 				AC79093C1B6C455F00085FB6 /* Main.storyboard in Resources */,
 				AC7909411B6C455F00085FB6 /* LaunchScreen.xib in Resources */,
+				AC8CCD7B1BC8075100675036 /* LocationPhiladelphia.gpx in Resources */,
 				AC51D1761B84BBFF00E1DF02 /* main.js in Resources */,
 				AC79093E1B6C455F00085FB6 /* Images.xcassets in Resources */,
+				AC8CCD7A1BC8075100675036 /* LocationParis.gpx in Resources */,
 				AC7909811B6D5D7000085FB6 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -567,7 +575,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.client.app;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "0e3f4233-c94a-4ede-8e9b-947e4de2fdf3";
+				PROVISIONING_PROFILE = "fbf8ce32-1d85-44a8-b838-91c62287895f";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -592,7 +600,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.client.app;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "1c54e8f5-337d-4212-9bcf-f145b359ceb8";
+				PROVISIONING_PROFILE = "804f992e-8b87-4268-8731-2d27f88c57d6";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
