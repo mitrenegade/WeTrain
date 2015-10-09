@@ -36,7 +36,6 @@
 		AC79097A1B6D517E00085FB6 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909791B6D517E00085FB6 /* Social.framework */; };
 		AC79097E1B6D549700085FB6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC79097C1B6D549700085FB6 /* Fabric.framework */; };
 		AC79097F1B6D549700085FB6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC79097D1B6D549700085FB6 /* Crashlytics.framework */; };
-		AC7909811B6D5D7000085FB6 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909801B6D5D7000085FB6 /* Map.storyboard */; };
 		AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909821B6D618C00085FB6 /* MapViewController.swift */; };
 		AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909841B6D710900085FB6 /* Login.Storyboard */; };
 		AC8CCD7A1BC8075100675036 /* LocationParis.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD781BC8075100675036 /* LocationParis.gpx */; settings = {ASSET_TAGS = (); }; };
@@ -95,7 +94,6 @@
 		AC7909791B6D517E00085FB6 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		AC79097C1B6D549700085FB6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		AC79097D1B6D549700085FB6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		AC7909801B6D5D7000085FB6 /* Map.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		AC7909821B6D618C00085FB6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AC7909841B6D710900085FB6 /* Login.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.Storyboard; sourceTree = "<group>"; };
 		AC8CCD781BC8075100675036 /* LocationParis.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LocationParis.gpx; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 				AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */,
 				AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */,
 				AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */,
-				AC7909801B6D5D7000085FB6 /* Map.storyboard */,
 				AC79093F1B6C455F00085FB6 /* LaunchScreen.xib */,
 				AC7909351B6C455F00085FB6 /* Model.xcdatamodeld */,
 				AC7909311B6C455F00085FB6 /* Supporting Files */,
@@ -356,7 +353,6 @@
 				AC51D1761B84BBFF00E1DF02 /* main.js in Resources */,
 				AC79093E1B6C455F00085FB6 /* Images.xcassets in Resources */,
 				AC8CCD7A1BC8075100675036 /* LocationParis.gpx in Resources */,
-				AC7909811B6D5D7000085FB6 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
