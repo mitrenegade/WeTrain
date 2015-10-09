@@ -109,6 +109,7 @@ class TrainingRequestViewController: UITableViewController {
                         self.performSegueWithIdentifier("GoToRequestState", sender: nil)
                     }
                     else if state == RequestState.Searching.rawValue || state == RequestState.Training.rawValue {
+                        /*
                         if let start = request.objectForKey("start") as? NSDate {
                             let minElapsed = NSDate().timeIntervalSinceDate(start) / 60
                             let length = request.objectForKey("length") as? Int
@@ -120,6 +121,7 @@ class TrainingRequestViewController: UITableViewController {
                                 }
                             }
                         }
+                        */
                     }
                 }
             })
