@@ -109,19 +109,25 @@ class TrainingRequestViewController: UITableViewController {
                         self.performSegueWithIdentifier("GoToRequestState", sender: nil)
                     }
                     else if state == RequestState.Searching.rawValue || state == RequestState.Training.rawValue {
-                        /*
                         if let start = request.objectForKey("start") as? NSDate {
                             let minElapsed = NSDate().timeIntervalSinceDate(start) / 60
-                            let length = request.objectForKey("length") as? Int
+                            let length = request.objectForKey("length") as! Int
                             print("started at \(start) time passed \(minElapsed) workout length \(length)")
-                            if minElapsed > length {
+                            if Int(minElapsed) > length {
+                                print("completing training")
+                                /*
                                 var params: ["trainingRequest": request]
                                 PFCloud.callFunctionInBackground("endWorkoutForTimeElapsed", withParameters: params) { (results, error) -> Void in
                                     print("results: \(results) error: \(error)")
                                 }
+                                */
+                                request.setObject(RequestState.Complete.rawValue, forKey: "status")
+                                request.saveInBackground()
+                            }
+                            else {
+                                self.performSegueWithIdentifier("GoToRequestState", sender: nil)
                             }
                         }
-                        */
                     }
                 }
             })

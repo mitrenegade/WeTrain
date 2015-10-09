@@ -36,7 +36,6 @@ var sendPushTrainingRequest = function(clientId, requestId) {
                     channels: [ "Trainers" ],
                     data: {
                     alert: "New training request available.",
-                    badge: "Increment",
                     client: clientId,
                     request: requestId
                     }
@@ -125,7 +124,7 @@ Parse.Cloud.beforeSave("TrainingRequest", function(request, response) {
                             trainingObject.set("passcode", randomPasscode())
                             console.log("added passcode " + trainingObject.get("passcode") + " to training object " + trainingObject.id)
                         }
-                       if (trainingObject.get("status") == "training" || trainingObject.get("start") == undefined) {
+                       if (trainingObject.get("status") == "training" && trainingObject.get("start") == undefined) {
                         var start = new Date()
                         trainingObject.set("start", start)
                         console.log("started training " + trainingObject.id + " at " + start)
@@ -150,6 +149,8 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
                       if (status == "none") {
                         subject = "Training cancelled"
                       }
+                      
+                      var testing = trainingObject.get("testing")
 
                       var text = "TrainingRequest id: " + trainingObject.id + " Status: " + status + "\nLat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon") + "\nTime: " + trainingObject.get("time")
                       
@@ -172,7 +173,7 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
                                       sendMail(email, fromName, text, subject)
                                       }
                                       // send push notification
-                                      if (status == "requested") {
+                                      if (status == "requested" && testing != true) {
                                         console.log("Client object: " + clientObject + " id: " + clientObject.id)
                                         console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
                                         sendPushTrainingRequest(clientObject.id, trainingObject.id)
