@@ -438,7 +438,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 70160b7dec925a91c6fe09e38bf1f8659c1eda41 0fa711cea5cca0c6a4b57c1a8955f0518514bfdd7a9e6f28b3eca2c60d905a9c\n";
+			shellScript = "./Fabric.framework/run 70160b7dec925a91c6fe09e38bf1f8659c1eda41 0fa711cea5cca0c6a4b57c1a8955f0518514bfdd7a9e6f28b3eca2c60d905a9c";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -628,7 +628,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.client;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "011ac624-7a5f-4f6c-8a42-fb6d7b7a0879";
+				PROVISIONING_PROFILE = "b00b283e-786f-4778-99fb-ed4da59dbd60";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
