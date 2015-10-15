@@ -85,11 +85,14 @@ class SignupViewController: UIViewController, UITextFieldDelegate, CreditCardDel
             return
         }
 */
+        // TODO: remove credit card restriction for initial app release
+        /*
         let four = self.inputCreditCard.text
         if four?.characters.count == 0 {
             self.simpleAlert("Please enter a payment method. (For the test app, use credit card number 4242424242424242", message: nil)
             return
         }
+        */
         
         // make sure user exists
         let user = PFUser.currentUser()
