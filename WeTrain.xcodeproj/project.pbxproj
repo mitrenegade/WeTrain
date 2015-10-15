@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		49598075F067030CF7F480EA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A7B8DD840A03B62D311EAEE /* libPods.a */; };
-		AC0503741BC82426008022BD /* TutorialScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0503731BC82426008022BD /* TutorialScrollView.m */; settings = {ASSET_TAGS = (); }; };
-		AC0503791BC8242F008022BD /* IntroTutorial0.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503751BC8242F008022BD /* IntroTutorial0.xib */; settings = {ASSET_TAGS = (); }; };
-		AC05037A1BC8242F008022BD /* IntroTutorial1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503761BC8242F008022BD /* IntroTutorial1.xib */; settings = {ASSET_TAGS = (); }; };
-		AC05037B1BC8242F008022BD /* IntroTutorial2.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503771BC8242F008022BD /* IntroTutorial2.xib */; settings = {ASSET_TAGS = (); }; };
-		AC05037C1BC8242F008022BD /* IntroTutorial3.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503781BC8242F008022BD /* IntroTutorial3.xib */; settings = {ASSET_TAGS = (); }; };
-		AC0503801BC82541008022BD /* IntroTutorial4.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC05037F1BC82541008022BD /* IntroTutorial4.xib */; settings = {ASSET_TAGS = (); }; };
-		AC05584F1BB79DFB0065D21E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584D1BB79DFB0065D21E /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
-		AC0558501BB79DFB0065D21E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584E1BB79DFB0065D21E /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
-		AC0558521BB79ED80065D21E /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */; settings = {ASSET_TAGS = (); }; };
+		AC0503741BC82426008022BD /* TutorialScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0503731BC82426008022BD /* TutorialScrollView.m */; };
+		AC0503791BC8242F008022BD /* IntroTutorial0.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503751BC8242F008022BD /* IntroTutorial0.xib */; };
+		AC05037A1BC8242F008022BD /* IntroTutorial1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503761BC8242F008022BD /* IntroTutorial1.xib */; };
+		AC05037B1BC8242F008022BD /* IntroTutorial2.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503771BC8242F008022BD /* IntroTutorial2.xib */; };
+		AC05037C1BC8242F008022BD /* IntroTutorial3.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503781BC8242F008022BD /* IntroTutorial3.xib */; };
+		AC0503801BC82541008022BD /* IntroTutorial4.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC05037F1BC82541008022BD /* IntroTutorial4.xib */; };
+		AC05584F1BB79DFB0065D21E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584D1BB79DFB0065D21E /* Bolts.framework */; };
+		AC0558501BB79DFB0065D21E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584E1BB79DFB0065D21E /* Parse.framework */; };
+		AC0558521BB79ED80065D21E /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */; };
 		AC235FF91BB51F06000AEA40 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC235FF81BB51F06000AEA40 /* SignupViewController.swift */; };
 		AC463FB61B95F3F500935F45 /* NSString+ValidateEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */; };
 		AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */; };
@@ -44,10 +44,10 @@
 		AC79097F1B6D549700085FB6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC79097D1B6D549700085FB6 /* Crashlytics.framework */; };
 		AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909821B6D618C00085FB6 /* MapViewController.swift */; };
 		AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909841B6D710900085FB6 /* Login.Storyboard */; };
-		AC8CCD7A1BC8075100675036 /* LocationParis.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD781BC8075100675036 /* LocationParis.gpx */; settings = {ASSET_TAGS = (); }; };
-		AC8CCD7B1BC8075100675036 /* LocationPhiladelphia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */; settings = {ASSET_TAGS = (); }; };
+		AC8CCD7A1BC8075100675036 /* LocationParis.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD781BC8075100675036 /* LocationParis.gpx */; };
+		AC8CCD7B1BC8075100675036 /* LocationPhiladelphia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */; };
 		AC9760EF1B7167F70060D5D1 /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */; };
-		AC9F6F771BBE2C8000F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F761BBE2C8000F91B92 /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
+		AC9F6F771BBE2C8000F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F761BBE2C8000F91B92 /* Constants.swift */; };
 		ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */; };
 		ACA6B8EF1B6E62B800AAA992 /* TrainingRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */; };
 		ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */; };
@@ -601,7 +601,7 @@
 				INFOPLIST_FILE = WeTrain/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.client.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.client;
 				PRODUCT_NAME = WeTrain;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
@@ -626,7 +626,7 @@
 				INFOPLIST_FILE = WeTrain/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.client.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.client;
 				PRODUCT_NAME = WeTrain;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
