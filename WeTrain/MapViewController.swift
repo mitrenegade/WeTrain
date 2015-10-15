@@ -123,6 +123,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func inServiceRange() -> Bool {
+        // TODO: for app store release, enable this
+        // TODO: create a user flag instead of checking current location
+        return true
+        
         let phila: CLLocation = CLLocation(latitude: PHILADELPHIA_LAT, longitude: PHILADELPHIA_LON)
         if self.currentLocation == nil {
             return false
