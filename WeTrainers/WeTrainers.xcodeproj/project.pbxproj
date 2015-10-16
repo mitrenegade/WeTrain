@@ -536,9 +536,9 @@
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainer.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "90b9727a-1f6f-4c04-a35f-d79dadfd574a";
 			};
 			name = Debug;
 		};
@@ -553,9 +553,9 @@
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainer.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "90b9727a-1f6f-4c04-a35f-d79dadfd574a";
 			};
 			name = Release;
 		};
