@@ -33,12 +33,10 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if PFUser.currentUser() == nil {
-            if !self.tutorialCreated {
-                self.tutorialView.setTutorialPages(allPages)
-                self.tutorialCreated = true
-                self.tutorialView.delegate = self
-            }
+        if !self.tutorialCreated {
+            self.tutorialView.setTutorialPages(allPages)
+            self.tutorialCreated = true
+            self.tutorialView.delegate = self
         }
     }
     

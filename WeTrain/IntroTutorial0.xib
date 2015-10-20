@@ -11,15 +11,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="iPb-UP-KIt">
-                    <rect key="frame" x="20" y="-56" width="280" height="280"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="iPb-UP-KIt">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
                     <string key="text">Welcome to WeTrain! We’re here to help you achieve your fitness goals! Our sessions are transparently priced at $15 per 30 minute session and $22 per 60 minute session</string>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="iPb-UP-KIt" secondAttribute="trailing" id="2rV-4h-rnN"/>
+                <constraint firstAttribute="bottom" secondItem="iPb-UP-KIt" secondAttribute="bottom" id="qGh-R4-pcL"/>
+                <constraint firstItem="iPb-UP-KIt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vuF-3Q-SvI"/>
+                <constraint firstItem="iPb-UP-KIt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xXw-gl-kTL"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>

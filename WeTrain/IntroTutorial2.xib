@@ -11,15 +11,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="iPb-UP-KIt">
-                    <rect key="frame" x="20" y="-62" width="280" height="280"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="iPb-UP-KIt">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
                     <string key="text">Once an account is created, a personal trainer is just a click away! Simply select the workout program that matches your fitness goal and choose the session duration</string>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="iPb-UP-KIt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6Xg-eA-7Wr"/>
+                <constraint firstAttribute="bottom" secondItem="iPb-UP-KIt" secondAttribute="bottom" id="OL1-0Q-bEZ"/>
+                <constraint firstAttribute="trailing" secondItem="iPb-UP-KIt" secondAttribute="trailing" id="kEb-9E-Cq9"/>
+                <constraint firstItem="iPb-UP-KIt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="z5R-Ps-U29"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>

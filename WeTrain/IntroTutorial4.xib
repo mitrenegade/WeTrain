@@ -11,8 +11,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="iPb-UP-KIt">
-                    <rect key="frame" x="20" y="-62" width="280" height="280"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="iPb-UP-KIt">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
                     <string key="text">Once you’ve confirmed your session duration and training location you’ll receive a passcode. When your trainer arrives, remember to give them this code so they can start the workout!</string>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -20,6 +20,12 @@
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="iPb-UP-KIt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="GhW-2r-eqM"/>
+                <constraint firstAttribute="bottom" secondItem="iPb-UP-KIt" secondAttribute="bottom" id="RCh-dS-I9g"/>
+                <constraint firstAttribute="trailing" secondItem="iPb-UP-KIt" secondAttribute="trailing" id="eDS-tQ-dWq"/>
+                <constraint firstItem="iPb-UP-KIt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yfx-vR-X0k"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
