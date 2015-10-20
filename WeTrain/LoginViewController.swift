@@ -83,51 +83,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     }
     
     @IBAction func didClickSignup(sender: UIButton) {
-        if self.inputLogin.text?.characters.count == 0 {
-            self.simpleAlert("Please enter an email address", message: nil)
-            return
-        }
-        if self.inputPassword.text?.characters.count == 0 {
-            self.simpleAlert("Please enter a password", message: nil)
-            return
-        }
-        
-        let username = self.inputLogin.text
-        let password = self.inputPassword.text
-
-        let user = PFUser()
-        user.username = username
-        user.password = password
-        
-        user.signUpInBackgroundWithBlock { (success, error) -> Void in
-            if success {
-                print("signup succeeded")
-                let clientObject: PFObject = PFObject(className: "Client")
-                clientObject.setObject(user, forKey: "user")
-                let email:NSString = self.inputLogin.text! as NSString
-                if email.isValidEmail() {
-                    clientObject.setObject(email, forKey: "email")
-                }
-                clientObject.saveInBackgroundWithBlock({ (success, error) -> Void in
-                    user.setObject(clientObject, forKey: "client")
-                    user.saveInBackground()
-                    
-                    self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
-                })
-            }
-            else {
-                let title = "Signup error"
-                var message: String?
-                if error?.code == 100 {
-                    message = "Please check your internet connection"
-                }
-                else if error?.code == 202 {
-                    message = "Username already taken"
-                }
-                
-                self.simpleAlert(title, message: message)
-            }
-        }
+        self.performSegueWithIdentifier("GoToSignup", sender: nil)
     }
     
     func loggedIn() {
