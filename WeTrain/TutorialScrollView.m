@@ -64,6 +64,10 @@
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     int page = scrollView.contentOffset.x / self.bounds.size.width;
     [pageControl setCurrentPage:page];
+    
+    if (self.delegate != nil) {
+        [self.delegate didScrollToPage:page];
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

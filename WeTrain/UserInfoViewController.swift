@@ -57,6 +57,9 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         self.viewScrollContent.addGestureRecognizer(tap)
         let tap2 = UITapGestureRecognizer(target: self, action: "handleGesture:")
         self.view.addGestureRecognizer(tap2)
+
+        let left: UIBarButtonItem = UIBarButtonItem(title: "", style: .Done, target: self, action: "nothing")
+        self.navigationItem.leftBarButtonItem = left
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,6 +73,10 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         
     }
     
+    func nothing() {
+        // hides left button
+    }
+
     func dismissKeyboard() {
         self.view.endEditing(true)
     }
@@ -194,7 +201,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
                 user.saveInBackgroundWithBlock({ (success, error) -> Void in
                     if success {
                         print("signup succeeded")
-                        self.appDelegate().didLogin()
+                        self.performSegueWithIdentifier("GoToTutorial", sender: nil)
                     }
                     else {
                         let title = "Signup error"

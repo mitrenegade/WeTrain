@@ -71,8 +71,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="optimizelyId" value="_Storyboard-view-jx2-9E-qkh"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0b-rH-MOx">
-                                <rect key="frame" x="0.0" y="270" width="600" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0b-rH-MOx">
+                                <rect key="frame" x="0.0" y="517" width="600" height="30"/>
                                 <color key="backgroundColor" red="0.32549019607843138" green="0.8666666666666667" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="HAa-hK-olO"/>
@@ -89,8 +89,8 @@
                                     <action selector="didClickLogin:" destination="sZv-Un-zab" eventType="touchUpInside" id="JLZ-P9-Mos"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVe-s9-tY1">
-                                <rect key="frame" x="0.0" y="303" width="600" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVe-s9-tY1">
+                                <rect key="frame" x="0.0" y="550" width="600" height="30"/>
                                 <color key="backgroundColor" red="0.058823529409999999" green="0.0" blue="0.01176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="7QL-s0-EEk"/>
@@ -108,10 +108,6 @@
                                     <action selector="didClickSignup:" destination="sZv-Un-zab" eventType="touchUpInside" id="imZ-L7-srV"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cyn-va-8ED" customClass="TutorialScrollView">
-                                <rect key="frame" x="8" y="341" width="584" height="251"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -123,19 +119,15 @@
                             <constraint firstItem="P0b-rH-MOx" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leading" id="LiR-QM-xi1"/>
                             <constraint firstAttribute="trailing" secondItem="ZVe-s9-tY1" secondAttribute="trailing" id="LyN-Nl-8ST"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hTk-db-u46" secondAttribute="trailing" constant="-17" id="N1D-zi-P0O"/>
-                            <constraint firstItem="P0b-rH-MOx" firstAttribute="top" secondItem="MS9-mM-STD" secondAttribute="bottom" constant="8" id="N9c-vW-IvN"/>
                             <constraint firstItem="MS9-mM-STD" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-17" id="Oe6-iL-G4C"/>
                             <constraint firstItem="P0b-rH-MOx" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leading" id="RNW-fD-xs4"/>
                             <constraint firstAttribute="trailing" secondItem="P0b-rH-MOx" secondAttribute="trailing" id="U1c-JH-t58"/>
                             <constraint firstItem="P0b-rH-MOx" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-20" id="W1r-xl-Ohd"/>
                             <constraint firstItem="ftZ-J0-rW4" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" id="W4w-5A-wSD"/>
                             <constraint firstItem="ftZ-J0-rW4" firstAttribute="top" secondItem="H8Y-I2-Sk3" secondAttribute="bottom" id="Wbo-mV-h1H"/>
-                            <constraint firstItem="Cyn-va-8ED" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leading" constant="8" id="aOb-vR-nXm"/>
+                            <constraint firstItem="CBb-dE-iX3" firstAttribute="top" secondItem="ZVe-s9-tY1" secondAttribute="bottom" constant="20" id="a0x-yW-Fkn"/>
                             <constraint firstItem="ZVe-s9-tY1" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leading" id="dWg-WI-1yr"/>
-                            <constraint firstAttribute="trailing" secondItem="Cyn-va-8ED" secondAttribute="trailing" constant="8" id="eP3-zW-4qT"/>
                             <constraint firstItem="hTk-db-u46" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-17" id="fBh-Ev-wAS"/>
-                            <constraint firstItem="Cyn-va-8ED" firstAttribute="top" secondItem="ZVe-s9-tY1" secondAttribute="bottom" constant="8" id="mFh-K7-x3Z"/>
-                            <constraint firstItem="CBb-dE-iX3" firstAttribute="top" secondItem="Cyn-va-8ED" secondAttribute="bottom" constant="8" id="osp-Zh-nt5"/>
                             <constraint firstItem="ZVe-s9-tY1" firstAttribute="top" secondItem="P0b-rH-MOx" secondAttribute="bottom" constant="3" id="pnD-YB-2CP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MS9-mM-STD" secondAttribute="trailing" constant="-17" id="sse-td-rmN"/>
                             <constraint firstItem="MS9-mM-STD" firstAttribute="top" secondItem="hTk-db-u46" secondAttribute="bottom" constant="-1" id="vH1-y9-1oq"/>
@@ -157,7 +149,6 @@
                         <outlet property="buttonSignup" destination="ZVe-s9-tY1" id="3BV-kI-Mzm"/>
                         <outlet property="inputLogin" destination="Kxj-tp-d5Y" id="WtO-iW-kGL"/>
                         <outlet property="inputPassword" destination="981-hP-HSD" id="f86-e4-NqW"/>
-                        <outlet property="tutorialView" destination="Cyn-va-8ED" id="exr-OK-Gm3"/>
                         <segue destination="T7u-1k-qWh" kind="presentation" identifier="GoToSignup" id="0ac-Zf-nnf"/>
                     </connections>
                 </viewController>
@@ -570,11 +561,46 @@
                         <outlet property="inputPhone" destination="XOy-wi-pAs" id="ilB-an-Kqc"/>
                         <outlet property="scrollView" destination="86m-9D-qAA" id="z0M-Xo-nR4"/>
                         <outlet property="viewScrollContent" destination="DhG-7P-k4I" id="hyP-BO-t6m"/>
+                        <segue destination="i45-8x-25e" kind="show" id="Ztg-dt-9Vx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CgM-iP-tNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1158" y="258"/>
+        </scene>
+        <!--Tutorial View Controller-->
+        <scene sceneID="yC0-gt-sdZ">
+            <objects>
+                <viewController id="i45-8x-25e" customClass="TutorialViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="P66-b2-Fh7"/>
+                        <viewControllerLayoutGuide type="bottom" id="ztT-oj-azu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3jH-st-VZM">
+                        <rect key="frame" x="0.0" y="64" width="600" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFx-Ow-Mgy" customClass="TutorialScrollView">
+                                <rect key="frame" x="20" y="20" width="560" height="696"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DFx-Ow-Mgy" firstAttribute="leading" secondItem="3jH-st-VZM" secondAttribute="leading" constant="20" id="9KQ-Bu-Kso"/>
+                            <constraint firstAttribute="trailing" secondItem="DFx-Ow-Mgy" secondAttribute="trailing" constant="20" id="TFk-ZH-VDA"/>
+                            <constraint firstItem="ztT-oj-azu" firstAttribute="top" secondItem="DFx-Ow-Mgy" secondAttribute="bottom" constant="20" id="cQk-fj-sWX"/>
+                            <constraint firstItem="DFx-Ow-Mgy" firstAttribute="top" secondItem="P66-b2-Fh7" secondAttribute="bottom" constant="20" id="gpY-pe-9F7"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="tutorialView" destination="DFx-Ow-Mgy" id="Ezw-mM-dia"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TO4-7c-Ntp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1862" y="258"/>
         </scene>
     </scenes>
     <resources>

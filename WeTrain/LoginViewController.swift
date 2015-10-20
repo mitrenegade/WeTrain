@@ -16,9 +16,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     @IBOutlet var buttonLogin: UIButton!
     @IBOutlet var buttonSignup: UIButton!
     
-    @IBOutlet weak var tutorialView: TutorialScrollView!
-    var tutorialCreated: Bool = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,17 +40,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         self.inputPassword.superview!.layer.borderWidth = 1;
         self.inputPassword.superview!.layer.borderColor = UIColor.lightGrayColor().CGColor;
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if PFUser.currentUser() == nil {
-            if !self.tutorialCreated {
-                self.tutorialView.setTutorialPages(["IntroTutorial0", "IntroTutorial1", "IntroTutorial2", "IntroTutorial3", "IntroTutorial4"])
-                self.tutorialCreated = true
-            }
-        }
-    }
-    
+        
     func handleGesture(sender: UIGestureRecognizer) {
         if sender.isKindOfClass(UITapGestureRecognizer) {
             self.view.endEditing(true)
@@ -114,7 +101,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     
     // MARK: - TextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == self.inputLogin {
+            self.inputPassword.becomeFirstResponder()
+            return false
+        }
+        else {
+            textField.resignFirstResponder()
+        }
         return true
     }
     
