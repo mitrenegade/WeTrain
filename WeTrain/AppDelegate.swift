@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
-        Fabric.with([Crashlytics()])
+        Fabric.with([Crashlytics.self])
         
         // google maps
         GMSServices.provideAPIKey(GOOGLE_API_APP_KEY)

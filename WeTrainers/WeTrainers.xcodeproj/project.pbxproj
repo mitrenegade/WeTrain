@@ -355,7 +355,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 70160b7dec925a91c6fe09e38bf1f8659c1eda41 0fa711cea5cca0c6a4b57c1a8955f0518514bfdd7a9e6f28b3eca2c60d905a9c\n";
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 70160b7dec925a91c6fe09e38bf1f8659c1eda41 0fa711cea5cca0c6a4b57c1a8955f0518514bfdd7a9e6f28b3eca2c60d905a9c";
 		};
 		C29F58761C5D7285F5C0142B /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -536,9 +536,9 @@
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainer.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "011ac624-7a5f-4f6c-8a42-fb6d7b7a0879";
 			};
 			name = Debug;
 		};
@@ -547,15 +547,15 @@
 			baseConfigurationReference = 1A28A66F01E4403D66FC9EE0 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Bobby Ren (46R7H433J6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Bobby Ren (46R7H433J6)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.trainer.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "011ac624-7a5f-4f6c-8a42-fb6d7b7a0879";
 			};
 			name = Release;
 		};

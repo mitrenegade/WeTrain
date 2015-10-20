@@ -123,6 +123,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func inServiceRange() -> Bool {
+        // TODO: for app store release, enable this
+        // TODO: create a user flag instead of checking current location
+        return true
+        
         let phila: CLLocation = CLLocation(latitude: PHILADELPHIA_LAT, longitude: PHILADELPHIA_LON)
         if self.currentLocation == nil {
             return false
@@ -208,10 +212,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     @IBAction func didClickRequest(sender: UIButton) {
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
         let payment = client.objectForKey("stripeToken")
+        /*
+        // TODO: credit card is disabled for initial review. put this back in when stripe is legit
         if payment == nil {
             self.simpleAlert("Please enter payment", message: "You must enter a credit card before requesting a trainer. Go to the Account tab to update your payment.")
             return
         }
+        */
         
         if self.currentLocation != nil {
             let coder = GMSGeocoder()
