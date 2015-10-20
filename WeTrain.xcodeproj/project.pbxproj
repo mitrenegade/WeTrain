@@ -49,6 +49,7 @@
 		AC8F4A651BD5C1C7003B296D /* TrainingLengthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A641BD5C1C7003B296D /* TrainingLengthViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		AC8F4A671BD5CF20003B296D /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A661BD5CF20003B296D /* UserInfoViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		AC8F4A691BD5E3B4003B296D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A681BD5E3B4003B296D /* TutorialViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		AC8F4A6B1BD5E854003B296D /* IntroTutorial5.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8F4A6A1BD5E854003B296D /* IntroTutorial5.xib */; settings = {ASSET_TAGS = (); }; };
 		AC9760EF1B7167F70060D5D1 /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */; };
 		AC9F6F771BBE2C8000F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F761BBE2C8000F91B92 /* Constants.swift */; };
 		ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */; };
@@ -117,6 +118,7 @@
 		AC8F4A641BD5C1C7003B296D /* TrainingLengthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingLengthViewController.swift; sourceTree = "<group>"; };
 		AC8F4A661BD5CF20003B296D /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		AC8F4A681BD5E3B4003B296D /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		AC8F4A6A1BD5E854003B296D /* IntroTutorial5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial5.xib; sourceTree = "<group>"; };
 		AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileViewController.swift; sourceTree = "<group>"; };
 		AC9F6F761BBE2C8000F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				AC0503771BC8242F008022BD /* IntroTutorial2.xib */,
 				AC0503781BC8242F008022BD /* IntroTutorial3.xib */,
 				AC05037F1BC82541008022BD /* IntroTutorial4.xib */,
+				AC8F4A6A1BD5E854003B296D /* IntroTutorial5.xib */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC8F4A6B1BD5E854003B296D /* IntroTutorial5.xib in Resources */,
 				AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */,
 				AC79093C1B6C455F00085FB6 /* Main.storyboard in Resources */,
 				AC7909411B6C455F00085FB6 /* LaunchScreen.xib in Resources */,

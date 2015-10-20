@@ -14,7 +14,7 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
     @IBOutlet weak var tutorialView: TutorialScrollView!
     var tutorialCreated: Bool = false
     
-    var allPages: [String] = ["IntroTutorial0", "IntroTutorial1", "IntroTutorial2", "IntroTutorial3", "IntroTutorial4", "IntroTutorial5", "IntroTutorial6"]
+    var allPages: [String] = ["IntroTutorial0", "IntroTutorial1", "IntroTutorial2", "IntroTutorial3", "IntroTutorial4", "IntroTutorial5"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

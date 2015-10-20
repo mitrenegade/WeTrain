@@ -15,7 +15,7 @@
                     <rect key="frame" x="20" y="-62" width="280" height="280"/>
                     <string key="text">Once you’ve confirmed your session duration and training location you’ll receive a passcode. When your trainer arrives, remember to give them this code so they can start the workout!</string>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>

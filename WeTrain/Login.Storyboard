@@ -561,7 +561,7 @@
                         <outlet property="inputPhone" destination="XOy-wi-pAs" id="ilB-an-Kqc"/>
                         <outlet property="scrollView" destination="86m-9D-qAA" id="z0M-Xo-nR4"/>
                         <outlet property="viewScrollContent" destination="DhG-7P-k4I" id="hyP-BO-t6m"/>
-                        <segue destination="i45-8x-25e" kind="show" id="Ztg-dt-9Vx"/>
+                        <segue destination="i45-8x-25e" kind="show" identifier="GoToTutorial" id="Ztg-dt-9Vx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CgM-iP-tNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
