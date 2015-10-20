@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-let genders = ["Male", "Female", "Lesbian", "Gay", "Bisexual", "Transgender", "Queer", "Other"]
+let genders = ["Select gender", "Male", "Female", "Lesbian", "Gay", "Bisexual", "Transgender", "Queer", "Other"]
 class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
 
     @IBOutlet var inputFirstName: UITextField!
@@ -47,7 +47,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         keyboardDoneButtonView.sizeToFit()
         keyboardDoneButtonView.barStyle = UIBarStyle.Black
         keyboardDoneButtonView.tintColor = UIColor.whiteColor()
-        let button: UIBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "dismissGenderSelector")
+        let button: UIBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "dismissKeyboard")
         let flex: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         keyboardDoneButtonView.setItems([flex, button], animated: true)
         self.inputGender.inputAccessoryView = keyboardDoneButtonView
@@ -70,10 +70,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         
     }
     
-    func dismissGenderSelector() {
-        if self.inputGender.text == nil || self.inputGender.text!.characters.count == 0 {
-            self.inputGender.text = genders[0] // automatically select first one
-        }
+    func dismissKeyboard() {
         self.view.endEditing(true)
     }
     
@@ -274,7 +271,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         return 1
     }
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 8 // MFLGBTQO
+        return 9 // MFLGBTQO
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -284,6 +281,9 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if row == 0 {
+            self.inputGender.text = nil
+        }
         self.inputGender.text = genders[row]
     }
     /*
