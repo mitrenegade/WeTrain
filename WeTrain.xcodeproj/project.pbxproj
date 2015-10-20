@@ -46,6 +46,7 @@
 		AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909841B6D710900085FB6 /* Login.Storyboard */; };
 		AC8CCD7A1BC8075100675036 /* LocationParis.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD781BC8075100675036 /* LocationParis.gpx */; };
 		AC8CCD7B1BC8075100675036 /* LocationPhiladelphia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */; };
+		AC8F4A651BD5C1C7003B296D /* TrainingLengthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A641BD5C1C7003B296D /* TrainingLengthViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		AC9760EF1B7167F70060D5D1 /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */; };
 		AC9F6F771BBE2C8000F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F761BBE2C8000F91B92 /* Constants.swift */; };
 		ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */; };
@@ -111,6 +112,7 @@
 		AC7909841B6D710900085FB6 /* Login.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.Storyboard; sourceTree = "<group>"; };
 		AC8CCD781BC8075100675036 /* LocationParis.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LocationParis.gpx; sourceTree = "<group>"; };
 		AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LocationPhiladelphia.gpx; sourceTree = "<group>"; };
+		AC8F4A641BD5C1C7003B296D /* TrainingLengthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingLengthViewController.swift; sourceTree = "<group>"; };
 		AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileViewController.swift; sourceTree = "<group>"; };
 		AC9F6F761BBE2C8000F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -223,24 +225,13 @@
 		AC7909301B6C455F00085FB6 /* WeTrain */ = {
 			isa = PBXGroup;
 			children = (
-				AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */,
-				AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */,
-				AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */,
-				AC7909841B6D710900085FB6 /* Login.Storyboard */,
-				AC79093A1B6C455F00085FB6 /* Main.storyboard */,
-				AC7909331B6C455F00085FB6 /* AppDelegate.swift */,
-				ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */,
-				AC235FF81BB51F06000AEA40 /* SignupViewController.swift */,
-				ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */,
-				AC7909821B6D618C00085FB6 /* MapViewController.swift */,
-				AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */,
-				ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */,
-				AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */,
-				AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */,
-				AC0503711BC8241A008022BD /* Tutorial */,
-				AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */,
-				AC79093F1B6C455F00085FB6 /* LaunchScreen.xib */,
 				AC7909351B6C455F00085FB6 /* Model.xcdatamodeld */,
+				AC7909331B6C455F00085FB6 /* AppDelegate.swift */,
+				AC8F4A601BD5C134003B296D /* Login Signup */,
+				AC8F4A611BD5C15C003B296D /* Training */,
+				AC8F4A631BD5C184003B296D /* Settings */,
+				AC8F4A621BD5C16B003B296D /* Utils */,
+				AC0503711BC8241A008022BD /* Tutorial */,
 				AC7909311B6C455F00085FB6 /* Supporting Files */,
 				AC6FB2C61B820702004109B6 /* WeTrain-Bridging-Header.h */,
 			);
@@ -250,6 +241,7 @@
 		AC7909311B6C455F00085FB6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AC79093F1B6C455F00085FB6 /* LaunchScreen.xib */,
 				AC8CCD781BC8075100675036 /* LocationParis.gpx */,
 				AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */,
 				AC79093D1B6C455F00085FB6 /* Images.xcassets */,
@@ -274,6 +266,49 @@
 				AC79094B1B6C455F00085FB6 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AC8F4A601BD5C134003B296D /* Login Signup */ = {
+			isa = PBXGroup;
+			children = (
+				AC7909841B6D710900085FB6 /* Login.Storyboard */,
+				ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */,
+				AC235FF81BB51F06000AEA40 /* SignupViewController.swift */,
+			);
+			name = "Login Signup";
+			sourceTree = "<group>";
+		};
+		AC8F4A611BD5C15C003B296D /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				AC79093A1B6C455F00085FB6 /* Main.storyboard */,
+				AC8F4A641BD5C1C7003B296D /* TrainingLengthViewController.swift */,
+				ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */,
+				AC7909821B6D618C00085FB6 /* MapViewController.swift */,
+				AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */,
+				AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */,
+			);
+			name = Training;
+			sourceTree = "<group>";
+		};
+		AC8F4A621BD5C16B003B296D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */,
+				AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */,
+				AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		AC8F4A631BD5C184003B296D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */,
+				AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */,
+				AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,6 +484,7 @@
 			files = (
 				ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */,
 				AC7909371B6C455F00085FB6 /* Model.xcdatamodeld in Sources */,
+				AC8F4A651BD5C1C7003B296D /* TrainingLengthViewController.swift in Sources */,
 				AC7909341B6C455F00085FB6 /* AppDelegate.swift in Sources */,
 				AC51D1741B84A57B00E1DF02 /* FeedbackViewController.swift in Sources */,
 				ACA6B8EF1B6E62B800AAA992 /* TrainingRequestViewController.swift in Sources */,
