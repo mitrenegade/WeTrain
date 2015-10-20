@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 let genders = ["Male", "Female", "Lesbian", "Gay", "Bisexual", "Transgender", "Queer", "Other"]
-class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
 
     @IBOutlet var inputFirstName: UITextField!
     @IBOutlet var inputLastName: UITextField!
@@ -51,6 +51,10 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         let flex: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         keyboardDoneButtonView.setItems([flex, button], animated: true)
         self.inputGender.inputAccessoryView = keyboardDoneButtonView
+        
+        let tap = UITapGestureRecognizer(target: self, action: "handleGesture:")
+        tap.delegate = self
+        self.viewScrollContent.addGestureRecognizer(tap)
     }
     
     override func viewDidLayoutSubviews() {
@@ -69,6 +73,24 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.inputGender.text = genders[0] // automatically select first one
         }
         self.view.endEditing(true)
+    }
+    
+    func handleGesture(sender: UIGestureRecognizer) {
+        if sender.isKindOfClass(UITapGestureRecognizer) {
+            self.view.endEditing(true)
+        }
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if gestureRecognizer.isKindOfClass(UITapGestureRecognizer) {
+            let location: CGPoint = touch.locationInView(self.viewScrollContent)
+            for input: UIView in [self.inputFirstName, self.inputLastName, self.inputEmail, self.inputPhone, self.inputGender, self.inputAge, self.inputInjuries, self.inputCreditCard] {
+                if CGRectContainsPoint(input.frame, location) {
+                    return false
+                }
+            }
+        }
+        return true
     }
 
     func didUpdateInfo(sender: AnyObject) {
