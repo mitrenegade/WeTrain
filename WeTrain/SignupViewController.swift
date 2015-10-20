@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class SignupViewController: UIViewController, UITextFieldDelegate {
+class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     @IBOutlet var inputUsername: UITextField!
     @IBOutlet var inputPassword: UITextField!
     @IBOutlet var inputConfirmation: UITextField!
@@ -32,6 +32,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
 
         self.scrollView.scrollEnabled = false
+
+        let tap = UITapGestureRecognizer(target: self, action: "handleGesture:")
+        tap.delegate = self
+        self.viewScrollContent.addGestureRecognizer(tap)
+        let tap2 = UITapGestureRecognizer(target: self, action: "handleGesture:")
+        self.view.addGestureRecognizer(tap2)
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,6 +47,24 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         self.constraintContentHeight.constant = self.inputConfirmation.frame.origin.y + self.inputConfirmation.frame.size.height + 50
     }
 
+    func handleGesture(sender: UIGestureRecognizer) {
+        if sender.isKindOfClass(UITapGestureRecognizer) {
+            self.view.endEditing(true)
+        }
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if gestureRecognizer.isKindOfClass(UITapGestureRecognizer) {
+            let location: CGPoint = touch.locationInView(self.viewScrollContent)
+            for input: UIView in [self.inputUsername, self.inputPassword, self.inputConfirmation] {
+                if CGRectContainsPoint(input.frame, location) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
     func didSignup(sender: AnyObject) {
         if self.inputUsername.text?.characters.count == 0 {
             self.simpleAlert("Please enter a username", message: nil)

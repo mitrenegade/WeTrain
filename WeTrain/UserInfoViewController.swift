@@ -55,6 +55,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         let tap = UITapGestureRecognizer(target: self, action: "handleGesture:")
         tap.delegate = self
         self.viewScrollContent.addGestureRecognizer(tap)
+        let tap2 = UITapGestureRecognizer(target: self, action: "handleGesture:")
+        self.view.addGestureRecognizer(tap2)
     }
     
     override func viewDidLayoutSubviews() {

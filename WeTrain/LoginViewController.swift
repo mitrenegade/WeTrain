@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet var inputLogin: UITextField!
     @IBOutlet var inputPassword: UITextField!
@@ -24,6 +24,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
 
         self.reset()
         // Do any additional setup after loading the view.
+
+        let tap = UITapGestureRecognizer(target: self, action: "handleGesture:")
+        tap.delegate = self
+        self.view.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,6 +52,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
                 self.tutorialCreated = true
             }
         }
+    }
+    
+    func handleGesture(sender: UIGestureRecognizer) {
+        if sender.isKindOfClass(UITapGestureRecognizer) {
+            self.view.endEditing(true)
+        }
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if gestureRecognizer.isKindOfClass(UITapGestureRecognizer) {
+            let location: CGPoint = touch.locationInView(self.view)
+            for input: UIView in [self.inputLogin, self.inputPassword, self.buttonLogin, self.buttonSignup] {
+                if CGRectContainsPoint(input.frame, location) {
+                    return false
+                }
+            }
+        }
+        return true
     }
     
     @IBAction func didClickLogin(sender: UIButton) {
