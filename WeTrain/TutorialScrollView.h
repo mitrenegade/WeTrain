@@ -8,11 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TutorialScrollDelegate <NSObject>
+
+-(void)didScrollToPage:(int)page;
+
+@end
+
 @interface TutorialScrollView : UIView <UIScrollViewDelegate>
 {
     UIScrollView *scrollView;
     UIPageControl *pageControl;
 }
+
+@property (weak, nonatomic) id delegate;
 
 -(void)setTutorialPages:(NSArray *)pageNames;
 

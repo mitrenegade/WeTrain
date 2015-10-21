@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var inputEmail: UITextField!
     @IBOutlet weak var inputCategory: UITextField!
@@ -67,11 +67,33 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                 self.navigationItem.rightBarButtonItem?.enabled = true
             }
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: "handleGesture:")
+        tap.delegate = self
+        self.keyboardShiftView.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func handleGesture(sender: UIGestureRecognizer) {
+        if sender.isKindOfClass(UITapGestureRecognizer) {
+            self.view.endEditing(true)
+        }
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if gestureRecognizer.isKindOfClass(UITapGestureRecognizer) {
+            let location: CGPoint = touch.locationInView(self.view)
+            for input: UIView in [self.inputEmail, self.inputCategory, self.inputMessage] {
+                if CGRectContainsPoint(input.frame, location) {
+                    return false
+                }
+            }
+        }
+        return true
     }
     
     func resetStars() {

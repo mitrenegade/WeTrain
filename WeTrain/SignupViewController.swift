@@ -9,16 +9,10 @@
 import UIKit
 import Parse
 
-class SignupViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate {
-    
-    @IBOutlet var inputFirstName: UITextField!
-    @IBOutlet var inputLastName: UITextField!
-    @IBOutlet var inputEmail: UITextField!
-    @IBOutlet var inputPhone: UITextField!
-    @IBOutlet var inputGender: UITextField!
-    @IBOutlet var inputAge: UITextField!
-    @IBOutlet var inputInjuries: UITextField!
-    @IBOutlet var inputCreditCard: UITextField!
+class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+    @IBOutlet var inputUsername: UITextField!
+    @IBOutlet var inputPassword: UITextField!
+    @IBOutlet var inputConfirmation: UITextField!
     
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var viewScrollContent: UIView!
@@ -37,135 +31,81 @@ class SignupViewController: UIViewController, UITextFieldDelegate, CreditCardDel
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
 
+        self.scrollView.scrollEnabled = false
+
+        let tap = UITapGestureRecognizer(target: self, action: "handleGesture:")
+        tap.delegate = self
+        self.viewScrollContent.addGestureRecognizer(tap)
+        let tap2 = UITapGestureRecognizer(target: self, action: "handleGesture:")
+        self.view.addGestureRecognizer(tap2)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         self.constraintContentWidth.constant = (self.appDelegate().window?.bounds.size.width)!
-        self.constraintContentHeight.constant = self.inputInjuries.frame.origin.y + self.inputInjuries.frame.size.height + 50
+        self.constraintContentHeight.constant = self.inputConfirmation.frame.origin.y + self.inputConfirmation.frame.size.height + 50
     }
 
-    @IBAction func didClickAddPhoto(sender: UIButton) {
-        
+    func handleGesture(sender: UIGestureRecognizer) {
+        if sender.isKindOfClass(UITapGestureRecognizer) {
+            self.view.endEditing(true)
+        }
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if gestureRecognizer.isKindOfClass(UITapGestureRecognizer) {
+            let location: CGPoint = touch.locationInView(self.viewScrollContent)
+            for input: UIView in [self.inputUsername, self.inputPassword, self.inputConfirmation] {
+                if CGRectContainsPoint(input.frame, location) {
+                    return false
+                }
+            }
+        }
+        return true
     }
     
     func didSignup(sender: AnyObject) {
-        let firstName = self.inputFirstName.text
-        if firstName?.characters.count == 0 {
-            self.simpleAlert("Please enter your first name", message: nil)
+        if self.inputUsername.text?.characters.count == 0 {
+            self.simpleAlert("Please enter a username", message: nil)
             return
         }
-
-        let email = self.inputEmail.text
-        if email?.characters.count == 0 {
-            self.simpleAlert("Please enter an email", message: nil)
+        if self.inputPassword.text?.characters.count == 0 {
+            self.simpleAlert("Please enter a password", message: nil)
             return
         }
-        if !self.isValidEmail(email!) {
-            self.simpleAlert("Please enter a valid email address", message: nil)
+        if self.inputConfirmation.text?.characters.count == 0 {
+            self.simpleAlert("Please enter a password confirmation", message: nil)
             return
         }
-
-        let phone = self.inputPhone.text
-        if phone?.characters.count == 0 {
-            self.simpleAlert("Please enter a valid phone number", message: nil)
+        if self.inputConfirmation.text! != self.inputPassword.text! {
+            self.simpleAlert("Please make sure password matches confirmation", message: nil)
             return
         }
-/*
-        let gender = self.inputGender.text
-        if gender?.characters.count == 0 {
-            self.simpleAlert("Please enter your gender", message: nil)
-            return
-        }
-
-        let age = self.inputAge.text
-        if age?.characters.count == 0 {
-            self.simpleAlert("Please enter your age", message: nil)
-            return
-        }
-*/
-        // TODO: remove credit card restriction for initial app release
-        /*
-        let four = self.inputCreditCard.text
-        if four?.characters.count == 0 {
-            self.simpleAlert("Please enter a payment method. (For the test app, use credit card number 4242424242424242", message: nil)
-            return
-        }
-        */
         
-        // make sure user exists
-        let user = PFUser.currentUser()
-        if user == nil {
-            self.simpleAlert("Invalid user", message: "You are not currently signed in. Please sign in again", completion: { () -> Void in
-                self.appDelegate().goToLogin()
-            })
-        }
-
-        // load existing trainer or create one
-        var client: PFObject!
-        if let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
-            client = clientObject
-            client.fetchInBackgroundWithBlock({ (object, error) -> Void in
-                if error != nil {
-                    self.simpleAlert("Error fetching your profile", message: "We could not load your profile to update it.", completion: nil)
-                    return
-                }
-                else {
-                    self.updateClientProfile(client)
-                }
-            })
-        }
-        else {
-            client = PFObject(className: "Client")
-            self.updateClientProfile(client)
-        }
-    }
-    
-    func updateClientProfile(client: PFObject) {
-        // create trainer object
-        var clientDict = ["firstName": self.inputFirstName.text!, "email": self.inputEmail.text!, "phone": self.inputPhone.text!];
-        if self.inputLastName.text != nil {
-            clientDict["lastName"] = self.inputLastName.text!
-        }
-        if self.inputAge.text != nil {
-            clientDict["age"] = self.inputAge.text!
-        }
-        if self.inputGender.text != nil {
-            clientDict["gender"] = self.inputGender.text!
-        }
-        if self.inputInjuries.text != nil {
-            clientDict["injuries"] = self.inputInjuries.text!
-        }
-        client.setValuesForKeysWithDictionary(clientDict)
-        let user = PFUser.currentUser()!
-        client.setObject(user, forKey: "user")
-
-        client.saveInBackgroundWithBlock { (success, error) -> Void in
-            if error != nil {
-                self.simpleAlert("Error creating profile", message: "We could not create your user profile.", completion: nil)
-                return
+        let username = self.inputUsername.text
+        let password = self.inputPassword.text
+        
+        let user = PFUser()
+        user.username = username
+        user.password = password
+        
+        user.signUpInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                print("signup succeeded")
+                self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
             }
             else {
-                user.setObject(client, forKey: "client")
-                user.saveInBackgroundWithBlock({ (success, error) -> Void in
-                    if success {
-                        print("signup succeeded")
-                        self.appDelegate().didLogin()
-                    }
-                    else {
-                        let title = "Signup error"
-                        var message: String?
-                        if error?.code == 100 {
-                            message = "Please check your internet connection"
-                        }
-                        else if error?.code == 202 {
-                            message = "Username already taken"
-                        }
-                        
-                        self.simpleAlert(title, message: message)
-                    }
-                })
+                let title = "Signup error"
+                var message: String?
+                if error?.code == 100 {
+                    message = "Please check your internet connection"
+                }
+                else if error?.code == 202 {
+                    message = "Username already taken"
+                }
+                
+                self.simpleAlert(title, message: message)
             }
         }
     }
@@ -198,29 +138,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, CreditCardDel
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        if textField == self.inputCreditCard {
-            self.view.endEditing(true)
-            self.goToCreditCard()
-            return false
-        }
         return true
-    }
-    
-    func goToCreditCard() {
-        let nav = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CreditCardNavigationController") as! UINavigationController
-        let controller: CreditCardViewController = nav.viewControllers[0] as! CreditCardViewController
-        controller.delegate = self
-        
-        self.presentViewController(nav, animated: true) { () -> Void in
-        }
-    }
-
-    // MARK: - CreditCardDelegate
-    func didSaveCreditCard() {
-        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
-        if let last4: String = client.objectForKey("stripeFour") as? String{
-            self.inputCreditCard.text = "Credit Card: *\(last4)"
-        }
     }
     /*
     // MARK: - Navigation

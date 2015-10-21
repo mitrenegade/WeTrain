@@ -78,25 +78,7 @@ class TrainingRequestViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let alert = UIAlertController(title: "Select length", message: "Please select the training session length you want.", preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: "30 minutes", style: .Default, handler: { (action) -> Void in
-            self.selectedExerciseType = indexPath.row
-            self.selectedExerciseLength = 30
-            self.goToMap()
-        }))
-        alert.addAction(UIAlertAction(title: "60 minutes", style: .Default, handler: { (action) -> Void in
-            self.selectedExerciseType = indexPath.row
-            self.selectedExerciseLength = 60
-            self.goToMap()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler:  { (action) -> Void in
-            self.selectedExerciseType = nil
-            self.selectedExerciseLength = nil
-        }))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    func goToMap() {
+        self.selectedExerciseType = indexPath.row
         self.performSegueWithIdentifier("GoToMap", sender: self)
     }
     

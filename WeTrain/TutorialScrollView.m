@@ -49,6 +49,8 @@
         NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:name owner:self options:nil];
         UIView *tutorialPage = [subviewArray objectAtIndex:0];
 
+        CGRect frame = CGRectMake(0, 0, width, scrollView.frame.size.height);
+        tutorialPage.frame = frame;
         CGPoint center = CGPointMake(page * width + width/2, self.frame.size.height / 2 - 30);
         tutorialPage.center = center;
         [scrollView addSubview:tutorialPage];
@@ -64,6 +66,10 @@
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     int page = scrollView.contentOffset.x / self.bounds.size.width;
     [pageControl setCurrentPage:page];
+    
+    if (self.delegate != nil) {
+        [self.delegate didScrollToPage:page];
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.
