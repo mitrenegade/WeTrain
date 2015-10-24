@@ -867,10 +867,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qtO-bC-XdS">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtO-bC-XdS">
                                 <rect key="frame" x="40" y="40" width="520" height="450"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-ep-hzq">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-ep-hzq">
                                         <rect key="frame" x="8" y="8" width="504" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="39" id="E98-di-xq8"/>
@@ -879,7 +879,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gi7-vo-gQc">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gi7-vo-gQc">
                                         <rect key="frame" x="8" y="55" width="504" height="271"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="271" id="hZ8-F4-UNo"/>
@@ -888,7 +888,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bty-7b-NE3">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bty-7b-NE3">
                                         <rect key="frame" x="8" y="334" width="504" height="50"/>
                                         <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -902,7 +902,7 @@
                                             <action selector="didClickButton:" destination="sRQ-uT-cb9" eventType="touchUpInside" id="079-wU-myN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2y-bD-uuA">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2y-bD-uuA">
                                         <rect key="frame" x="8" y="392" width="504" height="50"/>
                                         <color key="backgroundColor" red="0.058823529409999999" green="0.0" blue="0.01176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -938,11 +938,11 @@
                         <constraints>
                             <constraint firstItem="qtO-bC-XdS" firstAttribute="top" secondItem="jcm-Rh-qRe" secondAttribute="bottom" constant="40" id="0s2-EX-g7W"/>
                             <constraint firstItem="sa4-FV-dOk" firstAttribute="leading" secondItem="g4k-gz-7no" secondAttribute="leading" id="3bT-IF-Tgm"/>
-                            <constraint firstItem="qtO-bC-XdS" firstAttribute="leading" secondItem="g4k-gz-7no" secondAttribute="leadingMargin" constant="24" id="EVA-KB-gtb"/>
+                            <constraint firstItem="qtO-bC-XdS" firstAttribute="leading" secondItem="g4k-gz-7no" secondAttribute="leadingMargin" constant="20" id="EVA-KB-gtb"/>
                             <constraint firstAttribute="trailing" secondItem="sa4-FV-dOk" secondAttribute="trailing" id="G2o-Qi-ZJ5"/>
                             <constraint firstItem="0em-yH-tUT" firstAttribute="top" secondItem="qtO-bC-XdS" secondAttribute="bottom" constant="46" id="KLm-io-6Lg"/>
                             <constraint firstItem="0em-yH-tUT" firstAttribute="top" secondItem="sa4-FV-dOk" secondAttribute="bottom" id="USB-QH-nOA"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qtO-bC-XdS" secondAttribute="trailing" constant="24" id="imU-ie-zCK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qtO-bC-XdS" secondAttribute="trailing" constant="20" id="imU-ie-zCK"/>
                             <constraint firstItem="sa4-FV-dOk" firstAttribute="top" secondItem="jcm-Rh-qRe" secondAttribute="bottom" id="iqN-X6-2gx"/>
                         </constraints>
                     </view>
