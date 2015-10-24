@@ -70,14 +70,45 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // if location is nil, then we haven't tried to load location yet so let locationManager work
+        // if location is non-nil and location has been disabled, warn
+        if self.currentLocation != nil {
+            let status: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
+            if status == CLAuthorizationStatus.Denied {
+                self.warnForLocationPermission()
+            }
+        }
+        else {
+            // can come here if location permission has already be requested, was initially denied then enabled through settings, but now doesn't start location
+            locationManager.startUpdatingLocation()
+        }
+    }
+
+    func warnForLocationPermission() {
+        let message: String = "WeTrain needs GPS access to find trainers near you. Please go to your phone settings to enable location access. Go there now?"
+        let alert: UIAlertController = UIAlertController(title: "Could not access location", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
     // MARK: - CLLocationManagerDelegate
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedWhenInUse {
+        mapView.settings.myLocationButton = true
+        
+        if status == .AuthorizedWhenInUse || status == .AuthorizedAlways {
             locationManager.startUpdatingLocation()
             mapView.myLocationEnabled = true
             mapView.settings.myLocationButton = true
         }
         else if status == .Denied {
+            self.warnForLocationPermission()
+            self.currentLocation = CLLocation(latitude: PHILADELPHIA_LAT, longitude: PHILADELPHIA_LON)
             print("Authorization is not available")
         }
         else {
@@ -88,15 +119,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first as CLLocation? {
             locationManager.stopUpdatingLocation()
+            self.currentLocation = location
+            self.updateMapToCurrentLocation()
             
             if self.warnedAboutService == false {
                 if !self.inServiceRange() {
                     self.warnedAboutService = true
                     self.simpleAlert("WeTrain unavailable", message: "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!")
+                    return
                 }
             }
-            self.currentLocation = location
-            self.updateMapToCurrentLocation()
             self.enableRequest()
         }
     }
@@ -123,9 +155,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func inServiceRange() -> Bool {
-        // TODO: for app store release, enable this
         // TODO: create a user flag instead of checking current location
-        return true
+        // TODO: for app store release, enable this
+        //return true
         
         let phila: CLLocation = CLLocation(latitude: PHILADELPHIA_LAT, longitude: PHILADELPHIA_LON)
         if self.currentLocation == nil {
@@ -143,6 +175,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.view.endEditing(true)
 
         if self.currentLocation != nil {
+            let status: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
+            if status == CLAuthorizationStatus.Denied {
+                self.warnForLocationPermission()
+            }
             self.updateMapToCurrentLocation()
         }
         locationManager.startUpdatingLocation()
