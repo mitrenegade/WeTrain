@@ -58,6 +58,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.iconLocation.image = UIImage(named: "iconLocation")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         self.iconLocation.tintColor = UIColor(red: 215.0/255.0, green: 84.0/255.0, blue: 82.0/255.0, alpha: 1)
 
+        // always allow button
+        self.buttonRequest.enabled = true
+        self.buttonRequest.layer.zPosition = 1
+        self.buttonRequest.alpha = 1
+
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "close")
     }
 
@@ -96,6 +101,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
+    
+    func warnAboutService() {
+        self.warnedAboutService = true
+        self.simpleAlert("WeTrain unavailable", message: "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!")
+    }
 
     // MARK: - CLLocationManagerDelegate
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -124,12 +134,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             
             if self.warnedAboutService == false {
                 if !self.inServiceRange() {
-                    self.warnedAboutService = true
-                    self.simpleAlert("WeTrain unavailable", message: "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!")
-                    return
+                    self.warnAboutService()
                 }
             }
-            self.enableRequest()
         }
     }
 
@@ -139,19 +146,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             zoom = 17
         }
         self.mapView.camera = GMSCameraPosition(target: self.currentLocation!.coordinate, zoom: zoom, bearing: 0, viewingAngle: 0)
-    }
-    
-    func enableRequest() {
-        if self.inServiceRange() {
-            self.buttonRequest.enabled = true
-            self.buttonRequest.layer.zPosition = 1
-            self.buttonRequest.alpha = 1
-        }
-        else {
-            self.buttonRequest.enabled = false
-            self.buttonRequest.layer.zPosition = 1
-            self.buttonRequest.alpha = 0.5
-        }
     }
     
     func inServiceRange() -> Bool {
@@ -209,11 +203,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 }
             }
         }
-        self.enableRequest()
     }
     
     // MARK: Location search
     @IBAction func didClickSearch(button: UIButton) {
+        let status: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
+        if status == CLAuthorizationStatus.Denied {
+            self.warnForLocationPermission()
+            return
+        }
+
         let address: String = "\(self.inputStreet.text) \(self.inputCity.text)"
         print("address: \(address)")
         
@@ -231,7 +230,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     if let placemark: CLPlacemark = placemarks!.first as CLPlacemark! {
                         self.currentLocation = CLLocation(latitude: placemark.location!.coordinate.latitude, longitude: placemark.location!.coordinate.longitude)
                         self.updateMapToCurrentLocation()
-                        self.enableRequest()
                     }
                 }
             }
@@ -246,6 +244,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 
     // MARK: - request
     @IBAction func didClickRequest(sender: UIButton) {
+        let status: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
+        if status == CLAuthorizationStatus.Denied {
+            self.warnForLocationPermission()
+            return
+        }
+        if !self.inServiceRange() {
+            self.warnAboutService()
+            return
+        }
+
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
         let payment = client.objectForKey("stripeToken")
         /*
