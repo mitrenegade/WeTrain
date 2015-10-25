@@ -159,21 +159,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 self.window!.rootViewController = controller
                             }
                             else {
-                                self.goToUserProfile()
+                                self.promptToCompleteSignup()
                             }
                         }
                         else {
-                            self.invalidLogin()
+                            self.promptToCompleteSignup()
                         }
                     })
                 }
                 else {
-                    self.invalidLogin()
+                    self.promptToCompleteSignup()
                 }
             }
         })
     }
     
+    func promptToCompleteSignup() {
+        let alert: UIAlertController = UIAlertController(title: "Complete signup", message: "You have not finished creating your account. Would you like to do that now?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Setup account", style: .Default, handler: { (action) -> Void in
+            self.goToUserProfile()
+        }))
+        alert.addAction(UIAlertAction(title: "Logout", style: .Default, handler: { (action) -> Void in
+            self.logout()
+        }))
+        self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+    }
     
     func goToLogin() {
         let controller: LoginViewController  = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
@@ -181,8 +191,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func goToUserProfile() {
-        let nav: UINavigationController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("SignupNavigationController") as! UINavigationController
+        let controller: UserInfoViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("UserInfoViewController") as! UserInfoViewController
+        let nav: UINavigationController = UINavigationController(rootViewController: controller)
         self.window!.rootViewController = nav
+        let frame = controller.view.frame
+        controller.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
     }
     
     func logout() {
