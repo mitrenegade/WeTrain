@@ -29,6 +29,9 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     @IBOutlet var constraintTopOffset: NSLayoutConstraint!
     @IBOutlet var constraintBottomOffset: NSLayoutConstraint!
     
+    var newCreditCardToken: STPToken?
+    var newCreditCardLast4: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -191,6 +194,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         let user = PFUser.currentUser()!
         client.setObject(user, forKey: "user")
         
+        if self.newCreditCardToken != nil {
+            let tokenId: String = self.newCreditCardToken!.tokenId
+            client.setObject(tokenId, forKey: "stripeToken")
+            client.setObject(self.newCreditCardLast4!, forKey: "stripeFour")
+        }
+        
         client.saveInBackgroundWithBlock { (success, error) -> Void in
             if error != nil {
                 self.simpleAlert("Error creating profile", message: "We could not create your user profile.", completion: nil)
@@ -267,10 +276,17 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     
     // MARK: - CreditCardDelegate
     func didSaveCreditCard() {
-        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
-        if let last4: String = client.objectForKey("stripeFour") as? String{
-            self.inputCreditCard.text = "Credit Card: *\(last4)"
+        if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
+            if let last4: String = client.objectForKey("stripeFour") as? String{
+                self.inputCreditCard.text = "Credit Card: *\(last4)"
+            }
         }
+    }
+    
+    func didCreateToken(token: STPToken, lastFour: String) {
+        self.newCreditCardToken = token
+        self.newCreditCardLast4 = lastFour
+        self.inputCreditCard.text = "Credit Card: *\(self.newCreditCardLast4!)"
     }
     
     // MARK: - UIPickerViewDelegate

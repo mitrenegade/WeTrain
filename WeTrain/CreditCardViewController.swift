@@ -10,7 +10,8 @@ import UIKit
 import Parse
 
 protocol CreditCardDelegate: class {
-    func didSaveCreditCard()
+    func didSaveCreditCard() // saved to client
+    func didCreateToken(token: STPToken, lastFour: String) // created token
 }
 
 class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDelegate {
@@ -29,15 +30,14 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Done, target: self, action: "save")
         self.navigationItem.rightBarButtonItem!.enabled = false
 
-        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
-        if let last4: String = client.objectForKey("stripeFour") as? String{
-            self.labelCurrentCard.text = "Your current credit card is *\(last4)"
-            self.navigationItem.rightBarButtonItem!.title = "Update"
-        }
-        else {
-            self.labelCurrentCard.text = "Please enter a new credit card"
-        }
-        
+        self.labelCurrentCard.text = "Please enter a new credit card"
+        if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
+            print("client: \(client)")
+            if let last4: String = client.objectForKey("stripeFour") as? String{
+                self.labelCurrentCard.text = "Your current credit card is *\(last4)"
+                self.navigationItem.rightBarButtonItem!.title = "Update"
+            }
+        }        
 
         self.paymentView!.delegate = self
     }
@@ -86,19 +86,24 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
     }
     
     func saveToken(token: STPToken) {
-        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
         let tokenId: String = token.tokenId
-        client.setObject(tokenId, forKey: "stripeToken")
         let number: String = self.paymentView!.cardNumber!
         let last4:String = number.substringFromIndex(number.endIndex.advancedBy(-4))
-        client.setObject(last4, forKey: "stripeFour")
-        client.saveInBackgroundWithBlock { (success, error) -> Void in
-            if error != nil {
-                self.simpleAlert("Error saving credit card", message: "Please try again.")
+        if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
+            client.setObject(tokenId, forKey: "stripeToken")
+            client.setObject(last4, forKey: "stripeFour")
+            client.saveInBackgroundWithBlock { (success, error) -> Void in
+                if error != nil {
+                    self.simpleAlert("Error saving credit card", message: "Please try again.")
+                }
+                else {
+                    self.close()
+                }
             }
-            else {
-                self.close()
-            }
+        }
+        else {
+            self.delegate?.didCreateToken(token, lastFour: last4) // tells delegate to store the token
+            self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
