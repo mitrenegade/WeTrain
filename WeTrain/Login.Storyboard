@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sZv-Un-zab">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2VA-Od-DVj">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="EfP-WB-U6u">
+            <objects>
+                <viewController id="2VA-Od-DVj" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="W4Z-9J-w0H"/>
+                        <viewControllerLayoutGuide type="bottom" id="DbO-Fp-KpL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iTh-al-558">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="newLogo" translatesAutoresizingMaskIntoConstraints="NO" id="RAS-79-WTa">
+                                <rect key="frame" x="50" y="225" width="500" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="RAS-79-WTa" secondAttribute="height" multiplier="10:3" id="FMf-yj-sSp"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reracking weights..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAe-GW-B42">
+                                <rect key="frame" x="88" y="529" width="424" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="YSH-ga-FO6"/>
+                                    <constraint firstAttribute="width" constant="424" id="nhG-1u-1wS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RAS-79-WTa" firstAttribute="centerY" secondItem="iTh-al-558" secondAttribute="centerY" id="5JS-yp-b2I"/>
+                            <constraint firstItem="DbO-Fp-KpL" firstAttribute="top" secondItem="cAe-GW-B42" secondAttribute="bottom" constant="50" id="Q0U-QP-9ZN"/>
+                            <constraint firstItem="RAS-79-WTa" firstAttribute="centerX" secondItem="iTh-al-558" secondAttribute="centerX" id="VUb-By-p9Z"/>
+                            <constraint firstItem="cAe-GW-B42" firstAttribute="centerX" secondItem="iTh-al-558" secondAttribute="centerX" id="XDr-zV-LDJ"/>
+                            <constraint firstItem="RAS-79-WTa" firstAttribute="height" secondItem="iTh-al-558" secondAttribute="height" multiplier="0.25" id="ySP-tl-JdI"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CTW-L4-ROd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1627" y="252"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="M2G-4p-5kW">
             <objects>

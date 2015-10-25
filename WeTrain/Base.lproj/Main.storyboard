@@ -1,42 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9Rk-xm-cmN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="Kwj-MC-vz7">
-            <objects>
-                <viewController id="9Rk-xm-cmN" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6c7-YC-6IY"/>
-                        <viewControllerLayoutGuide type="bottom" id="UQf-ki-hW7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rqF-iT-GAw">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="newLogo" translatesAutoresizingMaskIntoConstraints="NO" id="l30-Ip-Hcg">
-                                <rect key="frame" x="150.5" y="150" width="300" height="300"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="l30-Ip-Hcg" firstAttribute="width" secondItem="rqF-iT-GAw" secondAttribute="width" multiplier="0.5" id="55i-hs-c8x"/>
-                            <constraint firstItem="l30-Ip-Hcg" firstAttribute="height" secondItem="rqF-iT-GAw" secondAttribute="height" multiplier="0.5" id="emH-Js-3UA"/>
-                            <constraint firstItem="l30-Ip-Hcg" firstAttribute="centerY" secondItem="rqF-iT-GAw" secondAttribute="centerY" id="izQ-yq-vYF"/>
-                            <constraint firstItem="l30-Ip-Hcg" firstAttribute="centerX" secondItem="rqF-iT-GAw" secondAttribute="centerX" id="ytz-3b-VwP"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NlS-SH-YHz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-860" y="-124"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Cl1-JQ-OiJ">
             <objects>
@@ -85,6 +55,9 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weTrainBG" translatesAutoresizingMaskIntoConstraints="NO" id="tfv-yu-1xp">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4v-2v-oMn">
                                 <rect key="frame" x="27" y="92" width="546" height="303"/>
                                 <subviews>
@@ -137,7 +110,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="pVt-Vl-Doc" firstAttribute="bottom" secondItem="Uun-fo-REH" secondAttribute="bottom" id="Ghj-wQ-F7T"/>
                                     <constraint firstAttribute="trailing" secondItem="q7O-nW-90o" secondAttribute="trailing" constant="20" id="IeX-Nn-vPW"/>
@@ -158,7 +131,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="UUY-Wa-d70" firstAttribute="top" secondItem="tfv-yu-1xp" secondAttribute="bottom" id="07y-DM-s3x"/>
+                            <constraint firstAttribute="trailing" secondItem="tfv-yu-1xp" secondAttribute="trailing" id="9K0-M7-MnB"/>
+                            <constraint firstItem="tfv-yu-1xp" firstAttribute="top" secondItem="vvp-v0-eLB" secondAttribute="bottom" id="DG8-w1-Lz0"/>
                             <constraint firstItem="x4v-2v-oMn" firstAttribute="centerX" secondItem="nsI-4o-xmA" secondAttribute="centerX" id="LHI-ix-4Kj"/>
+                            <constraint firstItem="tfv-yu-1xp" firstAttribute="leading" secondItem="nsI-4o-xmA" secondAttribute="leading" id="eun-I6-fti"/>
                             <constraint firstItem="x4v-2v-oMn" firstAttribute="centerY" secondItem="nsI-4o-xmA" secondAttribute="centerY" id="gdx-wB-QYx"/>
                             <constraint firstItem="x4v-2v-oMn" firstAttribute="leading" secondItem="nsI-4o-xmA" secondAttribute="leading" constant="27" id="okI-Te-0kG"/>
                             <constraint firstAttribute="trailing" secondItem="x4v-2v-oMn" secondAttribute="trailing" constant="27" id="tUK-Ix-4VY"/>
@@ -976,8 +953,8 @@
         <image name="iconChecklist" width="30" height="30"/>
         <image name="iconDumbbell" width="30" height="30"/>
         <image name="iconLocation" width="26" height="26"/>
-        <image name="newLogo" width="382" height="189"/>
         <image name="star" width="42" height="42"/>
+        <image name="weTrainBG" width="551" height="666"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wKi-zk-aub"/>
