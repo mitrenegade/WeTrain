@@ -880,9 +880,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Gi7-vo-gQc">
-                                        <rect key="frame" x="8" y="55" width="504" height="271"/>
+                                        <rect key="frame" x="8" y="55" width="504" height="123"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="271" id="hZ8-F4-UNo"/>
+                                            <constraint firstAttribute="height" constant="123" id="hZ8-F4-UNo"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -916,17 +916,25 @@
                                             <action selector="didClickButton:" destination="sRQ-uT-cb9" eventType="touchUpInside" id="xuu-Z7-UqY"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTv-ie-5hJ" customClass="ProgressView" customModule="WeTrain" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="186" width="504" height="140"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="bty-7b-NE3" firstAttribute="top" secondItem="PTv-ie-5hJ" secondAttribute="bottom" constant="8" id="0EY-kK-OPH"/>
                                     <constraint firstItem="Gi7-vo-gQc" firstAttribute="top" secondItem="A7Z-ep-hzq" secondAttribute="bottom" constant="8" id="2Sx-rU-rHx"/>
                                     <constraint firstItem="A7Z-ep-hzq" firstAttribute="top" secondItem="qtO-bC-XdS" secondAttribute="top" constant="8" id="3Zc-Xz-f3X"/>
                                     <constraint firstAttribute="trailing" secondItem="bty-7b-NE3" secondAttribute="trailing" constant="8" id="AQV-cf-qT7"/>
+                                    <constraint firstItem="PTv-ie-5hJ" firstAttribute="leading" secondItem="qtO-bC-XdS" secondAttribute="leading" constant="8" id="DKY-o6-d4O"/>
                                     <constraint firstItem="bty-7b-NE3" firstAttribute="leading" secondItem="qtO-bC-XdS" secondAttribute="leading" constant="8" id="HwP-Mf-Zj0"/>
                                     <constraint firstItem="p2y-bD-uuA" firstAttribute="leading" secondItem="qtO-bC-XdS" secondAttribute="leading" constant="8" id="Mux-i1-pMd"/>
                                     <constraint firstAttribute="trailing" secondItem="A7Z-ep-hzq" secondAttribute="trailing" constant="8" id="R9R-ii-hhU"/>
+                                    <constraint firstItem="PTv-ie-5hJ" firstAttribute="top" secondItem="Gi7-vo-gQc" secondAttribute="bottom" constant="8" id="RKF-q9-CRa"/>
                                     <constraint firstItem="p2y-bD-uuA" firstAttribute="top" secondItem="bty-7b-NE3" secondAttribute="bottom" constant="8" id="VoH-lP-a4M"/>
                                     <constraint firstAttribute="trailing" secondItem="Gi7-vo-gQc" secondAttribute="trailing" constant="8" id="VxZ-jL-NJ1"/>
+                                    <constraint firstAttribute="trailing" secondItem="PTv-ie-5hJ" secondAttribute="trailing" constant="8" id="W88-Ea-Eug"/>
                                     <constraint firstAttribute="bottom" secondItem="p2y-bD-uuA" secondAttribute="bottom" constant="8" id="ZDl-WR-Y1o"/>
                                     <constraint firstItem="A7Z-ep-hzq" firstAttribute="leading" secondItem="qtO-bC-XdS" secondAttribute="leading" constant="8" id="e1W-2L-sz3"/>
                                     <constraint firstAttribute="trailing" secondItem="p2y-bD-uuA" secondAttribute="trailing" constant="8" id="flf-79-TVu"/>
@@ -952,8 +960,10 @@
                     <connections>
                         <outlet property="buttonBottom" destination="p2y-bD-uuA" id="2J6-Hw-XsO"/>
                         <outlet property="buttonTop" destination="bty-7b-NE3" id="aOO-pJ-Fc1"/>
+                        <outlet property="constraintDetailsHeight" destination="hZ8-F4-UNo" id="65p-KP-O7v"/>
                         <outlet property="labelMessage" destination="Gi7-vo-gQc" id="n0q-nD-Ynz"/>
                         <outlet property="labelTitle" destination="A7Z-ep-hzq" id="JLb-0K-sws"/>
+                        <outlet property="progressView" destination="PTv-ie-5hJ" id="468-zn-fQt"/>
                         <segue destination="8hA-p3-zea" kind="show" identifier="GoToViewTrainer" id="9Nf-0H-XfT"/>
                     </connections>
                 </viewController>

@@ -18,6 +18,10 @@ class RequestStatusViewController: UIViewController {
     @IBOutlet weak var buttonTop: UIButton!
     @IBOutlet weak var buttonBottom: UIButton!
     
+    @IBOutlet weak var constraintDetailsHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var progressView: ProgressView!
+    
     var state: RequestState = .NoRequest
     var currentRequest: PFObject?
     var currentTrainer: PFObject?
@@ -102,6 +106,14 @@ class RequestStatusViewController: UIViewController {
     func updateTitle(title: String, message: String, top: String?, bottom: String, topHandler: RequestStatusButtonHandler?, bottomHandler: RequestStatusButtonHandler) {
         self.labelTitle.text = title
         self.labelMessage.text = message
+
+        let string:NSString = self.labelMessage.text! as NSString
+        let bounds = CGSizeMake(self.labelMessage.frame.size.width, 500)
+        let rect = string.boundingRectWithSize(bounds, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:self.labelMessage.font], context:nil)
+        self.constraintDetailsHeight.constant = rect.size.height;
+
+        self.labelMessage.superview!.layoutSubviews()
+        
         if top == nil {
             self.buttonTop.hidden = true
         }
@@ -164,9 +176,10 @@ class RequestStatusViewController: UIViewController {
             self.updateTitle(title, message: message, top: nil, bottom: "Cancel Request", topHandler: nil, bottomHandler: { () -> Void in
                 self.promptForCancel()
             })
+            self.progressView.startActivity()
         case .Matched:
-            var title = "Trainer found"
-            var message = "You have been matched with a trainer!"
+            let title = "Trainer found"
+            let message = "You have been matched with a trainer!"
             self.updateTitle(title, message: message, top: nil, bottom: "Cancel Request", topHandler: nil, bottomHandler: { () -> Void in
             })
             self.goToTrainerInfo()
@@ -175,8 +188,8 @@ class RequestStatusViewController: UIViewController {
                 self.timer = nil
             }
         case .Training:
-            var title = "Training in session"
-            var message = ""
+            let title = "Training in session"
+            let message = ""
             self.updateTitle(title, message: message, top: nil, bottom: "Cancel Request", topHandler: nil, bottomHandler: { () -> Void in
             })
             self.goToTrainerInfo()
