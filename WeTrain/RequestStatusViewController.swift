@@ -146,6 +146,7 @@ class RequestStatusViewController: UIViewController {
                 self.timer!.invalidate()
                 self.timer = nil
             }
+            self.progressView.stopActivity()
         case .Cancelled:
             // request state is set to .NoRequest if cancelled from an app action.
             // "cancelled" state is set on the web in order to trigger this state
@@ -165,6 +166,7 @@ class RequestStatusViewController: UIViewController {
                 self.timer!.invalidate()
                 self.timer = nil
             }
+            self.progressView.stopActivity()
         case .Searching:
             
             var title = "Calling all trainers near you"
@@ -187,6 +189,7 @@ class RequestStatusViewController: UIViewController {
                 self.timer!.invalidate()
                 self.timer = nil
             }
+            self.progressView.stopActivity()
         case .Training:
             let title = "Training in session"
             let message = ""
@@ -197,6 +200,7 @@ class RequestStatusViewController: UIViewController {
                 self.timer!.invalidate()
                 self.timer = nil
             }
+            self.progressView.stopActivity()
         default:
             break
         }
