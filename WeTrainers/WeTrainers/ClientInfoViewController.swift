@@ -216,7 +216,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         let text = self.inputPasscode.text
         let validCode = self.request.objectForKey("passcode") as? String
         
-        if validCode == nil || text?.lowercaseString == validCode! {
+        if validCode == nil || text?.lowercaseString == validCode!.lowercaseString {
             self.startWorkout()
         }
         else {
