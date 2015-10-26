@@ -8,12 +8,13 @@
 
 import UIKit
 import Parse
+import MessageUI
 
 protocol ClientInfoDelegate: class {
     func clientsDidChange()
 }
 
-class ClientInfoViewController: UIViewController, UITextFieldDelegate {
+class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessageComposeViewControllerDelegate {
 
     var request: PFObject!
     
@@ -181,29 +182,80 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         self.updateLabelInfo()
     }
     @IBAction func didClickButton(sender: UIButton) {
-        if self.status == RequestState.Searching.rawValue {
-            self.acceptTrainingRequest()
-        }
-        else if self.status == RequestState.Matched.rawValue {
-            let trainer = request.objectForKey("trainer") as! PFObject
-            if trainer.objectId == self.trainer.objectId {
-                self.inputPasscode.resignFirstResponder()
-                self.validatePasscode()
-            }
-            else {
-                self.simpleAlert("Could not start workout", message: "The client's training session is no longer available.", completion: { () -> Void in
-                    self.close()
-                })
-            }
-        }
-        else if self.status == RequestState.Complete.rawValue {
-            self.close()
+        if sender == self.buttonContact {
+            self.contact()
         }
         else {
-            self.updateState()
+            if self.status == RequestState.Searching.rawValue {
+                self.acceptTrainingRequest()
+            }
+            else if self.status == RequestState.Matched.rawValue {
+                let trainer = request.objectForKey("trainer") as! PFObject
+                if trainer.objectId == self.trainer.objectId {
+                    self.inputPasscode.resignFirstResponder()
+                    self.validatePasscode()
+                }
+                else {
+                    self.simpleAlert("Could not start workout", message: "The client's training session is no longer available.", completion: { () -> Void in
+                        self.close()
+                    })
+                }
+            }
+            else if self.status == RequestState.Complete.rawValue {
+                self.close()
+            }
+            else {
+                self.updateState()
+            }
         }
     }
     
+    func contact() {
+        let name = self.client!.objectForKey("firstName") as! String
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        var phone: String = ""
+        if var phonenum: String = self.client!.objectForKey("phone") as? String {
+            phone = phonenum.stringByReplacingOccurrencesOfString("(", withString: "").stringByReplacingOccurrencesOfString(")", withString: "").stringByReplacingOccurrencesOfString("-", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
+        }
+        else {
+            self.simpleAlert("Could not contact client", message: "The number we had for \(name) was invalid.")
+            return
+        }
+        if (MFMessageComposeViewController.canSendText() == true) {
+            alert.addAction(UIAlertAction(title: "Call \(name)", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                self.call(phone)
+            }))
+            alert.addAction(UIAlertAction(title: "Text \(name)", style: .Default, handler: { (action) -> Void in
+                
+                let composer = MFMessageComposeViewController()
+                composer.recipients = [phone]
+                composer.messageComposeDelegate = self
+                self.presentViewController(composer, animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        }
+        else {
+            self.call(phone)
+        }
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func call(phone: String) {
+        let str = "tel://\(phone)"
+        let url = NSURL(string: str) as NSURL?
+        if (url != nil) {
+            UIApplication.sharedApplication().openURL(url!)
+            return
+        }
+        self.simpleAlert("Could not contact client", message: "We could not call the number \(phone).")
+    }
+
+    // MARK: - Message composer delegate
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+        })
+    }
+
     func acceptTrainingRequest() {
         let trainerId: String = self.trainer.objectId! as String
         let params = ["trainingRequestId": self.request.objectId!, "trainerId": trainerId]

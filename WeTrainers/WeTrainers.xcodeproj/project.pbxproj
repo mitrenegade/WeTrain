@@ -15,6 +15,7 @@
 		AC26A2381BB0ED3A0068EFE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC26A2361BB0ED3A0068EFE3 /* LaunchScreen.storyboard */; };
 		AC26A2431BB0ED3B0068EFE3 /* WeTrainersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A2421BB0ED3B0068EFE3 /* WeTrainersTests.swift */; };
 		AC26A24E1BB0ED3B0068EFE3 /* WeTrainersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */; };
+		AC26F2CD1BDE6463003E9B4E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC26F2CC1BDE6463003E9B4E /* MessageUI.framework */; };
 		AC9F6F791BBE2CEE00F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F781BBE2CEE00F91B92 /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
 		AC9F6F7B1BBE2E3100F91B92 /* TrainingRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */; settings = {ASSET_TAGS = (); }; };
 		AC9F6F7D1BBE356B00F91B92 /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -59,6 +60,7 @@
 		AC26A2491BB0ED3B0068EFE3 /* WeTrainersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeTrainersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeTrainersUITests.swift; sourceTree = "<group>"; };
 		AC26A24F1BB0ED3B0068EFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC26F2CC1BDE6463003E9B4E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AC9F6F781BBE2CEE00F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../WeTrain/Constants.swift; sourceTree = "<group>"; };
 		AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingRequestCell.swift; sourceTree = "<group>"; };
 		AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientInfoViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC26F2CD1BDE6463003E9B4E /* MessageUI.framework in Frameworks */,
 				D85DF688BAA691AA4613E87E /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +108,7 @@
 		71ECB2DB9291E33A5FD455FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC26F2CC1BDE6463003E9B4E /* MessageUI.framework */,
 				1FBE5EDDF73FB68B5782D451 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -530,15 +534,15 @@
 			baseConfigurationReference = 150346556E958FA747E2755F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bobby Ren (UQA7D88UV9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bobby Ren (UQA7D88UV9)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "011ac624-7a5f-4f6c-8a42-fb6d7b7a0879";
+				PROVISIONING_PROFILE = "90b9727a-1f6f-4c04-a35f-d79dadfd574a";
 			};
 			name = Debug;
 		};
@@ -548,14 +552,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Bobby Ren (46R7H433J6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Bobby Ren (46R7H433J6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Bobby Ren (H799H8B8DD)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "011ac624-7a5f-4f6c-8a42-fb6d7b7a0879";
+				PROVISIONING_PROFILE = "20b577dd-919b-4d55-8c02-d8eca7ca317c";
 			};
 			name = Release;
 		};
