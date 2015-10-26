@@ -45,7 +45,19 @@ class TrainingRequestCell: UITableViewCell {
             })
             
             let exercise = request.objectForKey("type") as? String
-            self.labelExercise.text = exercise!
+
+            var ago: String = ""
+            if let time = request.objectForKey("time") as? NSDate {
+                var minElapsed:Int = Int(NSDate().timeIntervalSinceDate(time) / 60)
+                let hourElapsed:Int = Int(minElapsed / 60)
+                minElapsed = Int(minElapsed) - Int(hourElapsed * 60)
+                if minElapsed < 0 {
+                    minElapsed = 0
+                }
+                ago = ", \(hourElapsed)h \(minElapsed)m ago"
+            }
+            
+            self.labelExercise.text = "\(exercise!)\(ago)"
             
             let index = TRAINING_TITLES.indexOf(exercise!)
             if index != nil {

@@ -317,6 +317,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         if self.requestedTrainingLength != nil {
             request.setObject(self.requestedTrainingLength!, forKey: "length")
         }
+        if TESTING == true {
+            request.setObject(true, forKey: "testing")
+        }
         print("request: \(request)")
         request.saveInBackgroundWithBlock { (success, error) -> Void in
             print("saved: \(success)")
