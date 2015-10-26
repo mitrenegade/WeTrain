@@ -136,7 +136,7 @@ class RequestStatusViewController: UIViewController {
         switch self.state {
         case .NoRequest:
             let title = "No current workout"
-            let message = "You're not currently in a workout or waiting for a trainer. Please click Close to go back to the training menu."
+            let message = "You're not currently in a workout or waiting for a trainer. Please click OK to go back to the training menu."
             self.updateTitle(title, message: message, top: nil, bottom: "Close", topHandler: nil, bottomHandler: { () -> Void in
                 // dismiss the current stack and go back
                 self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
@@ -153,7 +153,7 @@ class RequestStatusViewController: UIViewController {
             let title = "Search was cancelled"
             var message: String? = self.currentRequest!.objectForKey("cancelReason") as? String
             if message == nil {
-                message = "You have cancelled the training session. You have not been charged for this training session since no trainer was matched. Please click Close to go back to the training menu."
+                message = "You have cancelled the training session. You have not been charged for this training session since no trainer was matched. Please click OK to go back to the training menu."
             }
             
             self.currentRequest = nil

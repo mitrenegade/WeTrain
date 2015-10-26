@@ -477,7 +477,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="O35-2z-ks4"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="Edit photo"/>
+                                                <state key="normal" title="Add photo"/>
                                                 <connections>
                                                     <action selector="didClickAddPhoto:" destination="civ-Bp-HRs" eventType="touchUpInside" id="jZB-Dn-S4h"/>
                                                 </connections>

@@ -37,6 +37,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     var newCreditCardToken: STPToken?
     var newCreditCardLast4: String?
     
+    var isSignup:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,24 +70,52 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         let tap2 = UITapGestureRecognizer(target: self, action: "handleGesture:")
         self.view.addGestureRecognizer(tap2)
 
-        let left: UIBarButtonItem = UIBarButtonItem(title: "", style: .Done, target: self, action: "nothing")
-        self.navigationItem.leftBarButtonItem = left
+        if self.isSignup {
+            let left: UIBarButtonItem = UIBarButtonItem(title: "", style: .Done, target: self, action: "nothing")
+            self.navigationItem.leftBarButtonItem = left
+        }
         
         if let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
-            if let file = clientObject.objectForKey("photo") as? PFFile {
-                file.getDataInBackgroundWithBlock { (data, error) -> Void in
-                    if data != nil {
-                        let photo: UIImage = UIImage(data: data!)!
-                        self.buttonPhotoView.setImage(photo, forState: .Normal)
-                        self.buttonPhotoView.layer.cornerRadius = self.buttonPhotoView.frame.size.width / 2
-                        
-                        self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+            clientObject.fetchInBackgroundWithBlock({ (result, error) -> Void in
+                if let file = clientObject.objectForKey("photo") as? PFFile {
+                    file.getDataInBackgroundWithBlock { (data, error) -> Void in
+                        if data != nil {
+                            let photo: UIImage = UIImage(data: data!)!
+                            self.buttonPhotoView.setImage(photo, forState: .Normal)
+                            self.buttonPhotoView.layer.cornerRadius = self.buttonPhotoView.frame.size.width / 2
+                            
+                            self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+                        }
                     }
                 }
-            }
-            else {
-                self.buttonEditPhoto.setTitle("Add photo", forState: .Normal)
-            }
+                
+                // populate all info
+                if let firstName = clientObject.objectForKey("firstName") as? String {
+                    print("first: \(firstName)")
+                    self.inputFirstName.text = firstName
+                }
+                if let lastName = clientObject.objectForKey("lastName") as? String {
+                    self.inputLastName.text = lastName
+                }
+                if let email = clientObject.objectForKey("email") as? String {
+                    self.inputEmail.text = email
+                }
+                if let phone = clientObject.objectForKey("phone") as? String {
+                    self.inputPhone.text = phone
+                }
+                if let age = clientObject.objectForKey("age") as? String {
+                    self.inputAge.text = age
+                }
+                if let gender = clientObject.objectForKey("gender") as? String {
+                    self.inputGender.text = gender
+                }
+                if let injuries = clientObject.objectForKey("injuries") as? String {
+                    self.inputInjuries.text = injuries
+                }
+                if let last4: String = clientObject.objectForKey("stripeFour") as? String{
+                    self.inputCreditCard.text = "Credit Card: *\(last4)"
+                }
+            })
         }
     }
     
@@ -245,7 +275,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
                 user.saveInBackgroundWithBlock({ (success, error) -> Void in
                     if success {
                         print("signup succeeded")
-                        self.performSegueWithIdentifier("GoToTutorial", sender: nil)
+                        if self.isSignup {
+                            self.performSegueWithIdentifier("GoToTutorial", sender: nil)
+                        }
+                        else {
+                            self.navigationController!.popToRootViewControllerAnimated(true)
+                        }
                     }
                     else {
                         let title = "Signup error"

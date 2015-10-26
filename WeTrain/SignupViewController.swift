@@ -38,6 +38,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         self.viewScrollContent.addGestureRecognizer(tap)
         let tap2 = UITapGestureRecognizer(target: self, action: "handleGesture:")
         self.view.addGestureRecognizer(tap2)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Done, target: self, action: "close")
+    }
+    
+    func close() {
+        self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -148,14 +154,16 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         return true
     }
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "GoToUserInfo" {
+            let controller: UserInfoViewController = segue.destinationViewController as! UserInfoViewController
+            controller.isSignup = true
+        }
     }
-    */
 
 }
