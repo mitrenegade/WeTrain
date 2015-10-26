@@ -133,7 +133,15 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     // MARK: - TextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == self.inputUsername {
+            self.inputPassword.becomeFirstResponder()
+        }
+        else if textField == self.inputPassword {
+            self.inputConfirmation.becomeFirstResponder()
+        }
+        else {
+            textField.resignFirstResponder()
+        }
         return true
     }
     
