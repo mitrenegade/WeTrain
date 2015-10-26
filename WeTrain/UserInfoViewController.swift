@@ -8,9 +8,10 @@
 
 import UIKit
 import Parse
+import Photos
 
 let genders = ["Select gender", "Male", "Female", "Lesbian", "Gay", "Bisexual", "Transgender", "Queer", "Other"]
-class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
+class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var buttonPhotoView: UIButton!
     @IBOutlet weak var buttonEditPhoto: UIButton!
@@ -38,6 +39,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     var newCreditCardLast4: String?
     
     var isSignup:Bool = false
+    var selectedPhoto: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,10 +126,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         
         self.constraintContentWidth.constant = (self.appDelegate().window?.bounds.size.width)!
         self.constraintContentHeight.constant = self.inputCreditCard.frame.origin.y + self.view.frame.size.height
-    }
-    
-    @IBAction func didClickAddPhoto(sender: UIButton) {
-        
     }
     
     func nothing() {
@@ -255,6 +253,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         if self.inputInjuries.text != nil {
             clientDict["injuries"] = self.inputInjuries.text!
         }
+        
         client.setValuesForKeysWithDictionary(clientDict)
         let user = PFUser.currentUser()!
         client.setObject(user, forKey: "user")
@@ -263,6 +262,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             let tokenId: String = self.newCreditCardToken!.tokenId
             client.setObject(tokenId, forKey: "stripeToken")
             client.setObject(self.newCreditCardLast4!, forKey: "stripeFour")
+        }
+        
+        if self.selectedPhoto != nil {
+            let data: NSData = UIImageJPEGRepresentation(self.selectedPhoto!, 0.8)!
+            let file: PFFile = PFFile(name: "profile.jpg", data: data)
+            client.setObject(file, forKey: "photo")
         }
         
         client.saveInBackgroundWithBlock { (success, error) -> Void in
@@ -403,6 +408,52 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.inputGender.text = nil
         }
         self.inputGender.text = genders[row]
+    }
+    
+    // MARK: - Photo
+    @IBAction func didClickAddPhoto(sender: UIButton) {
+        let picker: UIImagePickerController = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            alert.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (action) -> Void in
+                let cameraStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+                if cameraStatus == .Denied {
+                    self.simpleAlert("Could not access camera", message: "Please go to your settings to enable camera access.")
+                }
+                else {
+                    // go to camera
+                    picker.sourceType = .Camera
+                    self.presentViewController(picker, animated: true, completion: nil)
+                }
+            }))
+        }
+        alert.addAction(UIAlertAction(title: "Photo library", style: .Default, handler: { (action) -> Void in
+            let libraryStatus = PHPhotoLibrary.authorizationStatus()
+            if libraryStatus == .Denied {
+                self.simpleAlert("Could not access library", message: "Please go to your settings to enable photo library access.")
+            }
+            else {
+                // go to library
+                picker.sourceType = .PhotoLibrary
+                self.presentViewController(picker, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        self.buttonPhotoView.setImage(image, forState: .Normal)
+        self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+        self.selectedPhoto = image
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
     /*
     // MARK: - Navigation
