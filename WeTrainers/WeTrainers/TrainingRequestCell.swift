@@ -54,7 +54,13 @@ class TrainingRequestCell: UITableViewCell {
                 if minElapsed < 0 {
                     minElapsed = 0
                 }
-                ago = ", \(hourElapsed)h \(minElapsed)m ago"
+                if hourElapsed > 0 {
+                    ago = ", \(hourElapsed)h"
+                }
+                else {
+                    ago = ", "
+                }
+                ago = "\(ago)\(minElapsed)m ago"
             }
             
             self.labelExercise.text = "\(exercise!)\(ago)"
