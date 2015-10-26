@@ -23,6 +23,8 @@ class TrainingLengthViewController: UIViewController {
 
         // if there's a current request and we return to the app, go to that
         self.loadExistingRequest()
+        
+        self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
     }
 
     override func didReceiveMemoryWarning() {

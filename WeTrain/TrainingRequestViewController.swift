@@ -28,6 +28,8 @@ class TrainingRequestViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
+        self.setTitleViewText("Select workout")
     }
     
     override func viewWillAppear(animated: Bool) {

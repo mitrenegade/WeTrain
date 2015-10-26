@@ -50,4 +50,25 @@ extension UIViewController {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluateWithObject(testStr)
     }
+    
+    func setTitleBarColor(color: UIColor, tintColor: UIColor) {
+        self.navigationController?.navigationBar.tintColor = tintColor
+        self.navigationController?.navigationBar.backgroundColor = color
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+
+    func setTitleViewText(text: String) {
+        // only for run mode
+        let titleView = UIView(frame: CGRectMake(0, 0, 150, 40))
+        titleView.backgroundColor = UIColor.clearColor()
+        
+        let titleLabel = UILabel(frame: CGRectMake(40, 0, 130, 40))
+        titleLabel.font = UIFont(name: "Lato-Regular", size: 20)
+        titleLabel.textColor = UIColor.whiteColor()
+        titleView.addSubview(titleLabel)
+        self.navigationItem.titleView = titleView
+        
+        titleLabel.text = text
+    }
 }

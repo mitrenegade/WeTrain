@@ -63,14 +63,14 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7O-nW-90o">
                                         <rect key="frame" x="20" y="20" width="506" height="123"/>
-                                        <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.68627450980000004" green="0.90980392160000001" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="123" id="pPn-Lw-9Oq"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="123" id="rCT-eU-Yz3"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <state key="normal" title="30min Workout">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="kMn-tD-FMD" kind="show" identifier="GoToTrainingRequest" id="wKi-zk-aub"/>
@@ -87,14 +87,14 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uun-fo-REH">
                                         <rect key="frame" x="20" y="160" width="506" height="123"/>
-                                        <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.68627450980000004" green="0.90980392160000001" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="123" id="J3x-UX-CXR"/>
                                             <constraint firstAttribute="height" constant="123" id="qw6-1t-ZNJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <state key="normal" title="60min Workout">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="kMn-tD-FMD" kind="show" identifier="GoToTrainingRequest" id="mox-WL-qYw"/>
@@ -160,7 +160,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="bBJ-82-ufk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrainingRequestCell" rowHeight="80" id="57l-Dt-K6x" userLabel="TrainingRequestCell">
                                 <rect key="frame" x="0.0" y="86" width="600" height="80"/>
@@ -195,6 +195,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.68627450980000004" green="0.90980392160000001" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="centerY" secondItem="rRa-Xq-pjs" secondAttribute="centerY" id="EDg-kr-z5X"/>
                                         <constraint firstItem="w0C-PX-uhM" firstAttribute="leading" secondItem="rRa-Xq-pjs" secondAttribute="trailing" constant="8" id="G0L-k2-HlS"/>
@@ -206,6 +207,7 @@
                                         <constraint firstItem="w0C-PX-uhM" firstAttribute="trailing" secondItem="zMY-b9-eOZ" secondAttribute="trailingMargin" id="y33-Zz-bfv"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.68627450980392157" green="0.90980392156862744" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
