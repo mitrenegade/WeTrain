@@ -18,10 +18,12 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
 
     var request: PFObject!
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var labelName: UILabel!
     
     @IBOutlet weak var viewInfo: UIView!
+    @IBOutlet weak var iconExercise: UIImageView!
+    @IBOutlet weak var labelExercise: UILabel!
     @IBOutlet weak var labelInfo: UILabel!
     @IBOutlet weak var constraintLabelInfoHeight: NSLayoutConstraint?
 
@@ -45,13 +47,17 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.imageView.layer.borderWidth = 1
-        self.imageView.layer.borderColor = UIColor.darkGrayColor().CGColor
-        self.imageView.layer.cornerRadius = 5
+        self.photoView.layer.borderWidth = 1
+        self.photoView.layer.borderColor = UIColor.darkGrayColor().CGColor
+        self.photoView.layer.cornerRadius = self.photoView.frame.size.width/2
 
         self.viewInfo.layer.borderWidth = 1
         self.viewInfo.layer.borderColor = UIColor.lightGrayColor().CGColor
         self.viewInfo.layer.cornerRadius = 5
+        
+        self.iconExercise.layer.borderWidth = 1
+        self.iconExercise.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.iconExercise.layer.cornerRadius = 5
         
         self.constraintButtonContactHeight.constant = 0
 
@@ -66,15 +72,24 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                     self.labelName.text = "\(firstName!) \(lastName!)"
                 }
                 
+                if let file = self.client!.objectForKey("photo") as? PFFile {
+                    file.getDataInBackgroundWithBlock { (data, error) -> Void in
+                        if data != nil {
+                            let photo: UIImage = UIImage(data: data!)!
+                            self.photoView.image = photo
+                        }
+                    }
+                }
+
                 let exercise = self.request.objectForKey("type") as? String
                 
                 // TODO: use user photo instead for image
                 let index = TRAINING_TITLES.indexOf(exercise!)
                 if index != nil {
-                    self.imageView.image = UIImage(named: TRAINING_ICONS[index!])!
+                    self.iconExercise.image = UIImage(named: TRAINING_ICONS[index!])!
                 }
                 else {
-                    self.imageView.image = nil
+                    self.iconExercise.image = nil
                 }
                 
                 self.status = self.request.objectForKey("status") as! String
@@ -98,8 +113,20 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         let gender = self.client!.objectForKey("gender") as? String
         let age = self.ageOfClient(self.client!) as String?
         let injuries = self.client!.objectForKey("injuries") as? String
+        let length = self.request.objectForKey("length") as? Int
         
-        var info = "Exercise: \(exercise!)"
+        self.labelExercise.text = "Exercise: \(exercise!)"
+        
+        var info: String = ""
+        if length != nil {
+            info = "Session length: \(length!) minutes"
+            if length == 30 {
+                info = "\(info)\nPrice: $17"
+            }
+            else {
+                info = "\(info)\nPrice: $22"
+            }
+        }
         if self.status == RequestState.Training.rawValue || self.status == RequestState.Complete.rawValue {
             if let start = self.request.objectForKey("start") as? NSDate {
                 let interval = NSDate().timeIntervalSinceDate(start)
@@ -110,16 +137,35 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 let timeString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
                 
                 if self.status == RequestState.Complete.rawValue {
-                    info = "\(info)\nTotal time elapsed: \(timeString)"
+                    info = "Total time elapsed: \(timeString)"
                 }
                 else {
-                    info = "\(info)\nTime elapsed: \(timeString)"
+                    info = "Time elapsed: \(timeString)"
 
                     if self.timer == nil {
                         self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "tick", userInfo: nil, repeats: true)
                     }
                 }
             }
+        }
+        else if self.status == RequestState.Matched.rawValue {
+            var ago: String = ""
+            if let time = request.objectForKey("time") as? NSDate {
+                var minElapsed:Int = Int(NSDate().timeIntervalSinceDate(time) / 60)
+                let hourElapsed:Int = Int(minElapsed / 60)
+                minElapsed = Int(minElapsed) - Int(hourElapsed * 60)
+                if minElapsed < 0 {
+                    minElapsed = 0
+                }
+                if hourElapsed > 0 {
+                    ago = "\(hourElapsed)h"
+                }
+                else {
+                    ago = ""
+                }
+                ago = "\(ago)\(minElapsed)m ago"
+            }
+            info = "Training Requested: \(ago)"
         }
         if gender != nil {
             info = "\(info)\n\nGender: \(gender!)"
@@ -132,6 +178,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         }
         
         self.labelInfo.text = info
+        let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20))
+        self.constraintLabelInfoHeight!.constant = size.height
     }
     
     override func didReceiveMemoryWarning() {
