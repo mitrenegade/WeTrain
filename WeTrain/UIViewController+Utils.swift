@@ -50,4 +50,11 @@ extension UIViewController {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluateWithObject(testStr)
     }
+    
+    func setTitleBarColor(color: UIColor, tintColor: UIColor) {
+        self.navigationController?.navigationBar.tintColor = tintColor
+        self.navigationController?.navigationBar.backgroundColor = color
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
 }

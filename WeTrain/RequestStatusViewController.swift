@@ -52,6 +52,18 @@ class RequestStatusViewController: UIViewController {
             self.timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateRequestState", userInfo: nil, repeats: true)
             self.timer?.fire()
         }
+        
+        self.labelTitle.hidden = true
+        self.labelMessage.hidden = true
+
+        self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Done, target: self, action: "nothing")
+    }
+    
+    func nothing() {
+        // do nothing
     }
     
     @IBAction func didClickButton(sender: UIButton) {
@@ -106,6 +118,9 @@ class RequestStatusViewController: UIViewController {
     func updateTitle(title: String, message: String, top: String?, bottom: String, topHandler: RequestStatusButtonHandler?, bottomHandler: RequestStatusButtonHandler) {
         self.labelTitle.text = title
         self.labelMessage.text = message
+
+        self.labelTitle.hidden = false
+        self.labelMessage.hidden = false
 
         let string:NSString = self.labelMessage.text! as NSString
         let bounds = CGSizeMake(self.labelMessage.frame.size.width, 500)

@@ -42,6 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(GOOGLE_API_APP_KEY)
         
         Stripe.setDefaultPublishableKey(STRIPE_PUBLISHABLE_KEY)
+
+        UITabBar.appearance().tintColor = UIColor.redColor()
+        UITabBar.appearance().selectedImageTintColor = UIColor.orangeColor()
+        UITabBar.appearance().shadowImage = nil
+        UITabBar.appearance().barTintColor = UIColor.blackColor()
         
         if (PFUser.currentUser() != nil) {
             self.didLogin()

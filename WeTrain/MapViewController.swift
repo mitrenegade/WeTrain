@@ -63,6 +63,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.buttonRequest.layer.zPosition = 1
         self.buttonRequest.alpha = 1
 
+        self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "close")
     }
 
@@ -325,9 +328,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             print("saved: \(success)")
             client.setObject(request, forKey: "currentRequest")
             client.saveInBackground()
-
-            self.currentRequest = request
-            self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+            
+            if success {
+                self.currentRequest = request
+                self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+            }
+            else {
+                self.simpleAlert("Could not start request", message: "There was an issue requesting a training session. Please try again.")
+            }
         }
     }
         
