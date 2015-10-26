@@ -25,6 +25,7 @@ class TrainingLengthViewController: UIViewController {
         self.loadExistingRequest()
         
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
     }
 
     override func didReceiveMemoryWarning() {

@@ -29,7 +29,6 @@ class TrainingRequestViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
-//        self.setTitleViewText("Select workout")
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
     }
     
