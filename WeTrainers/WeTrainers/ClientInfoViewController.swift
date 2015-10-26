@@ -212,9 +212,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     
     func contact() {
         let name = self.client!.objectForKey("firstName") as! String
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         var phone: String = ""
-        if var phonenum: String = self.client!.objectForKey("phone") as? String {
+        if let phonenum: String = self.client!.objectForKey("phone") as? String {
             phone = phonenum.stringByReplacingOccurrencesOfString("(", withString: "").stringByReplacingOccurrencesOfString(")", withString: "").stringByReplacingOccurrencesOfString("-", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
         }
         else {
@@ -222,6 +221,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             return
         }
         if (MFMessageComposeViewController.canSendText() == true) {
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
             alert.addAction(UIAlertAction(title: "Call \(name)", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 self.call(phone)
             }))
@@ -233,11 +233,11 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 self.presentViewController(composer, animated: true, completion: nil)
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
         else {
             self.call(phone)
         }
-        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func call(phone: String) {

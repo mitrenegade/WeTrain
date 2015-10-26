@@ -18,6 +18,7 @@
 		AC0558501BB79DFB0065D21E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584E1BB79DFB0065D21E /* Parse.framework */; };
 		AC0558521BB79ED80065D21E /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */; };
 		AC235FF91BB51F06000AEA40 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC235FF81BB51F06000AEA40 /* SignupViewController.swift */; };
+		AC26F2CF1BDE69BD003E9B4E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC26F2CE1BDE69BD003E9B4E /* MessageUI.framework */; };
 		AC463FB61B95F3F500935F45 /* NSString+ValidateEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */; };
 		AC4FDFC71B6EF88700A4EBDD /* CreditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */; };
 		AC51D1741B84A57B00E1DF02 /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */; };
@@ -82,6 +83,7 @@
 		AC05584E1BB79DFB0065D21E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		AC235FF81BB51F06000AEA40 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		AC26F2CE1BDE69BD003E9B4E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AC463FB41B95F3F500935F45 /* NSString+ValidateEmail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ValidateEmail.h"; sourceTree = "<group>"; };
 		AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ValidateEmail.m"; sourceTree = "<group>"; };
 		AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC26F2CF1BDE69BD003E9B4E /* MessageUI.framework in Frameworks */,
 				AC05584F1BB79DFB0065D21E /* Bolts.framework in Frameworks */,
 				AC79097A1B6D517E00085FB6 /* Social.framework in Frameworks */,
 				AC7909781B6D517B00085FB6 /* Accounts.framework in Frameworks */,
@@ -175,6 +178,7 @@
 		58E896E55C69332B7809E4D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC26F2CE1BDE69BD003E9B4E /* MessageUI.framework */,
 				AC05584D1BB79DFB0065D21E /* Bolts.framework */,
 				AC05584E1BB79DFB0065D21E /* Parse.framework */,
 				AC79097C1B6D549700085FB6 /* Fabric.framework */,

@@ -8,8 +8,9 @@
 
 import UIKit
 import Parse
+import MessageUI
 
-class TrainerProfileViewController: UIViewController {
+class TrainerProfileViewController: UIViewController, MFMessageComposeViewControllerDelegate {
 
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var labelName: UILabel!
@@ -113,18 +114,51 @@ class TrainerProfileViewController: UIViewController {
     }
     
     func contact() {
-        if var phone: String = self.trainer!.objectForKey("phone") as? String {
-            phone = phone.stringByReplacingOccurrencesOfString("(", withString: "").stringByReplacingOccurrencesOfString(")", withString: "").stringByReplacingOccurrencesOfString("-", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
-            let str = "tel://\(phone)"
-            let url = NSURL(string: str) as NSURL?
-            if (url != nil) {
-                UIApplication.sharedApplication().openURL(url!)
-                return
-            }
+        let name = self.trainer!.objectForKey("firstName") as! String
+        var phone: String = ""
+        if let phonenum: String = self.trainer!.objectForKey("phone") as? String {
+            phone = phonenum.stringByReplacingOccurrencesOfString("(", withString: "").stringByReplacingOccurrencesOfString(")", withString: "").stringByReplacingOccurrencesOfString("-", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
         }
-        
-        let name = self.trainer!.objectForKey("name") as! String
-        self.simpleAlert("Could not call phone", message: "The number we had for \(name) was invalid.")
+        else {
+            self.simpleAlert("Could not contact client", message: "The number we had for \(name) was invalid.")
+            return
+        }
+        if (MFMessageComposeViewController.canSendText() == true) {
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            alert.addAction(UIAlertAction(title: "Call \(name)", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                self.call(phone)
+            }))
+            alert.addAction(UIAlertAction(title: "Text \(name)", style: .Default, handler: { (action) -> Void in
+                
+                let composer = MFMessageComposeViewController()
+                composer.recipients = [phone]
+                composer.messageComposeDelegate = self
+                self.presentViewController(composer, animated: true, completion: nil)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        else {
+            self.call(phone)
+        }
+    }
+    
+    func call(phone: String) {
+        let str = "tel://\(phone)"
+        let url = NSURL(string: str) as NSURL?
+        if (url != nil) {
+            if !UIApplication.sharedApplication().openURL(url!) {
+                self.simpleAlert("Could not contact client", message: "We could not call the number \(phone).")
+            }
+            return
+        }
+        self.simpleAlert("Could not contact client", message: "We could not call the number \(phone).")
+    }
+    
+    // MARK: - Message composer delegate
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+        })
     }
 
     func updateRequestState() {
