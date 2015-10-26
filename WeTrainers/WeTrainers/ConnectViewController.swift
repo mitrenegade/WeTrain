@@ -26,10 +26,11 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .Plain, target: self, action: "goToInfo")
+        
         let user = PFUser.currentUser()!
         let trainer = user.objectForKey("trainer") as! PFObject
         status = trainer.objectForKey("status") as? String
-        
 
         if status == "available" {
             // make a call to load any existing requests that we won't get through notifications because they were made already
@@ -342,4 +343,8 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    func goToInfo() {
+        // about me
+        self.performSegueWithIdentifier("GoToTrainerProfile", sender: nil)
+    }
 }
