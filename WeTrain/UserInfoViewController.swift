@@ -21,6 +21,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     @IBOutlet var inputInjuries: UITextField!
     @IBOutlet var inputCreditCard: UITextField!
     
+    var currentInput: UITextField?
+    
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var viewScrollContent: UIView!
     @IBOutlet var constraintContentWidth: NSLayoutConstraint!
@@ -50,10 +52,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         keyboardDoneButtonView.sizeToFit()
         keyboardDoneButtonView.barStyle = UIBarStyle.Black
         keyboardDoneButtonView.tintColor = UIColor.whiteColor()
-        let button: UIBarButtonItem = UIBarButtonItem(title: "Close", style: UIBarButtonItemStyle.Done, target: self, action: "dismissKeyboard")
+        let button: UIBarButtonItem = UIBarButtonItem(title: "Next", style: UIBarButtonItemStyle.Done, target: self, action: "dismissKeyboard")
         let flex: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         keyboardDoneButtonView.setItems([flex, button], animated: true)
         self.inputGender.inputAccessoryView = keyboardDoneButtonView
+        self.inputPhone.inputAccessoryView = keyboardDoneButtonView
+        self.inputAge.inputAccessoryView = keyboardDoneButtonView
         
         let tap = UITapGestureRecognizer(target: self, action: "handleGesture:")
         tap.delegate = self
@@ -69,7 +73,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         super.viewDidLayoutSubviews()
         
         self.constraintContentWidth.constant = (self.appDelegate().window?.bounds.size.width)!
-        self.constraintContentHeight.constant = self.inputCreditCard.frame.origin.y + self.inputCreditCard.frame.size.height + 50
+        self.constraintContentHeight.constant = self.inputCreditCard.frame.origin.y + self.view.frame.size.height
     }
     
     @IBAction func didClickAddPhoto(sender: UIButton) {
@@ -81,7 +85,18 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     }
 
     func dismissKeyboard() {
-        self.view.endEditing(true)
+        if self.currentInput! == self.inputPhone {
+            self.inputGender.becomeFirstResponder()
+        }
+        else if self.currentInput! == self.inputGender {
+            self.inputAge.becomeFirstResponder()
+        }
+        else if self.currentInput! == self.inputAge {
+            self.inputInjuries.becomeFirstResponder()
+        }
+        else {
+            self.view.endEditing(true)
+        }
     }
     
     func handleGesture(sender: UIGestureRecognizer) {
@@ -239,8 +254,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         let size = n.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
         
         //        self.constraintTopOffset.constant = -size!.height
-        self.constraintBottomOffset.constant = size!.height
-        self.view.layoutIfNeeded()
+        //self.constraintBottomOffset.constant = size!.height
+        //self.view.layoutIfNeeded()
+        print("current input frame: \(self.currentInput!.frame)")
+        var frame = self.currentInput!.frame
+        frame.origin.y = frame.origin.y + self.scrollView.frame.size.height - 80
+        self.scrollView.scrollRectToVisible(frame, animated: false)
     }
     
     func keyboardWillHide(n: NSNotification) {
@@ -252,7 +271,27 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     
     // MARK: - TextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == self.inputFirstName {
+            self.inputLastName.becomeFirstResponder()
+        }
+        else if textField == self.inputLastName {
+            self.inputEmail.becomeFirstResponder()
+        }
+        else if textField == self.inputEmail {
+            self.inputPhone.becomeFirstResponder()
+        }
+        else if textField == self.inputPhone {
+            self.inputGender.becomeFirstResponder()
+        }
+        else if textField == self.inputGender {
+            self.inputAge.becomeFirstResponder()
+        }
+        else if textField == self.inputAge {
+            self.inputInjuries.becomeFirstResponder()
+        }
+        else {
+            textField.resignFirstResponder()
+        }
         return true
     }
     
@@ -262,6 +301,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.goToCreditCard()
             return false
         }
+        self.currentInput = textField
         return true
     }
     
