@@ -27,8 +27,13 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var viewPasscode: UIView!
     @IBOutlet weak var labelPasscode: UILabel!
     @IBOutlet weak var inputPasscode: UITextField!
+    @IBOutlet weak var constraintPasscodeHeight: NSLayoutConstraint!
     
     @IBOutlet weak var buttonAction: UIButton!
+
+    @IBOutlet weak var buttonContact: UIButton!
+    @IBOutlet weak var constraintButtonContactHeight: NSLayoutConstraint!
+
     weak var delegate: ClientInfoDelegate?
     
     let trainer: PFObject = PFUser.currentUser()!.objectForKey("trainer") as! PFObject
@@ -46,6 +51,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
         self.viewInfo.layer.borderWidth = 1
         self.viewInfo.layer.borderColor = UIColor.lightGrayColor().CGColor
         self.viewInfo.layer.cornerRadius = 5
+        
+        self.constraintButtonContactHeight.constant = 0
 
         // Do any additional setup after loading the view.
         request.fetchIfNeededInBackgroundWithBlock { (object, error) -> Void in
@@ -141,29 +148,34 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate {
     
     func updateState() {
         if self.status == "loading" {
-            self.viewPasscode.hidden = true
+            self.constraintPasscodeHeight.constant = 0
             self.buttonAction.setTitle("Loading", forState: .Normal)
             self.buttonAction.enabled = false
+            self.constraintButtonContactHeight.constant = 0
         }
         else if self.status == RequestState.Searching.rawValue {
-            self.viewPasscode.hidden = true
+            self.constraintPasscodeHeight.constant = 0
             self.buttonAction.setTitle("Accept client", forState: .Normal)
             self.buttonAction.enabled = true
+            self.constraintButtonContactHeight.constant = 0
         }
         else if self.status == RequestState.Matched.rawValue {
-            self.viewPasscode.hidden = false
+            self.constraintPasscodeHeight.constant = 45
             self.buttonAction.setTitle("Start workout", forState: .Normal)
             self.buttonAction.enabled = true
+            self.constraintButtonContactHeight.constant = 40
         }
         else if self.status == RequestState.Training.rawValue {
-            self.viewPasscode.hidden = true
+            self.constraintPasscodeHeight.constant = 0
             self.buttonAction.setTitle("Workout in progress", forState: .Normal)
             self.buttonAction.enabled = false
+            self.constraintButtonContactHeight.constant = 0
         }
         else if self.status == RequestState.Complete.rawValue {
-            self.viewPasscode.hidden = true
+            self.constraintPasscodeHeight.constant = 0
             self.buttonAction.setTitle("Complete workout", forState: .Normal)
             self.buttonAction.enabled = true
+            self.constraintButtonContactHeight.constant = 0
         }
         
         self.updateLabelInfo()

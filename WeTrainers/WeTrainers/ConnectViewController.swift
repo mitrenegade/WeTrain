@@ -68,7 +68,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
                             request.saveInBackground()
                         }
                         else {
-                            self.performSegueWithIdentifier("GoToClientRequest", sender: nil)
+                            self.performSegueWithIdentifier("GoToClientRequest", sender: request)
                         }
                     }
                 }
