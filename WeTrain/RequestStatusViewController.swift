@@ -153,7 +153,7 @@ class RequestStatusViewController: UIViewController {
             let title = "Search was cancelled"
             var message: String? = self.currentRequest!.objectForKey("cancelReason") as? String
             if message == nil {
-                message = "You have cancelled the training session. Please click Close to go back to the training menu."
+                message = "You have cancelled the training session. You have not been charged for this training session since no trainer was matched. Please click Close to go back to the training menu."
             }
             
             self.currentRequest = nil
