@@ -29,7 +29,8 @@ class TrainingRequestViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
-        self.setTitleViewText("Select workout")
+//        self.setTitleViewText("Select workout")
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -66,8 +67,7 @@ class TrainingRequestViewController: UITableViewController {
         let row = indexPath.row
         let name = TRAINING_ICONS[row] as String
         print("row \(row) name \(name)")
-        icon.image = UIImage(named: name)!//.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-//        icon.tintColor = UIColor(red: 215.0/255.0, green: 84.0/255.0, blue: 82.0/255.0, alpha: 1)
+        icon.image = UIImage(named: "\(name)_teal")!
         labelTitle.text = TRAINING_TITLES[row]
         labelDetails.text = TRAINING_SUBTITLES[row]
         
