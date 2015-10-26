@@ -12,6 +12,9 @@ import Parse
 let genders = ["Select gender", "Male", "Female", "Lesbian", "Gay", "Bisexual", "Transgender", "Queer", "Other"]
 class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
 
+    @IBOutlet weak var buttonPhotoView: UIButton!
+    @IBOutlet weak var buttonEditPhoto: UIButton!
+    
     @IBOutlet var inputFirstName: UITextField!
     @IBOutlet var inputLastName: UITextField!
     @IBOutlet var inputEmail: UITextField!
@@ -67,6 +70,23 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
 
         let left: UIBarButtonItem = UIBarButtonItem(title: "", style: .Done, target: self, action: "nothing")
         self.navigationItem.leftBarButtonItem = left
+        
+        if let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
+            if let file = clientObject.objectForKey("photo") as? PFFile {
+                file.getDataInBackgroundWithBlock { (data, error) -> Void in
+                    if data != nil {
+                        let photo: UIImage = UIImage(data: data!)!
+                        self.buttonPhotoView.setImage(photo, forState: .Normal)
+                        self.buttonPhotoView.layer.cornerRadius = self.buttonPhotoView.frame.size.width / 2
+                        
+                        self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+                    }
+                }
+            }
+            else {
+                self.buttonEditPhoto.setTitle("Add photo", forState: .Normal)
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
