@@ -8,10 +8,14 @@
 
 import UIKit
 import Parse
+import Photos
 
 let genders = ["Select gender", "Male", "Female", "Lesbian", "Gay", "Bisexual", "Transgender", "Queer", "Other"]
-class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
+class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    @IBOutlet weak var buttonPhotoView: UIButton!
+    @IBOutlet weak var buttonEditPhoto: UIButton!
+    
     @IBOutlet var inputFirstName: UITextField!
     @IBOutlet var inputLastName: UITextField!
     @IBOutlet var inputEmail: UITextField!
@@ -33,6 +37,9 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     
     var newCreditCardToken: STPToken?
     var newCreditCardLast4: String?
+    
+    var isSignup:Bool = false
+    var selectedPhoto: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +72,53 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         let tap2 = UITapGestureRecognizer(target: self, action: "handleGesture:")
         self.view.addGestureRecognizer(tap2)
 
-        let left: UIBarButtonItem = UIBarButtonItem(title: "", style: .Done, target: self, action: "nothing")
-        self.navigationItem.leftBarButtonItem = left
+        if self.isSignup {
+            let left: UIBarButtonItem = UIBarButtonItem(title: "", style: .Done, target: self, action: "nothing")
+            self.navigationItem.leftBarButtonItem = left
+        }
+        
+        if let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
+            clientObject.fetchInBackgroundWithBlock({ (result, error) -> Void in
+                if let file = clientObject.objectForKey("photo") as? PFFile {
+                    file.getDataInBackgroundWithBlock { (data, error) -> Void in
+                        if data != nil {
+                            let photo: UIImage = UIImage(data: data!)!
+                            self.buttonPhotoView.setImage(photo, forState: .Normal)
+                            self.buttonPhotoView.layer.cornerRadius = self.buttonPhotoView.frame.size.width / 2
+                            
+                            self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+                        }
+                    }
+                }
+                
+                // populate all info
+                if let firstName = clientObject.objectForKey("firstName") as? String {
+                    print("first: \(firstName)")
+                    self.inputFirstName.text = firstName
+                }
+                if let lastName = clientObject.objectForKey("lastName") as? String {
+                    self.inputLastName.text = lastName
+                }
+                if let email = clientObject.objectForKey("email") as? String {
+                    self.inputEmail.text = email
+                }
+                if let phone = clientObject.objectForKey("phone") as? String {
+                    self.inputPhone.text = phone
+                }
+                if let age = clientObject.objectForKey("age") as? String {
+                    self.inputAge.text = age
+                }
+                if let gender = clientObject.objectForKey("gender") as? String {
+                    self.inputGender.text = gender
+                }
+                if let injuries = clientObject.objectForKey("injuries") as? String {
+                    self.inputInjuries.text = injuries
+                }
+                if let last4: String = clientObject.objectForKey("stripeFour") as? String{
+                    self.inputCreditCard.text = "Credit Card: *\(last4)"
+                }
+            })
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -74,10 +126,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         
         self.constraintContentWidth.constant = (self.appDelegate().window?.bounds.size.width)!
         self.constraintContentHeight.constant = self.inputCreditCard.frame.origin.y + self.view.frame.size.height
-    }
-    
-    @IBAction func didClickAddPhoto(sender: UIButton) {
-        
     }
     
     func nothing() {
@@ -205,6 +253,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         if self.inputInjuries.text != nil {
             clientDict["injuries"] = self.inputInjuries.text!
         }
+        
         client.setValuesForKeysWithDictionary(clientDict)
         let user = PFUser.currentUser()!
         client.setObject(user, forKey: "user")
@@ -213,6 +262,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             let tokenId: String = self.newCreditCardToken!.tokenId
             client.setObject(tokenId, forKey: "stripeToken")
             client.setObject(self.newCreditCardLast4!, forKey: "stripeFour")
+        }
+        
+        if self.selectedPhoto != nil {
+            let data: NSData = UIImageJPEGRepresentation(self.selectedPhoto!, 0.8)!
+            let file: PFFile = PFFile(name: "profile.jpg", data: data)
+            client.setObject(file, forKey: "photo")
         }
         
         client.saveInBackgroundWithBlock { (success, error) -> Void in
@@ -225,7 +280,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
                 user.saveInBackgroundWithBlock({ (success, error) -> Void in
                     if success {
                         print("signup succeeded")
-                        self.performSegueWithIdentifier("GoToTutorial", sender: nil)
+                        if self.isSignup {
+                            self.performSegueWithIdentifier("GoToTutorial", sender: nil)
+                        }
+                        else {
+                            self.navigationController!.popToRootViewControllerAnimated(true)
+                        }
                     }
                     else {
                         let title = "Signup error"
@@ -348,6 +408,72 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.inputGender.text = nil
         }
         self.inputGender.text = genders[row]
+    }
+    
+    // MARK: - Photo
+    @IBAction func didClickAddPhoto(sender: UIButton) {
+        let picker: UIImagePickerController = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            alert.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (action) -> Void in
+                let cameraStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+                if cameraStatus == .Denied {
+                    self.warnForCameraAccess()
+                }
+                else {
+                    // go to camera
+                    picker.sourceType = .Camera
+                    self.presentViewController(picker, animated: true, completion: nil)
+                }
+            }))
+        }
+        alert.addAction(UIAlertAction(title: "Photo library", style: .Default, handler: { (action) -> Void in
+            let libraryStatus = PHPhotoLibrary.authorizationStatus()
+            if libraryStatus == .Denied {
+                self.warnForLibraryAccess()
+            }
+            else {
+                // go to library
+                picker.sourceType = .PhotoLibrary
+                self.presentViewController(picker, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func warnForLibraryAccess() {
+        let message: String = "WeTrain needs photo library access to load your profile picture. Would you like to go to your phone settings to enable the photo library?"
+        let alert: UIAlertController = UIAlertController(title: "Could not access photos", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func warnForCameraAccess() {
+        let message: String = "WeTrain needs camera access to take your profile photo. Would you like to go to your phone settings to enable the camera?"
+        let alert: UIAlertController = UIAlertController(title: "Could not access camera", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        self.buttonPhotoView.setImage(image, forState: .Normal)
+        self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+        self.selectedPhoto = image
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
     /*
     // MARK: - Navigation

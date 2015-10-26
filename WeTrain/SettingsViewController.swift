@@ -35,7 +35,7 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return 4
+        return 5
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -47,10 +47,12 @@ class SettingsViewController: UITableViewController {
         case 0:
             cell.textLabel!.text = "About WeTrain"
         case 1:
-            cell.textLabel!.text = "Update your credit card"
+            cell.textLabel!.text = "Edit your profile"
         case 2:
-            cell.textLabel!.text = "Feedback"
+            cell.textLabel!.text = "Update your credit card"
         case 3:
+            cell.textLabel!.text = "Feedback"
+        case 4:
             cell.textLabel!.text = "Logout"
         default:
             break
@@ -72,7 +74,21 @@ class SettingsViewController: UITableViewController {
             break
         case 1:
             if PFUser.currentUser() == nil {
-                var alert: UIAlertController = UIAlertController(title: "Error editing credit card", message: "You are not logged in. Please log in again to edit payment information.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert: UIAlertController = UIAlertController(title: "Error editing profile", message: "You are not logged in. Please log in again to edit your profile.", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                }))
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
+            }
+            else {
+                let controller: UserInfoViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("UserInfoViewController") as! UserInfoViewController
+//                let nav: UINavigationController = UINavigationController(rootViewController: controller)
+//                self.presentViewController:nav
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+        case 2:
+            if PFUser.currentUser() == nil {
+                let alert: UIAlertController = UIAlertController(title: "Error editing credit card", message: "You are not logged in. Please log in again to edit payment information.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                 }))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -83,9 +99,9 @@ class SettingsViewController: UITableViewController {
             }
             
             break
-        case 2:
+        case 3:
             if PFUser.currentUser() == nil {
-                var alert: UIAlertController = UIAlertController(title: "Log in first?", message: "You are not logged in. Please log in first so we can respond to you.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert: UIAlertController = UIAlertController(title: "Log in first?", message: "You are not logged in. Please log in first so we can respond to you.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                 }))
                 alert.addAction(UIAlertAction(title: "Leave Anonymous Feedback", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
@@ -97,7 +113,7 @@ class SettingsViewController: UITableViewController {
                 self.performSegueWithIdentifier("GoToFeedback", sender: self)
             }
             break
-        case 3:
+        case 4:
             self.appDelegate().logout()
         default:
             break
