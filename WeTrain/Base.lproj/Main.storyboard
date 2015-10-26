@@ -73,7 +73,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="kMn-tD-FMD" kind="show" id="wKi-zk-aub"/>
+                                            <segue destination="kMn-tD-FMD" kind="show" identifier="GoToTrainingRequest" id="wKi-zk-aub"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$17 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxz-Va-5Vn">
@@ -97,7 +97,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="kMn-tD-FMD" kind="show" id="mox-WL-qYw"/>
+                                            <segue destination="kMn-tD-FMD" kind="show" identifier="GoToTrainingRequest" id="mox-WL-qYw"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$22 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVt-Vl-Doc">
@@ -146,6 +146,7 @@
                     <connections>
                         <outlet property="button30" destination="q7O-nW-90o" id="1i0-E3-jSk"/>
                         <outlet property="button60" destination="Uun-fo-REH" id="tRV-Or-8db"/>
+                        <segue destination="8RY-5j-Kbe" kind="presentation" identifier="GoToRequestState" id="1n3-4S-EN5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dNw-ai-fyB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -215,7 +216,6 @@
                     <navigationItem key="navigationItem" title="Select Workout" id="chG-rN-L39"/>
                     <connections>
                         <segue destination="pEL-eK-Myt" kind="presentation" identifier="GoToMap" id="lGz-a4-ui5"/>
-                        <segue destination="8RY-5j-Kbe" kind="presentation" identifier="GoToRequestState" id="eIv-3E-STY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rve-0s-Wm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -588,7 +588,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5G2-JB-Pwm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2604" y="-958"/>
+            <point key="canvasLocation" x="1934" y="-805"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dEn-kl-ewR">
@@ -759,7 +759,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8t-2S-xP0">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B8t-2S-xP0">
                                 <rect key="frame" x="16" y="255" width="568" height="273"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85W-j6-3pP">
@@ -840,11 +840,11 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sa4-FV-dOk">
+                            <view alpha="0.65000000000000002" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sa4-FV-dOk">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtO-bC-XdS">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qtO-bC-XdS">
                                 <rect key="frame" x="40" y="40" width="520" height="450"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-ep-hzq">
@@ -865,7 +865,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bty-7b-NE3">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bty-7b-NE3">
                                         <rect key="frame" x="8" y="334" width="504" height="50"/>
                                         <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -879,7 +879,7 @@
                                             <action selector="didClickButton:" destination="sRQ-uT-cb9" eventType="touchUpInside" id="079-wU-myN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2y-bD-uuA">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2y-bD-uuA">
                                         <rect key="frame" x="8" y="392" width="504" height="50"/>
                                         <color key="backgroundColor" red="0.058823529409999999" green="0.0" blue="0.01176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -893,7 +893,7 @@
                                             <action selector="didClickButton:" destination="sRQ-uT-cb9" eventType="touchUpInside" id="xuu-Z7-UqY"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTv-ie-5hJ" customClass="ProgressView" customModule="WeTrain" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PTv-ie-5hJ" customClass="ProgressView" customModule="WeTrain" customModuleProvider="target">
                                         <rect key="frame" x="8" y="186" width="504" height="140"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -957,7 +957,7 @@
         <image name="weTrainBG" width="551" height="666"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wKi-zk-aub"/>
-        <segue reference="2Z9-Bv-jjW"/>
+        <segue reference="FtZ-cv-haA"/>
+        <segue reference="mox-WL-qYw"/>
     </inferredMetricsTieBreakers>
 </document>
