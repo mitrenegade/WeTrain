@@ -421,7 +421,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             alert.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (action) -> Void in
                 let cameraStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
                 if cameraStatus == .Denied {
-                    self.simpleAlert("Could not access camera", message: "Please go to your settings to enable camera access.")
+                    self.warnForCameraAccess()
                 }
                 else {
                     // go to camera
@@ -433,7 +433,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         alert.addAction(UIAlertAction(title: "Photo library", style: .Default, handler: { (action) -> Void in
             let libraryStatus = PHPhotoLibrary.authorizationStatus()
             if libraryStatus == .Denied {
-                self.simpleAlert("Could not access library", message: "Please go to your settings to enable photo library access.")
+                self.warnForLibraryAccess()
             }
             else {
                 // go to library
@@ -445,6 +445,26 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    func warnForLibraryAccess() {
+        let message: String = "WeTrain needs photo library access to load your profile picture. Would you like to go to your phone settings to enable the photo library?"
+        let alert: UIAlertController = UIAlertController(title: "Could not access photos", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func warnForCameraAccess() {
+        let message: String = "WeTrain needs camera access to take your profile photo. Would you like to go to your phone settings to enable the camera?"
+        let alert: UIAlertController = UIAlertController(title: "Could not access camera", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.buttonPhotoView.setImage(image, forState: .Normal)
         self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
