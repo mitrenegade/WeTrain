@@ -67,14 +67,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E2O-1a-rWV">
-                                                    <rect key="frame" x="8" y="8" width="50" height="63.5"/>
+                                                    <rect key="frame" x="68" y="8" width="50" height="63.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="0ft-wD-ZMQ"/>
                                                         <constraint firstAttribute="height" constant="63.5" id="vwH-lA-OxB"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoO-mA-hag">
-                                                    <rect key="frame" x="66" y="8" width="453" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoO-mA-hag">
+                                                    <rect key="frame" x="126" y="8" width="453" height="20.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20.5" id="xhW-ou-pia"/>
                                                     </constraints>
@@ -82,27 +82,46 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7D-tv-rif">
-                                                    <rect key="frame" x="66" y="51" width="453" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Distance:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7D-tv-rif">
+                                                    <rect key="frame" x="126" y="51" width="453" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exercise" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="N6d-hL-hf4">
-                                                    <rect key="frame" x="66" y="29" width="453" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Exercise" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="N6d-hL-hf4">
+                                                    <rect key="frame" x="126" y="29" width="453" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kq4-RP-RDM">
+                                                    <rect key="frame" x="8" y="8" width="60" height="63.5"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eZ0-OH-QGF">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="63.5"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="eZ0-OH-QGF" firstAttribute="leading" secondItem="Kq4-RP-RDM" secondAttribute="leading" id="3RW-dx-OXH"/>
+                                                        <constraint firstAttribute="bottom" secondItem="eZ0-OH-QGF" secondAttribute="bottom" id="9m5-U7-mKp"/>
+                                                        <constraint firstAttribute="width" constant="60" id="DnF-Dh-IZ9"/>
+                                                        <constraint firstItem="eZ0-OH-QGF" firstAttribute="top" secondItem="Kq4-RP-RDM" secondAttribute="top" id="YD5-nh-szh"/>
+                                                        <constraint firstAttribute="trailing" secondItem="eZ0-OH-QGF" secondAttribute="trailing" constant="10" id="skb-JI-JQF"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="N6d-hL-hf4" firstAttribute="leading" secondItem="E2O-1a-rWV" secondAttribute="trailing" constant="8" id="7WR-6U-apB"/>
-                                                <constraint firstItem="E2O-1a-rWV" firstAttribute="leading" secondItem="54M-G8-XRV" secondAttribute="leading" constant="8" id="9UU-wn-PnV"/>
                                                 <constraint firstItem="B7D-tv-rif" firstAttribute="trailing" secondItem="54M-G8-XRV" secondAttribute="trailingMargin" id="BTu-Yo-HeC"/>
+                                                <constraint firstItem="Kq4-RP-RDM" firstAttribute="top" secondItem="54M-G8-XRV" secondAttribute="topMargin" id="DXQ-ep-m2D"/>
                                                 <constraint firstItem="B7D-tv-rif" firstAttribute="leading" secondItem="E2O-1a-rWV" secondAttribute="trailing" constant="8" id="IkB-o8-Myr"/>
                                                 <constraint firstAttribute="trailing" secondItem="N6d-hL-hf4" secondAttribute="trailing" constant="8" id="K61-6P-9fd"/>
                                                 <constraint firstItem="yoO-mA-hag" firstAttribute="leading" secondItem="E2O-1a-rWV" secondAttribute="trailing" constant="8" id="Ub3-fx-G6u"/>
+                                                <constraint firstItem="Kq4-RP-RDM" firstAttribute="bottom" secondItem="54M-G8-XRV" secondAttribute="bottomMargin" id="Z8n-2u-fSU"/>
+                                                <constraint firstItem="Kq4-RP-RDM" firstAttribute="leading" secondItem="54M-G8-XRV" secondAttribute="leadingMargin" id="ZEQ-uI-wnq"/>
                                                 <constraint firstItem="E2O-1a-rWV" firstAttribute="centerY" secondItem="54M-G8-XRV" secondAttribute="centerY" id="cxu-ZE-yl4"/>
+                                                <constraint firstItem="E2O-1a-rWV" firstAttribute="leading" secondItem="Kq4-RP-RDM" secondAttribute="trailing" id="h9D-u4-yEy"/>
                                                 <constraint firstAttribute="trailing" secondItem="yoO-mA-hag" secondAttribute="trailing" constant="8" id="jKJ-gh-eTq"/>
                                                 <constraint firstItem="B7D-tv-rif" firstAttribute="top" secondItem="N6d-hL-hf4" secondAttribute="bottom" constant="1.5" id="m2m-Uk-tss"/>
                                                 <constraint firstItem="B7D-tv-rif" firstAttribute="height" secondItem="N6d-hL-hf4" secondAttribute="height" id="nc0-uU-dwY"/>
@@ -112,10 +131,13 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="constraintPhotoCanvasWidth" destination="DnF-Dh-IZ9" id="hla-fq-Avm"/>
                                             <outlet property="icon" destination="E2O-1a-rWV" id="bfa-RW-Lb4"/>
                                             <outlet property="labelDistance" destination="B7D-tv-rif" id="UNm-OI-yII"/>
                                             <outlet property="labelExercise" destination="N6d-hL-hf4" id="FpS-9p-9yz"/>
                                             <outlet property="labelName" destination="yoO-mA-hag" id="HkO-sC-Pjt"/>
+                                            <outlet property="photo" destination="eZ0-OH-QGF" id="YTk-Bo-uKM"/>
+                                            <outlet property="photoCanvas" destination="Kq4-RP-RDM" id="gWg-c6-feL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
