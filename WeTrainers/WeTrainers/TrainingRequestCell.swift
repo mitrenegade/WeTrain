@@ -15,8 +15,10 @@ class TrainingRequestCell: UITableViewCell {
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var labelExercise: UILabel!
     @IBOutlet weak var labelDistance: UILabel!
-    @IBOutlet weak var photo: UIImageView?
 
+    @IBOutlet weak var photo: UIImageView?
+    @IBOutlet weak var photoCanvas: UIView?
+    @IBOutlet weak var constraintPhotoCanvasWidth: NSLayoutConstraint!
     var currentLocation: CLLocation?
     
     override func awakeFromNib() {
@@ -43,6 +45,23 @@ class TrainingRequestCell: UITableViewCell {
                 self.labelName.text = firstName!
                 if lastName != nil {
                     self.labelName.text = "\(firstName!) \(lastName!)"
+                }
+                
+                // load photo
+                if let file = clientObj.objectForKey("photo") as? PFFile {
+                    file.getDataInBackgroundWithBlock { (data, error) -> Void in
+                        if data != nil {
+                            self.constraintPhotoCanvasWidth.constant = 60
+                            let image: UIImage = UIImage(data: data!)!
+                            self.photo!.image = image
+                        }
+                        else {
+                            self.constraintPhotoCanvasWidth.constant = 0
+                        }
+                    }
+                }
+                else {
+                    self.constraintPhotoCanvasWidth.constant = 0
                 }
             })
             
@@ -87,7 +106,7 @@ class TrainingRequestCell: UITableViewCell {
                 }
 
             }
-            // TODO: load photo
+
         }
     }
 }

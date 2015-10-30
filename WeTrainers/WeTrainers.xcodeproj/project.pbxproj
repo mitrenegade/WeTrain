@@ -567,7 +567,7 @@
 			baseConfigurationReference = 1A28A66F01E4403D66FC9EE0 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Bobby Ren (46R7H433J6)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Bobby Ren (H799H8B8DD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Bobby Ren (H799H8B8DD)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeTrainers/Info.plist;
@@ -575,7 +575,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "20b577dd-919b-4d55-8c02-d8eca7ca317c";
+				PROVISIONING_PROFILE = "2798b813-f74c-43f6-b547-ac6c54cf189b";
 			};
 			name = Release;
 		};
