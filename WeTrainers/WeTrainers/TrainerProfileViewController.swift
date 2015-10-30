@@ -36,7 +36,10 @@ class TrainerProfileViewController: UIViewController {
         self.viewInfo.layer.borderWidth = 1
         self.viewInfo.layer.borderColor = UIColor(red: 112/255.0, green: 150/255.0, blue: 67/255.0, alpha: 1).CGColor
         self.viewInfo.layer.cornerRadius = 5
-        
+
+        self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+
         let user = PFUser.currentUser()!
         self.trainer = user.objectForKey("trainer") as! PFObject
         trainer?.fetchInBackgroundWithBlock({ (object, error) -> Void in

@@ -26,6 +26,9 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .Plain, target: self, action: "goToInfo")
         
         let user = PFUser.currentUser()!

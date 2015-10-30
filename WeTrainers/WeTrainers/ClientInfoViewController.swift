@@ -60,6 +60,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         self.iconExercise.layer.cornerRadius = 5
         
         self.constraintButtonContactHeight.constant = 0
+        self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
 
         // Do any additional setup after loading the view.
         request.fetchIfNeededInBackgroundWithBlock { (object, error) -> Void in
