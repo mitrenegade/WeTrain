@@ -17,6 +17,7 @@
 		AC26A24E1BB0ED3B0068EFE3 /* WeTrainersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */; };
 		AC26F2CD1BDE6463003E9B4E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC26F2CC1BDE6463003E9B4E /* MessageUI.framework */; };
 		AC26F2D11BDE7807003E9B4E /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26F2D01BDE7807003E9B4E /* TrainerProfileViewController.swift */; };
+		AC71A0CA1BE409B600F7988D /* LocationPhiladelphia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC71A0C91BE409B600F7988D /* LocationPhiladelphia.gpx */; };
 		AC9F6F791BBE2CEE00F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F781BBE2CEE00F91B92 /* Constants.swift */; };
 		AC9F6F7B1BBE2E3100F91B92 /* TrainingRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */; };
 		AC9F6F7D1BBE356B00F91B92 /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */; };
@@ -63,6 +64,7 @@
 		AC26A24F1BB0ED3B0068EFE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC26F2CC1BDE6463003E9B4E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AC26F2D01BDE7807003E9B4E /* TrainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerProfileViewController.swift; sourceTree = "<group>"; };
+		AC71A0C91BE409B600F7988D /* LocationPhiladelphia.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = LocationPhiladelphia.gpx; path = ../../WeTrain/LocationPhiladelphia.gpx; sourceTree = "<group>"; };
 		AC9F6F781BBE2CEE00F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../WeTrain/Constants.swift; sourceTree = "<group>"; };
 		AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingRequestCell.swift; sourceTree = "<group>"; };
 		AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientInfoViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 		ACFA6F121BB42C3400AC3927 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AC71A0C91BE409B600F7988D /* LocationPhiladelphia.gpx */,
 				AC9F6F781BBE2CEE00F91B92 /* Constants.swift */,
 				AC26A2341BB0ED3A0068EFE3 /* Assets.xcassets */,
 				AC26A2361BB0ED3A0068EFE3 /* LaunchScreen.storyboard */,
@@ -309,6 +312,7 @@
 				AC26A2381BB0ED3A0068EFE3 /* LaunchScreen.storyboard in Resources */,
 				AC26A2351BB0ED3A0068EFE3 /* Assets.xcassets in Resources */,
 				AC26A2301BB0ED3A0068EFE3 /* Main.storyboard in Resources */,
+				AC71A0CA1BE409B600F7988D /* LocationPhiladelphia.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
