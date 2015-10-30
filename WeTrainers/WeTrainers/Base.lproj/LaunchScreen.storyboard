@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -17,28 +18,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Logo Only v4b" translatesAutoresizingMaskIntoConstraints="NO" id="ewr-sp-Vbz">
-                                <rect key="frame" x="150" y="149.5" width="300" height="300"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="ewr-sp-Vbz">
+                                <rect key="frame" x="150" y="217" width="300" height="165"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal Trainer" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QO-AB-FC3">
-                                <rect key="frame" x="270" y="367" width="180" height="33"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Personal Trainer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QO-AB-FC3">
+                                <rect key="frame" x="210" y="390" width="180" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="Jmx-cd-pbe"/>
                                     <constraint firstAttribute="height" constant="33" id="w1E-e6-KLh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ewr-sp-Vbz" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.5" id="IUd-Wf-6mN"/>
+                            <constraint firstItem="ewr-sp-Vbz" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.5" constant="-135" id="IUd-Wf-6mN"/>
                             <constraint firstItem="ewr-sp-Vbz" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.5" id="JAY-6n-lRC"/>
                             <constraint firstItem="ewr-sp-Vbz" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gkH-dF-8wz"/>
-                            <constraint firstItem="0QO-AB-FC3" firstAttribute="centerX" secondItem="ewr-sp-Vbz" secondAttribute="centerX" constant="60" id="hB5-6x-1Me"/>
-                            <constraint firstItem="0QO-AB-FC3" firstAttribute="centerY" secondItem="ewr-sp-Vbz" secondAttribute="centerY" constant="84" id="hru-Q4-hta"/>
+                            <constraint firstItem="0QO-AB-FC3" firstAttribute="top" secondItem="ewr-sp-Vbz" secondAttribute="bottom" constant="8" id="gvb-10-dxK"/>
+                            <constraint firstItem="0QO-AB-FC3" firstAttribute="centerX" secondItem="ewr-sp-Vbz" secondAttribute="centerX" id="hB5-6x-1Me"/>
                             <constraint firstItem="ewr-sp-Vbz" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="vZ3-Kc-b6R"/>
                         </constraints>
                     </view>
@@ -49,6 +49,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo Only v4b" width="1443" height="579"/>
+        <image name="logo" width="1146" height="568"/>
     </resources>
 </document>

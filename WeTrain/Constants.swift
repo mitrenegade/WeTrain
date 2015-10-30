@@ -8,7 +8,7 @@
 
 import Foundation
 
-let TESTING: Bool = false
+let TESTING: Bool = true
 
 let TRAINING_TITLES = ["Healthy Heart", "Liposuction", "Mobi-Fit", "The BLT", "Belly Busters", "Tyrannosaurus Flex", "Sports Endurance", "The Shred Factory"]
 let TRAINING_SUBTITLES = ["Cardio", "Weight Loss", "Mobility", "Butt, Legs, Thighs", "Core", "Strength and Hypertrophy", "Muscular Endurance", "Toning"]
@@ -22,5 +22,3 @@ enum RequestState: String {
     case Cancelled = "cancelled"
     case Complete = "complete"
 }
-
-let COLOR_TEAL = UIColor(red: 175.0/255.0, green: 232.0/255.0, blue: 218.0/255.0, alpha: 1)

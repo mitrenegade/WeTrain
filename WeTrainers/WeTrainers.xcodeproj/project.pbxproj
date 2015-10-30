@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AC235FF71BB4F577000AEA40 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC235FF61BB4F577000AEA40 /* ConnectViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		AC235FF71BB4F577000AEA40 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC235FF61BB4F577000AEA40 /* ConnectViewController.swift */; };
 		AC26A22B1BB0ED3A0068EFE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */; };
 		AC26A2301BB0ED3A0068EFE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */; };
 		AC26A2331BB0ED3A0068EFE3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC26A2311BB0ED3A0068EFE3 /* Model.xcdatamodeld */; };
@@ -16,13 +16,13 @@
 		AC26A2431BB0ED3B0068EFE3 /* WeTrainersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A2421BB0ED3B0068EFE3 /* WeTrainersTests.swift */; };
 		AC26A24E1BB0ED3B0068EFE3 /* WeTrainersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26A24D1BB0ED3B0068EFE3 /* WeTrainersUITests.swift */; };
 		AC26F2CD1BDE6463003E9B4E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC26F2CC1BDE6463003E9B4E /* MessageUI.framework */; };
-		AC26F2D11BDE7807003E9B4E /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26F2D01BDE7807003E9B4E /* TrainerProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		AC9F6F791BBE2CEE00F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F781BBE2CEE00F91B92 /* Constants.swift */; settings = {ASSET_TAGS = (); }; };
-		AC9F6F7B1BBE2E3100F91B92 /* TrainingRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */; settings = {ASSET_TAGS = (); }; };
-		AC9F6F7D1BBE356B00F91B92 /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		AC26F2D11BDE7807003E9B4E /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26F2D01BDE7807003E9B4E /* TrainerProfileViewController.swift */; };
+		AC9F6F791BBE2CEE00F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F781BBE2CEE00F91B92 /* Constants.swift */; };
+		AC9F6F7B1BBE2E3100F91B92 /* TrainingRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */; };
+		AC9F6F7D1BBE356B00F91B92 /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */; };
+		ACEA83EE1BE4018100D0CFFE /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEA83ED1BE4018100D0CFFE /* UIViewController+Utils.swift */; };
 		ACFA6F111BB41D6100AC3927 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */; };
 		ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */; };
-		ACFA6F1C1BB4323500AC3927 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */; settings = {ASSET_TAGS = (); }; };
 		D85DF688BAA691AA4613E87E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBE5EDDF73FB68B5782D451 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -66,9 +66,9 @@
 		AC9F6F781BBE2CEE00F91B92 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../WeTrain/Constants.swift; sourceTree = "<group>"; };
 		AC9F6F7A1BBE2E3100F91B92 /* TrainingRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingRequestCell.swift; sourceTree = "<group>"; };
 		AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientInfoViewController.swift; sourceTree = "<group>"; };
+		ACEA83ED1BE4018100D0CFFE /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Utils.swift"; path = "../../WeTrain/UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
-		ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +141,7 @@
 		AC26A2291BB0ED3A0068EFE3 /* WeTrainers */ = {
 			isa = PBXGroup;
 			children = (
+				ACEA83EC1BE4017300D0CFFE /* Utils */,
 				AC26A2311BB0ED3A0068EFE3 /* Model.xcdatamodeld */,
 				AC26A22E1BB0ED3A0068EFE3 /* Main.storyboard */,
 				AC26A22A1BB0ED3A0068EFE3 /* AppDelegate.swift */,
@@ -151,7 +152,6 @@
 				AC9F6F7C1BBE356B00F91B92 /* ClientInfoViewController.swift */,
 				AC26F2D01BDE7807003E9B4E /* TrainerProfileViewController.swift */,
 				ACFA6F121BB42C3400AC3927 /* Supporting Files */,
-				ACFA6F1B1BB4323500AC3927 /* UIViewController+Utils.swift */,
 			);
 			path = WeTrainers;
 			sourceTree = "<group>";
@@ -172,6 +172,14 @@
 				AC26A24F1BB0ED3B0068EFE3 /* Info.plist */,
 			);
 			path = WeTrainersUITests;
+			sourceTree = "<group>";
+		};
+		ACEA83EC1BE4017300D0CFFE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				ACEA83ED1BE4018100D0CFFE /* UIViewController+Utils.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		ACFA6F121BB42C3400AC3927 /* Supporting Files */ = {
@@ -392,9 +400,9 @@
 				ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */,
 				AC26F2D11BDE7807003E9B4E /* TrainerProfileViewController.swift in Sources */,
 				AC235FF71BB4F577000AEA40 /* ConnectViewController.swift in Sources */,
+				ACEA83EE1BE4018100D0CFFE /* UIViewController+Utils.swift in Sources */,
 				AC9F6F7D1BBE356B00F91B92 /* ClientInfoViewController.swift in Sources */,
 				AC26A2331BB0ED3A0068EFE3 /* Model.xcdatamodeld in Sources */,
-				ACFA6F1C1BB4323500AC3927 /* UIViewController+Utils.swift in Sources */,
 				AC9F6F791BBE2CEE00F91B92 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
