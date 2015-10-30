@@ -22,5 +22,3 @@ enum RequestState: String {
     case Cancelled = "cancelled"
     case Complete = "complete"
 }
-
-let COLOR_TEAL = UIColor(red: 175.0/255.0, green: 232.0/255.0, blue: 218.0/255.0, alpha: 1)
