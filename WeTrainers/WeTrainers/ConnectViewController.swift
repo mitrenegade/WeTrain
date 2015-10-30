@@ -9,7 +9,10 @@
 import UIKit
 import Parse
 
-class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ClientInfoDelegate {
+let PHILADELPHIA_LAT = 39.949508
+let PHILADELPHIA_LON = -75.171886
+
+class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ClientInfoDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var labelStatus: UILabel!
     @IBOutlet var buttonAction: UIButton!
@@ -18,6 +21,9 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet var tableView: UITableView!
     
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
+
     var status: String?
     
     var shouldWarnIfRegisterPushFails: Bool = false // if user has denied push before, then registerForRemoteNotifications will not trigger a failure. Thus we have to manually warn after a certain time that the user needs to go to settings.
@@ -90,11 +96,52 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         // listen for request notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveRequest:", name: "request:received", object: nil)
+        
+        // location
+        locationManager.delegate = self
+        let loc: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
+        if loc == CLAuthorizationStatus.AuthorizedAlways || loc == CLAuthorizationStatus.AuthorizedWhenInUse{
+            locationManager.startUpdatingLocation()
+        }
+        else if loc == CLAuthorizationStatus.Denied {
+            self.warnForLocationPermission()
+        }
+        else {
+            if (locationManager.respondsToSelector("requestWhenInUseAuthorization")) {
+                locationManager.requestWhenInUseAuthorization()
+            }
+            else {
+                locationManager.startUpdatingLocation()
+            }
+        }
     }
     
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        // if location is nil, then we haven't tried to load location yet so let locationManager work
+        // if location is non-nil and location has been disabled, warn
+        if self.currentLocation != nil {
+            let status: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
+            if status == CLAuthorizationStatus.Denied {
+                self.warnForLocationPermission()
+            }
+        }
+        else {
+            // can come here if location permission has already be requested, was initially denied then enabled through settings, but now doesn't start location
+            locationManager.startUpdatingLocation()
+        }
+    }
 
+    func warnForLocationPermission() {
+        let message: String = "WeTrainers needs GPS access to find clients near you. Please go to your phone settings to enable location access. Go there now?"
+        let alert: UIAlertController = UIAlertController(title: "Could not access location", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -298,7 +345,8 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! TrainingRequestCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-
+        cell.currentLocation = self.currentLocation
+        
         let request: PFObject = self.trainingRequests![indexPath.row] as PFObject
         cell.setupWithRequest(request)
         
@@ -350,4 +398,29 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         // about me
         self.performSegueWithIdentifier("GoToTrainerProfile", sender: nil)
     }
+    
+    // MARK: - CLLocationManagerDelegate
+    // MARK: - CLLocationManagerDelegate
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .AuthorizedWhenInUse || status == .AuthorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+        else if status == .Denied {
+            self.warnForLocationPermission()
+            self.currentLocation = CLLocation(latitude: PHILADELPHIA_LAT, longitude: PHILADELPHIA_LON)
+            print("Authorization is not available")
+        }
+        else {
+            print("status unknown")
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first as CLLocation? {
+            locationManager.stopUpdatingLocation()
+            self.currentLocation = location
+            self.tableView.reloadData()
+        }
+    }
+
 }

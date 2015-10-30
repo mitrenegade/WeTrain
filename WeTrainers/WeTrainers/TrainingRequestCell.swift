@@ -17,6 +17,8 @@ class TrainingRequestCell: UITableViewCell {
     @IBOutlet weak var labelDistance: UILabel!
     @IBOutlet weak var photo: UIImageView?
 
+    var currentLocation: CLLocation?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -73,7 +75,18 @@ class TrainingRequestCell: UITableViewCell {
                 self.icon.image = nil
             }
 
-            // TODO: load distance
+            // load distance
+            if self.currentLocation != nil {
+                let lat = request.objectForKey("lat") as? Double
+                let lon = request.objectForKey("lon") as? Double
+                if lat != nil && lon != nil {
+                    let clientLocation: CLLocation = CLLocation(latitude: lat!, longitude: lon!)
+                    let dist:Int = Int(self.currentLocation!.distanceFromLocation(clientLocation))
+                    
+                    self.labelDistance.text = "Distance: \(dist)m"
+                }
+
+            }
             // TODO: load photo
         }
     }
