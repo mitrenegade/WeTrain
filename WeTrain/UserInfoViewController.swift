@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import Photos
 
-let genders = ["Select gender", "Male", "Female", "Lesbian", "Gay", "Bisexual", "Transgender", "Queer", "Other"]
+let genders = ["Select gender", "Male", "Female", "Other"]
 class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var buttonPhotoView: UIButton!
