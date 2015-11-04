@@ -25,6 +25,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     @IBOutlet var inputInjuries: UITextField!
     @IBOutlet var inputCreditCard: UITextField!
     
+    
     var currentInput: UITextField?
     
     @IBOutlet var scrollView: UIScrollView!
@@ -41,6 +42,9 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     var isSignup:Bool = false
     var selectedPhoto: UIImage?
     
+    @IBOutlet var buttonTOS: UIButton!
+    var checked: Bool = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,6 +81,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.navigationItem.leftBarButtonItem = left
         }
         
+        self.refreshButton()
         if let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
             clientObject.fetchInBackgroundWithBlock({ (result, error) -> Void in
                 if let file = clientObject.objectForKey("photo") as? PFFile {
@@ -117,15 +122,37 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
                 if let last4: String = clientObject.objectForKey("stripeFour") as? String{
                     self.inputCreditCard.text = "Credit Card: *\(last4)"
                 }
+                
+                self.refreshButton()
+                if let checkedTOS: Bool = clientObject.objectForKey("checkedTOS") as? Bool {
+                    self.checked = checkedTOS
+                    self.refreshButton()
+                    if checkedTOS {
+                        self.buttonTOS.enabled = false
+                    }
+                }
             })
         }
     }
     
+    func refreshButton() {
+        if self.checked {
+            self.buttonTOS.setImage(UIImage(named: "boxChecked")!, forState: .Normal)
+        }
+        else {
+            self.buttonTOS.setImage(UIImage(named: "boxUnchecked")!, forState: .Normal)
+        }
+    }
+    
+    @IBAction func didClickCheck() {
+        self.checked = !self.checked
+        self.refreshButton()
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         self.constraintContentWidth.constant = (self.appDelegate().window?.bounds.size.width)!
-        self.constraintContentHeight.constant = self.inputCreditCard.frame.origin.y + self.view.frame.size.height
+        self.constraintContentHeight.constant = self.buttonTOS.frame.origin.y + 300
     }
     
     func nothing() {
@@ -193,6 +220,11 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.simpleAlert("Please enter a valid phone number", message: nil)
             return
         }
+        
+        if !self.checked {
+            self.simpleAlert("Please agree to the Terms and Conditions", message: "You must read the Terms and Conditions and check the box to continue.")
+            return
+        }
         /*
         let gender = self.inputGender.text
         if gender?.characters.count == 0 {
@@ -245,7 +277,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     
     func updateClientProfile(client: PFObject) {
         // create trainer object
-        var clientDict = ["firstName": self.inputFirstName.text!, "email": self.inputEmail.text!, "phone": self.inputPhone.text!];
+        var clientDict: [String: AnyObject] = ["firstName": self.inputFirstName.text!, "email": self.inputEmail.text!, "phone": self.inputPhone.text!];
         if self.inputLastName.text != nil {
             clientDict["lastName"] = self.inputLastName.text!
         }
@@ -258,6 +290,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         if self.inputInjuries.text != nil {
             clientDict["injuries"] = self.inputInjuries.text!
         }
+        clientDict["checkedTOS"] = self.checked
         
         client.setValuesForKeysWithDictionary(clientDict)
         let user = PFUser.currentUser()!
@@ -321,10 +354,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         //        self.constraintTopOffset.constant = -size!.height
         //self.constraintBottomOffset.constant = size!.height
         //self.view.layoutIfNeeded()
-        print("current input frame: \(self.currentInput!.frame)")
-        var frame = self.currentInput!.frame
-        frame.origin.y = frame.origin.y + self.scrollView.frame.size.height - 80
-        self.scrollView.scrollRectToVisible(frame, animated: false)
+        if self.currentInput != nil {
+            print("current input frame: \(self.currentInput!.frame)")
+            var frame = self.currentInput!.frame
+            frame.origin.y = frame.origin.y + self.scrollView.frame.size.height - 80
+            self.scrollView.scrollRectToVisible(frame, animated: false)
+        }
     }
     
     func keyboardWillHide(n: NSNotification) {
@@ -399,7 +434,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         return 1
     }
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 9 // MFLGBTQO
+        return 4 // select, MFO
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
