@@ -61,9 +61,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4v-2v-oMn">
                                 <rect key="frame" x="27" y="92" width="546" height="303"/>
                                 <subviews>
+                                    <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I1q-nL-1bZ">
+                                        <rect key="frame" x="20" y="20" width="506" height="123"/>
+                                        <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$17 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxz-Va-5Vn">
+                                        <rect key="frame" x="20" y="102" width="506" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="41" id="70j-Rv-b4K"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7O-nW-90o">
                                         <rect key="frame" x="20" y="20" width="506" height="123"/>
-                                        <color key="backgroundColor" red="0.68627450980000004" green="0.90980392160000001" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="123" id="pPn-Lw-9Oq"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="123" id="rCT-eU-Yz3"/>
@@ -76,10 +89,14 @@
                                             <segue destination="kMn-tD-FMD" kind="show" identifier="GoToTrainingRequest" id="wKi-zk-aub"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$17 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxz-Va-5Vn">
-                                        <rect key="frame" x="20" y="102" width="506" height="41"/>
+                                    <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ea5-xf-EEf">
+                                        <rect key="frame" x="20" y="160" width="506" height="123"/>
+                                        <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$25 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVt-Vl-Doc">
+                                        <rect key="frame" x="20" y="242" width="506" height="41"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="41" id="70j-Rv-b4K"/>
+                                            <constraint firstAttribute="height" constant="41" id="eHC-Ec-edE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -87,7 +104,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uun-fo-REH">
                                         <rect key="frame" x="20" y="160" width="506" height="123"/>
-                                        <color key="backgroundColor" red="0.68627450980000004" green="0.90980392160000001" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="123" id="J3x-UX-CXR"/>
                                             <constraint firstAttribute="height" constant="123" id="qw6-1t-ZNJ"/>
@@ -100,15 +117,6 @@
                                             <segue destination="kMn-tD-FMD" kind="show" identifier="GoToTrainingRequest" id="mox-WL-qYw"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$25 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVt-Vl-Doc">
-                                        <rect key="frame" x="20" y="242" width="506" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="41" id="eHC-Ec-edE"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
