@@ -429,7 +429,7 @@
                                                     <outlet property="delegate" destination="civ-Bp-HRs" id="Syn-Fg-bQU"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please list any injuries" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xz7-4x-nfI">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Injuries or medical" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xz7-4x-nfI">
                                                 <rect key="frame" x="20" y="352" width="560" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="3Le-6U-J4C"/>
@@ -440,7 +440,7 @@
                                                     <outlet property="delegate" destination="civ-Bp-HRs" id="Xxl-l1-O95"/>
                                                 </connections>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medical information (Required)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SlF-hJ-HNX">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please list any injuries or medical conditions " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SlF-hJ-HNX">
                                                 <rect key="frame" x="20" y="323" width="560" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="GEN-Vl-nWe"/>
