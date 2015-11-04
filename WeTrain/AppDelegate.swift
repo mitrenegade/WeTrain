@@ -48,11 +48,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().shadowImage = nil
         UITabBar.appearance().barTintColor = UIColor.blackColor()
         
-        if (PFUser.currentUser() != nil) {
-            self.didLogin()
-        }
-        else {
-            self.goToLogin()
+        // delay for 0.5 seconds
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(1.5 * Double(NSEC_PER_SEC)))
+        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+            if (PFUser.currentUser() != nil) {
+                self.didLogin()
+            }
+            else {
+                self.goToLogin()
+            }
         }
         return true
     }
