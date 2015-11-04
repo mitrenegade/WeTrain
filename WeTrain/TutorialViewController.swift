@@ -14,7 +14,7 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
     @IBOutlet weak var tutorialView: TutorialScrollView!
     var tutorialCreated: Bool = false
     
-    var allPages: [String] = ["IntroTutorial0", "IntroTutorial1", "IntroTutorial2", "IntroTutorial3", "IntroTutorial4", "IntroTutorial5"]
+    var allPages: [String] = ["IntroTutorial0", "IntroTutorial1", "IntroTutorial2", "IntroTutorial3", "IntroTutorial4", "IntroTutorial5", "IntroTutorial6"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,8 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
         self.navigationItem.rightBarButtonItem = right
         let left: UIBarButtonItem = UIBarButtonItem(title: "", style: .Done, target: self, action: "nothing")
         self.navigationItem.leftBarButtonItem = left
+
+        self.navigationItem.rightBarButtonItem?.enabled = false
     }
 
     override func didReceiveMemoryWarning() {

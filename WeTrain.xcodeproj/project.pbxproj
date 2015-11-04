@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		49598075F067030CF7F480EA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A7B8DD840A03B62D311EAEE /* libPods.a */; };
+		AC03A6481BEA98440085FAE2 /* IntroTutorial6.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC03A6471BEA98440085FAE2 /* IntroTutorial6.xib */; };
 		AC0503741BC82426008022BD /* TutorialScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0503731BC82426008022BD /* TutorialScrollView.m */; };
 		AC0503791BC8242F008022BD /* IntroTutorial0.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503751BC8242F008022BD /* IntroTutorial0.xib */; };
 		AC05037A1BC8242F008022BD /* IntroTutorial1.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503761BC8242F008022BD /* IntroTutorial1.xib */; };
@@ -48,16 +49,16 @@
 		AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909841B6D710900085FB6 /* Login.Storyboard */; };
 		AC8CCD7A1BC8075100675036 /* LocationParis.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD781BC8075100675036 /* LocationParis.gpx */; };
 		AC8CCD7B1BC8075100675036 /* LocationPhiladelphia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = AC8CCD791BC8075100675036 /* LocationPhiladelphia.gpx */; };
-		AC8F4A651BD5C1C7003B296D /* TrainingLengthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A641BD5C1C7003B296D /* TrainingLengthViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		AC8F4A671BD5CF20003B296D /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A661BD5CF20003B296D /* UserInfoViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		AC8F4A691BD5E3B4003B296D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A681BD5E3B4003B296D /* TutorialViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		AC8F4A6B1BD5E854003B296D /* IntroTutorial5.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8F4A6A1BD5E854003B296D /* IntroTutorial5.xib */; settings = {ASSET_TAGS = (); }; };
+		AC8F4A651BD5C1C7003B296D /* TrainingLengthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A641BD5C1C7003B296D /* TrainingLengthViewController.swift */; };
+		AC8F4A671BD5CF20003B296D /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A661BD5CF20003B296D /* UserInfoViewController.swift */; };
+		AC8F4A691BD5E3B4003B296D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8F4A681BD5E3B4003B296D /* TutorialViewController.swift */; };
+		AC8F4A6B1BD5E854003B296D /* IntroTutorial5.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8F4A6A1BD5E854003B296D /* IntroTutorial5.xib */; };
 		AC9760EF1B7167F70060D5D1 /* TrainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9760EE1B7167F70060D5D1 /* TrainerProfileViewController.swift */; };
 		AC9F6F771BBE2C8000F91B92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9F6F761BBE2C8000F91B92 /* Constants.swift */; };
 		ACA6B8ED1B6E4F0600AAA992 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EC1B6E4F0600AAA992 /* LoginViewController.swift */; };
 		ACA6B8EF1B6E62B800AAA992 /* TrainingRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8EE1B6E62B800AAA992 /* TrainingRequestViewController.swift */; };
 		ACA6B8F31B6EE81A00AAA992 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */; };
-		ACE69C5C1BDD345400128687 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE69C5B1BDD345400128687 /* ProgressView.swift */; settings = {ASSET_TAGS = (); }; };
+		ACE69C5C1BDD345400128687 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE69C5B1BDD345400128687 /* ProgressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 /* Begin PBXFileReference section */
 		2161FFB5DEECA8224FEC534E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		2A7B8DD840A03B62D311EAEE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC03A6471BEA98440085FAE2 /* IntroTutorial6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial6.xib; sourceTree = "<group>"; };
 		AC0503721BC82426008022BD /* TutorialScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialScrollView.h; sourceTree = "<group>"; };
 		AC0503731BC82426008022BD /* TutorialScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialScrollView.m; sourceTree = "<group>"; };
 		AC0503751BC8242F008022BD /* IntroTutorial0.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial0.xib; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				AC0503781BC8242F008022BD /* IntroTutorial3.xib */,
 				AC05037F1BC82541008022BD /* IntroTutorial4.xib */,
 				AC8F4A6A1BD5E854003B296D /* IntroTutorial5.xib */,
+				AC03A6471BEA98440085FAE2 /* IntroTutorial6.xib */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				AC0503801BC82541008022BD /* IntroTutorial4.xib in Resources */,
 				AC05037C1BC8242F008022BD /* IntroTutorial3.xib in Resources */,
 				AC0503791BC8242F008022BD /* IntroTutorial0.xib in Resources */,
+				AC03A6481BEA98440085FAE2 /* IntroTutorial6.xib in Resources */,
 				AC8CCD7B1BC8075100675036 /* LocationPhiladelphia.gpx in Resources */,
 				AC05037B1BC8242F008022BD /* IntroTutorial2.xib in Resources */,
 				AC51D1761B84BBFF00E1DF02 /* main.js in Resources */,

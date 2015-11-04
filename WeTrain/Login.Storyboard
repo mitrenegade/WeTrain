@@ -768,16 +768,23 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFx-Ow-Mgy" customClass="TutorialScrollView">
-                                <rect key="frame" x="20" y="20" width="560" height="696"/>
+                                <rect key="frame" x="20" y="191.5" width="560" height="524.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="newLogo" translatesAutoresizingMaskIntoConstraints="NO" id="C2r-CI-EnH">
+                                <rect key="frame" x="20" y="20" width="560" height="163.5"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="C2r-CI-EnH" firstAttribute="top" secondItem="P66-b2-Fh7" secondAttribute="bottom" constant="20" id="2W5-HR-xFE"/>
                             <constraint firstItem="DFx-Ow-Mgy" firstAttribute="leading" secondItem="3jH-st-VZM" secondAttribute="leading" constant="20" id="9KQ-Bu-Kso"/>
+                            <constraint firstItem="C2r-CI-EnH" firstAttribute="leading" secondItem="3jH-st-VZM" secondAttribute="leadingMargin" id="9yA-nO-kac"/>
+                            <constraint firstItem="C2r-CI-EnH" firstAttribute="height" secondItem="3jH-st-VZM" secondAttribute="height" multiplier="2:9" id="BOP-aw-E4c"/>
                             <constraint firstAttribute="trailing" secondItem="DFx-Ow-Mgy" secondAttribute="trailing" constant="20" id="TFk-ZH-VDA"/>
                             <constraint firstItem="ztT-oj-azu" firstAttribute="top" secondItem="DFx-Ow-Mgy" secondAttribute="bottom" constant="20" id="cQk-fj-sWX"/>
-                            <constraint firstItem="DFx-Ow-Mgy" firstAttribute="top" secondItem="P66-b2-Fh7" secondAttribute="bottom" constant="20" id="gpY-pe-9F7"/>
+                            <constraint firstItem="DFx-Ow-Mgy" firstAttribute="top" secondItem="C2r-CI-EnH" secondAttribute="bottom" constant="8" id="dX9-hP-8gS"/>
+                            <constraint firstItem="C2r-CI-EnH" firstAttribute="trailing" secondItem="3jH-st-VZM" secondAttribute="trailingMargin" id="fGY-pi-8ZD"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
