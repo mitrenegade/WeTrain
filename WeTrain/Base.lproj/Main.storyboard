@@ -161,7 +161,7 @@
             </objects>
             <point key="canvasLocation" x="711" y="-214"/>
         </scene>
-        <!--Select Workout-->
+        <!--Select Workout Type-->
         <scene sceneID="dHw-ha-Lce">
             <objects>
                 <tableViewController id="kMn-tD-FMD" customClass="TrainingRequestViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
@@ -225,7 +225,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Select Workout" id="chG-rN-L39"/>
+                    <navigationItem key="navigationItem" title="Select Workout Type" id="chG-rN-L39"/>
                     <connections>
                         <segue destination="pEL-eK-Myt" kind="presentation" identifier="GoToMap" id="lGz-a4-ui5"/>
                     </connections>
@@ -728,7 +728,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="gnu-Jp-UmR"/>
+                    <navigationItem key="navigationItem" title="Select Workout Location" id="gnu-Jp-UmR"/>
                     <connections>
                         <outlet property="buttonRequest" destination="qls-ee-X6Z" id="z8q-wc-iJh"/>
                         <outlet property="iconLocation" destination="Ur2-dI-fzM" id="xo1-eM-L3J"/>
@@ -971,7 +971,7 @@
         <image name="weTrainBG" width="551" height="666"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FtZ-cv-haA"/>
         <segue reference="mox-WL-qYw"/>
+        <segue reference="2Z9-Bv-jjW"/>
     </inferredMetricsTieBreakers>
 </document>
