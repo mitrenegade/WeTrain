@@ -30,6 +30,11 @@ class TrainingRequestViewController: UITableViewController {
         
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+
+        // cell selection background
+        let colorView = UIView()
+        colorView.backgroundColor = UIColor.orangeColor()
+        UITableViewCell.appearance().selectedBackgroundView = colorView
     }
     
     override func viewWillAppear(animated: Bool) {
