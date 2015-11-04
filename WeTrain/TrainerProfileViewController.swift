@@ -112,7 +112,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             self.contact()
         }
         else if status == RequestState.Complete.rawValue {
-            self.navigationController!.popToRootViewControllerAnimated(true)
+            self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
         }
         else if status == RequestState.Training.rawValue {
             let title = "End session?"
@@ -120,7 +120,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             if let start = self.request!.objectForKey("start") as? NSDate {
                 if let _ = self.request!.objectForKey("end") as? NSDate {
                     // if workout has ended but somehow we still have a timer, just end it
-                    self.navigationController!.popToRootViewControllerAnimated(true)
+                    self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
                     return
                 }
                 
@@ -137,7 +137,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
                 self.request!.setObject(RequestState.Complete.rawValue, forKey: "status")
                 self.request!.setObject(NSDate() , forKey: "end")
                 self.request!.saveInBackgroundWithBlock({ (success, error) -> Void in
-                    self.navigationController!.popToRootViewControllerAnimated(true)
+                    self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
                 })
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
