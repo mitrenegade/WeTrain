@@ -278,7 +278,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             })
         }
         else {
-            self.client! = PFObject(className: "Client")
+            self.client = PFObject(className: "Client")
             self.updateClientProfile(self.client!)
         }
     }

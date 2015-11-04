@@ -43,7 +43,7 @@
             </objects>
             <point key="canvasLocation" x="45" y="-209"/>
         </scene>
-        <!--Training Length View Controller-->
+        <!--Select Duration-->
         <scene sceneID="ofc-em-DEe">
             <objects>
                 <viewController id="Aca-nO-583" customClass="TrainingLengthViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
@@ -142,7 +142,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="pga-Mz-WXw"/>
+                    <navigationItem key="navigationItem" title="Select Duration" id="pga-Mz-WXw"/>
                     <connections>
                         <outlet property="button30" destination="q7O-nW-90o" id="1i0-E3-jSk"/>
                         <outlet property="button60" destination="Uun-fo-REH" id="tRV-Or-8db"/>
