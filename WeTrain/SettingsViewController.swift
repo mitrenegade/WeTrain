@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: UITableViewController, TutorialDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return 5
+        return 6
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -51,8 +51,10 @@ class SettingsViewController: UITableViewController {
         case 2:
             cell.textLabel!.text = "Update your credit card"
         case 3:
-            cell.textLabel!.text = "Feedback"
+            cell.textLabel!.text = "View tutorials"
         case 4:
+            cell.textLabel!.text = "Feedback"
+        case 5:
             cell.textLabel!.text = "Logout"
         default:
             break
@@ -86,6 +88,7 @@ class SettingsViewController: UITableViewController {
 //                self.presentViewController:nav
                 self.navigationController?.pushViewController(controller, animated: true)
             }
+            break
         case 2:
             if PFUser.currentUser() == nil {
                 let alert: UIAlertController = UIAlertController(title: "Error editing credit card", message: "You are not logged in. Please log in again to edit payment information.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -100,6 +103,9 @@ class SettingsViewController: UITableViewController {
             
             break
         case 3:
+            self.goToTutorials()
+            break
+        case 4:
             if PFUser.currentUser() == nil {
                 let alert: UIAlertController = UIAlertController(title: "Log in first?", message: "You are not logged in. Please log in first so we can respond to you.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
@@ -113,10 +119,20 @@ class SettingsViewController: UITableViewController {
                 self.performSegueWithIdentifier("GoToFeedback", sender: self)
             }
             break
-        case 4:
+        case 5:
             self.appDelegate().logout()
         default:
             break
         }
+    }
+    
+    func goToTutorials() {
+        let controller: TutorialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TutorialViewController") as! TutorialViewController
+        controller.delegate = self
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func didCloseTutorial() {
+        self.navigationController!.popViewControllerAnimated(true)
     }
 }
