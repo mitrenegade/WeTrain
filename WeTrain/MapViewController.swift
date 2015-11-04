@@ -295,12 +295,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func confirmRequestForAddress(addressString: String, coordinate: CLLocationCoordinate2D) {
-        let alert: UIAlertController = UIAlertController(title: "Request trainer?", message: "Do you want to schedule a workout session around \(addressString)?", preferredStyle: UIAlertControllerStyle.Alert)
+        var message: String = ""
+        if self.requestedTrainingLength != nil {
+            var coststr = "$17"
+            if self.requestedTrainingLength! == 60 {
+                coststr = "$25"
+            }
+            message = "\(self.requestedTrainingLength!)min / \(coststr)"
+        }
+        if self.requestedTrainingType != nil {
+            let title = TRAINING_TITLES[self.requestedTrainingType!]
+            message = "\(message)\n\(title)"
+        }
+        message = "\(message)\n\(addressString)"
+        
+        let alert: UIAlertController = UIAlertController(title: "Just to confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.view.tintColor = UIColor(red: 94.0/255.0, green: 221.0/255.0, blue: 161.0/255.0, alpha: 1)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Let's Go", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             print("requesting")
             self.initiateTrainingRequest(addressString, coordinate: coordinate)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
         

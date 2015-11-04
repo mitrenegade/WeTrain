@@ -693,9 +693,12 @@
                                             <outlet property="delegate" destination="vMU-jC-vAT" id="5Mt-Da-SMl"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qls-ee-X6Z">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qls-ee-X6Z">
                                         <rect key="frame" x="8" y="122" width="576" height="30"/>
                                         <color key="backgroundColor" red="0.36862745099999999" green="0.86666666670000003" blue="0.63137254899999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="QBD-dQ-Bph"/>
+                                        </constraints>
                                         <state key="normal" title="Request a Session!">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -714,9 +717,13 @@
                                     <constraint firstAttribute="trailing" secondItem="FPW-So-GaS" secondAttribute="trailing" constant="8" id="Pye-jl-TBQ"/>
                                     <constraint firstItem="3tY-b7-GaX" firstAttribute="top" secondItem="FPW-So-GaS" secondAttribute="bottom" constant="8" id="QKL-oW-nMu"/>
                                     <constraint firstItem="FPW-So-GaS" firstAttribute="leading" secondItem="Rz8-Ed-b4l" secondAttribute="leading" constant="8" id="RAY-15-cYt"/>
+                                    <constraint firstItem="qls-ee-X6Z" firstAttribute="top" secondItem="3tY-b7-GaX" secondAttribute="bottom" constant="8" id="RRl-oz-tdt"/>
                                     <constraint firstItem="3tY-b7-GaX" firstAttribute="leading" secondItem="Rz8-Ed-b4l" secondAttribute="leading" constant="8" id="fsg-Sz-ES7"/>
+                                    <constraint firstAttribute="trailing" secondItem="qls-ee-X6Z" secondAttribute="trailing" constant="8" id="hdE-mP-Ofi"/>
                                     <constraint firstAttribute="height" constant="160" id="ie6-XL-Dai"/>
+                                    <constraint firstAttribute="bottom" secondItem="qls-ee-X6Z" secondAttribute="bottom" constant="8" id="jCi-cu-8Lo"/>
                                     <constraint firstItem="mnq-Co-r3V" firstAttribute="leading" secondItem="Rz8-Ed-b4l" secondAttribute="leading" constant="8" id="nWX-47-Ac1"/>
+                                    <constraint firstItem="qls-ee-X6Z" firstAttribute="leading" secondItem="Rz8-Ed-b4l" secondAttribute="leading" constant="8" id="qww-ne-xnY"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -725,7 +732,6 @@
                             <constraint firstItem="Rz8-Ed-b4l" firstAttribute="leading" secondItem="KXf-9E-Po8" secondAttribute="leading" constant="4" id="ACz-CG-ccl"/>
                             <constraint firstItem="SgZ-b9-HbK" firstAttribute="top" secondItem="Rz8-Ed-b4l" secondAttribute="bottom" constant="8" id="AaP-YS-C3e"/>
                             <constraint firstItem="Rz8-Ed-b4l" firstAttribute="top" secondItem="qxs-j6-BaT" secondAttribute="bottom" constant="1" id="E8W-Jd-1A7"/>
-                            <constraint firstItem="Rz8-Ed-b4l" firstAttribute="top" secondItem="GKG-Os-T6L" secondAttribute="bottom" constant="368" id="OSi-gD-YxS"/>
                             <constraint firstItem="qxs-j6-BaT" firstAttribute="top" secondItem="GKG-Os-T6L" secondAttribute="bottom" id="UNl-ih-C8P"/>
                             <constraint firstItem="qxs-j6-BaT" firstAttribute="leading" secondItem="KXf-9E-Po8" secondAttribute="leading" constant="4" id="Vdq-Iq-QDn"/>
                             <constraint firstAttribute="trailing" secondItem="Rz8-Ed-b4l" secondAttribute="trailing" constant="4" id="Vrs-SQ-dDU"/>
