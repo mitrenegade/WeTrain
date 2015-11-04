@@ -201,6 +201,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func goToUserProfile() {
         let controller: UserInfoViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("UserInfoViewController") as! UserInfoViewController
+        controller.isSignup = true
         let nav: UINavigationController = UINavigationController(rootViewController: controller)
         self.window!.rootViewController = nav
         let frame = controller.view.frame

@@ -45,6 +45,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     @IBOutlet var buttonTOS: UIButton!
     var checked: Bool = false
 
+    var client: PFObject?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,52 +86,61 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         self.refreshButton()
         if let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
             clientObject.fetchInBackgroundWithBlock({ (result, error) -> Void in
-                if let file = clientObject.objectForKey("photo") as? PFFile {
-                    file.getDataInBackgroundWithBlock { (data, error) -> Void in
-                        if data != nil {
-                            let photo: UIImage = UIImage(data: data!)!
-                            self.buttonPhotoView.setImage(photo, forState: .Normal)
-                            self.buttonPhotoView.layer.cornerRadius = self.buttonPhotoView.frame.size.width / 2
-                            
-                            self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+                self.client = clientObject
+                if result != nil {
+                    if let file = self.client!.objectForKey("photo") as? PFFile {
+                        file.getDataInBackgroundWithBlock { (data, error) -> Void in
+                            if data != nil {
+                                let photo: UIImage = UIImage(data: data!)!
+                                self.buttonPhotoView.setImage(photo, forState: .Normal)
+                                self.buttonPhotoView.layer.cornerRadius = self.buttonPhotoView.frame.size.width / 2
+                                
+                                self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+                            }
+                        }
+                    }
+                    
+                    // populate all info
+                    if let firstName = self.client!.objectForKey("firstName") as? String {
+                        print("first: \(firstName)")
+                        self.inputFirstName.text = firstName
+                    }
+                    if let lastName = self.client!.objectForKey("lastName") as? String {
+                        self.inputLastName.text = lastName
+                    }
+                    if let email = self.client!.objectForKey("email") as? String {
+                        self.inputEmail.text = email
+                    }
+                    if let phone = self.client!.objectForKey("phone") as? String {
+                        self.inputPhone.text = phone
+                    }
+                    if let age = self.client!.objectForKey("age") as? String {
+                        self.inputAge.text = age
+                    }
+                    if let gender = self.client!.objectForKey("gender") as? String {
+                        self.inputGender.text = gender
+                    }
+                    if let injuries = self.client!.objectForKey("injuries") as? String {
+                        self.inputInjuries.text = injuries
+                    }
+                    if let last4: String = self.client!.objectForKey("stripeFour") as? String{
+                        self.inputCreditCard.text = "Credit Card: *\(last4)"
+                    }
+                    
+                    self.refreshButton()
+                    if let checkedTOS: Bool = self.client!.objectForKey("checkedTOS") as? Bool {
+                        self.checked = checkedTOS
+                        self.refreshButton()
+                        if checkedTOS {
+                            self.buttonTOS.enabled = false
                         }
                     }
                 }
-                
-                // populate all info
-                if let firstName = clientObject.objectForKey("firstName") as? String {
-                    print("first: \(firstName)")
-                    self.inputFirstName.text = firstName
-                }
-                if let lastName = clientObject.objectForKey("lastName") as? String {
-                    self.inputLastName.text = lastName
-                }
-                if let email = clientObject.objectForKey("email") as? String {
-                    self.inputEmail.text = email
-                }
-                if let phone = clientObject.objectForKey("phone") as? String {
-                    self.inputPhone.text = phone
-                }
-                if let age = clientObject.objectForKey("age") as? String {
-                    self.inputAge.text = age
-                }
-                if let gender = clientObject.objectForKey("gender") as? String {
-                    self.inputGender.text = gender
-                }
-                if let injuries = clientObject.objectForKey("injuries") as? String {
-                    self.inputInjuries.text = injuries
-                }
-                if let last4: String = clientObject.objectForKey("stripeFour") as? String{
-                    self.inputCreditCard.text = "Credit Card: *\(last4)"
-                }
-                
-                self.refreshButton()
-                if let checkedTOS: Bool = clientObject.objectForKey("checkedTOS") as? Bool {
-                    self.checked = checkedTOS
-                    self.refreshButton()
-                    if checkedTOS {
-                        self.buttonTOS.enabled = false
-                    }
+                else {
+                    // user's client was deleted; create a new one
+                    self.client! = PFObject(className: "Client")
+                    PFUser.currentUser()!.setObject(self.client!, forKey: "client")
+                    PFUser.currentUser()!.saveInBackground()
                 }
             })
         }
@@ -238,15 +249,13 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         return
         }
         */
-        // TODO: remove credit card restriction for initial app release
-        /*
+
         let four = self.inputCreditCard.text
         if four?.characters.count == 0 {
-        self.simpleAlert("Please enter a payment method. (For the test app, use credit card number 4242424242424242", message: nil)
-        return
+            self.simpleAlert("Please enter a payment method.", message: nil)
+            return
         }
-        */
-        
+
         // make sure user exists
         let user = PFUser.currentUser()
         if user == nil {
@@ -256,22 +265,21 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         }
         
         // load existing trainer or create one
-        var client: PFObject!
         if let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
-            client = clientObject
-            client.fetchInBackgroundWithBlock({ (object, error) -> Void in
+            self.client = clientObject
+            self.client!.fetchInBackgroundWithBlock({ (object, error) -> Void in
                 if error != nil {
                     self.simpleAlert("Error fetching your profile", message: "We could not load your profile to update it.", completion: nil)
                     return
                 }
                 else {
-                    self.updateClientProfile(client)
+                    self.updateClientProfile(self.client!)
                 }
             })
         }
         else {
-            client = PFObject(className: "Client")
-            self.updateClientProfile(client)
+            self.client! = PFObject(className: "Client")
+            self.updateClientProfile(self.client!)
         }
     }
     
