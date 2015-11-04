@@ -184,11 +184,11 @@ class RequestStatusViewController: UIViewController {
             self.progressView.stopActivity()
         case .Searching:
             
-            var title = "Calling all trainers near you"
-            var message = "Please be patient while we connect you with a trainer. Meanwhile, you can make sure you have all your gear."
+            var title = "Searching for an available trainer"
+            var message = ""
             if let addressString: String = self.currentRequest?.objectForKey("address") as? String {
-                title = "Calling all trainers near:"
-                message = "\(addressString)\n\n\(message)"
+                title = "Searching for an available trainer near:"
+                message = "\(addressString)"
             }
             self.updateTitle(title, message: message, top: nil, bottom: "Cancel Request", topHandler: nil, bottomHandler: { () -> Void in
                 self.promptForCancel()

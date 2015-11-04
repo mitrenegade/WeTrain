@@ -11,7 +11,7 @@ import Parse
 import Photos
 
 let genders = ["Select gender", "Male", "Female", "Other"]
-class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TutorialDelegate {
 
     @IBOutlet weak var buttonPhotoView: UIButton!
     @IBOutlet weak var buttonEditPhoto: UIButton!
@@ -523,14 +523,19 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
-    /*
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using segue.destinationViewController.
     // Pass the selected object to the new view controller.
+        if segue.identifier == "GoToTutorial" {
+            let controller: TutorialViewController = segue.destinationViewController as! TutorialViewController
+            controller.delegate = self
+        }
     }
-    */
     
+    func didCloseTutorial() {
+        self.appDelegate().didLogin()
+    }
 }

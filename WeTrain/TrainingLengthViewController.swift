@@ -69,7 +69,7 @@ class TrainingLengthViewController: UIViewController {
                     else if state == RequestState.Searching.rawValue {
                         if let time = request.objectForKey("time") as? NSDate {
                             let minElapsed = NSDate().timeIntervalSinceDate(time) / 60
-                            if Int(minElapsed) > 60 { // cancel after an hour
+                            if Int(minElapsed) > 60 { // cancel after 60 minutes of searching
                                 print("request cancelled")
                                 request.setObject(RequestState.Cancelled.rawValue, forKey: "status")
                                 request.saveInBackground()
@@ -84,7 +84,7 @@ class TrainingLengthViewController: UIViewController {
                             let minElapsed = NSDate().timeIntervalSinceDate(start) / 60
                             let length = request.objectForKey("length") as! Int
                             print("started at \(start) time passed \(minElapsed) workout length \(length)")
-                            if Int(minElapsed) > length {
+                            if Int(minElapsed) > length * 2 { // cancel after 2x the workout time
                                 print("completing training")
                                 request.setObject(RequestState.Complete.rawValue, forKey: "status")
                                 request.saveInBackground()

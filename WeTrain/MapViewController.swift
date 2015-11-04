@@ -287,6 +287,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         */
         
         if self.currentLocation != nil {
+            if self.inputStreet.text != nil && self.inputCity.text != nil {
+                let addressString = "\(self.inputStreet.text!) \(self.inputCity.text!)"
+                self.confirmRequestForAddress(addressString, coordinate: self.currentLocation!.coordinate)
+                return
+            }
             let coder = GMSGeocoder()
             coder.reverseGeocodeCoordinate(self.currentLocation!.coordinate, completionHandler: { (response, error) -> Void in
                 if let gmresponse:GMSReverseGeocodeResponse = response as GMSReverseGeocodeResponse! {

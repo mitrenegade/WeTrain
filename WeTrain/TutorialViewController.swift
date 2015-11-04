@@ -9,10 +9,15 @@
 import UIKit
 import Parse
 
+protocol TutorialDelegate: class {
+    func didCloseTutorial()
+}
+
 class TutorialViewController: UIViewController, TutorialScrollDelegate {
     
     @IBOutlet weak var tutorialView: TutorialScrollView!
     var tutorialCreated: Bool = false
+    weak var delegate: TutorialDelegate?
     
     var allPages: [String] = ["IntroTutorial0", "IntroTutorial1", "IntroTutorial2", "IntroTutorial3", "IntroTutorial4", "IntroTutorial5", "IntroTutorial6"]
     
@@ -43,7 +48,7 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
     }
     
     func done() {
-        self.appDelegate().didLogin()
+        self.delegate!.didCloseTutorial()
     }
     
     func nothing() {
