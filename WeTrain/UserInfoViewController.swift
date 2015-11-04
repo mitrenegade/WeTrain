@@ -172,6 +172,11 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.simpleAlert("Please enter your first name", message: nil)
             return
         }
+        let lastName = self.inputLastName.text
+        if lastName?.characters.count == 0 {
+            self.simpleAlert("Please enter your last name", message: nil)
+            return
+        }
         
         let email = self.inputEmail.text
         if email?.characters.count == 0 {
