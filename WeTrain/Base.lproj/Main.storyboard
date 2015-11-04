@@ -100,7 +100,7 @@
                                             <segue destination="kMn-tD-FMD" kind="show" identifier="GoToTrainingRequest" id="mox-WL-qYw"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$22 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVt-Vl-Doc">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$25 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVt-Vl-Doc">
                                         <rect key="frame" x="20" y="242" width="506" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="41" id="eHC-Ec-edE"/>
