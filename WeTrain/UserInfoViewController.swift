@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import Photos
 
-let genders = ["Select gender", "Male", "Female", "Lesbian", "Gay", "Bisexual", "Transgender", "Queer", "Other"]
+let genders = ["Select gender", "Male", "Female", "Other"]
 class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var buttonPhotoView: UIButton!
@@ -24,6 +24,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     @IBOutlet var inputAge: UITextField!
     @IBOutlet var inputInjuries: UITextField!
     @IBOutlet var inputCreditCard: UITextField!
+    
     
     var currentInput: UITextField?
     
@@ -40,6 +41,11 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     
     var isSignup:Bool = false
     var selectedPhoto: UIImage?
+    
+    @IBOutlet var buttonTOS: UIButton!
+    var checked: Bool = false
+
+    var client: PFObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,55 +83,87 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.navigationItem.leftBarButtonItem = left
         }
         
+        self.refreshButton()
         if let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
             clientObject.fetchInBackgroundWithBlock({ (result, error) -> Void in
-                if let file = clientObject.objectForKey("photo") as? PFFile {
-                    file.getDataInBackgroundWithBlock { (data, error) -> Void in
-                        if data != nil {
-                            let photo: UIImage = UIImage(data: data!)!
-                            self.buttonPhotoView.setImage(photo, forState: .Normal)
-                            self.buttonPhotoView.layer.cornerRadius = self.buttonPhotoView.frame.size.width / 2
-                            
-                            self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+                self.client = clientObject
+                if result != nil {
+                    if let file = self.client!.objectForKey("photo") as? PFFile {
+                        file.getDataInBackgroundWithBlock { (data, error) -> Void in
+                            if data != nil {
+                                let photo: UIImage = UIImage(data: data!)!
+                                self.buttonPhotoView.setImage(photo, forState: .Normal)
+                                self.buttonPhotoView.layer.cornerRadius = self.buttonPhotoView.frame.size.width / 2
+                                
+                                self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+                            }
+                        }
+                    }
+                    
+                    // populate all info
+                    if let firstName = self.client!.objectForKey("firstName") as? String {
+                        print("first: \(firstName)")
+                        self.inputFirstName.text = firstName
+                    }
+                    if let lastName = self.client!.objectForKey("lastName") as? String {
+                        self.inputLastName.text = lastName
+                    }
+                    if let email = self.client!.objectForKey("email") as? String {
+                        self.inputEmail.text = email
+                    }
+                    if let phone = self.client!.objectForKey("phone") as? String {
+                        self.inputPhone.text = phone
+                    }
+                    if let age = self.client!.objectForKey("age") as? String {
+                        self.inputAge.text = age
+                    }
+                    if let gender = self.client!.objectForKey("gender") as? String {
+                        self.inputGender.text = gender
+                    }
+                    if let injuries = self.client!.objectForKey("injuries") as? String {
+                        self.inputInjuries.text = injuries
+                    }
+                    if let last4: String = self.client!.objectForKey("stripeFour") as? String{
+                        self.inputCreditCard.text = "Credit Card: *\(last4)"
+                    }
+                    
+                    self.refreshButton()
+                    if let checkedTOS: Bool = self.client!.objectForKey("checkedTOS") as? Bool {
+                        self.checked = checkedTOS
+                        self.refreshButton()
+                        if checkedTOS {
+                            self.buttonTOS.enabled = false
                         }
                     }
                 }
-                
-                // populate all info
-                if let firstName = clientObject.objectForKey("firstName") as? String {
-                    print("first: \(firstName)")
-                    self.inputFirstName.text = firstName
-                }
-                if let lastName = clientObject.objectForKey("lastName") as? String {
-                    self.inputLastName.text = lastName
-                }
-                if let email = clientObject.objectForKey("email") as? String {
-                    self.inputEmail.text = email
-                }
-                if let phone = clientObject.objectForKey("phone") as? String {
-                    self.inputPhone.text = phone
-                }
-                if let age = clientObject.objectForKey("age") as? String {
-                    self.inputAge.text = age
-                }
-                if let gender = clientObject.objectForKey("gender") as? String {
-                    self.inputGender.text = gender
-                }
-                if let injuries = clientObject.objectForKey("injuries") as? String {
-                    self.inputInjuries.text = injuries
-                }
-                if let last4: String = clientObject.objectForKey("stripeFour") as? String{
-                    self.inputCreditCard.text = "Credit Card: *\(last4)"
+                else {
+                    // user's client was deleted; create a new one
+                    self.client! = PFObject(className: "Client")
+                    PFUser.currentUser()!.setObject(self.client!, forKey: "client")
+                    PFUser.currentUser()!.saveInBackground()
                 }
             })
         }
     }
     
+    func refreshButton() {
+        if self.checked {
+            self.buttonTOS.setImage(UIImage(named: "boxChecked")!, forState: .Normal)
+        }
+        else {
+            self.buttonTOS.setImage(UIImage(named: "boxUnchecked")!, forState: .Normal)
+        }
+    }
+    
+    @IBAction func didClickCheck() {
+        self.checked = !self.checked
+        self.refreshButton()
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         self.constraintContentWidth.constant = (self.appDelegate().window?.bounds.size.width)!
-        self.constraintContentHeight.constant = self.inputCreditCard.frame.origin.y + self.view.frame.size.height
+        self.constraintContentHeight.constant = self.buttonTOS.frame.origin.y + 300
     }
     
     func nothing() {
@@ -172,6 +210,11 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.simpleAlert("Please enter your first name", message: nil)
             return
         }
+        let lastName = self.inputLastName.text
+        if lastName?.characters.count == 0 {
+            self.simpleAlert("Please enter your last name", message: nil)
+            return
+        }
         
         let email = self.inputEmail.text
         if email?.characters.count == 0 {
@@ -188,6 +231,11 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.simpleAlert("Please enter a valid phone number", message: nil)
             return
         }
+        
+        if !self.checked {
+            self.simpleAlert("Please agree to the Terms and Conditions", message: "You must read the Terms and Conditions and check the box to continue.")
+            return
+        }
         /*
         let gender = self.inputGender.text
         if gender?.characters.count == 0 {
@@ -201,15 +249,13 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         return
         }
         */
-        // TODO: remove credit card restriction for initial app release
-        /*
+
         let four = self.inputCreditCard.text
         if four?.characters.count == 0 {
-        self.simpleAlert("Please enter a payment method. (For the test app, use credit card number 4242424242424242", message: nil)
-        return
+            self.simpleAlert("Please enter a payment method.", message: nil)
+            return
         }
-        */
-        
+
         // make sure user exists
         let user = PFUser.currentUser()
         if user == nil {
@@ -219,28 +265,27 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         }
         
         // load existing trainer or create one
-        var client: PFObject!
         if let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
-            client = clientObject
-            client.fetchInBackgroundWithBlock({ (object, error) -> Void in
+            self.client = clientObject
+            self.client!.fetchInBackgroundWithBlock({ (object, error) -> Void in
                 if error != nil {
                     self.simpleAlert("Error fetching your profile", message: "We could not load your profile to update it.", completion: nil)
                     return
                 }
                 else {
-                    self.updateClientProfile(client)
+                    self.updateClientProfile(self.client!)
                 }
             })
         }
         else {
-            client = PFObject(className: "Client")
-            self.updateClientProfile(client)
+            self.client! = PFObject(className: "Client")
+            self.updateClientProfile(self.client!)
         }
     }
     
     func updateClientProfile(client: PFObject) {
         // create trainer object
-        var clientDict = ["firstName": self.inputFirstName.text!, "email": self.inputEmail.text!, "phone": self.inputPhone.text!];
+        var clientDict: [String: AnyObject] = ["firstName": self.inputFirstName.text!, "email": self.inputEmail.text!, "phone": self.inputPhone.text!];
         if self.inputLastName.text != nil {
             clientDict["lastName"] = self.inputLastName.text!
         }
@@ -253,6 +298,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         if self.inputInjuries.text != nil {
             clientDict["injuries"] = self.inputInjuries.text!
         }
+        clientDict["checkedTOS"] = self.checked
         
         client.setValuesForKeysWithDictionary(clientDict)
         let user = PFUser.currentUser()!
@@ -316,10 +362,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         //        self.constraintTopOffset.constant = -size!.height
         //self.constraintBottomOffset.constant = size!.height
         //self.view.layoutIfNeeded()
-        print("current input frame: \(self.currentInput!.frame)")
-        var frame = self.currentInput!.frame
-        frame.origin.y = frame.origin.y + self.scrollView.frame.size.height - 80
-        self.scrollView.scrollRectToVisible(frame, animated: false)
+        if self.currentInput != nil {
+            print("current input frame: \(self.currentInput!.frame)")
+            var frame = self.currentInput!.frame
+            frame.origin.y = frame.origin.y + self.scrollView.frame.size.height - 80
+            self.scrollView.scrollRectToVisible(frame, animated: false)
+        }
     }
     
     func keyboardWillHide(n: NSNotification) {
@@ -394,7 +442,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         return 1
     }
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 9 // MFLGBTQO
+        return 4 // select, MFO
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
