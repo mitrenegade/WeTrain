@@ -127,7 +127,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
     }
     
     func goToTutorials() {
-        let controller: TutorialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TutorialViewController") as! TutorialViewController
+        let controller: TutorialViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("TutorialViewController") as! TutorialViewController
         controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
