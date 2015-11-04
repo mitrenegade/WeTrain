@@ -285,12 +285,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     self.confirmRequestForAddress(addressString, coordinate: address.coordinate)
                 }
                 else {
-                    self.simpleAlert("Invalid location", message: "We could not request a visit; your current location is invalid")
+                    self.simpleAlert("Invalid location", message: "We could not request a session; your current location is invalid")
                 }
             })
         }
         else {
-            self.simpleAlert("Invalid location", message: "We could not request a visit; your current location was invalid")
+            self.simpleAlert("Invalid location", message: "We could not request a session; your current location was invalid")
         }
     }
     
