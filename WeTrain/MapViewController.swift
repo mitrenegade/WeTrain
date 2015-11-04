@@ -31,6 +31,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     @IBOutlet var inputStreet: UITextField!
     @IBOutlet var inputCity: UITextField!
     
+    var inputManualAddress: UITextField?
+    
     // request status
     var requestMarker: GMSMarker?
     
@@ -216,7 +218,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             return
         }
 
-        let address: String = "\(self.inputStreet.text) \(self.inputCity.text)"
+        let prompt = UIAlertController(title: "Enter Address", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        prompt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        prompt.addAction(UIAlertAction(title: "Search", style: .Default, handler: { (action) -> Void in
+            self.searchForAddress()
+        }))
+        prompt.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = "Enter your address here"
+            self.inputManualAddress = textField
+        })
+        self.presentViewController(prompt, animated: true, completion: nil)
+    }
+    
+    func searchForAddress() {
+        if self.inputManualAddress!.text == nil {
+            return
+        }
+        
+        let address: String = self.inputManualAddress!.text!
         print("address: \(address)")
         
         self.view.endEditing(true)
@@ -285,22 +304,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     self.confirmRequestForAddress(addressString, coordinate: address.coordinate)
                 }
                 else {
-                    self.simpleAlert("Invalid location", message: "We could not request a visit; your current location is invalid")
+                    self.simpleAlert("Invalid location", message: "We could not request a session; your current location is invalid")
                 }
             })
         }
         else {
-            self.simpleAlert("Invalid location", message: "We could not request a visit; your current location was invalid")
+            self.simpleAlert("Invalid location", message: "We could not request a session; your current location was invalid")
         }
     }
     
     func confirmRequestForAddress(addressString: String, coordinate: CLLocationCoordinate2D) {
-        let alert: UIAlertController = UIAlertController(title: "Request trainer?", message: "Do you want to schedule a workout session around \(addressString)?", preferredStyle: UIAlertControllerStyle.Alert)
+        var message: String = ""
+        if self.requestedTrainingLength != nil {
+            var coststr = "$17"
+            if self.requestedTrainingLength! == 60 {
+                coststr = "$25"
+            }
+            message = "\(self.requestedTrainingLength!)min / \(coststr)"
+        }
+        if self.requestedTrainingType != nil {
+            let title = TRAINING_TITLES[self.requestedTrainingType!]
+            message = "\(message)\n\(title)"
+        }
+        message = "\(message)\n\(addressString)"
+        
+        let alert: UIAlertController = UIAlertController(title: "Just to confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.view.tintColor = UIColor(red: 94.0/255.0, green: 221.0/255.0, blue: 161.0/255.0, alpha: 1)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Let's Go", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             print("requesting")
             self.initiateTrainingRequest(addressString, coordinate: coordinate)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
         
