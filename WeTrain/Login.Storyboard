@@ -63,13 +63,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" misplaced="YES" image="newLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ftZ-J0-rW4">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="newLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ftZ-J0-rW4">
                                 <rect key="frame" x="16" y="20" width="568" height="155"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="ftZ-J0-rW4" secondAttribute="height" multiplier="9:2" constant="-130.5" id="WgV-zs-4aA"/>
+                                    <constraint firstAttribute="width" secondItem="ftZ-J0-rW4" secondAttribute="height" multiplier="9:2" constant="-129.5" id="WgV-zs-4aA"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hTk-db-u46" userLabel="View - name">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTk-db-u46" userLabel="View - name">
                                 <rect key="frame" x="-1" y="183" width="602" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kxj-tp-d5Y">
@@ -86,7 +86,7 @@
                                     <constraint firstAttribute="height" constant="40" id="Fju-gh-BVk"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MS9-mM-STD" userLabel="View - password">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MS9-mM-STD" userLabel="View - password">
                                 <rect key="frame" x="-1" y="222" width="602" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="981-hP-HSD">
@@ -104,10 +104,10 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0b-rH-MOx">
-                                <rect key="frame" x="0.0" y="517" width="600" height="30"/>
-                                <color key="backgroundColor" red="0.32549019607843138" green="0.8666666666666667" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="270" width="600" height="50"/>
+                                <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="HAa-hK-olO"/>
+                                    <constraint firstAttribute="height" constant="50" id="HAa-hK-olO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Login">
@@ -119,15 +119,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVe-s9-tY1">
-                                <rect key="frame" x="0.0" y="550" width="600" height="30"/>
-                                <color key="backgroundColor" red="0.058823529409999999" green="0.0" blue="0.01176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="328" width="600" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="7QL-s0-EEk"/>
+                                    <constraint firstAttribute="height" constant="50" id="7QL-s0-EEk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Signup">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Don't have an account? Sign up here">
+                                    <color key="titleColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -140,22 +139,22 @@
                             <constraint firstItem="ZVe-s9-tY1" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leading" id="2U4-Mw-iOR"/>
                             <constraint firstItem="ZVe-s9-tY1" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-20" id="3UR-gT-Hic"/>
                             <constraint firstItem="hTk-db-u46" firstAttribute="top" secondItem="ftZ-J0-rW4" secondAttribute="bottom" constant="8" id="EH8-No-qLP"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ftZ-J0-rW4" secondAttribute="trailing" id="Fv0-6J-8Yh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ftZ-J0-rW4" secondAttribute="trailing" constant="-4" id="Fv0-6J-8Yh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZVe-s9-tY1" secondAttribute="trailing" constant="-20" id="HcX-bn-NFQ"/>
                             <constraint firstItem="P0b-rH-MOx" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leading" id="LiR-QM-xi1"/>
                             <constraint firstAttribute="trailing" secondItem="ZVe-s9-tY1" secondAttribute="trailing" id="LyN-Nl-8ST"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hTk-db-u46" secondAttribute="trailing" constant="-17" id="N1D-zi-P0O"/>
-                            <constraint firstItem="MS9-mM-STD" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-17" id="Oe6-iL-G4C"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hTk-db-u46" secondAttribute="trailing" constant="-21" id="N1D-zi-P0O"/>
+                            <constraint firstItem="MS9-mM-STD" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-21" id="Oe6-iL-G4C"/>
                             <constraint firstItem="P0b-rH-MOx" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leading" id="RNW-fD-xs4"/>
                             <constraint firstAttribute="trailing" secondItem="P0b-rH-MOx" secondAttribute="trailing" id="U1c-JH-t58"/>
                             <constraint firstItem="P0b-rH-MOx" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-20" id="W1r-xl-Ohd"/>
-                            <constraint firstItem="ftZ-J0-rW4" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" id="W4w-5A-wSD"/>
+                            <constraint firstItem="ftZ-J0-rW4" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-4" id="W4w-5A-wSD"/>
                             <constraint firstItem="ftZ-J0-rW4" firstAttribute="top" secondItem="H8Y-I2-Sk3" secondAttribute="bottom" id="Wbo-mV-h1H"/>
-                            <constraint firstItem="CBb-dE-iX3" firstAttribute="top" secondItem="ZVe-s9-tY1" secondAttribute="bottom" constant="20" id="a0x-yW-Fkn"/>
                             <constraint firstItem="ZVe-s9-tY1" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leading" id="dWg-WI-1yr"/>
-                            <constraint firstItem="hTk-db-u46" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-17" id="fBh-Ev-wAS"/>
-                            <constraint firstItem="ZVe-s9-tY1" firstAttribute="top" secondItem="P0b-rH-MOx" secondAttribute="bottom" constant="3" id="pnD-YB-2CP"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="MS9-mM-STD" secondAttribute="trailing" constant="-17" id="sse-td-rmN"/>
+                            <constraint firstItem="hTk-db-u46" firstAttribute="leading" secondItem="Jcu-px-vpY" secondAttribute="leadingMargin" constant="-21" id="fBh-Ev-wAS"/>
+                            <constraint firstItem="P0b-rH-MOx" firstAttribute="top" secondItem="MS9-mM-STD" secondAttribute="bottom" constant="8" id="pWp-Sv-5ks"/>
+                            <constraint firstItem="ZVe-s9-tY1" firstAttribute="top" secondItem="P0b-rH-MOx" secondAttribute="bottom" constant="8" id="pnD-YB-2CP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MS9-mM-STD" secondAttribute="trailing" constant="-21" id="sse-td-rmN"/>
                             <constraint firstItem="MS9-mM-STD" firstAttribute="top" secondItem="hTk-db-u46" secondAttribute="bottom" constant="-1" id="vH1-y9-1oq"/>
                         </constraints>
                         <variation key="default">
