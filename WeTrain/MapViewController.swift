@@ -31,6 +31,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     @IBOutlet var inputStreet: UITextField!
     @IBOutlet var inputCity: UITextField!
     
+    var inputManualAddress: UITextField?
+    
     // request status
     var requestMarker: GMSMarker?
     
@@ -216,7 +218,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             return
         }
 
-        let address: String = "\(self.inputStreet.text) \(self.inputCity.text)"
+        let prompt = UIAlertController(title: "Enter Address", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        prompt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+        prompt.addAction(UIAlertAction(title: "Search", style: .Default, handler: { (action) -> Void in
+            self.searchForAddress()
+        }))
+        prompt.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = "Enter your address here"
+            self.inputManualAddress = textField
+        })
+        self.presentViewController(prompt, animated: true, completion: nil)
+    }
+    
+    func searchForAddress() {
+        if self.inputManualAddress!.text == nil {
+            return
+        }
+        
+        let address: String = self.inputManualAddress!.text!
         print("address: \(address)")
         
         self.view.endEditing(true)
