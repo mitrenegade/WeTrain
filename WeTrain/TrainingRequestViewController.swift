@@ -30,6 +30,11 @@ class TrainingRequestViewController: UITableViewController {
         
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+
+        // cell selection background
+        let colorView = UIView()
+        colorView.backgroundColor = UIColor.orangeColor()
+        UITableViewCell.appearance().selectedBackgroundView = colorView
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -70,7 +75,10 @@ class TrainingRequestViewController: UITableViewController {
         labelTitle.text = TRAINING_TITLES[row]
         labelDetails.text = TRAINING_SUBTITLES[row]
         
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        let chevronView: UIImageView = UIImageView(image: UIImage(named: "chevron-right")!)
+        chevronView.frame = CGRectMake(0, 0, 30, 30)
+        chevronView.contentMode = .ScaleAspectFit
+        cell.accessoryView = chevronView // = UITableViewCellAccessoryType.DisclosureIndicator
         return cell
     }
 

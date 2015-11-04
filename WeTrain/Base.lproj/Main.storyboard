@@ -43,7 +43,7 @@
             </objects>
             <point key="canvasLocation" x="45" y="-209"/>
         </scene>
-        <!--Training Length View Controller-->
+        <!--Select Duration-->
         <scene sceneID="ofc-em-DEe">
             <objects>
                 <viewController id="Aca-nO-583" customClass="TrainingLengthViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
@@ -61,9 +61,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4v-2v-oMn">
                                 <rect key="frame" x="27" y="92" width="546" height="303"/>
                                 <subviews>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I1q-nL-1bZ">
+                                        <rect key="frame" x="20" y="20" width="506" height="123"/>
+                                        <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$17 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxz-Va-5Vn">
+                                        <rect key="frame" x="20" y="102" width="506" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="41" id="70j-Rv-b4K"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7O-nW-90o">
                                         <rect key="frame" x="20" y="20" width="506" height="123"/>
-                                        <color key="backgroundColor" red="0.68627450980000004" green="0.90980392160000001" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="123" id="pPn-Lw-9Oq"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="123" id="rCT-eU-Yz3"/>
@@ -76,10 +89,14 @@
                                             <segue destination="kMn-tD-FMD" kind="show" identifier="GoToTrainingRequest" id="wKi-zk-aub"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$17 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxz-Va-5Vn">
-                                        <rect key="frame" x="20" y="102" width="506" height="41"/>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ea5-xf-EEf">
+                                        <rect key="frame" x="20" y="160" width="506" height="123"/>
+                                        <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$25 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVt-Vl-Doc">
+                                        <rect key="frame" x="20" y="242" width="506" height="41"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="41" id="70j-Rv-b4K"/>
+                                            <constraint firstAttribute="height" constant="41" id="eHC-Ec-edE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -87,7 +104,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uun-fo-REH">
                                         <rect key="frame" x="20" y="160" width="506" height="123"/>
-                                        <color key="backgroundColor" red="0.68627450980000004" green="0.90980392160000001" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="123" id="J3x-UX-CXR"/>
                                             <constraint firstAttribute="height" constant="123" id="qw6-1t-ZNJ"/>
@@ -100,27 +117,26 @@
                                             <segue destination="kMn-tD-FMD" kind="show" identifier="GoToTrainingRequest" id="mox-WL-qYw"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$22 per session" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVt-Vl-Doc">
-                                        <rect key="frame" x="20" y="242" width="506" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="41" id="eHC-Ec-edE"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="q7O-nW-90o" firstAttribute="top" secondItem="I1q-nL-1bZ" secondAttribute="top" id="3zt-5L-sLZ"/>
+                                    <constraint firstItem="q7O-nW-90o" firstAttribute="leading" secondItem="I1q-nL-1bZ" secondAttribute="leading" id="Dfw-Nm-WTw"/>
                                     <constraint firstItem="pVt-Vl-Doc" firstAttribute="bottom" secondItem="Uun-fo-REH" secondAttribute="bottom" id="Ghj-wQ-F7T"/>
                                     <constraint firstAttribute="trailing" secondItem="q7O-nW-90o" secondAttribute="trailing" constant="20" id="IeX-Nn-vPW"/>
+                                    <constraint firstItem="Uun-fo-REH" firstAttribute="trailing" secondItem="ea5-xf-EEf" secondAttribute="trailing" id="JDy-69-cEu"/>
                                     <constraint firstItem="dxz-Va-5Vn" firstAttribute="trailing" secondItem="q7O-nW-90o" secondAttribute="trailing" id="Jtu-jC-Tzz"/>
+                                    <constraint firstItem="q7O-nW-90o" firstAttribute="bottom" secondItem="I1q-nL-1bZ" secondAttribute="bottom" id="N0P-tC-XU2"/>
                                     <constraint firstItem="Uun-fo-REH" firstAttribute="leading" secondItem="x4v-2v-oMn" secondAttribute="leading" constant="20" id="Ni1-bq-wzE"/>
                                     <constraint firstAttribute="bottom" secondItem="Uun-fo-REH" secondAttribute="bottom" constant="20" id="RFK-mS-Ndx"/>
+                                    <constraint firstItem="Uun-fo-REH" firstAttribute="top" secondItem="ea5-xf-EEf" secondAttribute="top" id="RdF-Ul-LWb"/>
                                     <constraint firstItem="q7O-nW-90o" firstAttribute="leading" secondItem="x4v-2v-oMn" secondAttribute="leading" constant="20" id="UYM-oM-Tcn"/>
+                                    <constraint firstItem="q7O-nW-90o" firstAttribute="trailing" secondItem="I1q-nL-1bZ" secondAttribute="trailing" id="Wq0-C7-XaG"/>
+                                    <constraint firstItem="Uun-fo-REH" firstAttribute="leading" secondItem="ea5-xf-EEf" secondAttribute="leading" id="ZP7-Dy-ZsE"/>
                                     <constraint firstItem="pVt-Vl-Doc" firstAttribute="trailing" secondItem="Uun-fo-REH" secondAttribute="trailing" id="a6l-4e-qE3"/>
                                     <constraint firstItem="pVt-Vl-Doc" firstAttribute="leading" secondItem="Uun-fo-REH" secondAttribute="leading" id="bF0-gz-V5S"/>
                                     <constraint firstItem="Uun-fo-REH" firstAttribute="top" secondItem="dxz-Va-5Vn" secondAttribute="bottom" constant="17" id="bXk-V3-G84"/>
+                                    <constraint firstItem="Uun-fo-REH" firstAttribute="bottom" secondItem="ea5-xf-EEf" secondAttribute="bottom" id="dnc-EF-mPt"/>
                                     <constraint firstItem="dxz-Va-5Vn" firstAttribute="leading" secondItem="q7O-nW-90o" secondAttribute="leading" id="icg-jw-OzU"/>
                                     <constraint firstItem="dxz-Va-5Vn" firstAttribute="bottom" secondItem="q7O-nW-90o" secondAttribute="bottom" id="kId-2u-tuT"/>
                                     <constraint firstAttribute="trailing" secondItem="Uun-fo-REH" secondAttribute="trailing" constant="20" id="mK7-NF-iJW"/>
@@ -142,7 +158,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="pga-Mz-WXw"/>
+                    <navigationItem key="navigationItem" title="Select Duration" id="pga-Mz-WXw"/>
                     <connections>
                         <outlet property="button30" destination="q7O-nW-90o" id="1i0-E3-jSk"/>
                         <outlet property="button60" destination="Uun-fo-REH" id="tRV-Or-8db"/>
@@ -153,7 +169,7 @@
             </objects>
             <point key="canvasLocation" x="711" y="-214"/>
         </scene>
-        <!--Select Workout-->
+        <!--Select Workout Type-->
         <scene sceneID="dHw-ha-Lce">
             <objects>
                 <tableViewController id="kMn-tD-FMD" customClass="TrainingRequestViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
@@ -163,7 +179,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" red="0.68627450980000004" green="0.90980392160000001" blue="0.85490196080000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TrainingRequestCell" rowHeight="80" id="57l-Dt-K6x" userLabel="TrainingRequestCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="TrainingRequestCell" rowHeight="80" id="57l-Dt-K6x" userLabel="TrainingRequestCell">
                                 <rect key="frame" x="0.0" y="22" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="57l-Dt-K6x" id="zMY-b9-eOZ">
@@ -217,7 +233,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Select Workout" id="chG-rN-L39"/>
+                    <navigationItem key="navigationItem" title="Select Workout Type" id="chG-rN-L39"/>
                     <connections>
                         <segue destination="pEL-eK-Myt" kind="presentation" identifier="GoToMap" id="lGz-a4-ui5"/>
                     </connections>
@@ -720,7 +736,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" id="gnu-Jp-UmR"/>
+                    <navigationItem key="navigationItem" title="Select Workout Location" id="gnu-Jp-UmR"/>
                     <connections>
                         <outlet property="buttonRequest" destination="qls-ee-X6Z" id="z8q-wc-iJh"/>
                         <outlet property="iconLocation" destination="Ur2-dI-fzM" id="xo1-eM-L3J"/>
@@ -963,7 +979,7 @@
         <image name="weTrainBG" width="551" height="666"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FtZ-cv-haA"/>
         <segue reference="mox-WL-qYw"/>
+        <segue reference="2Z9-Bv-jjW"/>
     </inferredMetricsTieBreakers>
 </document>
