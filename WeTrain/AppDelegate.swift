@@ -185,6 +185,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func promptToCompleteSignup() {
         let alert: UIAlertController = UIAlertController(title: "Complete signup", message: "You have not finished creating your account. Would you like to do that now?", preferredStyle: .Alert)
+        alert.view.tintColor = UIColor.blackColor()
         alert.addAction(UIAlertAction(title: "Setup account", style: .Default, handler: { (action) -> Void in
             self.goToUserProfile()
         }))

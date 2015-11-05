@@ -237,6 +237,7 @@ class RequestStatusViewController: UIViewController {
     
     func promptForCancel() {
         let alert = UIAlertController(title: "Cancel request?", message: "Are you sure you want to cancel your training request?", preferredStyle: .Alert)
+        alert.view.tintColor = UIColor.blackColor()
         alert.addAction(UIAlertAction(title: "Cancel training", style: .Cancel, handler: { (action) -> Void in
             if self.currentRequest != nil {
                 self.currentRequest!.setObject(RequestState.Cancelled.rawValue, forKey: "status")

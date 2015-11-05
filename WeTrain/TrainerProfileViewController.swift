@@ -133,6 +133,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             }
             
             let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            alert.view.tintColor = UIColor.blackColor()
             alert.addAction(UIAlertAction(title: "End session", style: .Default, handler: { (action) -> Void in
                 self.request!.setObject(RequestState.Complete.rawValue, forKey: "status")
                 self.request!.setObject(NSDate() , forKey: "end")
@@ -157,6 +158,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
         }
         if (MFMessageComposeViewController.canSendText() == true) {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            alert.view.tintColor = UIColor.blackColor()
             alert.addAction(UIAlertAction(title: "Call \(name)", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 self.call(phone)
             }))

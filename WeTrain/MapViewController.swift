@@ -100,6 +100,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func warnForLocationPermission() {
         let message: String = "WeTrain needs GPS access to find trainers near you. Please go to your phone settings to enable location access. Go there now?"
         let alert: UIAlertController = UIAlertController(title: "Could not access location", message: message, preferredStyle: .Alert)
+        alert.view.tintColor = UIColor.blackColor()
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
             UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
@@ -334,7 +335,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         message = "\(message)\n\(addressString)"
         
         let alert: UIAlertController = UIAlertController(title: "Just to confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.view.tintColor = UIColor(red: 94.0/255.0, green: 221.0/255.0, blue: 161.0/255.0, alpha: 1)
+        alert.view.tintColor = UIColor.blackColor()
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Let's Go", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             print("requesting")
