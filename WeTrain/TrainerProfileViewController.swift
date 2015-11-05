@@ -123,9 +123,11 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
     }
     
     func promptForCancel() {
-        let title = "End session?"
+        var title = "End session?"
+        var buttonTitle = "End session"
         var message = "You seem to be in a training session. Do you want to end it?"
         let status: String = self.request!.objectForKey("status") as! String
+        var newStatus: String = RequestState.Complete.rawValue
         if status == RequestState.Training.rawValue {
             if let start = self.request!.objectForKey("start") as? NSDate {
                 if let _ = self.request!.objectForKey("end") as? NSDate {
@@ -144,24 +146,28 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
         }
         else if status == RequestState.Matched.rawValue {
             // matched, but not started yet
-            message = "Your session hasn't started yet. Do you want to end the search?"
+            title = "Cancel session?"
+            buttonTitle = "Cancel session"
+            message = "Your session hasn't started yet. Do you want to cancel the session?"
+            newStatus = RequestState.Cancelled.rawValue
         }
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         alert.view.tintColor = UIColor.blackColor()
-        alert.addAction(UIAlertAction(title: "End session", style: .Default, handler: { (action) -> Void in
-            self.request!.setObject(RequestState.Complete.rawValue, forKey: "status")
+        alert.addAction(UIAlertAction(title: buttonTitle, style: .Default, handler: { (action) -> Void in
+            self.request!.setObject(newStatus, forKey: "status")
             self.request!.setObject(NSDate() , forKey: "end")
             self.request!.saveInBackgroundWithBlock({ (success, error) -> Void in
                 self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
             })
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+        // give option to contact instead
         if status == RequestState.Matched.rawValue {
             alert.addAction(UIAlertAction(title: "Contact Trainer", style: .Default, handler: { (action) -> Void in
                 self.contact()
             }))
         }
+        alert.addAction(UIAlertAction(title: "Go Back", style: .Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     

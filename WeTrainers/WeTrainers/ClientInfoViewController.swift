@@ -43,8 +43,9 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     var client: PFObject?
     var status: String = "loading"
     
-    var timer: NSTimer?
-
+    var timerClock: NSTimer?
+    var timerStatus: NSTimer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.photoView.layer.borderWidth = 1
@@ -94,6 +95,11 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                     self.iconExercise.image = nil
                 }
                 
+                if self.timerStatus == nil {
+                    self.timerStatus = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateRequestState", userInfo: nil, repeats: true)
+                    self.timerStatus?.fire()
+                }
+
                 self.status = self.request.objectForKey("status") as! String
                 self.updateState()
             })
@@ -144,8 +150,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 else {
                     info = "Time elapsed: \(timeString)"
 
-                    if self.timer == nil {
-                        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "tick", userInfo: nil, repeats: true)
+                    if self.timerClock == nil {
+                        self.timerClock = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "tick", userInfo: nil, repeats: true)
                     }
                 }
             }
@@ -169,6 +175,29 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             }
             info = "Training Requested: \(ago)"
         }
+        else if self.status == RequestState.Cancelled.rawValue {
+            if let end = request.objectForKey("end") as? NSDate {
+                var ago: String = ""
+                var minElapsed:Int = Int(NSDate().timeIntervalSinceDate(end) / 60)
+                let hourElapsed:Int = Int(minElapsed / 60)
+                minElapsed = Int(minElapsed) - Int(hourElapsed * 60)
+                if minElapsed < 0 {
+                    minElapsed = 0
+                }
+                if hourElapsed > 0 {
+                    ago = "\(hourElapsed)h"
+                }
+                else {
+                    ago = ""
+                }
+                ago = "\(ago)\(minElapsed)m ago"
+                info = "The training session was cancelled by the client \(ago)"
+            }
+            else {
+                info = "The training session was cancelled by the client."
+            }
+        }
+        
         if gender != nil {
             info = "\(info)\n\nGender: \(gender!)"
         }
@@ -228,9 +257,25 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             self.buttonAction.enabled = true
             self.constraintButtonContactHeight.constant = 0
         }
+        else if self.status == RequestState.Cancelled.rawValue {
+            // client cancelled while in Matched state
+            self.constraintPasscodeHeight.constant = 0
+            self.buttonAction.setTitle("Close", forState: .Normal)
+            self.buttonAction.enabled = true
+            self.constraintButtonContactHeight.constant = 40
+        }
         
         self.updateLabelInfo()
     }
+    
+    func updateRequestState() {
+        self.request!.fetchInBackgroundWithBlock({ (object, error) -> Void in
+            self.status = self.request.objectForKey("status") as! String
+            self.updateState()
+        })
+    }
+    
+
     @IBAction func didClickButton(sender: UIButton) {
         if sender == self.buttonContact {
             self.contact()
@@ -251,7 +296,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                     })
                 }
             }
-            else if self.status == RequestState.Complete.rawValue {
+            else if self.status == RequestState.Complete.rawValue || self.status == RequestState.Cancelled.rawValue {
                 self.close()
             }
             else {
@@ -360,8 +405,11 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             if let _ = self.request.objectForKey("end") as? NSDate {
                 // if workout has ended but somehow we still have a timer, just end it
                 self.updateState()
-                self.timer?.invalidate()
-                self.timer = nil
+                self.timerClock?.invalidate()
+                self.timerClock = nil
+                
+                self.timerStatus?.invalidate()
+                self.timerStatus = nil
                 return
             }
             
@@ -375,6 +423,15 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     }
     
     func endWorkout() {
+        if self.timerClock != nil {
+            self.timerClock?.invalidate()
+            self.timerClock = nil
+        }
+        if self.timerStatus != nil {
+            self.timerStatus?.invalidate()
+            self.timerStatus = nil
+        }
+        
         self.request.setObject(RequestState.Complete.rawValue, forKey: "status")
         self.request.setObject(NSDate(), forKey: "end")
         self.trainer.removeObjectForKey("workout")
