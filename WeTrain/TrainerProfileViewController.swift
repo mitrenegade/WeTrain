@@ -40,8 +40,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
         self.viewInfo.layer.borderColor = UIColor(red: 112/255.0, green: 150/255.0, blue: 67/255.0, alpha: 1).CGColor
         self.viewInfo.layer.cornerRadius = 5
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Done, target: self, action: "close")
-        self.navigationItem.leftBarButtonItem?.enabled = false
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Done, target: self, action: "promptForCancel")
         
         trainer?.fetchInBackgroundWithBlock({ (object, error) -> Void in
             self.updateTrainerInfo()
@@ -112,15 +111,26 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             self.contact()
         }
         else if status == RequestState.Complete.rawValue {
-            self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+            self.close()
         }
         else if status == RequestState.Training.rawValue {
-            let title = "End session?"
-            var message = "You seem to be in a training session. Do you want to end it?"
+            self.promptForCancel()
+        }
+    }
+    
+    func close() {
+        self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func promptForCancel() {
+        let title = "End session?"
+        var message = "You seem to be in a training session. Do you want to end it?"
+        let status: String = self.request!.objectForKey("status") as! String
+        if status == RequestState.Training.rawValue {
             if let start = self.request!.objectForKey("start") as? NSDate {
                 if let _ = self.request!.objectForKey("end") as? NSDate {
                     // if workout has ended but somehow we still have a timer, just end it
-                    self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+                    self.close()
                     return
                 }
                 
@@ -131,19 +141,28 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
                     message = "You seem to be in a training session that may have already ended. Do you want to close this session?"
                 }
             }
-            
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            alert.view.tintColor = UIColor.blackColor()
-            alert.addAction(UIAlertAction(title: "End session", style: .Default, handler: { (action) -> Void in
-                self.request!.setObject(RequestState.Complete.rawValue, forKey: "status")
-                self.request!.setObject(NSDate() , forKey: "end")
-                self.request!.saveInBackgroundWithBlock({ (success, error) -> Void in
-                    self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
-                })
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
         }
+        else if status == RequestState.Matched.rawValue {
+            // matched, but not started yet
+            message = "Your session hasn't started yet. Do you want to end the search?"
+        }
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.view.tintColor = UIColor.blackColor()
+        alert.addAction(UIAlertAction(title: "End session", style: .Default, handler: { (action) -> Void in
+            self.request!.setObject(RequestState.Complete.rawValue, forKey: "status")
+            self.request!.setObject(NSDate() , forKey: "end")
+            self.request!.saveInBackgroundWithBlock({ (success, error) -> Void in
+                self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+        if status == RequestState.Matched.rawValue {
+            alert.addAction(UIAlertAction(title: "Contact Trainer", style: .Default, handler: { (action) -> Void in
+                self.contact()
+            }))
+        }
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func contact() {
@@ -215,7 +234,8 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
         else if status == RequestState.Complete.rawValue {
             self.buttonMeet.setTitle("Workout Complete", forState: .Normal)
             self.buttonMeet.enabled = true
-            
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")
+           
             if self.timer != nil {
                 self.timer?.invalidate()
                 self.timer = nil
