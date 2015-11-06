@@ -126,6 +126,10 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         let length = self.request.objectForKey("length") as? Int
         
         self.labelExercise.text = "Exercise: \(exercise!)"
+        let index = TRAINING_TITLES.indexOf(exercise!)
+        if index != nil {
+            self.labelExercise.text = "\(self.labelExercise.text) (\(TRAINING_SUBTITLES[index!]))"
+        }
         
         var info: String = ""
         if length != nil {
@@ -210,6 +214,12 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             info = "\(info)\nInjuries: \(injuries!)"
         }
         
+        if self.status == RequestState.Matched.rawValue || self.status == RequestState.Searching.rawValue {
+            if let address: String = request.objectForKey("address") as? String {
+                info = "\(info)\n\nLocation: \n\(address)"
+            }
+    }
+    
         self.labelInfo.text = info
         let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20))
         self.constraintLabelInfoHeight!.constant = size.height
