@@ -235,7 +235,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Select Workout Type" id="chG-rN-L39"/>
                     <connections>
-                        <segue destination="pEL-eK-Myt" kind="presentation" identifier="GoToMap" id="lGz-a4-ui5"/>
+                        <segue destination="vMU-jC-vAT" kind="show" identifier="GoToMap" id="rh2-Sc-YUN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rve-0s-Wm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -608,23 +608,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5G2-JB-Pwm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1934" y="-805"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="dEn-kl-ewR">
-            <objects>
-                <navigationController id="pEL-eK-Myt" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GLO-il-QSm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="vMU-jC-vAT" kind="relationship" relationship="rootViewController" id="dmj-vp-SHl"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hzM-t2-S0a" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2097" y="-214"/>
+            <point key="canvasLocation" x="2028" y="-932"/>
         </scene>
         <!--Map-->
         <scene sceneID="wV2-SZ-zgQ">
@@ -635,11 +619,11 @@
                         <viewControllerLayoutGuide type="bottom" id="SgZ-b9-HbK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="KXf-9E-Po8">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qxs-j6-BaT" customClass="GMSMapView">
-                                <rect key="frame" x="4" y="0.0" width="592" height="367"/>
+                                <rect key="frame" x="4" y="0.0" width="592" height="318"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="iconLocation" translatesAutoresizingMaskIntoConstraints="NO" id="Ur2-dI-fzM">
                                         <rect key="frame" x="283" y="162" width="26" height="26"/>
@@ -655,7 +639,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rz8-Ed-b4l">
-                                <rect key="frame" x="4" y="368" width="592" height="160"/>
+                                <rect key="frame" x="4" y="319" width="592" height="160"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State or Zip" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FPW-So-GaS">
                                         <rect key="frame" x="8" y="46" width="576" height="30"/>
@@ -752,7 +736,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5h-ee-x57" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2816" y="-209"/>
+            <point key="canvasLocation" x="2104" y="-184"/>
         </scene>
         <!--Trainer Profile View Controller-->
         <scene sceneID="YtA-Lk-sRN">
@@ -782,7 +766,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8t-2S-xP0">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B8t-2S-xP0">
                                 <rect key="frame" x="16" y="255" width="568" height="273"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85W-j6-3pP">
@@ -849,7 +833,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uD7-bO-ERn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4320" y="-913"/>
+            <point key="canvasLocation" x="3579" y="-573"/>
         </scene>
         <!--Request Status View Controller-->
         <scene sceneID="1Sx-G5-gKh">
@@ -863,10 +847,10 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="runnerBG" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-RV-TFg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="runnerBG" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-RV-TFg">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtO-bC-XdS">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qtO-bC-XdS">
                                 <rect key="frame" x="40" y="40" width="520" height="450"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-ep-hzq">
@@ -889,7 +873,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bty-7b-NE3">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bty-7b-NE3">
                                         <rect key="frame" x="8" y="334" width="504" height="50"/>
                                         <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -903,7 +887,7 @@
                                             <action selector="didClickButton:" destination="sRQ-uT-cb9" eventType="touchUpInside" id="079-wU-myN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2y-bD-uuA">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2y-bD-uuA">
                                         <rect key="frame" x="8" y="392" width="504" height="50"/>
                                         <color key="backgroundColor" red="0.058823529409999999" green="0.0" blue="0.01176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -917,7 +901,7 @@
                                             <action selector="didClickButton:" destination="sRQ-uT-cb9" eventType="touchUpInside" id="xuu-Z7-UqY"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTv-ie-5hJ" customClass="ProgressView" customModule="WeTrain" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PTv-ie-5hJ" customClass="ProgressView" customModule="WeTrain" customModuleProvider="target">
                                         <rect key="frame" x="8" y="186" width="504" height="140"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -970,7 +954,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VxP-fR-eek" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3623" y="-621"/>
+            <point key="canvasLocation" x="2850" y="-543"/>
         </scene>
     </scenes>
     <resources>
@@ -983,6 +967,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mox-WL-qYw"/>
-        <segue reference="2Z9-Bv-jjW"/>
+        <segue reference="FtZ-cv-haA"/>
     </inferredMetricsTieBreakers>
 </document>
