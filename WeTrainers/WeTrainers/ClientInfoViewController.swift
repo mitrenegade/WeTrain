@@ -128,7 +128,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         self.labelExercise.text = "Exercise: \(exercise!)"
         let index = TRAINING_TITLES.indexOf(exercise!)
         if index != nil {
-            self.labelExercise.text = "\(self.labelExercise.text) (\(TRAINING_SUBTITLES[index!]))"
+            self.labelExercise.text = "\(self.labelExercise.text!) (\(TRAINING_SUBTITLES[index!]))"
         }
         
         var info: String = ""
