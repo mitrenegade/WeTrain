@@ -43,7 +43,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     }
     
     func close() {
-        self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+        let controller: LoginViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        self.appDelegate().window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.appDelegate().window!.rootViewController!.presentViewController(controller, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {

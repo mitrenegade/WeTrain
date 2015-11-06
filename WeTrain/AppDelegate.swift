@@ -165,7 +165,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         if object != nil {
                             if client.objectForKey("firstName") != nil && client.objectForKey("email") != nil && client.objectForKey("phone") != nil {
                                 let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainTabController") as UIViewController?
-                                self.window!.rootViewController = controller
+                                self.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+                                self.window!.rootViewController?.presentViewController(controller!, animated: true, completion: nil)
                             }
                             else {
                                 self.promptToCompleteSignup()
@@ -197,14 +198,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func goToLogin() {
         let controller: LoginViewController  = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        self.window!.rootViewController = controller
+        self.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.window!.rootViewController?.presentViewController(controller, animated: true, completion: nil)
     }
     
     func goToUserProfile() {
         let controller: UserInfoViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("UserInfoViewController") as! UserInfoViewController
         controller.isSignup = true
         let nav: UINavigationController = UINavigationController(rootViewController: controller)
-        self.window!.rootViewController = nav
+        self.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.window!.rootViewController?.presentViewController(nav, animated: true, completion: nil)
         let frame = controller.view.frame
         controller.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: "logout")
     }

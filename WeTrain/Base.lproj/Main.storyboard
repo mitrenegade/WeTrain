@@ -15,7 +15,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="z5a-e5-ZF7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="wnW-JE-HV2" kind="relationship" relationship="viewControllers" id="E1e-lr-P4Y"/>
@@ -773,7 +773,7 @@
                                     <constraint firstAttribute="width" secondItem="HDq-mK-ZWI" secondAttribute="height" multiplier="1:1" id="b0X-9M-rBW"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Meet your Trainer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7r-pv-MK3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meet your Trainer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7r-pv-MK3">
                                 <rect key="frame" x="12" y="148" width="576" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="LLc-uZ-oxV"/>
@@ -802,7 +802,7 @@
                                     <constraint firstItem="85W-j6-3pP" firstAttribute="top" secondItem="B8t-2S-xP0" secondAttribute="top" constant="23" id="toM-NA-S7e"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLz-XP-zfb">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLz-XP-zfb">
                                 <rect key="frame" x="12" y="207" width="576" height="40"/>
                                 <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -822,15 +822,15 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="B8t-2S-xP0" secondAttribute="trailing" constant="16" id="74w-kl-Vln"/>
                             <constraint firstItem="F7r-pv-MK3" firstAttribute="top" secondItem="HDq-mK-ZWI" secondAttribute="bottom" constant="8" id="AlH-v3-ha8"/>
-                            <constraint firstItem="CLz-XP-zfb" firstAttribute="trailing" secondItem="O2g-Bs-KtS" secondAttribute="trailingMargin" constant="4" id="Co5-if-AcP"/>
-                            <constraint firstItem="CLz-XP-zfb" firstAttribute="leading" secondItem="O2g-Bs-KtS" secondAttribute="leadingMargin" constant="-4" id="DW6-uU-6aE"/>
-                            <constraint firstItem="F7r-pv-MK3" firstAttribute="trailing" secondItem="O2g-Bs-KtS" secondAttribute="trailingMargin" constant="4" id="HG2-n2-3CF"/>
+                            <constraint firstItem="CLz-XP-zfb" firstAttribute="trailing" secondItem="O2g-Bs-KtS" secondAttribute="trailingMargin" constant="8" id="Co5-if-AcP"/>
+                            <constraint firstItem="CLz-XP-zfb" firstAttribute="leading" secondItem="O2g-Bs-KtS" secondAttribute="leadingMargin" constant="-8" id="DW6-uU-6aE"/>
+                            <constraint firstItem="F7r-pv-MK3" firstAttribute="trailing" secondItem="O2g-Bs-KtS" secondAttribute="trailingMargin" constant="8" id="HG2-n2-3CF"/>
                             <constraint firstItem="CLz-XP-zfb" firstAttribute="top" secondItem="F7r-pv-MK3" secondAttribute="bottom" constant="8" id="HcX-Y3-cfY"/>
                             <constraint firstAttribute="centerX" secondItem="F7r-pv-MK3" secondAttribute="centerX" id="VPa-XX-KHt"/>
                             <constraint firstItem="HDq-mK-ZWI" firstAttribute="top" secondItem="Aon-da-1jN" secondAttribute="bottom" constant="20" id="f2E-wc-U4K"/>
                             <constraint firstItem="B8t-2S-xP0" firstAttribute="top" secondItem="CLz-XP-zfb" secondAttribute="bottom" constant="8" id="fXF-bG-CT0"/>
                             <constraint firstItem="B8t-2S-xP0" firstAttribute="leading" secondItem="O2g-Bs-KtS" secondAttribute="leading" constant="16" id="hKx-oM-4iB"/>
-                            <constraint firstItem="F7r-pv-MK3" firstAttribute="leading" secondItem="O2g-Bs-KtS" secondAttribute="leadingMargin" constant="-4" id="htw-gI-gcO"/>
+                            <constraint firstItem="F7r-pv-MK3" firstAttribute="leading" secondItem="O2g-Bs-KtS" secondAttribute="leadingMargin" constant="-8" id="htw-gI-gcO"/>
                             <constraint firstAttribute="centerX" secondItem="HDq-mK-ZWI" secondAttribute="centerX" id="rLI-Xi-5oj"/>
                             <constraint firstAttribute="centerX" secondItem="CLz-XP-zfb" secondAttribute="centerX" id="srl-ub-xfs"/>
                             <constraint firstItem="VAu-aT-buD" firstAttribute="top" secondItem="B8t-2S-xP0" secondAttribute="bottom" constant="8" id="yOA-hj-fEW"/>

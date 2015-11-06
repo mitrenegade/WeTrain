@@ -539,6 +539,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     }
     
     func didCloseTutorial() {
-        self.appDelegate().didLogin()
+        self.navigationController!.dismissViewControllerAnimated(true) { () -> Void in
+            self.appDelegate().didLogin()
+        }
     }
 }

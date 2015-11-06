@@ -85,8 +85,20 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             infoText = "About \(firstName!): \n\n\(bio)\n\n"
         }
         
-        let passcode: String = self.request!.objectForKey("passcode") as! String
-        infoText = "\(infoText)Tell your trainer the passcode for today's workout:\n\(passcode.uppercaseString)"
+        let status: String = self.request!.objectForKey("status") as! String
+        if status == RequestState.Cancelled.rawValue {
+            if firstName != nil {
+                infoText = "\(firstName!) cancelled the workout."
+            }
+            else {
+                infoText = "Your trainer cancelled the workout."
+            }
+        }
+        if status == RequestState.Matched.rawValue {
+            let passcode: String = self.request!.objectForKey("passcode") as! String
+            infoText = "\(infoText)Tell your trainer the passcode for today's workout:\n\(passcode.uppercaseString)"
+            
+        }
         self.labelInfo.text = infoText
 /*
         let attributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 16)!])
@@ -115,6 +127,9 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
         }
         else if status == RequestState.Training.rawValue {
             self.promptForCancel()
+        }
+        else if status == RequestState.Cancelled.rawValue {
+            self.contact()
         }
     }
     
@@ -158,7 +173,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             self.request!.setObject(newStatus, forKey: "status")
             self.request!.setObject(NSDate() , forKey: "end")
             self.request!.saveInBackgroundWithBlock({ (success, error) -> Void in
-                self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+                self.close()
             })
         }))
         // give option to contact instead
@@ -247,6 +262,20 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
                 self.timer = nil
             }
         }
+        else if status == RequestState.Cancelled.rawValue {
+            // trainer cancelled
+            let firstName = self.trainer!.objectForKey("firstName") as! String
+            self.buttonMeet.setTitle("Contact \(firstName)", forState: .Normal)
+            self.buttonMeet.enabled = true
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")
+            
+            if self.timer != nil {
+                self.timer?.invalidate()
+                self.timer = nil
+            }
+        }
+        
+        self.updateTrainerInfo()
     }
     /*
     // MARK: - Navigation

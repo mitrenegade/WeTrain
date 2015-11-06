@@ -494,7 +494,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             self.request!.setObject(newStatus, forKey: "status")
             self.request!.setObject(NSDate() , forKey: "end")
             self.request!.saveInBackgroundWithBlock({ (success, error) -> Void in
-                self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+                self.close()
             })
         }))
         // give option to contact instead
