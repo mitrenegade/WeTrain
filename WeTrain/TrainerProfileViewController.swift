@@ -134,7 +134,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
     }
     
     func close() {
-        self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController!.popToRootViewControllerAnimated(true)
     }
     
     func promptForCancel() {
