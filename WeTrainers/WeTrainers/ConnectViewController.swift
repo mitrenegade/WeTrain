@@ -417,7 +417,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first as CLLocation? {
-            locationManager.stopUpdatingLocation()
+            print("\(location)")
             self.currentLocation = location
             self.tableView.reloadData()
         }
