@@ -220,7 +220,8 @@ Parse.Cloud.define("startWorkout", function(request, response) {
             workoutObject.save().then(function(workoutObject) {
                 console.log("workout started: status " + workoutObject.get("status"))
 
-                createPaymentForWorkout(request, response, workoutObject)
+                response.success(workoutObject)
+                createPaymentForWorkout(workoutObject)
             });
         },
         error: function(error) {
@@ -231,25 +232,41 @@ Parse.Cloud.define("startWorkout", function(request, response) {
 })
 
 var Payment = Parse.Object.extend('Payment');
-var createPaymentForWorkout = function(request, response, workoutObject) {
+var createPaymentForWorkout = function(workoutObject) {
     var clientObject = workoutObject.get("client")
-    console.log("inside create payment for workout: " + workoutObject + " id: " + workoutObject.id + "client: " + clientObject + " id: " + clientObject.id)
+    console.log("inside create payment for workout: " + workoutObject + " id: " + workoutObject.id + " client: " + clientObject + " id: " + clientObject.id + " token " + clientObject.get("stripeToken") + " last4 " + clientObject.get("lastFour"))
 
     var existingPayment = workoutObject.get("payment")
-    if (existingPayment == undefined) {
+//    if (existingPayment == undefined) {
         console.log("No payment exists")
         var payment = new Payment()
         payment.set("client", clientObject)
         payment.set("workout", workoutObject)
-        payment.set("amount", 1.00)
+        payment.set("amount", 2.00)
+
+        // todo: client needs to be fetched
         var token = clientObject.get("stripeToken")
         console.log("found token: " + token)
-        payment.set("stripeToken", token)
+//        payment.set("stripeToken", token)
+
         payment.set("charged", false)
 
-        console.log("saving payment")
-        payment.save().then(function(payment, response) {
-            console.log("payment saved")
+        console.log("saving payment...")
+        // uses promises
+
+        // WIP: then does not get called; payments don't get saved and callbacks can't be called
+        // is it because of timestamp? use a new workout
+        payment.save().then(
+            function(payment) {
+                console.log("payment saved with id " + payment.id)
+            }, 
+            function(error) {
+                console.log("payment failed to save " + error)
+            }
+        )
+        /*
+        payment.save().then(function(payment) {
+            console.log("payment saved with id " + payment.id)
 
             // add payment to workout object
             console.log("saving payment to workout")
@@ -258,32 +275,23 @@ var createPaymentForWorkout = function(request, response, workoutObject) {
             // add payment to trainer object
             var trainerObject = workoutObject.get("trainer")
             var trainerQuery = new Parse.Query("Trainer");
-            trainerQuery.get(trainerObject.id, {
-                success: function(trainer) {
-                    console.log("saving payment to trainer: " + trainer + " id: " + trainer.id)
-                    payment.set("trainer", trainer)
-                    Parse.Object.saveAll([payment, workoutObject], {
-                        success: function(object) {
-                            console.log("HEREHEREHERE")
-                            response.success(workoutObject)
-                        },
-                        error: function(error) {
-                            response.error(error)
-                        }
-                    })
-                }
-                ,
-                error : function(error) {
-                    console.error("could not save trainer to payment" + error);
-                    response.success(payment)
-                }
-            });
+            trainerQuery.get(trainerObject.id)
+        })
+        .then(function(trainer) {
+            console.log("saving payment to trainer: " + trainer + " id: " + trainer.id)
+            payment.set("trainer", trainer)
+            payment.save()
+            workoutObject.save()
+            console.log("createPaymentForWorkout successfully saved trainer and workout with new payment")
+        }, function(error) {
+            console.log("could not save payment")
         });
-}
-else {
-    console.log("payment already exists... ")
-    console.log("was charged: " + existingPayment.get("amount"))
-}
+        */
+//    }
+//    else {
+//        console.log("payment already exists... ")
+//        console.log("was charged: " + existingPayment.get("amount"))
+//    }
 }
 
 var chargeCard = function(request, response, payment) {
