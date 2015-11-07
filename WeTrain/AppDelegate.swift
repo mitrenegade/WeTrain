@@ -14,24 +14,20 @@ import Fabric
 import Crashlytics
 import GoogleMaps
 
-let GOOGLE_API_APP_KEY = "AIzaSyA7aDRZVW3-ruvbeB25tzJF5WKr0FjyRac"
-let STRIPE_PUBLISHABLE_KEY = "pk_test_xG5SMQiERYrdgLdukSEnH46E"
-// TODO: switch to this when published
-//let STRIPE_PUBLISHABLE_KEY = "pk_live_MzmtjIQ0XLqVuhWXzPzmVCX9"
-let PARSE_APP_ID = "hezlwzG8F2RaalhHOVsUrpn5xN2KNtDa8VTgd8ea"
-let PARSE_CLIENT_KEY = "J0ZkdjRLVBIgaPKAAkVEvGzBQymjv2nUeaPBZkM7"
-
 @UIApplicationMain
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        Parse.setApplicationId(PARSE_APP_ID,
-            clientKey: PARSE_CLIENT_KEY)
+        if PRODUCTION {
+            Parse.setApplicationId(PARSE_APP_ID_PROD, clientKey: PARSE_CLIENT_KEY_PROD)
+        }
+        else {
+            Parse.setApplicationId(PARSE_APP_ID_DEV, clientKey: PARSE_CLIENT_KEY_DEV)
+        }
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
