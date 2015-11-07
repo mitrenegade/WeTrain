@@ -360,7 +360,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         if self.requestedTrainingLength != nil {
             request.setObject(self.requestedTrainingLength!, forKey: "length")
         }
-        if TESTING == true {
+        if TESTING == 1 {
             request.setObject(true, forKey: "testing")
         }
         print("request: \(request)")
