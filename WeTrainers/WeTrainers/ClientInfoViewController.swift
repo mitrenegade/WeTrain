@@ -172,12 +172,12 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                     minElapsed = 0
                 }
                 if hourElapsed > 0 {
-                    ago = "\(hourElapsed)h"
+                    ago = "\(hourElapsed)hr"
                 }
                 else {
                     ago = ""
                 }
-                ago = "\(ago)\(minElapsed)m ago"
+                ago = "\(ago)\(minElapsed)min ago"
             }
             info = "Training Requested: \(ago)"
         }
@@ -400,16 +400,24 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     }
     
     func startWorkout() {
-        self.request.setObject(RequestState.Training.rawValue, forKey: "status")
-        self.request.saveInBackgroundWithBlock { (success, error) -> Void in
+        let params = ["workoutId":self.request.objectId!]
+        PFCloud.callFunctionInBackground("startWorkout", withParameters: params) { (results, error) -> Void in
+            print("results: \(results) error: \(error)")
             if error != nil {
                 self.simpleAlert("Could not start workout", message: "Please try again")
             }
             else {
-                self.request.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                if let updatedWorkout: PFObject = results as! PFObject {
+                    self.request = updatedWorkout
                     self.status = self.request.objectForKey("status") as! String
                     self.refreshState()
-                })
+                }
+                else {
+                    self.request.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                        self.status = self.request.objectForKey("status") as! String
+                        self.refreshState()
+                    })
+                }
             }
         }
     }

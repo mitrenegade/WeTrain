@@ -100,12 +100,11 @@ Parse.Cloud.define("acceptWorkoutRequest", function(request, response) {
                     response.error()
                 }
             });
-},
-error: function(error) {
+        },
+        error: function(error) {
 
-}
-})
-
+        }
+    })
 })
 
 
@@ -300,6 +299,29 @@ res.redirect('/confirmation/'+purchase.id);
     }
     });
 }
+
+Parse.Cloud.define("startWorkout", function(request, response) {
+    var workoutId = request.params.workoutId
+    console.log("workout = " + workoutId)
+
+    var query = new Parse.Query("Workout")
+    var workoutObject
+    query.get(workoutId, {
+        success: function(object){
+
+            workoutObject = object
+            workoutObject.set("status", "training")
+            workoutObject.save().then(function(workoutObject) {
+                console.log("workout started: status " + workoutObject.get("status"))
+            response.success(workoutObject)
+            });
+        },
+        error: function(error) {
+            console.log("could not startWorkout for " + workoutId)
+            response.error(error)
+        }
+    })
+})
 
 Parse.Cloud.define("chargeCard", function(request, response){
     var stripeToken = request.params.stripeToken;
