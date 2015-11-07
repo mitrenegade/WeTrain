@@ -54,17 +54,16 @@ class TrainingLengthViewController: UIViewController {
             }
         }
         if segue.identifier == "GoToRequestState" {
-            let nav = segue.destinationViewController as! UINavigationController
-            let controller = nav.viewControllers[0] as! RequestStatusViewController
+            let controller = segue.destinationViewController as! RequestStatusViewController
             let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
-            let request: PFObject = client.objectForKey("currentRequest") as! PFObject
+            let request: PFObject = client.objectForKey("workout") as! PFObject
             controller.currentRequest = request
         }
     }
     
     func loadExistingRequest() {
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
-        if let request: PFObject = client.objectForKey("currentRequest") as? PFObject {
+        if let request: PFObject = client.objectForKey("workout") as? PFObject {
             request.fetchInBackgroundWithBlock({ (requestObject, error) -> Void in
                 if let state = request.objectForKey("status") as? String {
                     print("state \(state) object \(requestObject)")

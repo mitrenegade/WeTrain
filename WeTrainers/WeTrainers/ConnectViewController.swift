@@ -17,7 +17,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var labelStatus: UILabel!
     @IBOutlet var buttonAction: UIButton!
     @IBOutlet var buttonShift: UIButton!
-    @IBOutlet var trainingRequests: [PFObject]?
+    @IBOutlet var workouts: [PFObject]?
     
     @IBOutlet var tableView: UITableView!
     
@@ -68,12 +68,6 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
                         print("started at \(start) time passed \(minElapsed) workout length \(length)")
                         if Int(minElapsed) > length {
                             print("completing training")
-                            /*
-                            var params: ["trainingRequest": request]
-                            PFCloud.callFunctionInBackground("endWorkoutForTimeElapsed", withParameters: params) { (results, error) -> Void in
-                            print("results: \(results) error: \(error)")
-                            }
-                            */
                             request.setObject(RequestState.Complete.rawValue, forKey: "status")
                             request.saveInBackground()
                         }
@@ -288,10 +282,10 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func clientsAvailable() -> Bool {
-        if self.trainingRequests == nil {
+        if self.workouts == nil {
             return false
         }
-        if self.trainingRequests!.count == 0 {
+        if self.workouts!.count == 0 {
             return false
         }
         return true
@@ -309,7 +303,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func loadExistingRequestsWithCompletion(completion: (results: [PFObject]?) -> Void) {
-        let query = PFQuery(className: "TrainingRequest")
+        let query = PFQuery(className: "Workout")
         // don't actually need to search for given training request - display all active requests
         query.whereKey("status", equalTo: "requested")
         query.whereKeyDoesNotExist("trainer")
@@ -323,7 +317,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             else {
                 print("results: \(results!)")
-                self.trainingRequests = results
+                self.workouts = results
             }
             
             completion(results: results!)
@@ -336,8 +330,8 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.trainingRequests != nil {
-        return self.trainingRequests!.count
+        if self.workouts != nil {
+        return self.workouts!.count
         }
         return 0
     }
@@ -347,7 +341,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.currentLocation = self.currentLocation
         
-        let request: PFObject = self.trainingRequests![indexPath.row] as PFObject
+        let request: PFObject = self.workouts![indexPath.row] as PFObject
         cell.setupWithRequest(request)
         
         return cell
@@ -360,7 +354,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let request: PFObject = self.trainingRequests![indexPath.row] as PFObject
+        let request: PFObject = self.workouts![indexPath.row] as PFObject
         self.connect(request)
     }
     

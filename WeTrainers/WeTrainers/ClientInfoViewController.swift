@@ -151,7 +151,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 let timeString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
                 
                 if self.status == RequestState.Complete.rawValue {
-                    info = "Total time elapsed: \(timeString)"
+                    info = "Completed workout length: \(timeString)"
                 }
                 else {
                     info = "Time elapsed: \(timeString)"
@@ -267,7 +267,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         }
         else if self.status == RequestState.Complete.rawValue {
             self.constraintPasscodeHeight.constant = 0
-            self.buttonAction.setTitle("Complete workout", forState: .Normal)
+            self.buttonAction.setTitle("Workout complete", forState: .Normal)
             self.buttonAction.enabled = true
             self.constraintButtonContactHeight.constant = 0
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")
@@ -369,8 +369,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
 
     func acceptTrainingRequest() {
         let trainerId: String = self.trainer.objectId! as String
-        let params = ["trainingRequestId": self.request.objectId!, "trainerId": trainerId]
-        PFCloud.callFunctionInBackground("acceptTrainingRequest", withParameters: params) { (results, error) -> Void in
+        let params = ["workoutId": self.request.objectId!, "trainerId": trainerId]
+        PFCloud.callFunctionInBackground("acceptWorkoutRequest", withParameters: params) { (results, error) -> Void in
             if error != nil {
                 print("could not request training request")
                 self.simpleAlert("Could not accept client", message: "The client's training session is no longer available.", completion: { () -> Void in

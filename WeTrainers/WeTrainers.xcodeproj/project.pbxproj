@@ -572,8 +572,8 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"DEBUG=0",
 					"COCOAPODS=1",
+					"DEBUG=0",
 				);
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
