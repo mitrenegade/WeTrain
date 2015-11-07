@@ -31,6 +31,8 @@ class TrainingRequestViewController: UITableViewController {
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
 
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Done, target: self, action: "back")
+
         // cell selection background
         let colorView = UIView()
         colorView.backgroundColor = UIColor.orangeColor()
@@ -46,6 +48,11 @@ class TrainingRequestViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func back() {
+        // pops the next button
+        self.navigationController!.popViewControllerAnimated(true)
     }
 
     // MARK: - Table view data source
@@ -97,8 +104,7 @@ class TrainingRequestViewController: UITableViewController {
         // Pass the selected object to the new view controller.
 
         if segue.identifier == "GoToMap" {
-            let nav = segue.destinationViewController as! UINavigationController
-            let controller = nav.viewControllers[0] as! MapViewController
+            let controller = segue.destinationViewController as! MapViewController
             controller.requestedTrainingType = self.selectedExerciseType
             controller.requestedTrainingLength = self.selectedExerciseLength
         }

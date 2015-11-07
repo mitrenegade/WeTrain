@@ -92,7 +92,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     }
     
     @IBAction func didClickSignup(sender: UIButton) {
-        self.performSegueWithIdentifier("GoToSignup", sender: nil)
+        let nav: UINavigationController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("SignupNavigationController") as! UINavigationController
+        self.appDelegate().window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.appDelegate().window!.rootViewController!.presentViewController(nav, animated: true, completion: nil)
     }
     
     func loggedIn() {

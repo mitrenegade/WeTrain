@@ -77,6 +77,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
         case 1:
             if PFUser.currentUser() == nil {
                 let alert: UIAlertController = UIAlertController(title: "Error editing profile", message: "You are not logged in. Please log in again to edit your profile.", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.view.tintColor = UIColor.blackColor()
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                 }))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -92,6 +93,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
         case 2:
             if PFUser.currentUser() == nil {
                 let alert: UIAlertController = UIAlertController(title: "Error editing credit card", message: "You are not logged in. Please log in again to edit payment information.", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.view.tintColor = UIColor.blackColor()
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                 }))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -108,6 +110,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
         case 4:
             if PFUser.currentUser() == nil {
                 let alert: UIAlertController = UIAlertController(title: "Log in first?", message: "You are not logged in. Please log in first so we can respond to you.", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.view.tintColor = UIColor.blackColor()
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                 }))
                 alert.addAction(UIAlertAction(title: "Leave Anonymous Feedback", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in

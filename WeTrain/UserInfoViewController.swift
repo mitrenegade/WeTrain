@@ -465,6 +465,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         picker.allowsEditing = true
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alert.view.tintColor = UIColor.blackColor()
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             alert.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (action) -> Void in
                 let cameraStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
@@ -496,6 +497,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     func warnForLibraryAccess() {
         let message: String = "WeTrain needs photo library access to load your profile picture. Would you like to go to your phone settings to enable the photo library?"
         let alert: UIAlertController = UIAlertController(title: "Could not access photos", message: message, preferredStyle: .Alert)
+        alert.view.tintColor = UIColor.blackColor()
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
             UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
@@ -506,6 +508,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     func warnForCameraAccess() {
         let message: String = "WeTrain needs camera access to take your profile photo. Would you like to go to your phone settings to enable the camera?"
         let alert: UIAlertController = UIAlertController(title: "Could not access camera", message: message, preferredStyle: .Alert)
+        alert.view.tintColor = UIColor.blackColor()
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
             UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
@@ -536,6 +539,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     }
     
     func didCloseTutorial() {
-        self.appDelegate().didLogin()
+        self.navigationController!.dismissViewControllerAnimated(true) { () -> Void in
+            self.appDelegate().didLogin()
+        }
     }
 }

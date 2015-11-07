@@ -313,7 +313,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         // don't actually need to search for given training request - display all active requests
         query.whereKey("status", equalTo: "requested")
         query.whereKeyDoesNotExist("trainer")
-        if !TESTING {
+        if TESTING == 0 {
             query.whereKey("testing", notEqualTo: true)
         }
         self.labelStatus.text = "Searching for clients"
@@ -417,7 +417,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first as CLLocation? {
-            locationManager.stopUpdatingLocation()
+            print("\(location)")
             self.currentLocation = location
             self.tableView.reloadData()
         }

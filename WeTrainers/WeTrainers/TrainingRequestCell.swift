@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 
+let METERS_PER_MILE = 1609.34
+
 class TrainingRequestCell: UITableViewCell {
     
     @IBOutlet weak var icon: UIImageView!
@@ -100,9 +102,10 @@ class TrainingRequestCell: UITableViewCell {
                 let lon = request.objectForKey("lon") as? Double
                 if lat != nil && lon != nil {
                     let clientLocation: CLLocation = CLLocation(latitude: lat!, longitude: lon!)
-                    let dist:Int = Int(self.currentLocation!.distanceFromLocation(clientLocation))
-                    
-                    self.labelDistance.text = "Distance: \(dist)m"
+                    let dist:Double = self.currentLocation!.distanceFromLocation(clientLocation)
+                    let miles:Double = Double(dist / METERS_PER_MILE)
+                    let str: String = String(format: "%3.2f", miles)
+                    self.labelDistance.text = "Distance: \(str) mi"
                 }
 
             }

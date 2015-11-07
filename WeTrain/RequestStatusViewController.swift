@@ -154,7 +154,7 @@ class RequestStatusViewController: UIViewController {
             let message = "You're not currently in a workout or waiting for a trainer. Please click OK to go back to the training menu."
             self.updateTitle(title, message: message, top: nil, bottom: "Close", topHandler: nil, bottomHandler: { () -> Void in
                 // dismiss the current stack and go back
-                self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                self.navigationController!.popToRootViewControllerAnimated(true)
             })
             
             if self.timer != nil {
@@ -174,7 +174,7 @@ class RequestStatusViewController: UIViewController {
             self.currentRequest = nil
             self.updateTitle(title, message: message!, top: nil, bottom: "OK", topHandler: nil, bottomHandler: { () -> Void in
                 // dismiss the current stack and go back
-                self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+                self.navigationController!.popToRootViewControllerAnimated(true)
             })
             
             if self.timer != nil {
@@ -237,6 +237,7 @@ class RequestStatusViewController: UIViewController {
     
     func promptForCancel() {
         let alert = UIAlertController(title: "Cancel request?", message: "Are you sure you want to cancel your training request?", preferredStyle: .Alert)
+        alert.view.tintColor = UIColor.blackColor()
         alert.addAction(UIAlertAction(title: "Cancel training", style: .Cancel, handler: { (action) -> Void in
             if self.currentRequest != nil {
                 self.currentRequest!.setObject(RequestState.Cancelled.rawValue, forKey: "status")

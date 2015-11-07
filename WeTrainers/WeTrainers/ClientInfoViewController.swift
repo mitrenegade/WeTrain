@@ -43,8 +43,9 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     var client: PFObject?
     var status: String = "loading"
     
-    var timer: NSTimer?
-
+    var timerClock: NSTimer?
+    var timerStatus: NSTimer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.photoView.layer.borderWidth = 1
@@ -62,6 +63,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         self.constraintButtonContactHeight.constant = 0
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")
 
         // Do any additional setup after loading the view.
         request.fetchIfNeededInBackgroundWithBlock { (object, error) -> Void in
@@ -94,8 +97,13 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                     self.iconExercise.image = nil
                 }
                 
+                if self.timerStatus == nil {
+                    self.timerStatus = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateRequestState", userInfo: nil, repeats: true)
+                    self.timerStatus?.fire()
+                }
+
                 self.status = self.request.objectForKey("status") as! String
-                self.updateState()
+                self.refreshState()
             })
         }
         }
@@ -118,6 +126,10 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         let length = self.request.objectForKey("length") as? Int
         
         self.labelExercise.text = "Exercise: \(exercise!)"
+        let index = TRAINING_TITLES.indexOf(exercise!)
+        if index != nil {
+            self.labelExercise.text = "\(self.labelExercise.text!) (\(TRAINING_SUBTITLES[index!]))"
+        }
         
         var info: String = ""
         if length != nil {
@@ -144,8 +156,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 else {
                     info = "Time elapsed: \(timeString)"
 
-                    if self.timer == nil {
-                        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "tick", userInfo: nil, repeats: true)
+                    if self.timerClock == nil {
+                        self.timerClock = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "tick", userInfo: nil, repeats: true)
                     }
                 }
             }
@@ -169,6 +181,29 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             }
             info = "Training Requested: \(ago)"
         }
+        else if self.status == RequestState.Cancelled.rawValue {
+            if let end = request.objectForKey("end") as? NSDate {
+                var ago: String = ""
+                var minElapsed:Int = Int(NSDate().timeIntervalSinceDate(end) / 60)
+                let hourElapsed:Int = Int(minElapsed / 60)
+                minElapsed = Int(minElapsed) - Int(hourElapsed * 60)
+                if minElapsed < 0 {
+                    minElapsed = 0
+                }
+                if hourElapsed > 0 {
+                    ago = "\(hourElapsed)h"
+                }
+                else {
+                    ago = ""
+                }
+                ago = "\(ago)\(minElapsed)m ago"
+                info = "The training session was cancelled by the client \(ago)"
+            }
+            else {
+                info = "The training session was cancelled by the client."
+            }
+        }
+        
         if gender != nil {
             info = "\(info)\n\nGender: \(gender!)"
         }
@@ -179,6 +214,12 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             info = "\(info)\nInjuries: \(injuries!)"
         }
         
+        if self.status == RequestState.Matched.rawValue || self.status == RequestState.Searching.rawValue {
+            if let address: String = request.objectForKey("address") as? String {
+                info = "\(info)\n\nLocation: \n\(address)"
+            }
+    }
+    
         self.labelInfo.text = info
         let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20))
         self.constraintLabelInfoHeight!.constant = size.height
@@ -197,7 +238,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         return true
     }
     
-    func updateState() {
+    func refreshState() {
         if self.status == "loading" {
             self.constraintPasscodeHeight.constant = 0
             self.buttonAction.setTitle("Loading", forState: .Normal)
@@ -215,22 +256,42 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             self.buttonAction.setTitle("Start workout", forState: .Normal)
             self.buttonAction.enabled = true
             self.constraintButtonContactHeight.constant = 40
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Done, target: self, action: "promptForCancel")
         }
         else if self.status == RequestState.Training.rawValue {
             self.constraintPasscodeHeight.constant = 0
             self.buttonAction.setTitle("Workout in progress", forState: .Normal)
             self.buttonAction.enabled = false
             self.constraintButtonContactHeight.constant = 0
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Done, target: self, action: "promptForCancel")
         }
         else if self.status == RequestState.Complete.rawValue {
             self.constraintPasscodeHeight.constant = 0
             self.buttonAction.setTitle("Complete workout", forState: .Normal)
             self.buttonAction.enabled = true
             self.constraintButtonContactHeight.constant = 0
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")
+        }
+        else if self.status == RequestState.Cancelled.rawValue {
+            // client cancelled while in Matched state
+            self.constraintPasscodeHeight.constant = 0
+            self.buttonAction.setTitle("Close", forState: .Normal)
+            self.buttonAction.enabled = true
+            self.constraintButtonContactHeight.constant = 40
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")
         }
         
         self.updateLabelInfo()
     }
+    
+    func updateRequestState() {
+        self.request!.fetchInBackgroundWithBlock({ (object, error) -> Void in
+            self.status = self.request.objectForKey("status") as! String
+            self.refreshState()
+        })
+    }
+    
+
     @IBAction func didClickButton(sender: UIButton) {
         if sender == self.buttonContact {
             self.contact()
@@ -251,11 +312,11 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                     })
                 }
             }
-            else if self.status == RequestState.Complete.rawValue {
+            else if self.status == RequestState.Complete.rawValue || self.status == RequestState.Cancelled.rawValue {
                 self.close()
             }
             else {
-                self.updateState()
+                self.refreshState()
             }
         }
     }
@@ -320,7 +381,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 print("training session is yours")
                 self.request.fetchInBackgroundWithBlock({ (object, error) -> Void in
                     self.status = self.request.objectForKey("status") as! String
-                    self.updateState()
+                    self.refreshState()
                 })
             }
         }
@@ -347,7 +408,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             else {
                 self.request.fetchInBackgroundWithBlock({ (object, error) -> Void in
                     self.status = self.request.objectForKey("status") as! String
-                    self.updateState()
+                    self.refreshState()
                 })
             }
         }
@@ -359,9 +420,12 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         if let start = self.request.objectForKey("start") as? NSDate {
             if let _ = self.request.objectForKey("end") as? NSDate {
                 // if workout has ended but somehow we still have a timer, just end it
-                self.updateState()
-                self.timer?.invalidate()
-                self.timer = nil
+                self.refreshState()
+                self.timerClock?.invalidate()
+                self.timerClock = nil
+                
+                self.timerStatus?.invalidate()
+                self.timerStatus = nil
                 return
             }
             
@@ -375,13 +439,22 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     }
     
     func endWorkout() {
+        if self.timerClock != nil {
+            self.timerClock?.invalidate()
+            self.timerClock = nil
+        }
+        if self.timerStatus != nil {
+            self.timerStatus?.invalidate()
+            self.timerStatus = nil
+        }
+        
         self.request.setObject(RequestState.Complete.rawValue, forKey: "status")
         self.request.setObject(NSDate(), forKey: "end")
         self.trainer.removeObjectForKey("workout")
         self.request.saveInBackgroundWithBlock { (success, error) -> Void in
             self.status = self.request.objectForKey("status") as! String
             self.trainer.saveInBackgroundWithBlock({ (success, error) -> Void in
-                self.updateState()
+                self.refreshState()
             })
         }
         print("end workout")
@@ -393,6 +466,57 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         }
         self.navigationController!.popViewControllerAnimated(true)
     }
+    
+    func promptForCancel() {
+        // default state is Training
+        var title = "End session?"
+        var buttonTitle = "End session"
+        var message = "You are currently in a training session. Do you want to end it?"
+        let status: String = self.request!.objectForKey("status") as! String
+        var newStatus: String = RequestState.Complete.rawValue
+        if status == RequestState.Training.rawValue {
+            if let start = self.request!.objectForKey("start") as? NSDate {
+                if let _ = self.request!.objectForKey("end") as? NSDate {
+                    // if workout has ended but somehow we still have a timer, just end it
+                    self.close()
+                    return
+                }
+                
+                let interval = NSDate().timeIntervalSinceDate(start)
+                let length = self.request!.objectForKey("length") as! NSNumber
+                let minutes = Int(length) + 5
+                if Int(interval) > 60*(minutes) {
+                    message = "You seem to be in a training session that may have already ended. Do you want to close this session?"
+                }
+            }
+        }
+        else if status == RequestState.Matched.rawValue {
+            // matched, but not started yet
+            title = "Cancel session?"
+            buttonTitle = "Cancel session"
+            message = "Your session hasn't started yet. Do you want to cancel the session?"
+            newStatus = RequestState.Cancelled.rawValue
+        }
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.view.tintColor = UIColor.blackColor()
+        alert.addAction(UIAlertAction(title: buttonTitle, style: .Default, handler: { (action) -> Void in
+            self.request!.setObject(newStatus, forKey: "status")
+            self.request!.setObject(NSDate() , forKey: "end")
+            self.request!.saveInBackgroundWithBlock({ (success, error) -> Void in
+                self.close()
+            })
+        }))
+        // give option to contact instead
+        if status == RequestState.Matched.rawValue {
+            alert.addAction(UIAlertAction(title: "Contact Client", style: .Default, handler: { (action) -> Void in
+                self.contact()
+            }))
+        }
+        alert.addAction(UIAlertAction(title: "Go Back", style: .Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

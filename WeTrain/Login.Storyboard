@@ -26,23 +26,11 @@
                                     <constraint firstAttribute="width" secondItem="RAS-79-WTa" secondAttribute="height" multiplier="10:3" id="FMf-yj-sSp"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reracking weights..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAe-GW-B42">
-                                <rect key="frame" x="88" y="529" width="424" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="YSH-ga-FO6"/>
-                                    <constraint firstAttribute="width" constant="424" id="nhG-1u-1wS"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="RAS-79-WTa" firstAttribute="centerY" secondItem="iTh-al-558" secondAttribute="centerY" id="5JS-yp-b2I"/>
-                            <constraint firstItem="DbO-Fp-KpL" firstAttribute="top" secondItem="cAe-GW-B42" secondAttribute="bottom" constant="50" id="Q0U-QP-9ZN"/>
                             <constraint firstItem="RAS-79-WTa" firstAttribute="centerX" secondItem="iTh-al-558" secondAttribute="centerX" id="VUb-By-p9Z"/>
-                            <constraint firstItem="cAe-GW-B42" firstAttribute="centerX" secondItem="iTh-al-558" secondAttribute="centerX" id="XDr-zV-LDJ"/>
                             <constraint firstItem="RAS-79-WTa" firstAttribute="height" secondItem="iTh-al-558" secondAttribute="height" multiplier="0.25" id="ySP-tl-JdI"/>
                         </constraints>
                     </view>
@@ -171,7 +159,6 @@
                         <outlet property="buttonSignup" destination="ZVe-s9-tY1" id="3BV-kI-Mzm"/>
                         <outlet property="inputLogin" destination="Kxj-tp-d5Y" id="WtO-iW-kGL"/>
                         <outlet property="inputPassword" destination="981-hP-HSD" id="f86-e4-NqW"/>
-                        <segue destination="T7u-1k-qWh" kind="presentation" identifier="GoToSignup" id="0ac-Zf-nnf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zqY-jV-McV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -181,7 +168,9 @@
         <!--Navigation Controller-->
         <scene sceneID="aOP-YW-pSk">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TPY-XF-EIO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="SignupNavigationController" id="T7u-1k-qWh" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="fMH-TM-onf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rBm-8g-qhU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -190,7 +179,6 @@
                         <segue destination="kEv-e0-lgh" kind="relationship" relationship="rootViewController" id="awz-4d-JDb"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TPY-XF-EIO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-221" y="252"/>
         </scene>

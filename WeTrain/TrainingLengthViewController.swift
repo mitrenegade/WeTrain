@@ -26,6 +26,7 @@ class TrainingLengthViewController: UIViewController {
         
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Done, target: self, action: "back")
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,6 +35,10 @@ class TrainingLengthViewController: UIViewController {
     }
     
     // MARK: - Navigation
+    func back() {
+        // pops the next button
+        self.navigationController!.popViewControllerAnimated(true)
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
