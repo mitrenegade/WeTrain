@@ -206,7 +206,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="Ubq-hi-snm"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="kEv-e0-lgh" id="d6d-0e-Gon"/>
                                                 </connections>
