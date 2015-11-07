@@ -162,7 +162,7 @@
                     <connections>
                         <outlet property="button30" destination="q7O-nW-90o" id="1i0-E3-jSk"/>
                         <outlet property="button60" destination="Uun-fo-REH" id="tRV-Or-8db"/>
-                        <segue destination="8RY-5j-Kbe" kind="presentation" identifier="GoToRequestState" id="1n3-4S-EN5"/>
+                        <segue destination="sRQ-uT-cb9" kind="show" identifier="GoToRequestState" id="3fe-EQ-fpJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dNw-ai-fyB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -240,7 +240,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rve-0s-Wm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1389" y="-214"/>
+            <point key="canvasLocation" x="1445" y="4"/>
         </scene>
         <!--My Account-->
         <scene sceneID="Jum-rH-l4a">
@@ -594,22 +594,6 @@
             </objects>
             <point key="canvasLocation" x="711" y="564"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="omR-vq-Tqv">
-            <objects>
-                <navigationController id="8RY-5j-Kbe" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WMG-R9-Zge">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="sRQ-uT-cb9" kind="relationship" relationship="rootViewController" id="FtZ-cv-haA"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5G2-JB-Pwm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2028" y="-932"/>
-        </scene>
         <!--Map-->
         <scene sceneID="wV2-SZ-zgQ">
             <objects>
@@ -736,7 +720,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5h-ee-x57" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2104" y="-184"/>
+            <point key="canvasLocation" x="2124" y="-16"/>
         </scene>
         <!--Trainer Profile View Controller-->
         <scene sceneID="YtA-Lk-sRN">
@@ -833,7 +817,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uD7-bO-ERn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3579" y="-573"/>
+            <point key="canvasLocation" x="2901" y="-765"/>
         </scene>
         <!--Request Status View Controller-->
         <scene sceneID="1Sx-G5-gKh">
@@ -954,7 +938,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VxP-fR-eek" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2850" y="-543"/>
+            <point key="canvasLocation" x="2284" y="-914"/>
         </scene>
     </scenes>
     <resources>

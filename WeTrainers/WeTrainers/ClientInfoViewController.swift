@@ -151,7 +151,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 let timeString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
                 
                 if self.status == RequestState.Complete.rawValue {
-                    info = "Total time elapsed: \(timeString)"
+                    info = "Completed workout length: \(timeString)"
                 }
                 else {
                     info = "Time elapsed: \(timeString)"
@@ -267,7 +267,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         }
         else if self.status == RequestState.Complete.rawValue {
             self.constraintPasscodeHeight.constant = 0
-            self.buttonAction.setTitle("Complete workout", forState: .Normal)
+            self.buttonAction.setTitle("Workout complete", forState: .Normal)
             self.buttonAction.enabled = true
             self.constraintButtonContactHeight.constant = 0
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")

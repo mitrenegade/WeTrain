@@ -54,8 +54,7 @@ class TrainingLengthViewController: UIViewController {
             }
         }
         if segue.identifier == "GoToRequestState" {
-            let nav = segue.destinationViewController as! UINavigationController
-            let controller = nav.viewControllers[0] as! RequestStatusViewController
+            let controller = segue.destinationViewController as! RequestStatusViewController
             let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
             let request: PFObject = client.objectForKey("currentRequest") as! PFObject
             controller.currentRequest = request

@@ -32,6 +32,7 @@ class RequestStatusViewController: UIViewController {
     var bottomButtonHandler: RequestStatusButtonHandler? = nil
     
     var trainerController: TrainerProfileViewController? = nil
+    var goingToTrainer: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -222,9 +223,10 @@ class RequestStatusViewController: UIViewController {
     }
 
     func goToTrainerInfo() {
-        if self.trainerController != nil {
+        if self.trainerController != nil || self.goingToTrainer {
             return
         }
+        self.goingToTrainer = true
         print("display info")
         if let trainer: PFObject = self.currentRequest!.objectForKey("trainer") as? PFObject {
             trainer.fetchInBackgroundWithBlock({ (object, error) -> Void in
@@ -256,11 +258,13 @@ class RequestStatusViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let controller: TrainerProfileViewController = segue.destinationViewController as! TrainerProfileViewController
-        controller.request = self.currentRequest
-        controller.trainer = self.currentTrainer
-        
-        self.trainerController = controller
+        if segue.identifier == "GoToViewTrainer" {
+            let controller: TrainerProfileViewController = segue.destinationViewController as! TrainerProfileViewController
+            controller.request = self.currentRequest
+            controller.trainer = self.currentTrainer
+            
+            self.trainerController = controller
+        }
     }
 
 }
