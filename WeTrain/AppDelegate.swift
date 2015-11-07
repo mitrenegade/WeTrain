@@ -24,9 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         if PRODUCTION {
             Parse.setApplicationId(PARSE_APP_ID_PROD, clientKey: PARSE_CLIENT_KEY_PROD)
+            Stripe.setDefaultPublishableKey(STRIPE_PUBLISHABLE_KEY_PROD)
         }
         else {
             Parse.setApplicationId(PARSE_APP_ID_DEV, clientKey: PARSE_CLIENT_KEY_DEV)
+            Stripe.setDefaultPublishableKey(STRIPE_PUBLISHABLE_KEY_DEV)
         }
         
         // [Optional] Track statistics around application opens.
@@ -36,8 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // google maps
         GMSServices.provideAPIKey(GOOGLE_API_APP_KEY)
-        
-        Stripe.setDefaultPublishableKey(STRIPE_PUBLISHABLE_KEY)
 
         UITabBar.appearance().tintColor = UIColor.redColor()
         UITabBar.appearance().selectedImageTintColor = UIColor.orangeColor()
