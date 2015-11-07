@@ -14,12 +14,13 @@ protocol CreditCardDelegate: class {
     func didCreateToken(token: STPToken, lastFour: String) // created token
 }
 
-class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDelegate {
+class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymentCardTextFieldDelegate {
 
     @IBOutlet var labelCurrentCard: UILabel!
     @IBOutlet var viewCreditCardBG: UIView!
 
-    @IBOutlet var paymentView: PTKView?
+    @IBOutlet var paymentView: UIView!
+    var paymentTextField: STPPaymentCardTextField?
     weak var delegate: CreditCardDelegate?
     
     override func viewDidLoad() {
@@ -39,7 +40,15 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
             }
         }        
 
-        self.paymentView!.delegate = self
+        self.paymentTextField = STPPaymentCardTextField()
+        self.paymentTextField!.delegate = self
+        self.paymentView.addSubview(self.paymentTextField!)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.paymentTextField!.frame = self.paymentView.frame
+        self.paymentTextField!.center = CGPointMake(self.paymentView.frame.size.width/2, self.paymentView.frame.size.height/2)
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,19 +64,18 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
     }
     
     // MARK: PTKViewDelegate
-    func paymentView(paymentView: PTKView!, withCard card: PTKCard!, isValid valid: Bool) {
+    func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
         print("card entered")
-        self.navigationItem.rightBarButtonItem?.enabled = valid
+        self.navigationItem.rightBarButtonItem?.enabled = true
     }
     
     func save() {
         print("save card")
-        let payment: PTKCard = self.paymentView!.card
-        let card: STPCard = STPCard()
-        card.number = payment.number
-        card.expMonth = payment.expMonth
-        card.expYear = payment.expYear
-        card.cvc = payment.cvc
+        let card: STPCardParams = STPCardParams()
+        card.number = self.paymentTextField!.cardNumber
+        card.expMonth = self.paymentTextField!.expirationMonth
+        card.expYear = self.paymentTextField!.expirationYear
+        card.cvc = self.paymentTextField!.cvc
         STPAPIClient.sharedClient().createTokenWithCard(card, completion: { (token, error) -> Void in
             if error != nil {
                 var message = "There was an error. Please try again"
@@ -87,7 +95,7 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, PTKViewDe
     
     func saveToken(token: STPToken) {
         let tokenId: String = token.tokenId
-        let number: String = self.paymentView!.cardNumber!
+        let number: String = self.paymentTextField!.cardNumber!
         let last4:String = number.substringFromIndex(number.endIndex.advancedBy(-4))
         if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
             client.setObject(tokenId, forKey: "stripeToken")
