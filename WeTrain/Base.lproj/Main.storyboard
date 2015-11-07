@@ -658,12 +658,12 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="agL-Xf-cJk"/>
                                         </constraints>
-                                        <state key="normal" title="Enter Address Manually">
+                                        <state key="normal" title="Request a Session!">
                                             <color key="titleColor" red="0.058823529409999999" green="0.0" blue="0.01176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="didClickSearch:" destination="vMU-jC-vAT" eventType="touchUpInside" id="g4E-rD-g3g"/>
+                                            <action selector="didClickRequest:" destination="vMU-jC-vAT" eventType="touchUpInside" id="gmw-hJ-Gez"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Street Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mnq-Co-r3V">
@@ -679,16 +679,16 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qls-ee-X6Z">
                                         <rect key="frame" x="8" y="122" width="576" height="30"/>
-                                        <color key="backgroundColor" red="0.36862745099999999" green="0.86666666670000003" blue="0.63137254899999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="QBD-dQ-Bph"/>
                                         </constraints>
-                                        <state key="normal" title="Request a Session!">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Enter Address Manually">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="didClickRequest:" destination="vMU-jC-vAT" eventType="touchUpInside" id="pWy-HF-g3z"/>
+                                            <action selector="didClickSearch:" destination="vMU-jC-vAT" eventType="touchUpInside" id="V4w-nt-444"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -725,7 +725,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Select Workout Location" id="gnu-Jp-UmR"/>
                     <connections>
-                        <outlet property="buttonRequest" destination="qls-ee-X6Z" id="z8q-wc-iJh"/>
+                        <outlet property="buttonRequest" destination="3tY-b7-GaX" id="ADu-pi-nMS"/>
                         <outlet property="iconLocation" destination="Ur2-dI-fzM" id="xo1-eM-L3J"/>
                         <outlet property="inputCity" destination="FPW-So-GaS" id="NWC-Xr-hpU"/>
                         <outlet property="inputStreet" destination="mnq-Co-r3V" id="Icn-4p-yQ0"/>
@@ -766,7 +766,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8t-2S-xP0">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B8t-2S-xP0">
                                 <rect key="frame" x="16" y="255" width="568" height="273"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85W-j6-3pP">
@@ -847,10 +847,10 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="runnerBG" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-RV-TFg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="runnerBG" translatesAutoresizingMaskIntoConstraints="NO" id="yWV-RV-TFg">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtO-bC-XdS">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qtO-bC-XdS">
                                 <rect key="frame" x="40" y="40" width="520" height="450"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-ep-hzq">
@@ -873,7 +873,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bty-7b-NE3">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bty-7b-NE3">
                                         <rect key="frame" x="8" y="334" width="504" height="50"/>
                                         <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -887,7 +887,7 @@
                                             <action selector="didClickButton:" destination="sRQ-uT-cb9" eventType="touchUpInside" id="079-wU-myN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2y-bD-uuA">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2y-bD-uuA">
                                         <rect key="frame" x="8" y="392" width="504" height="50"/>
                                         <color key="backgroundColor" red="0.058823529409999999" green="0.0" blue="0.01176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -901,7 +901,7 @@
                                             <action selector="didClickButton:" destination="sRQ-uT-cb9" eventType="touchUpInside" id="xuu-Z7-UqY"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PTv-ie-5hJ" customClass="ProgressView" customModule="WeTrain" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PTv-ie-5hJ" customClass="ProgressView" customModule="WeTrain" customModuleProvider="target">
                                         <rect key="frame" x="8" y="186" width="504" height="140"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -967,6 +967,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mox-WL-qYw"/>
-        <segue reference="FtZ-cv-haA"/>
+        <segue reference="2Z9-Bv-jjW"/>
     </inferredMetricsTieBreakers>
 </document>
