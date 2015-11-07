@@ -10,10 +10,6 @@ import UIKit
 import GoogleMaps
 import Parse
 
-let PHILADELPHIA_LAT = 39.949508
-let PHILADELPHIA_LON = -75.171886
-let SERVICE_RANGE_METERS: Double = 8000 // 5 mile radius
-
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
 
     var requestedTrainingType: Int?

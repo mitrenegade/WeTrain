@@ -9,15 +9,13 @@
 import UIKit
 import Parse
 
-let PHILADELPHIA_LAT = 39.949508
-let PHILADELPHIA_LON = -75.171886
-
 class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ClientInfoDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var labelStatus: UILabel!
     @IBOutlet var buttonAction: UIButton!
     @IBOutlet var buttonShift: UIButton!
-    @IBOutlet var workouts: [PFObject]?
+    @IBOutlet var allWorkouts: [PFObject]?
+    @IBOutlet var nearbyWorkouts: [PFObject]?
     
     @IBOutlet var tableView: UITableView!
     
@@ -50,7 +48,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                 }
                 self.refreshStatus()
-                self.tableView.reloadData()
+                self.reloadTable()
             })
         }
         
@@ -194,18 +192,19 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             if self.status == "disconnected" {
                 self.registerForRemoteNotifications()
             }
-            else if self.status == "off" || self.status == nil {
+            else if self.status == "available" {
+                // end a shift
+                self.updateStatus("off")
+            }
+            else {
+                //if self.status == "off" || self.status == nil {
                 // start a shift
                 self.updateStatus("available")
                 self.loadExistingRequestsWithCompletion({ (results) -> Void in
                     self.refreshStatus()
-                    self.tableView.reloadData()
+                    self.reloadTable()
                 })
                 self.buttonAction.hidden = false
-            }
-            else if self.status == "available" {
-                // end a shift
-                self.updateStatus("off")
             }
         }
         else if sender == self.buttonAction {
@@ -222,7 +221,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             else {
                 self.loadExistingRequestsWithCompletion({ (results) -> Void in
                     self.refreshStatus()
-                    self.tableView.reloadData()
+                    self.reloadTable()
                 })
             }
         }
@@ -255,12 +254,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     func refreshStatus() {
         self.tableView.hidden = true
         
-        if status == nil || status! == "off" {
-            self.labelStatus.text = "Off duty"
-            self.buttonShift.setTitle("Start shift", forState: .Normal)
-            self.buttonAction.hidden = true
-        }
-        else if status == "disconnected" {
+        if status == "disconnected" {
             self.labelStatus.text = "Notifications are not enabled"
             self.buttonShift.setTitle("Enable Notifications", forState: .Normal)
             self.buttonAction.setTitle("Remind me later", forState: .Normal)
@@ -279,13 +273,19 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.tableView.hidden = true
             }
         }
+        else {
+            // if status == nil || status! == "off" {
+            self.labelStatus.text = "Off duty"
+            self.buttonShift.setTitle("Start shift", forState: .Normal)
+            self.buttonAction.hidden = true
+        }
     }
     
     func clientsAvailable() -> Bool {
-        if self.workouts == nil {
+        if self.nearbyWorkouts == nil {
             return false
         }
-        if self.workouts!.count == 0 {
+        if self.nearbyWorkouts!.count == 0 {
             return false
         }
         return true
@@ -298,7 +298,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.loadExistingRequestsWithCompletion { (results) -> Void in
             self.refreshStatus()
-            self.tableView.reloadData()
+            self.reloadTable()
         }
     }
 
@@ -315,11 +315,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             if error != nil {
                 print("could not query")
             }
-            else {
-                print("results: \(results!)")
-                self.workouts = results
-            }
-            
+            self.allWorkouts = results
             completion(results: results!)
         }
     }
@@ -330,8 +326,8 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.workouts != nil {
-        return self.workouts!.count
+        if self.nearbyWorkouts != nil {
+            return self.nearbyWorkouts!.count
         }
         return 0
     }
@@ -341,7 +337,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.currentLocation = self.currentLocation
         
-        let request: PFObject = self.workouts![indexPath.row] as PFObject
+        let request: PFObject = self.nearbyWorkouts![indexPath.row] as PFObject
         cell.setupWithRequest(request)
         
         return cell
@@ -354,7 +350,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let request: PFObject = self.workouts![indexPath.row] as PFObject
+        let request: PFObject = self.nearbyWorkouts![indexPath.row] as PFObject
         self.connect(request)
     }
     
@@ -371,7 +367,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     func clientsDidChange() {
         self.loadExistingRequestsWithCompletion({ (results) -> Void in
             self.refreshStatus()
-            self.tableView.reloadData()
+            self.reloadTable()
         })
     }
     // MARK: - Navigation
@@ -413,8 +409,53 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let location = locations.first as CLLocation? {
             print("\(location)")
             self.currentLocation = location
-            self.tableView.reloadData()
+            self.reloadTable()
         }
     }
 
+    func reloadTable() {
+        if self.nearbyWorkouts == nil {
+            self.nearbyWorkouts = [PFObject]()
+        }
+        self.nearbyWorkouts!.removeAll()
+        
+        if self.allWorkouts != nil {
+            for request: PFObject in self.allWorkouts! {
+                // load distance
+                if self.currentLocation != nil {
+                    let lat = request.objectForKey("lat") as? Double
+                    let lon = request.objectForKey("lon") as? Double
+                    if lat != nil && lon != nil {
+                        let clientLocation: CLLocation = CLLocation(latitude: lat!, longitude: lon!)
+                        let dist:Double = self.currentLocation!.distanceFromLocation(clientLocation)
+                        request.setObject(dist, forKey: "distance") // local variable
+                        if dist < REQUEST_DISTANCE_METERS {
+                            self.nearbyWorkouts!.append(request)
+                        }
+                        else {
+                            print("distance too large: \(dist)")
+                        }
+                    }
+                }
+                else {
+                    self.nearbyWorkouts!.append(request)
+                }
+            }
+        }
+        let sorted: [PFObject] = self.nearbyWorkouts!.sort { (p1, p2) -> Bool in
+            if let d1:Double = p1.objectForKey("distance") as? Double {
+                if let d2:Double = p2.objectForKey("distance") as? Double {
+                    if d1 < d2 {
+                        return true
+                    }
+                    return false
+                }
+                return false
+            }
+            return true
+        }
+        self.nearbyWorkouts = sorted
+
+        self.tableView.reloadData()
+    }
 }
