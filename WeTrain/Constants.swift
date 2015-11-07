@@ -8,7 +8,7 @@
 
 import Foundation
 
-let TESTING: Int32 = DEBUG // notifications sent while training
+let TESTING: Int32 = 1 // notifications sent while training
 let PRODUCTION: Bool = false // Parse database
 
 let TRAINING_TITLES = ["Healthy Heart", "Liposuction", "Mobi-Fit", "The BLT", "Belly Busters", "Tyrannosaurus Flex", "Sports Endurance", "The Shred Factory"]

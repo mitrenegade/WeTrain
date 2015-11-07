@@ -30,7 +30,7 @@ var sendMail = function(from, fromName, text, subject) {
                        });
 }
 
-var sendPushTrainingRequest = function(clientId, requestId) {
+var sendPushWorkout = function(clientId, requestId) {
     console.log("inside send push")
     Parse.Push.send({
                     channels: [ "Trainers" ],
@@ -55,9 +55,9 @@ var randomPasscode = function() {
     return "workout"
 }
 
-Parse.Cloud.define("acceptTrainingRequest", function(request, response) {
+Parse.Cloud.define("acceptWorkoutRequest", function(request, response) {
                    var trainerId = request.params.trainerId
-                   var trainingObjectId = request.params.trainingRequestId
+                   var trainingObjectId = request.params.workoutId
                    console.log("training request = " + trainingObjectId + " Trainer " + trainerId)
                    
                    var trainerQuery = new Parse.Query("Trainer")
@@ -65,7 +65,7 @@ Parse.Cloud.define("acceptTrainingRequest", function(request, response) {
                    trainerQuery.get(trainerId, {
                                     success: function(object){
                                         trainerObject = object
-                                    var trainingQuery = new Parse.Query("TrainingRequest");
+                                    var trainingQuery = new Parse.Query("Workout");
                                     trainingQuery.get(trainingObjectId, {
                                                       success: function(trainingObject) {
                                                       console.log("found training request with id " + trainingObjectId)
@@ -117,7 +117,7 @@ Parse.Cloud.afterSave("Feedback", function(request) {
                       sendMail(email, fromName, text, subject)
                       });
 
-Parse.Cloud.beforeSave("TrainingRequest", function(request, response) {
+Parse.Cloud.beforeSave("Workout", function(request, response) {
                         var trainingObject = request.object
                        
                         if (trainingObject.get("passcode") == undefined) {
@@ -132,9 +132,9 @@ Parse.Cloud.beforeSave("TrainingRequest", function(request, response) {
                        response.success()
                        });
 
-Parse.Cloud.afterSave("TrainingRequest", function(request) {
+Parse.Cloud.afterSave("Workout", function(request) {
                       var trainingObject = request.object
-                      console.log("TrainingRequest id: " + trainingObject.id )
+                      console.log("Workout id: " + trainingObject.id )
                       console.log("Lat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon"))
                       console.log("Time: " + trainingObject.get("time"))
                       console.log("status: " + trainingObject.get("status"))
@@ -152,7 +152,7 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
                       
                       var testing = trainingObject.get("testing")
 
-                      var text = "TrainingRequest id: " + trainingObject.id + " Status: " + status + "\nLat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon") + "\nTime: " + trainingObject.get("time")
+                      var text = "Workout id: " + trainingObject.id + " Status: " + status + "\nLat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon") + "\nTime: " + trainingObject.get("time")
                       
                       var clientObject = trainingObject.get("client")
                       var clientQuery = new Parse.Query("Client");
@@ -176,7 +176,7 @@ Parse.Cloud.afterSave("TrainingRequest", function(request) {
                                       if (status == "requested" && testing != true) {
                                         console.log("Client object: " + clientObject + " id: " + clientObject.id)
                                         console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
-                                        sendPushTrainingRequest(clientObject.id, trainingObject.id)
+                                        sendPushWorkout(clientObject.id, trainingObject.id)
                                       
                                         }
                                       }

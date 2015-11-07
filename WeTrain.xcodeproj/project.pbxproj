@@ -92,7 +92,7 @@
 		AC463FB51B95F3F500935F45 /* NSString+ValidateEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ValidateEmail.m"; sourceTree = "<group>"; };
 		AC4FDFC61B6EF88700A4EBDD /* CreditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardViewController.swift; sourceTree = "<group>"; };
 		AC51D1731B84A57B00E1DF02 /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
-		AC51D1751B84BBFF00E1DF02 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = cloud/cloud/main.js; sourceTree = "<group>"; };
+		AC51D1751B84BBFF00E1DF02 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = clouddev/cloud/main.js; sourceTree = "<group>"; };
 		AC6FB2C61B820702004109B6 /* WeTrain-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeTrain-Bridging-Header.h"; sourceTree = "<group>"; };
 		AC6FB2CA1B82272E004109B6 /* RequestStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStatusViewController.swift; sourceTree = "<group>"; };
 		AC79092E1B6C455F00085FB6 /* WeTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };

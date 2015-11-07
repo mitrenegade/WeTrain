@@ -339,16 +339,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
         alert.addAction(UIAlertAction(title: "Let's Go", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             print("requesting")
-            self.initiateTrainingRequest(addressString, coordinate: coordinate)
+            self.initiateWorkoutRequest(addressString, coordinate: coordinate)
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
         
-    func initiateTrainingRequest(addressString: String, coordinate: CLLocationCoordinate2D) {
+    func initiateWorkoutRequest(addressString: String, coordinate: CLLocationCoordinate2D) {
         var dict: [String: AnyObject] = [String: AnyObject]()
         dict = ["time": NSDate(), "lat": Double(coordinate.latitude), "lon": Double(coordinate.longitude), "status":RequestState.Searching.rawValue, "address": addressString]
         
-        let request: PFObject = PFObject(className: "TrainingRequest", dictionary: dict)
+        let request: PFObject = PFObject(className: "Workout", dictionary: dict)
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
         let id = client.objectId
         print("client: \(client) \(id)")

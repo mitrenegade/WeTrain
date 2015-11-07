@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "WeTrain Dev": {
+      "applicationId": "PSgTQ91JT6JQUjmm5XmdylwCMPzckertjqul6AKL"
+    },
+    "_default": {
+      "link": "WeTrain Dev"
+    }
+  }
+}

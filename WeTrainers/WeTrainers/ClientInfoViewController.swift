@@ -369,8 +369,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
 
     func acceptTrainingRequest() {
         let trainerId: String = self.trainer.objectId! as String
-        let params = ["trainingRequestId": self.request.objectId!, "trainerId": trainerId]
-        PFCloud.callFunctionInBackground("acceptTrainingRequest", withParameters: params) { (results, error) -> Void in
+        let params = ["workoutId": self.request.objectId!, "trainerId": trainerId]
+        PFCloud.callFunctionInBackground("acceptWorkoutRequest", withParameters: params) { (results, error) -> Void in
             if error != nil {
                 print("could not request training request")
                 self.simpleAlert("Could not accept client", message: "The client's training session is no longer available.", completion: { () -> Void in
