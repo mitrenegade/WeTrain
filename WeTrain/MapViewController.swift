@@ -366,7 +366,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         print("request: \(request)")
         request.saveInBackgroundWithBlock { (success, error) -> Void in
             print("saved: \(success)")
-            client.setObject(request, forKey: "currentRequest")
+            client.setObject(request, forKey: "workout")
             client.saveInBackground()
             
             if success {
