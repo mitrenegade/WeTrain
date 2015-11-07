@@ -137,7 +137,7 @@ Parse.Cloud.beforeSave("Workout", function(request, response) {
     response.success()
 });
 
-Parse.Cloud.afterSave("Workout", function(request) {
+Parse.Cloud.afterSave("Workout", function(request, response) {
     var trainingObject = request.object
     console.log("Workout id: " + trainingObject.id )
     console.log("Lat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon"))
@@ -172,40 +172,67 @@ Parse.Cloud.afterSave("Workout", function(request) {
                 fromName = "WeTrain Team"
             }
 
-// sending email
-if (status == "requested" || status == "cancelled") {
-    console.log("training request by user " + email + " with status " + status)
-    sendMail(email, fromName, text, subject)
-}
+            // sending email
+            if (status == "requested" || status == "cancelled") {
+                console.log("training request by user " + email + " with status " + status)
+                sendMail(email, fromName, text, subject)
+            }
 
-// send push notification
-if (status == "requested" && testing != true) {
-    console.log("Client object: " + clientObject + " id: " + clientObject.id)
-    console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
-    sendPushWorkout(clientObject.id, trainingObject.id)
+            // send push notification
+            if (status == "requested" && testing != true) {
+                console.log("Client object: " + clientObject + " id: " + clientObject.id)
+                console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
+                sendPushWorkout(clientObject.id, trainingObject.id)
 
-}
+            }
 
-// payment
-if (status == "completed") {
-    token = client.get("stripeToken")
-    console.log("token " + token)
-    createPaymentForWorkout(request, trainingObject, client)
-}
+            // payment
+            /*
+            if (status == "completed") {
+                token = client.get("stripeToken")
+                console.log("token " + token)
+                createPaymentForWorkout(request, response, trainingObject, client)
+            }
+            */
 
-}
-,
-error : function(error) {
-    console.error("errrrrrrrr" + error);
-    email = "bobbyren+WeTrain@gmail.com"
-    fromName = "WeTrain Team"
-    sendMail(email, fromName, text, subject)
-}
+        }
+        ,
+        error : function(error) {
+            console.error("errrrrrrrr" + error);
+            email = "bobbyren+WeTrain@gmail.com"
+            fromName = "WeTrain Team"
+            sendMail(email, fromName, text, subject)
+        }
+    });
 });
-});
+
+Parse.Cloud.define("startWorkout", function(request, response) {
+    var workoutId = request.params.workoutId
+    console.log("workout = " + workoutId)
+
+    var query = new Parse.Query("Workout")
+    var workoutObject
+    query.get(workoutId, {
+        success: function(object){
+
+            workoutObject = object
+            workoutObject.set("status", "training")
+            workoutObject.save().then(function(workoutObject) {
+                console.log("workout started: status " + workoutObject.get("status"))
+
+                createPaymentForWorkout(request, response, workoutObject)
+            });
+        },
+        error: function(error) {
+            console.log("could not startWorkout for " + workoutId)
+            response.error(error)
+        }
+    })
+})
 
 var Payment = Parse.Object.extend('Payment');
-var createPaymentForWorkout = function(request, workoutObject, clientObject) {
+var createPaymentForWorkout = function(request, response, workoutObject) {
+    var clientObject = workoutObject.get("client")
     console.log("inside create payment for workout: " + workoutObject + " id: " + workoutObject.id + "client: " + clientObject + " id: " + clientObject.id)
 
     var existingPayment = workoutObject.get("payment")
@@ -221,42 +248,36 @@ var createPaymentForWorkout = function(request, workoutObject, clientObject) {
         payment.set("charged", false)
 
         console.log("saving payment")
-        Parse.Object.saveAll([payment], {
-            success: function(objects) {
-                console.log("payment saved")
+        payment.save().then(function(payment, response) {
+            console.log("payment saved")
 
-                workoutObject.set("payment", payment)
-                workoutObject.save(null, {
-                    success: function(object) {
-                    },
-                    error: function(error) {
-                    }
-                })
+            // add payment to workout object
+            console.log("saving payment to workout")
+            workoutObject.set("payment", payment)
 
-                var trainerObject = workoutObject.get("trainer")
-                var trainerQuery = new Parse.Query("Trainer");
-                trainerQuery.get(trainerObject.id, {
-                    success: function(trainer) {
-                        console.log("trainer: " + trainer + " id: " + trainer.id)
-                        payment.set("trainer", trainer)
-                        payment.save(null, {
-                            success: function(object) {
-                            },
-                            error: function(error) {
-                            }
-                        })
-                    }
-                    ,
-                    error : function(error) {
-                        console.error("could not save trainer to payment" + error);
-                    }
-                });
-
-                chargeCard(request, payment)
-                request.success()
-            }, error: function(objects, error) {
-                console.log("payment not saved" + error)
-            }
+            // add payment to trainer object
+            var trainerObject = workoutObject.get("trainer")
+            var trainerQuery = new Parse.Query("Trainer");
+            trainerQuery.get(trainerObject.id, {
+                success: function(trainer) {
+                    console.log("saving payment to trainer: " + trainer + " id: " + trainer.id)
+                    payment.set("trainer", trainer)
+                    Parse.Object.saveAll([payment, workoutObject], {
+                        success: function(object) {
+                            console.log("HEREHEREHERE")
+                            response.success(workoutObject)
+                        },
+                        error: function(error) {
+                            response.error(error)
+                        }
+                    })
+                }
+                ,
+                error : function(error) {
+                    console.error("could not save trainer to payment" + error);
+                    response.success(payment)
+                }
+            });
         });
 }
 else {
@@ -265,7 +286,7 @@ else {
 }
 }
 
-var chargeCard = function(request, payment) {
+var chargeCard = function(request, response, payment) {
     var stripeToken = payment.get("stripeToken")
     var amount = payment.get("amount") // in dollars, needs to be converted to cents
     console.log("chargeCard " + stripeToken + " amount " + amount)
@@ -299,29 +320,6 @@ res.redirect('/confirmation/'+purchase.id);
     }
     });
 }
-
-Parse.Cloud.define("startWorkout", function(request, response) {
-    var workoutId = request.params.workoutId
-    console.log("workout = " + workoutId)
-
-    var query = new Parse.Query("Workout")
-    var workoutObject
-    query.get(workoutId, {
-        success: function(object){
-
-            workoutObject = object
-            workoutObject.set("status", "training")
-            workoutObject.save().then(function(workoutObject) {
-                console.log("workout started: status " + workoutObject.get("status"))
-            response.success(workoutObject)
-            });
-        },
-        error: function(error) {
-            console.log("could not startWorkout for " + workoutId)
-            response.error(error)
-        }
-    })
-})
 
 Parse.Cloud.define("chargeCard", function(request, response){
     var stripeToken = request.params.stripeToken;
