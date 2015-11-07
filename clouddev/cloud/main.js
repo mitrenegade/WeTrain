@@ -242,12 +242,37 @@ var createPaymentForWorkout = function(workoutObject) {
         var payment = new Payment()
         payment.set("client", clientObject)
         payment.set("workout", workoutObject)
-        payment.set("amount", 2.00)
+        var amount = 2
+        payment.set("amount", amount)
 
         // todo: client needs to be fetched
-        var token = clientObject.get("stripeToken")
-        console.log("found token: " + token)
-//        payment.set("stripeToken", token)
+        var query = new Parse.Query("Trainer")
+        query.get(clientObject.id, {
+            success: function(object){
+                console.log("client object found " + object + " with token " + object.get("stripeToken"))
+                var stripeToken = clientObject.get("stripeToken")
+                console.log("found token: " + stripeToken)
+                payment.set("stripeToken", stripeToken)
+
+                Parse.Cloud.run('chargeCard', {
+                    stripeToken: stripeToken ,
+                    amount: amount,
+                }, 
+                {
+                    success: function(ratings) {
+                        //update payment object
+                        payment.set("charged", true)
+                        payment.set("total", payment.get("total") + amount)
+                        payment.save()
+                    },
+                    error: function(error) {
+                        var  errorMessage = "There was a problem charging your card, please try again";
+                    }            
+                }, 
+            error: function(error) {
+                console.log("client request failed")
+            }
+        }
 
         payment.set("charged", false)
 
@@ -292,41 +317,6 @@ var createPaymentForWorkout = function(workoutObject) {
 //        console.log("payment already exists... ")
 //        console.log("was charged: " + existingPayment.get("amount"))
 //    }
-}
-
-var chargeCard = function(request, response, payment) {
-    var stripeToken = payment.get("stripeToken")
-    var amount = payment.get("amount") // in dollars, needs to be converted to cents
-    console.log("chargeCard " + stripeToken + " amount " + amount)
-
-    Parse.Cloud.run('chargeCard', {
-        stripeToken: stripeToken ,
-        amount: amount,
-    }, {
-        success: function(ratings) {
-    //update payment object
-    payment.set("charged", true)
-    payment.set("total", payment.get("total") + amount)
-    payment.save()
-
-//Todo: Send payment confirmation email
-
-// TODO: create purchase/receipt object to ensure that the charge doesn't happen multiple times
-/*
-var purchase = new Purchase();
-purchase.set('courseSession', session);
-purchase.set('userName', userName);
-purchase.set('userEmail', userEmail);
-
-purchase.save().then(function(purchase){
-res.redirect('/confirmation/'+purchase.id);
-});
-*/
-    },
-    error: function(error) {
-        var  errorMessage = "There was a problem charging your card, please try again";
-    }
-    });
 }
 
 Parse.Cloud.define("chargeCard", function(request, response){
