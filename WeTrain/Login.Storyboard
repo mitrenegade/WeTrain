@@ -168,7 +168,6 @@
         <!--Navigation Controller-->
         <scene sceneID="aOP-YW-pSk">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TPY-XF-EIO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="SignupNavigationController" id="T7u-1k-qWh" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="fMH-TM-onf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rBm-8g-qhU">
@@ -179,6 +178,7 @@
                         <segue destination="kEv-e0-lgh" kind="relationship" relationship="rootViewController" id="awz-4d-JDb"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TPY-XF-EIO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-221" y="252"/>
         </scene>

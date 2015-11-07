@@ -9,7 +9,7 @@
 import Foundation
 
 let TESTING: Int32 = 1 // notifications sent while training
-let PRODUCTION: Bool = false // Parse database
+let PRODUCTION: Bool = false // Parse database, stripe key
 
 let TRAINING_TITLES = ["Healthy Heart", "Liposuction", "Mobi-Fit", "The BLT", "Belly Busters", "Tyrannosaurus Flex", "Sports Endurance", "The Shred Factory"]
 let TRAINING_SUBTITLES = ["Cardio", "Weight Loss", "Mobility", "Butt, Legs, Thighs", "Core", "Strength and Hypertrophy", "Muscular Endurance", "Toning"]
@@ -25,10 +25,8 @@ enum RequestState: String {
 }
 
 let GOOGLE_API_APP_KEY = "AIzaSyA7aDRZVW3-ruvbeB25tzJF5WKr0FjyRac"
-let STRIPE_PUBLISHABLE_KEY = "pk_test_xG5SMQiERYrdgLdukSEnH46E"
-
-// TODO: switch to this when published
-//let STRIPE_PUBLISHABLE_KEY = "pk_live_MzmtjIQ0XLqVuhWXzPzmVCX9"
+let STRIPE_PUBLISHABLE_KEY_DEV = "pk_test_44V2WNWqf37KXEnaJE2CM5rf"
+let STRIPE_PUBLISHABLE_KEY_PROD = "pk_live_egDYTQMRk9mIkZYQPp0YtwFn"
 
 let PARSE_APP_ID_DEV = "PSgTQ91JT6JQUjmm5XmdylwCMPzckertjqul6AKL"
 let PARSE_CLIENT_KEY_DEV = "EwYejFi8NGJ8XSLLlEfv4XPgSzPksGzeIO94Ljo1"
