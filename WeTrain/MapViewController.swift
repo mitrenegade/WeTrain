@@ -10,10 +10,6 @@ import UIKit
 import GoogleMaps
 import Parse
 
-let PHILADELPHIA_LAT = 39.949508
-let PHILADELPHIA_LON = -75.171886
-let SERVICE_RANGE_METERS: Double = 8000 // 5 mile radius
-
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
 
     var requestedTrainingType: Int?
@@ -155,9 +151,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func inServiceRange() -> Bool {
-        // TODO: create a user flag instead of checking current location
-        // TODO: for app store release, enable this
-        //return true
+        // create a user flag instead of checking current location
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        if let override: Bool = client.objectForKey("locationOverride") as? Bool {
+            if override == true {
+                return true
+            }
+        }
         
         let phila: CLLocation = CLLocation(latitude: PHILADELPHIA_LAT, longitude: PHILADELPHIA_LON)
         if self.currentLocation == nil {

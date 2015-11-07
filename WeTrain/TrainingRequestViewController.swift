@@ -78,7 +78,7 @@ class TrainingRequestViewController: UITableViewController {
         let row = indexPath.row
         let name = TRAINING_ICONS[row] as String
         print("row \(row) name \(name)")
-        icon.image = UIImage(named: "\(name)_teal")!
+        icon.image = UIImage(named: name)!
         labelTitle.text = TRAINING_TITLES[row]
         labelDetails.text = TRAINING_SUBTITLES[row]
         

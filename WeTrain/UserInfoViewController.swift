@@ -18,7 +18,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     
     @IBOutlet var inputFirstName: UITextField!
     @IBOutlet var inputLastName: UITextField!
-    @IBOutlet var inputEmail: UITextField!
     @IBOutlet var inputPhone: UITextField!
     @IBOutlet var inputGender: UITextField!
     @IBOutlet var inputAge: UITextField!
@@ -108,9 +107,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
                     if let lastName = self.client!.objectForKey("lastName") as? String {
                         self.inputLastName.text = lastName
                     }
-                    if let email = self.client!.objectForKey("email") as? String {
-                        self.inputEmail.text = email
-                    }
                     if let phone = self.client!.objectForKey("phone") as? String {
                         self.inputPhone.text = phone
                     }
@@ -194,7 +190,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         if gestureRecognizer.isKindOfClass(UITapGestureRecognizer) {
             let location: CGPoint = touch.locationInView(self.viewScrollContent)
-            for input: UIView in [self.inputFirstName, self.inputLastName, self.inputEmail, self.inputPhone, self.inputGender, self.inputAge, self.inputInjuries, self.inputCreditCard] {
+            for input: UIView in [self.inputFirstName, self.inputLastName, self.inputPhone, self.inputGender, self.inputAge, self.inputInjuries, self.inputCreditCard] {
                 if CGRectContainsPoint(input.frame, location) {
                     return false
                 }
@@ -213,16 +209,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         let lastName = self.inputLastName.text
         if lastName?.characters.count == 0 {
             self.simpleAlert("Please enter your last name", message: nil)
-            return
-        }
-        
-        let email = self.inputEmail.text
-        if email?.characters.count == 0 {
-            self.simpleAlert("Please enter an email", message: nil)
-            return
-        }
-        if !self.isValidEmail(email!) {
-            self.simpleAlert("Please enter a valid email address", message: nil)
             return
         }
         
@@ -285,7 +271,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     
     func updateClientProfile(client: PFObject) {
         // create trainer object
-        var clientDict: [String: AnyObject] = ["firstName": self.inputFirstName.text!, "email": self.inputEmail.text!, "phone": self.inputPhone.text!];
+        var clientDict: [String: AnyObject] = ["firstName": self.inputFirstName.text!, "phone": self.inputPhone.text!];
         if self.inputLastName.text != nil {
             clientDict["lastName"] = self.inputLastName.text!
         }
@@ -383,9 +369,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.inputLastName.becomeFirstResponder()
         }
         else if textField == self.inputLastName {
-            self.inputEmail.becomeFirstResponder()
-        }
-        else if textField == self.inputEmail {
             self.inputPhone.becomeFirstResponder()
         }
         else if textField == self.inputPhone {

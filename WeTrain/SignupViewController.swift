@@ -75,7 +75,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     
     func didSignup(sender: AnyObject) {
         if self.inputUsername.text?.characters.count == 0 {
-            self.simpleAlert("Please enter a username", message: nil)
+            self.simpleAlert("Please enter your email as a username", message: nil)
+            return
+        }
+        let email = self.inputUsername.text
+        if !self.isValidEmail(email!) {
+            self.simpleAlert("Please enter a valid email address", message: nil)
             return
         }
         if self.inputPassword.text?.characters.count == 0 {
