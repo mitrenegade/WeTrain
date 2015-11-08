@@ -34,7 +34,7 @@ var sendMail = function(from, fromName, text, subject) {
     });
 }
 
-var sendPushWorkout = function(clientId, requestId) {
+var sendPushWorkout = function(clientId, requestId, testing) {
     console.log("inside send push")
     Parse.Push.send({
         channels: [ "Trainers" ],
@@ -179,12 +179,9 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
             }
 
             // send push notification
-            if (status == "requested" && testing != true) {
-                console.log("Client object: " + clientObject + " id: " + clientObject.id)
-                console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
-                sendPushWorkout(clientObject.id, trainingObject.id)
-
-            }
+            console.log("Client object: " + clientObject + " id: " + clientObject.id)
+            console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
+            sendPushWorkout(clientObject.id, trainingObject.id, testing)
 
             // payment
             /*
