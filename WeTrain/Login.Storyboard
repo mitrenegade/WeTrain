@@ -58,7 +58,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="newLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ftZ-J0-rW4">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="logoBlack" translatesAutoresizingMaskIntoConstraints="NO" id="ftZ-J0-rW4">
                                 <rect key="frame" x="16" y="20" width="568" height="155"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ftZ-J0-rW4" secondAttribute="height" multiplier="9:2" constant="-129.5" id="WgV-zs-4aA"/>

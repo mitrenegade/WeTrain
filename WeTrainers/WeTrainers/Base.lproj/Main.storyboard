@@ -394,7 +394,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="l7e-TC-JjZ">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="logoBlack" translatesAutoresizingMaskIntoConstraints="NO" id="l7e-TC-JjZ">
                                 <rect key="frame" x="20" y="21" width="560" height="153.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -895,7 +895,6 @@
     <resources>
         <image name="add_user" width="512" height="512"/>
         <image name="genericProfile" width="126" height="126"/>
-        <image name="logo" width="1146" height="568"/>
         <image name="logoBlack" width="600" height="298"/>
         <image name="runnerBG" width="1168" height="1728"/>
     </resources>
