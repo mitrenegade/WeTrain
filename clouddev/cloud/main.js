@@ -45,10 +45,11 @@ var sendPushWorkout = function(clientId, requestId, testing) {
         data: {
             alert: message,
             client: clientId,
-            request: requestId
+            request: requestId,
+            sound: "default"
         }
     }, {
-        success: function() 
+        success: function()
         {
             console.log("Push to Trainers successful")
             },
