@@ -9,7 +9,6 @@
 import Foundation
 
 let TESTING: Int32 = 1 // notiafications sent while training
-let PRODUCTION: Bool = false // Parse database, stripe key
 
 let TRAINING_TITLES = ["Healthy Heart", "Liposuction", "Mobi-Fit", "The BLT", "Belly Busters", "Tyrannosaurus Flex", "Sports Endurance", "The Shred Factory"]
 let TRAINING_SUBTITLES = ["Cardio", "Weight Loss", "Mobility", "Butt, Legs, Thighs", "Core", "Strength and Hypertrophy", "Muscular Endurance", "Toning"]
