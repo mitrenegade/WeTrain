@@ -39,6 +39,10 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         let trainer = user.objectForKey("trainer") as! PFObject
         status = trainer.objectForKey("status") as? String
 
+        if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            self.registerForRemoteNotifications()
+        }
+        
         if status == "available" {
             // make a call to load any existing requests that we won't get through notifications because they were made already
             self.loadExistingRequestsWithCompletion({ (results) -> Void in

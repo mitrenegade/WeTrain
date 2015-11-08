@@ -34,17 +34,22 @@ var sendMail = function(from, fromName, text, subject) {
     });
 }
 
-var sendPushWorkout = function(clientId, requestId) {
+var sendPushWorkout = function(clientId, requestId, testing) {
     console.log("inside send push")
+    var message = "New training request available"
+    if (testing == 1) {
+        message = "TEST: new training request available"                    
+    }
     Parse.Push.send({
         channels: [ "Trainers" ],
         data: {
-            alert: "New training request available.",
+            alert: message,
             client: clientId,
-            request: requestId
+            request: requestId,
+            sound: "default"
         }
     }, {
-        success: function() 
+        success: function()
         {
             console.log("Push to Trainers successful")
             },
@@ -179,12 +184,9 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
             }
 
             // send push notification
-            if (status == "requested" && testing != true) {
-                console.log("Client object: " + clientObject + " id: " + clientObject.id)
-                console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
-                sendPushWorkout(clientObject.id, trainingObject.id)
-
-            }
+            console.log("Client object: " + clientObject + " id: " + clientObject.id)
+            console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
+            sendPushWorkout(clientObject.id, trainingObject.id, testing)
 
             // payment
             /*
@@ -233,11 +235,12 @@ Parse.Cloud.define("startWorkout", function(request, response) {
 
 var Payment = Parse.Object.extend('Payment');
 var createPaymentForWorkout = function(workoutObject) {
+    /*
     var clientObject = workoutObject.get("client")
     console.log("inside create payment for workout: " + workoutObject + " id: " + workoutObject.id + " client: " + clientObject + " id: " + clientObject.id + " token " + clientObject.get("stripeToken") + " last4 " + clientObject.get("lastFour"))
 
     var existingPayment = workoutObject.get("payment")
-//    if (existingPayment == undefined) {
+    if (existingPayment == undefined) {
         console.log("No payment exists")
         var payment = new Payment()
         payment.set("client", clientObject)
