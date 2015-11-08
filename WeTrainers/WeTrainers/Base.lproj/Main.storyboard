@@ -224,10 +224,10 @@
                                 <rect key="frame" x="20" y="278" width="560" height="238"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="TVu-Ih-DXE">
-                                        <rect key="frame" x="8" y="66" width="544" height="164"/>
+                                        <rect key="frame" x="8" y="105" width="544" height="125"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="164" id="2gh-TU-uhY"/>
+                                            <constraint firstAttribute="height" constant="125" id="DIP-6M-nWK"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -249,15 +249,28 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sXh-CG-eAd">
+                                        <rect key="frame" x="8" y="66" width="544" height="31"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="UC0-no-KLG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="4IJ-8c-4h7" firstAttribute="top" secondItem="63J-OL-Nbc" secondAttribute="top" constant="8" id="4pX-Vn-QEP"/>
                                     <constraint firstAttribute="trailing" secondItem="TVu-Ih-DXE" secondAttribute="trailing" constant="8" id="L48-IH-iTG"/>
                                     <constraint firstItem="Nmj-r0-vjh" firstAttribute="top" secondItem="63J-OL-Nbc" secondAttribute="top" constant="8" id="NB6-Cc-v4F"/>
-                                    <constraint firstItem="TVu-Ih-DXE" firstAttribute="top" secondItem="4IJ-8c-4h7" secondAttribute="bottom" constant="8" id="OCY-CF-2ez"/>
+                                    <constraint firstItem="sXh-CG-eAd" firstAttribute="leading" secondItem="63J-OL-Nbc" secondAttribute="leading" constant="8" id="OhQ-ZK-VV7"/>
+                                    <constraint firstItem="sXh-CG-eAd" firstAttribute="top" secondItem="4IJ-8c-4h7" secondAttribute="bottom" constant="8" id="SVR-CQ-IN0"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="TVu-Ih-DXE" secondAttribute="bottom" constant="8" id="WrU-9T-DxE"/>
                                     <constraint firstItem="TVu-Ih-DXE" firstAttribute="leading" secondItem="63J-OL-Nbc" secondAttribute="leading" constant="8" id="WyL-Wt-DiA"/>
+                                    <constraint firstItem="TVu-Ih-DXE" firstAttribute="top" secondItem="sXh-CG-eAd" secondAttribute="bottom" constant="8" id="Zs1-8n-iyW"/>
+                                    <constraint firstAttribute="trailing" secondItem="sXh-CG-eAd" secondAttribute="trailing" constant="8" id="bAU-rb-GB6"/>
                                     <constraint firstItem="Nmj-r0-vjh" firstAttribute="leading" secondItem="63J-OL-Nbc" secondAttribute="leading" constant="8" id="qEr-Ka-7Tf"/>
                                     <constraint firstAttribute="trailing" secondItem="4IJ-8c-4h7" secondAttribute="trailing" constant="8" id="qXq-0e-fbC"/>
                                     <constraint firstItem="4IJ-8c-4h7" firstAttribute="leading" secondItem="Nmj-r0-vjh" secondAttribute="trailing" constant="9" id="sBx-ou-dsK"/>
@@ -372,10 +385,12 @@
                         <outlet property="buttonAction" destination="kxe-ID-Vzj" id="xuY-0S-2N6"/>
                         <outlet property="buttonContact" destination="bHx-yj-kRW" id="OBp-PW-aVu"/>
                         <outlet property="constraintButtonContactHeight" destination="x2V-pQ-aGi" id="Aac-3u-rBN"/>
-                        <outlet property="constraintLabelInfoHeight" destination="2gh-TU-uhY" id="2il-2N-vNc"/>
+                        <outlet property="constraintLabelAddressHeight" destination="UC0-no-KLG" id="vQa-aN-Nce"/>
+                        <outlet property="constraintLabelInfoHeight" destination="DIP-6M-nWK" id="724-20-5ES"/>
                         <outlet property="constraintPasscodeHeight" destination="QAC-Cu-xfw" id="Hge-Ld-q05"/>
                         <outlet property="iconExercise" destination="Nmj-r0-vjh" id="BP3-qU-L8A"/>
                         <outlet property="inputPasscode" destination="Qd7-qt-TWq" id="N6j-BM-zwi"/>
+                        <outlet property="labelAddress" destination="sXh-CG-eAd" id="yvc-rq-kMJ"/>
                         <outlet property="labelExercise" destination="4IJ-8c-4h7" id="gNb-25-hp7"/>
                         <outlet property="labelInfo" destination="TVu-Ih-DXE" id="ItU-Hq-eul"/>
                         <outlet property="labelName" destination="VLE-zb-Cl7" id="5oC-tN-aa2"/>
