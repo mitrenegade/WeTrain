@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,28 +10,10 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="newLogo" translatesAutoresizingMaskIntoConstraints="NO" id="nbz-3L-W7R">
-                    <rect key="frame" x="40" y="234" width="520" height="156"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="nbz-3L-W7R" secondAttribute="height" multiplier="10:3" id="DFl-3W-gVr"/>
-                    </constraints>
-                </imageView>
-            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="centerX" secondItem="nbz-3L-W7R" secondAttribute="centerX" id="Kde-IL-Jxp"/>
-                <constraint firstAttribute="trailing" secondItem="nbz-3L-W7R" secondAttribute="trailing" constant="40" id="PJH-KN-hFz"/>
-                <constraint firstItem="nbz-3L-W7R" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.25" id="fDH-k2-XpU"/>
-                <constraint firstItem="nbz-3L-W7R" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="fwr-KY-kKb"/>
-                <constraint firstAttribute="centerY" secondItem="nbz-3L-W7R" secondAttribute="centerY" id="uE5-Wp-2bK"/>
-            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
-    <resources>
-        <image name="newLogo" width="382" height="189"/>
-    </resources>
 </document>

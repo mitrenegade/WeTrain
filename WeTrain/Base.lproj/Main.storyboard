@@ -945,9 +945,9 @@
         <image name="iconChecklist" width="30" height="30"/>
         <image name="iconDumbbell" width="30" height="30"/>
         <image name="iconLocation" width="26" height="26"/>
-        <image name="runnerBG" width="537" height="621"/>
+        <image name="runnerBG" width="1168" height="1728"/>
         <image name="star" width="42" height="42"/>
-        <image name="weTrainBG" width="551" height="666"/>
+        <image name="weTrainBG" width="732" height="1438"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wKi-zk-aub"/>
