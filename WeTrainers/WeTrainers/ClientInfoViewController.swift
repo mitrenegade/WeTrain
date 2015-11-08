@@ -321,7 +321,25 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         }
     }
     
+    func openInMaps(address: String) {
+        var escapedString = address.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        print("original \(address) escaped \(escapedString)")
+        let url: NSURL = NSURL(string: "comgooglemaps://?q=\(escapedString)")!
+        if UIApplication.sharedApplication().canOpenURL(url) {
+            UIApplication.sharedApplication().openURL(url)
+        }
+        else {
+            self.simpleAlert("Could not open Google Maps", message: "WeTrain could not open the map app for this address.")
+        }
+    }
+    
     func contact() {
+        
+        if let address: String = request.objectForKey("address") as? String {
+            self.openInMaps(address)
+            return
+        }
+        
         let name = self.client!.objectForKey("firstName") as! String
         var phone: String = ""
         if let phonenum: String = self.client!.objectForKey("phone") as? String {
