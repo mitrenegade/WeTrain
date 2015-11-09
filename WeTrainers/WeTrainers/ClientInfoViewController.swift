@@ -24,6 +24,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     @IBOutlet weak var viewInfo: UIView!
     @IBOutlet weak var iconExercise: UIImageView!
     @IBOutlet weak var labelExercise: UILabel!
+    @IBOutlet weak var labelAddress: UILabel!
+    @IBOutlet weak var constraintLabelAddressHeight: NSLayoutConstraint?
     @IBOutlet weak var labelInfo: UILabel!
     @IBOutlet weak var constraintLabelInfoHeight: NSLayoutConstraint?
 
@@ -106,7 +108,10 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 self.refreshState()
             })
         }
-        }
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleGesture:")
+        self.labelAddress.superview!.addGestureRecognizer(tap)
+    }
     
     func ageOfClient(client: PFObject) -> String? {
         // TODO: use birthdate to calculate age
@@ -117,7 +122,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             return nil
         }
     }
-
+    
     func updateLabelInfo() {
         let exercise = self.request.objectForKey("type") as? String
         let gender = self.client!.objectForKey("gender") as? String
@@ -155,7 +160,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 }
                 else {
                     info = "Time elapsed: \(timeString)"
-
+                    
                     if self.timerClock == nil {
                         self.timerClock = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "tick", userInfo: nil, repeats: true)
                     }
@@ -213,15 +218,20 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         if injuries != nil {
             info = "\(info)\nInjuries: \(injuries!)"
         }
+        self.labelInfo.text = info
         
         if self.status == RequestState.Matched.rawValue || self.status == RequestState.Searching.rawValue {
             if let address: String = request.objectForKey("address") as? String {
-                info = "\(info)\n\nLocation: \n\(address)"
+                self.labelAddress.text = "Location: \(address)"
+                let size = self.labelAddress.sizeThatFits(CGSize(width: self.labelAddress.frame.size.width, height: self.viewInfo.frame.size.height - 20))
+                self.constraintLabelAddressHeight!.constant = size.height
             }
-    }
-    
-        self.labelInfo.text = info
-        let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20))
+            else {
+                self.constraintLabelAddressHeight!.constant = 0
+            }
+        }
+
+        let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20 - self.constraintLabelAddressHeight!.constant))
         self.constraintLabelInfoHeight!.constant = size.height
     }
     
@@ -291,7 +301,6 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         })
     }
     
-
     @IBAction func didClickButton(sender: UIButton) {
         if sender == self.buttonContact {
             self.contact()
@@ -318,6 +327,27 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             else {
                 self.refreshState()
             }
+        }
+    }
+    
+    func handleGesture(gesture: UIGestureRecognizer) {
+        let touch = gesture.locationInView(self.labelAddress.superview!)
+        if CGRectContainsPoint(self.labelAddress.frame, touch) {
+            if let address: String = request.objectForKey("address") as? String {
+                self.openInMaps(address)
+                return
+            }
+        }
+    }
+    func openInMaps(address: String) {
+        var escapedString = address.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        print("original \(address) escaped \(escapedString)")
+        let url: NSURL = NSURL(string: "comgooglemaps://?q=\(escapedString)")!
+        if UIApplication.sharedApplication().canOpenURL(url) {
+            UIApplication.sharedApplication().openURL(url)
+        }
+        else {
+            self.simpleAlert("Could not open Google Maps", message: "WeTrain could not open the map app for this address.")
         }
     }
     

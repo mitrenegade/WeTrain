@@ -39,7 +39,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         let trainer = user.objectForKey("trainer") as! PFObject
         status = trainer.objectForKey("status") as? String
 
-        if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+        if !self.hasPushEnabled() {
             self.registerForRemoteNotifications()
         }
         
@@ -47,7 +47,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             // make a call to load any existing requests that we won't get through notifications because they were made already
             self.loadExistingRequestsWithCompletion({ (results) -> Void in
                 if results == nil || results!.count == 0 {
-                    if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+                    if !self.hasPushEnabled() {
                         self.status = "disconnected"
                     }
                 }
@@ -112,7 +112,16 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-
+    func hasPushEnabled() -> Bool {
+        let settings = UIApplication.sharedApplication().currentUserNotificationSettings()
+        if (settings?.types.contains(.Alert) == true){
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -194,7 +203,14 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if sender == self.buttonShift {
             if self.status == "disconnected" {
-                self.registerForRemoteNotifications()
+                if self.hasPushEnabled() {
+                    let trainer = PFUser.currentUser()!.objectForKey("trainer") as! PFObject
+                    self.status = trainer.objectForKey("status") as? String
+                    self.updateStatus(self.status!)
+                }
+                else {
+                    self.registerForRemoteNotifications()
+                }
             }
             else if self.status == "available" {
                 // end a shift

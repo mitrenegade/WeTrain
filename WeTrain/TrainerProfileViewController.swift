@@ -81,11 +81,17 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
         }
   
         var infoText = ""
+        let status: String = self.request!.objectForKey("status") as! String
+        if status == RequestState.Matched.rawValue {
+            let passcode: String = self.request!.objectForKey("passcode") as! String
+            infoText = "\(infoText)Tell your trainer the passcode for today's workout:\n\(passcode.uppercaseString)\n\n"
+            
+        }
+
         if let bio: String = self.trainer!.objectForKey("bio") as? String {
-            infoText = "About \(firstName!): \n\n\(bio)\n\n"
+            infoText = "\(infoText)About \(firstName!): \n\n\(bio)\n\n"
         }
         
-        let status: String = self.request!.objectForKey("status") as! String
         if status == RequestState.Cancelled.rawValue {
             if firstName != nil {
                 infoText = "\(firstName!) cancelled the workout."
@@ -93,11 +99,6 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             else {
                 infoText = "Your trainer cancelled the workout."
             }
-        }
-        if status == RequestState.Matched.rawValue {
-            let passcode: String = self.request!.objectForKey("passcode") as! String
-            infoText = "\(infoText)Tell your trainer the passcode for today's workout:\n\(passcode.uppercaseString)"
-            
         }
         self.labelInfo.text = infoText
 /*

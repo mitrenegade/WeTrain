@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="7gY-dd-I21">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="hae-vD-wLY">
+            <objects>
+                <viewController id="7gY-dd-I21" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2n4-yx-1MM"/>
+                        <viewControllerLayoutGuide type="bottom" id="5kK-n1-qO1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cjh-Ia-TdY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="runnerBG" translatesAutoresizingMaskIntoConstraints="NO" id="nkB-jt-Zbp">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="logoBlack" translatesAutoresizingMaskIntoConstraints="NO" id="KvE-LP-eia">
+                                <rect key="frame" x="50" y="225" width="500" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="KvE-LP-eia" secondAttribute="height" multiplier="10:3" id="Pnx-70-c3g"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="nkB-jt-Zbp" secondAttribute="trailing" id="2hO-N1-jEo"/>
+                            <constraint firstItem="KvE-LP-eia" firstAttribute="centerX" secondItem="cjh-Ia-TdY" secondAttribute="centerX" id="Z5m-c3-65V"/>
+                            <constraint firstItem="KvE-LP-eia" firstAttribute="centerY" secondItem="cjh-Ia-TdY" secondAttribute="centerY" id="cLL-9g-Ky1"/>
+                            <constraint firstItem="nkB-jt-Zbp" firstAttribute="top" secondItem="cjh-Ia-TdY" secondAttribute="top" id="hPQ-g4-wT5"/>
+                            <constraint firstItem="KvE-LP-eia" firstAttribute="height" secondItem="cjh-Ia-TdY" secondAttribute="height" multiplier="0.25" id="sjj-10-IS3"/>
+                            <constraint firstItem="nkB-jt-Zbp" firstAttribute="leading" secondItem="cjh-Ia-TdY" secondAttribute="leading" id="tGV-BH-Shz"/>
+                            <constraint firstItem="5kK-n1-qO1" firstAttribute="top" secondItem="nkB-jt-Zbp" secondAttribute="bottom" id="tHV-mk-htI"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RCc-QI-urx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1627" y="252"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logoBlack" width="600" height="298"/>
+        <image name="runnerBG" width="1168" height="1728"/>
+    </resources>
+</document>
