@@ -1,7 +1,7 @@
 var Stripe = require('stripe');
 var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
-Stripe.initialize(STRIPE_SECRET_DEV);
+Stripe.initialize(STRIPE_SECRET_PROD);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
@@ -211,13 +211,12 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
 
 Parse.Cloud.afterSave("Client", function(request, response) {
     var client = request.object
-    var customerId = client.get("customer")
-    var stripeToken = client.get("stripeToken")
-    if (customerId == undefined && stripeToken != undefined) {
+    var customerId = client.get("customer_id")
+    if (customerId == undefined || customerId == "") {
         createCustomer(client, response)
     }
     else {
-        console.log("afterSave client not creating customer because:: customerId " + customerId + " token " + stripeToken)
+        console.log("afterSave client not creating customer because:: customerId " + customerId)
     }
 });
 
@@ -232,16 +231,11 @@ var createCustomer = function(client, response) {
             console.log(httpResponse);
             var customer_id = httpResponse["id"]
             var card = httpResponse.default_source
-            console.log("customer_id " + customer_id + " card " + card + " client " + client.id)
-            var customer = new Customer()
-            customer.set("customer_id", customer_id)
-            customer.set("card", card)
-            customer.set("client", client)
-            customer.save().then(
+            client.set("customer_id", customer_id)
+            client.set("card", card)
+            client.save().then(
                 function(object) {
-                    console.log("customer saved with id " + customer.id)
-                    client.set("customer", customer.id)
-                    client.save()
+                    console.log("client saved with customer id " + client.get("customer_id"))
                 }, 
                 function(error) {
                     console.log("customer failed to save " + error)
@@ -369,7 +363,7 @@ var createPaymentForWorkout = function(workoutObject) {
 //    }
 }
 
-Parse.Cloud.define("chargeCard", function(request, response){
+Parse.Cloud.define("chargeCustomer", function(request, response){
     var stripeToken = request.params.stripeToken;
     var amt = request.params.amount;
 
