@@ -106,8 +106,9 @@ class TrainingLengthViewController: UIViewController {
     }
 
     func testCharge() {
-        let params = ["stripeToken":"tok_174c0cCNa8V6IQEv76rPjRb4", "amount": 5.00]
-        PFCloud.callFunctionInBackground("chargeCard", withParameters: params) { (results, error) -> Void in
+        let client: PFObject = PFUser.currentUser()!.objectForKey("client")! as! PFObject
+        let params: [String: AnyObject] = ["clientId":client.objectId!, "amount": 5.00]
+        PFCloud.callFunctionInBackground("chargeCustomer", withParameters: params) { (results, error) -> Void in
             print("results: \(results) error: \(error)")
             if error != nil {
                 self.simpleAlert("Could not charge card", message: "\(error)")

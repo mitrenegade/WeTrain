@@ -1,7 +1,7 @@
 var Stripe = require('stripe');
 var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
-Stripe.initialize(STRIPE_SECRET_PROD);
+Stripe.initialize(STRIPE_SECRET_DEV);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
@@ -364,10 +364,36 @@ var createPaymentForWorkout = function(workoutObject) {
 }
 
 Parse.Cloud.define("chargeCustomer", function(request, response){
-    var stripeToken = request.params.stripeToken;
+    var clientId = request.params.clientId;
     var amt = request.params.amount;
 
-    console.log("stripe charging token " + stripeToken + " amount " + amt)
+    var query = new Parse.Query("Client")
+    query.get(clientId, {
+        success: function(object){
+            var customer = object.get("customer_id")
+            console.log("client " + object.id + " customer " + object.get("customer_id"))
+            Stripe.Charges.create({
+                amount: amt * 100.00, // expressed in minimum currency unit (cents)
+                currency: "usd",
+                customer: customer
+            },{
+                success: function(httpResponse) {
+                    console.log("stripe purchase made")
+                    response.success("Purchase made!");
+                },
+                error: function(error) {
+                    console.log("stripe purchase error " + error)
+                    response.error("Uh oh, something went wrong");
+                }
+            });
+        },
+        error: function(error) {
+            console.log("could find client " + clientId)
+            response.error(error)
+        }
+    })
+/*
+    console.log("stripe charging token " + client + " amount " + amt)
     Stripe.Charges.create({
         amount: amt * 100.00, // expressed in minimum currency unit (cents)
         currency: "usd",
@@ -382,5 +408,6 @@ Parse.Cloud.define("chargeCustomer", function(request, response){
                 response.error("Uh oh, something went wrong");
             }
         });
+*/
 });
 //curl -X POST -H "X-Parse-Application-Id: mxzbQxv3lYPBJoOpbnkMDgnDoFFkFuUW6Sm3Of9d" -H "X-Parse-REST-API-Key: v4uFmG5hgfhJKejsDqLBRFbq15gWBxnA6yZd9Dvm" -H "Content-Type: application/json" -d '{"toEmail":"bobbyren@gmail.com","toName":"Bobby Ren","fromEmail":"bobbyren@gmail.com","fromName":"Bobby Ren","text":"testing ManDrill email","subject":"this is just a test"}' https://api.parse.com/1/functions/sendMail
