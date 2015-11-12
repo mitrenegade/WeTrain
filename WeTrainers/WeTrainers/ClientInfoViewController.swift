@@ -349,7 +349,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         else {
             var message = "WeTrain could not open the map app for this address"
             if address.characters.count > 0 {
-                message = "\(message): address"
+                message = "\(message): \(address)"
             }
             self.simpleAlert("Could not open Google Maps", message: message)
         }
