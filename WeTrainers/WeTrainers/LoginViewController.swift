@@ -20,6 +20,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.reset()
     }
 
     override func didReceiveMemoryWarning() {
