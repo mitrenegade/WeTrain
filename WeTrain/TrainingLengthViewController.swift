@@ -52,6 +52,8 @@ class TrainingLengthViewController: UIViewController {
             else if sender != nil && sender! as! UIButton == self.button60 {
                 controller.selectedExerciseLength = 60
             }
+            
+            self.testCharge()
         }
         if segue.identifier == "GoToRequestState" {
             let controller = segue.destinationViewController as! RequestStatusViewController
@@ -103,4 +105,15 @@ class TrainingLengthViewController: UIViewController {
         }
     }
 
+    func testCharge() {
+        let params = ["stripeToken":"tok_174c0cCNa8V6IQEv76rPjRb4", "amount": 5.00]
+        PFCloud.callFunctionInBackground("chargeCard", withParameters: params) { (results, error) -> Void in
+            print("results: \(results) error: \(error)")
+            if error != nil {
+                self.simpleAlert("Could not charge card", message: "\(error)")
+            }
+            else {
+            }
+        }
+    }
 }

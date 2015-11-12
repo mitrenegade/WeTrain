@@ -1,6 +1,7 @@
 var Stripe = require('stripe');
-//var STRIPE_KEY_DEV = ''
-Stripe.initialize('pk_test_44V2WNWqf37KXEnaJE2CM5rf');
+var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
+var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
+Stripe.initialize(STRIPE_SECRET_DEV);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
@@ -208,6 +209,52 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
     });
 });
 
+Parse.Cloud.afterSave("Client", function(request, response) {
+    var client = request.object
+    var customerId = client.get("customer")
+    var stripeToken = client.get("stripeToken")
+    if (customerId == undefined && stripeToken != undefined) {
+        createCustomer(client, response)
+    }
+    else {
+        console.log("afterSave client not creating customer because:: customerId " + customerId + " token " + stripeToken)
+    }
+});
+
+var Customer = Parse.Object.extend('Customer');
+var createCustomer = function(client, response) {
+    console.log("creating customer for client " + client.id + " token " + client.get("stripeToken"))
+    var token = client.get("stripeToken")
+    Stripe.Customers.create({
+        card: token // the token id should be sent from the client
+    },{
+        success: function(httpResponse) {
+            console.log(httpResponse);
+            var customer_id = httpResponse["id"]
+            var card = httpResponse.default_source
+            console.log("customer_id " + customer_id + " card " + card + " client " + client.id)
+            var customer = new Customer()
+            customer.set("customer_id", customer_id)
+            customer.set("card", card)
+            customer.set("client", client)
+            customer.save().then(
+                function(object) {
+                    console.log("customer saved with id " + customer.id)
+                    client.set("customer", customer.id)
+                    client.save()
+                }, 
+                function(error) {
+                    console.log("customer failed to save " + error)
+                }
+            )
+        },
+        error: function(httpResponse) {
+            console.log(httpResponse);
+            response.error("Uh oh, something went wrong"+httpResponse);
+        }
+    });
+}
+
 Parse.Cloud.define("startWorkout", function(request, response) {
     var workoutId = request.params.workoutId
     console.log("workout = " + workoutId)
@@ -324,11 +371,11 @@ var createPaymentForWorkout = function(workoutObject) {
 
 Parse.Cloud.define("chargeCard", function(request, response){
     var stripeToken = request.params.stripeToken;
-    var amount = request.params.amount;
+    var amt = request.params.amount;
 
-    console.log("stripe charging token " + stripeToken + " amount " + amount)
+    console.log("stripe charging token " + stripeToken + " amount " + amt)
     Stripe.Charges.create({
-        amount: amount * 100, // expressed in minimum currency unit (cents)
+        amount: amt * 100.00, // expressed in minimum currency unit (cents)
         currency: "usd",
         card: stripeToken // the token id should be sent from the client
         },{
@@ -336,7 +383,7 @@ Parse.Cloud.define("chargeCard", function(request, response){
                 console.log("stripe purchase made")
                 response.success("Purchase made!");
             },
-            error: function(httpResponse) {
+            error: function(error) {
                 console.log("stripe purchase error " + error)
                 response.error("Uh oh, something went wrong");
             }
