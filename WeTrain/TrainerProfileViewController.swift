@@ -17,7 +17,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
     @IBOutlet weak var buttonMeet: UIButton!
     
     @IBOutlet weak var viewInfo: UIView!
-    @IBOutlet weak var labelInfo: UILabel!
+    @IBOutlet weak var textViewInfo: UITextView!
 
     @IBOutlet weak var constraintPhotoHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintNameHeight: NSLayoutConstraint!
@@ -108,7 +108,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
                 infoText = "Your trainer cancelled the workout."
             }
         }
-        self.labelInfo.text = infoText
+        self.textViewInfo.text = infoText
 /*
         let attributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 16)!])
         let string = text as NSString
@@ -121,8 +121,10 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
         
         self.labelInfo.attributedText = attributedString
 */
+        /*
         let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20))
         self.constraintInfoHeight.constant = size.height
+        */
         
     }
     
