@@ -298,41 +298,13 @@ var createPaymentForWorkout = function(client, workout, response) {
     payment.save().then(
         function(payment) {
             console.log("payment saved with id " + payment.id)
-            response.success()
+            response.success(payment)
         }, 
         function(error) {
             console.log("payment failed to save " + error)
-            response.error()
+            response.error(error)
         }
     )
-        /*
-        payment.save().then(function(payment) {
-            console.log("payment saved with id " + payment.id)
-
-            // add payment to workout object
-            console.log("saving payment to workout")
-            workoutObject.set("payment", payment)
-
-            // add payment to trainer object
-            var trainerObject = workoutObject.get("trainer")
-            var trainerQuery = new Parse.Query("Trainer");
-            trainerQuery.get(trainerObject.id)
-        })
-        .then(function(trainer) {
-            console.log("saving payment to trainer: " + trainer + " id: " + trainer.id)
-            payment.set("trainer", trainer)
-            payment.save()
-            workoutObject.save()
-            console.log("createPaymentForWorkout successfully saved trainer and workout with new payment")
-        }, function(error) {
-            console.log("could not save payment")
-        });
-        */
-//    }
-//    else {
-//        console.log("payment already exists... ")
-//        console.log("was charged: " + existingPayment.get("amount"))
-//    }
 }
 
 Parse.Cloud.define("chargeCustomer", function(request, response){
@@ -350,12 +322,33 @@ Parse.Cloud.define("chargeCustomer", function(request, response){
                     // create payment
                     createPaymentForWorkout(client, workout, {
                         success: function(payment) {
-                            // charge card
-                            var customer = client.get("customer_id")
-                            console.log("client " + client.id + " customer " + client.get("customer_id"))
-                            createCharge(customer, amt, request, response)
+                            workout.set("payment", payment)
+                            workout.save().then(
+                                function(object) {
+                                    console.log("workout saved with payment id " + workout.get("payment").id)
 
-                            // fulfill payment
+                                    // charge card
+                                    var customer = client.get("customer_id")
+                                    console.log("client " + client.id + " customer " + client.get("customer_id"))
+                                    createCharge(customer, amt, {
+                                        success: function(chargeId) {
+                                            // fulfill payment
+                                            payment.set("charged", true)
+                                            payment.set("chargeId", chargeId)
+                                            payment.save()
+                                            response.success()
+                                        }, 
+                                        error: function(error) {
+                                            console.log("charge card failed")
+                                            response.error(error)
+                                        }
+                                    })
+                                }, 
+                                function(error) {
+                                    console.log("customer failed to save " + error)
+                                }
+                            )
+
 
                         },
                         error: function(error) {
@@ -378,19 +371,20 @@ Parse.Cloud.define("chargeCustomer", function(request, response){
     })
 });
 
-var createCharge = function(customer, amt, request, response) {
+var createCharge = function(customer, amt, response) {
     Stripe.Charges.create({
         amount: amt * 100.00, // expressed in minimum currency unit (cents)
         currency: "usd",
         customer: customer
     },{
         success: function(httpResponse) {
-            console.log("stripe purchase made")
-            response.success("Purchase made!");
+            console.log("stripe purchase made id: " + httpResponse.id)
+            var charge_id = httpResponse.id
+            response.success(charge_id);
         },
         error: function(error) {
             console.log("stripe purchase error " + error)
-            response.error("Uh oh, something went wrong");
+            response.error(error);
         }
     });
 
