@@ -102,19 +102,4 @@ class TrainingLengthViewController: UIViewController {
             })
         }
     }
-
-    func testCharge() {
-        /*
-        let client: PFObject = PFUser.currentUser()!.objectForKey("client")! as! PFObject
-        let params: [String: AnyObject] = ["clientId":client.objectId!, "amount": 5.00]
-        PFCloud.callFunctionInBackground("chargeCustomer", withParameters: params) { (results, error) -> Void in
-            print("results: \(results) error: \(error)")
-            if error != nil {
-                self.simpleAlert("Could not charge card", message: "\(error)")
-            }
-            else {
-            }
-        }
-        */
-    }
 }

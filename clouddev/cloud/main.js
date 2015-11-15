@@ -239,28 +239,87 @@ var createCustomer = function(client, response) {
 
 Parse.Cloud.define("startWorkout", function(request, response) {
     var workoutId = request.params.workoutId
+    var clientId = request.params.clientId;
+    var amt = request.params.amount;
+
     console.log("workout = " + workoutId)
 
     var query = new Parse.Query("Workout")
-    var workoutObject
     query.get(workoutId, {
-        success: function(object){
-
-            workoutObject = object
-            workoutObject.set("status", "training")
-            workoutObject.save().then(function(workoutObject) {
-                console.log("workout started: status " + workoutObject.get("status"))
-
-                response.success(workoutObject)
-                createPaymentForWorkout(workoutObject)
-            });
+        success: function(workout){
+            chargeCustomerBeforeStartingWorkout(clientId, workout, amt, {
+                success: function() {
+                    workout.set("status", "training")
+                    workout.save().then(function(workout) {
+                        console.log("workout started: status " + workout.get("status"))
+                        response.success(workout)
+                    });
+                },
+                error: function(error) {
+                    console.log("chargeCustomerBeforeStartingWorkout failed: " + error)
+                    response.error(error)
+                }
+            })
         },
         error: function(error) {
-            console.log("could not startWorkout for " + workoutId)
+            console.log("startWorkout could not find workout " + workoutId)
             response.error(error)
         }
     })
 })
+
+var chargeCustomerBeforeStartingWorkout = function(clientId, workout, amt, response){
+    var query = new Parse.Query("Client")
+    query.get(clientId, {
+        success: function(client){
+            // create payment
+            createPaymentForWorkout(client, workout, {
+                success: function(payment) {
+                    workout.set("payment", payment)
+                    workout.save().then(
+                        function(object) {
+                            console.log("workout saved with payment id " + workout.get("payment").id)
+                            if (payment.get("charged") == undefined || payment.get("charged") == false || payment.get("chargeId") == undefined || payment.get("chargeId") == "") {
+                                // charge card
+                                var customer = client.get("customer_id")
+                                console.log("client " + client.id + " customer " + client.get("customer_id"))
+                                createCharge(customer, amt, {
+                                    success: function(chargeId) {
+                                        // fulfill payment
+                                        payment.set("charged", true)
+                                        payment.set("chargeId", chargeId)
+                                        payment.save()
+                                        response.success()
+                                    }, 
+                                    error: function(error) {
+                                        console.log("charge card failed")
+                                        response.error(error)
+                                    }
+                                })
+                            }
+                            else {
+                                // payment was already successfully charged
+                                console.log("payment was already completed. do not double charge: continue with workout")
+                                response.success()
+                            }
+                        }, 
+                        function(error) {
+                            console.log("workout failed to save with payment. error: " + error)
+                        }
+                    )
+                },
+                error: function(error) {
+                    console.log("could not create payment: " + error)
+                    response.error(error)
+                }
+            })
+        },
+        error: function(error) {
+            console.log("could find client " + clientId)
+            response.error(error)
+        }
+    })
+}
 
 var Payment = Parse.Object.extend('Payment');
 var createPaymentForWorkout = function(client, workout, response) {
@@ -303,76 +362,6 @@ var createPaymentForWorkout = function(client, workout, response) {
         })
     }
 }
-
-Parse.Cloud.define("chargeCustomer", function(request, response){
-    var clientId = request.params.clientId;
-    var workoutId = request.params.workoutId
-    var amt = request.params.amount;
-
-    var query = new Parse.Query("Client")
-    query.get(clientId, {
-        success: function(client){
-            var workoutQuery = new Parse.Query("Workout")
-            workoutQuery.get(workoutId, {
-                success: function(workout) {
-
-                    // create payment
-                    createPaymentForWorkout(client, workout, {
-                        success: function(payment) {
-                            workout.set("payment", payment)
-                            workout.save().then(
-                                function(object) {
-                                    console.log("workout saved with payment id " + workout.get("payment").id)
-                                    if (payment.get("charged") == undefined || payment.get("charged") == false || payment.get("chargeId") == undefined || payment.get("chargeId") == "") {
-                                        // charge card
-                                        var customer = client.get("customer_id")
-                                        console.log("client " + client.id + " customer " + client.get("customer_id"))
-                                        createCharge(customer, amt, {
-                                            success: function(chargeId) {
-                                                // fulfill payment
-                                                payment.set("charged", true)
-                                                payment.set("chargeId", chargeId)
-                                                payment.save()
-                                                response.success()
-                                            }, 
-                                            error: function(error) {
-                                                console.log("charge card failed")
-                                                response.error(error)
-                                            }
-                                        })
-                                    }
-                                    else {
-                                        // payment was already successfully charged
-                                        console.log("payment was already completed. do not double charge: continue with workout")
-                                        response.success()
-                                    }
-                                }, 
-                                function(error) {
-                                    console.log("workout failed to save with payment. error: " + error)
-                                }
-                            )
-
-
-                        },
-                        error: function(error) {
-                            console.log("could not create payment: " + error)
-                            response.error(error)
-                        }
-                    })
-
-                }, 
-                error: function(error) {
-                    console.log("could not find workout " + workoutId)
-                    response.error(error)
-                }
-            })
-        },
-        error: function(error) {
-            console.log("could find client " + clientId)
-            response.error(error)
-        }
-    })
-});
 
 var createCharge = function(customer, amt, response) {
     Stripe.Charges.create({

@@ -426,28 +426,15 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         let validCode = self.request.objectForKey("passcode") as? String
         
         if validCode == nil || text?.lowercaseString == validCode!.lowercaseString {
-            self.chargeCustomer()
-            //self.startWorkout()
+            self.startWorkout()
         }
         else {
             self.simpleAlert("Invalid passcode", message: "Please enter the correct passcode given to you by your client.")
         }
     }
     
-    func chargeCustomer() {
-        let params: [String: AnyObject] = ["clientId":self.client!.objectId!, "amount": 5.00, "workoutId": self.request.objectId!]
-        PFCloud.callFunctionInBackground("chargeCustomer", withParameters: params) { (results, error) -> Void in
-            print("results: \(results) error: \(error)")
-            if error != nil {
-                self.simpleAlert("Could not charge card", message: "\(error)")
-            }
-            else {
-            }
-        }
-    }
-    
     func startWorkout() {
-        let params = ["workoutId":self.request.objectId!]
+        let params: [String: AnyObject] = ["workoutId":self.request.objectId!, "clientId":self.client!.objectId!, "amount": 5.00]
         PFCloud.callFunctionInBackground("startWorkout", withParameters: params) { (results, error) -> Void in
             print("results: \(results) error: \(error)")
             if error != nil {
