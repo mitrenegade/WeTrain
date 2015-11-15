@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -810,6 +810,8 @@
                     <connections>
                         <outlet property="buttonMeet" destination="CLz-XP-zfb" id="6xy-HB-a8L"/>
                         <outlet property="constraintInfoHeight" destination="uez-Py-eOL" id="fgn-Z9-7po"/>
+                        <outlet property="constraintNameHeight" destination="LLc-uZ-oxV" id="7DV-UO-l9G"/>
+                        <outlet property="constraintPhotoHeight" destination="16l-dr-jKf" id="jzV-8g-iER"/>
                         <outlet property="labelInfo" destination="85W-j6-3pP" id="ucz-VI-Snt"/>
                         <outlet property="labelName" destination="F7r-pv-MK3" id="h7r-3i-7ot"/>
                         <outlet property="photoView" destination="HDq-mK-ZWI" id="tYd-bu-chP"/>

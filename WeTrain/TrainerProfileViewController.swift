@@ -19,6 +19,8 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
     @IBOutlet weak var viewInfo: UIView!
     @IBOutlet weak var labelInfo: UILabel!
 
+    @IBOutlet weak var constraintPhotoHeight: NSLayoutConstraint!
+    @IBOutlet weak var constraintNameHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintInfoHeight: NSLayoutConstraint!
     
     var trainer: PFObject?
@@ -54,6 +56,12 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
                 }
             }
         })
+        
+        if self.view.frame.size.width <= 568 {
+            // iphone 4/5
+            self.constraintPhotoHeight.constant = 60
+            self.constraintNameHeight.constant = 30
+        }
 
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
