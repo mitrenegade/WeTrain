@@ -240,13 +240,19 @@ var createCustomer = function(client, response) {
 Parse.Cloud.define("startWorkout", function(request, response) {
     var workoutId = request.params.workoutId
     var clientId = request.params.clientId;
-    var amt = request.params.amount;
 
     console.log("workout = " + workoutId)
 
     var query = new Parse.Query("Workout")
     query.get(workoutId, {
         success: function(workout){
+            var amt = 0.0
+            if (workout.get("length") == 60) {
+                amt = 22.0
+            }
+            else {
+                amt = 17.0
+            }
             chargeCustomerBeforeStartingWorkout(clientId, workout, amt, {
                 success: function() {
                     workout.set("status", "training")
@@ -273,22 +279,18 @@ var chargeCustomerBeforeStartingWorkout = function(clientId, workout, amt, respo
     query.get(clientId, {
         success: function(client){
             // create payment
-            createPaymentForWorkout(client, workout, {
+            createPaymentForWorkout(client, workout, amt, {
                 success: function(payment) {
                     workout.set("payment", payment)
                     workout.save().then(
                         function(object) {
                             console.log("workout saved with payment id " + workout.get("payment").id)
                             if (payment.get("charged") == undefined || payment.get("charged") == false || payment.get("chargeId") == undefined || payment.get("chargeId") == "") {
-                                // charge card
+                                // charge customer
                                 var customer = client.get("customer_id")
                                 console.log("client " + client.id + " customer " + client.get("customer_id"))
-                                createCharge(customer, amt, {
+                                createCharge(customer, payment, {
                                     success: function(chargeId) {
-                                        // fulfill payment
-                                        payment.set("charged", true)
-                                        payment.set("chargeId", chargeId)
-                                        payment.save()
                                         response.success()
                                     }, 
                                     error: function(error) {
@@ -322,7 +324,7 @@ var chargeCustomerBeforeStartingWorkout = function(clientId, workout, amt, respo
 }
 
 var Payment = Parse.Object.extend('Payment');
-var createPaymentForWorkout = function(client, workout, response) {
+var createPaymentForWorkout = function(client, workout, amount, response) {
     console.log("inside create payment for workout: " + workout.id + " client: " + client.id + " customer " + client.get("customer_id"))
 
     var payment = workout.get("payment")
@@ -331,7 +333,6 @@ var createPaymentForWorkout = function(client, workout, response) {
         payment = new Payment()
         payment.set("client", client)
         payment.set("workout", workout)
-        var amount = 2
         payment.set("amount", amount)
         payment.set("charged", false)
         console.log("created new payment...")
@@ -363,7 +364,8 @@ var createPaymentForWorkout = function(client, workout, response) {
     }
 }
 
-var createCharge = function(customer, amt, response) {
+var createCharge = function(customer, payment, response) {
+    var amt = payment.get("amount")
     Stripe.Charges.create({
         amount: amt * 100.00, // expressed in minimum currency unit (cents)
         currency: "usd",
@@ -371,11 +373,18 @@ var createCharge = function(customer, amt, response) {
     },{
         success: function(httpResponse) {
             console.log("stripe purchase made id: " + httpResponse.id)
-            var charge_id = httpResponse.id
-            response.success(charge_id);
+            var chargeId = httpResponse.id
+            // fulfill payment
+            payment.set("charged", true)
+            payment.set("chargeId", chargeId)
+            payment.save()
+            response.success();
         },
         error: function(error) {
             console.log("stripe purchase error " + error)
+            payment.set("charged", false)
+            payment.set("stripeError", error) // record stripe error
+            payment.save()
             response.error(error);
         }
     });

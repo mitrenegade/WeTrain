@@ -434,7 +434,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     }
     
     func startWorkout() {
-        let params: [String: AnyObject] = ["workoutId":self.request.objectId!, "clientId":self.client!.objectId!, "amount": 5.00]
+        let params: [String: AnyObject] = ["workoutId":self.request.objectId!, "clientId":self.client!.objectId!]
         PFCloud.callFunctionInBackground("startWorkout", withParameters: params) { (results, error) -> Void in
             print("results: \(results) error: \(error)")
             if error != nil {
