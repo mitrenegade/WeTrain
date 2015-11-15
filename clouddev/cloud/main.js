@@ -165,36 +165,34 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
 
     var text = "Workout id: " + trainingObject.id + " Status: " + status + "\nLat: " + trainingObject.get("lat") + " Lon: " + trainingObject.get("lon") + "\nTime: " + trainingObject.get("time")
 
-    var clientObject = trainingObject.get("client")
-    var clientQuery = new Parse.Query("Client");
-    clientQuery.get(clientObject.id, {
-        success: function(client) {
-            email = client.get("email")
-            if (email == undefined) {
-                email = "bobbyren+WeTrain@gmail.com"
+    // send push notification
+    if (status == "requested" && (trainingObject.notified == undefined || trainingObject.notified == false)) {
+        console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
+        var clientObject = trainingObject.get("client")
+        var clientQuery = new Parse.Query("Client");
+        clientQuery.get(clientObject.id, {
+            success: function(client) {
+                console.log("Client object: " + clientObject + " id: " + clientObject.id)
+                email = client.get("email")
+                if (email == undefined) {
+                    email = "bobbyren+WeTrain@gmail.com"
+                }
+                fromName = client.get("firstName")
+                if (fromName == undefined) {
+                    fromName = "WeTrain Team"
+                }
+                sendPushWorkout(clientObject.id, trainingObject.id, testing)
             }
-            fromName = client.get("firstName")
-            if (fromName == undefined) {
+            ,
+            error : function(error) {
+                console.error("errrrrrrrr" + error);
+                email = "bobbyren+WeTrain@gmail.com"
                 fromName = "WeTrain Team"
             }
-
-            // send push notification
-            if (status == "requested" && (trainingObject.notified == undefined || trainingObject.notified == false)) {
-                console.log("Client object: " + clientObject + " id: " + clientObject.id)
-                console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
-                sendPushWorkout(clientObject.id, trainingObject.id, testing)
-                trainingObject.set("notified", true)
-                trainingObject.save()
-            }
-        }
-        ,
-        error : function(error) {
-            console.error("errrrrrrrr" + error);
-            email = "bobbyren+WeTrain@gmail.com"
-            fromName = "WeTrain Team"
-            sendMail(email, fromName, text, subject)
-        }
-    });
+        });
+        trainingObject.set("notified", true)
+        trainingObject.save()
+    }
 });
 
 Parse.Cloud.afterSave("Client", function(request, response) {
