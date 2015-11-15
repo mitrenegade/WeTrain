@@ -275,64 +275,36 @@ Parse.Cloud.define("startWorkout", function(request, response) {
 })
 
 var Payment = Parse.Object.extend('Payment');
-var createPaymentForWorkout = function(workoutObject) {
-    /*
-    var clientObject = workoutObject.get("client")
-    console.log("inside create payment for workout: " + workoutObject + " id: " + workoutObject.id + " client: " + clientObject + " id: " + clientObject.id + " token " + clientObject.get("stripeToken") + " last4 " + clientObject.get("lastFour"))
+var createPaymentForWorkout = function(client, workout, response) {
+    console.log("inside create payment for workout: " + workout.id + " client: " + client.id + " token " + client.get("stripeToken") + " last4 " + client.get("lastFour"))
 
-    var existingPayment = workoutObject.get("payment")
-    if (existingPayment == undefined) {
+    var payment = workout.get("payment")
+    if (payment == undefined) {
         console.log("No payment exists")
-        var payment = new Payment()
-        payment.set("client", clientObject)
-        payment.set("workout", workoutObject)
+        payment = new Payment()
+        payment.set("client", client)
+        payment.set("workout", workout)
         var amount = 2
         payment.set("amount", amount)
-
-        // todo: client needs to be fetched
-        var query = new Parse.Query("Trainer")
-        query.get(clientObject.id, {
-            success: function(object){
-                console.log("client object found " + object + " with token " + object.get("stripeToken"))
-                var stripeToken = clientObject.get("stripeToken")
-                console.log("found token: " + stripeToken)
-                payment.set("stripeToken", stripeToken)
-
-                Parse.Cloud.run('chargeCard', {
-                    stripeToken: stripeToken ,
-                    amount: amount,
-                }, 
-                {
-                    success: function(ratings) {
-                        //update payment object
-                        payment.set("charged", true)
-                        payment.set("total", payment.get("total") + amount)
-                        payment.save()
-                    },
-                    error: function(error) {
-                        var  errorMessage = "There was a problem charging your card, please try again";
-                    }            
-                }, 
-            error: function(error) {
-                console.log("client request failed")
-            }
-        }
-
         payment.set("charged", false)
-
-        console.log("saving payment...")
-        // uses promises
-
-        // WIP: then does not get called; payments don't get saved and callbacks can't be called
-        // is it because of timestamp? use a new workout
-        payment.save().then(
-            function(payment) {
-                console.log("payment saved with id " + payment.id)
-            }, 
-            function(error) {
-                console.log("payment failed to save " + error)
-            }
-        )
+        console.log("created new payment...")
+    }
+    else {
+        console.log("updating existing payment")
+    }
+    // uses promises
+    // WIP: then does not get called; payments don't get saved and callbacks can't be called
+    // is it because of timestamp? use a new workout
+    payment.save().then(
+        function(payment) {
+            console.log("payment saved with id " + payment.id)
+            response.success()
+        }, 
+        function(error) {
+            console.log("payment failed to save " + error)
+            response.error()
+        }
+    )
         /*
         payment.save().then(function(payment) {
             console.log("payment saved with id " + payment.id)
@@ -365,49 +337,62 @@ var createPaymentForWorkout = function(workoutObject) {
 
 Parse.Cloud.define("chargeCustomer", function(request, response){
     var clientId = request.params.clientId;
+    var workoutId = request.params.workoutId
     var amt = request.params.amount;
 
     var query = new Parse.Query("Client")
     query.get(clientId, {
-        success: function(object){
-            var customer = object.get("customer_id")
-            console.log("client " + object.id + " customer " + object.get("customer_id"))
-            Stripe.Charges.create({
-                amount: amt * 100.00, // expressed in minimum currency unit (cents)
-                currency: "usd",
-                customer: customer
-            },{
-                success: function(httpResponse) {
-                    console.log("stripe purchase made")
-                    response.success("Purchase made!");
-                },
+        success: function(client){
+            var workoutQuery = new Parse.Query("Workout")
+            workoutQuery.get(workoutId, {
+                success: function(workout) {
+
+                    // create payment
+                    createPaymentForWorkout(client, workout, {
+                        success: function(payment) {
+                            // charge card
+                            var customer = client.get("customer_id")
+                            console.log("client " + client.id + " customer " + client.get("customer_id"))
+                            createCharge(customer, amt, request, response)
+
+                            // fulfill payment
+
+                        },
+                        error: function(error) {
+                            console.log("could not create payment: " + error)
+                            response.error(error)
+                        }
+                    })
+
+                }, 
                 error: function(error) {
-                    console.log("stripe purchase error " + error)
-                    response.error("Uh oh, something went wrong");
+                    console.log("could not find workout " + workoutId)
+                    response.error(error)
                 }
-            });
+            })
         },
         error: function(error) {
             console.log("could find client " + clientId)
             response.error(error)
         }
     })
-/*
-    console.log("stripe charging token " + client + " amount " + amt)
+});
+
+var createCharge = function(customer, amt, request, response) {
     Stripe.Charges.create({
         amount: amt * 100.00, // expressed in minimum currency unit (cents)
         currency: "usd",
-        card: stripeToken // the token id should be sent from the client
-        },{
-            success: function(httpResponse) {
-                console.log("stripe purchase made")
-                response.success("Purchase made!");
-            },
-            error: function(error) {
-                console.log("stripe purchase error " + error)
-                response.error("Uh oh, something went wrong");
-            }
-        });
-*/
-});
+        customer: customer
+    },{
+        success: function(httpResponse) {
+            console.log("stripe purchase made")
+            response.success("Purchase made!");
+        },
+        error: function(error) {
+            console.log("stripe purchase error " + error)
+            response.error("Uh oh, something went wrong");
+        }
+    });
+
+}
 //curl -X POST -H "X-Parse-Application-Id: mxzbQxv3lYPBJoOpbnkMDgnDoFFkFuUW6Sm3Of9d" -H "X-Parse-REST-API-Key: v4uFmG5hgfhJKejsDqLBRFbq15gWBxnA6yZd9Dvm" -H "Content-Type: application/json" -d '{"toEmail":"bobbyren@gmail.com","toName":"Bobby Ren","fromEmail":"bobbyren@gmail.com","fromName":"Bobby Ren","text":"testing ManDrill email","subject":"this is just a test"}' https://api.parse.com/1/functions/sendMail
