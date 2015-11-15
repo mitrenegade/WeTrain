@@ -215,11 +215,17 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             else if self.status == "available" {
                 // end a shift
                 self.updateStatus("off")
+                let currentInstallation = PFInstallation.currentInstallation()
+                currentInstallation.removeObject("Trainers", forKey: "channels")
+                currentInstallation.saveInBackground()
             }
             else {
                 //if self.status == "off" || self.status == nil {
                 // start a shift
                 self.updateStatus("available")
+                let currentInstallation = PFInstallation.currentInstallation()
+                currentInstallation.addUniqueObject("Trainers", forKey: "channels")
+                currentInstallation.saveInBackground()
                 self.loadExistingRequestsWithCompletion({ (results) -> Void in
                     self.refreshStatus()
                     self.reloadTable()
