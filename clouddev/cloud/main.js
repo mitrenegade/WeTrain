@@ -157,7 +157,7 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
     }
 
     var subject = "Training requested"
-    if (status == "none") {
+    if (status == "none" || status == "cancelled") {
         subject = "Training cancelled"
     }
 
@@ -178,26 +178,14 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
                 fromName = "WeTrain Team"
             }
 
-            // sending email
-            if (status == "requested" || status == "cancelled") {
-                console.log("training request by user " + email + " with status " + status)
-                sendMail(email, fromName, text, subject)
-            }
-
             // send push notification
-            console.log("Client object: " + clientObject + " id: " + clientObject.id)
-            console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
-            sendPushWorkout(clientObject.id, trainingObject.id, testing)
-
-            // payment
-            /*
-            if (status == "completed") {
-                token = client.get("stripeToken")
-                console.log("token " + token)
-                createPaymentForWorkout(request, response, trainingObject, client)
+            if (status == "requested" && (trainingObject.notified == undefined || trainingObject.notified == false)) {
+                console.log("Client object: " + clientObject + " id: " + clientObject.id)
+                console.log("Training object: " + trainingObject + " id: " + trainingObject.id)
+                sendPushWorkout(clientObject.id, trainingObject.id, testing)
+                trainingObject.set("notified", true)
+                trainingObject.save()
             }
-            */
-
         }
         ,
         error : function(error) {
