@@ -276,7 +276,7 @@ Parse.Cloud.define("startWorkout", function(request, response) {
 
 var Payment = Parse.Object.extend('Payment');
 var createPaymentForWorkout = function(client, workout, response) {
-    console.log("inside create payment for workout: " + workout.id + " client: " + client.id + " token " + client.get("stripeToken") + " last4 " + client.get("lastFour"))
+    console.log("inside create payment for workout: " + workout.id + " client: " + client.id + " customer " + client.get("customer_id"))
 
     var payment = workout.get("payment")
     if (payment == undefined) {
@@ -288,23 +288,32 @@ var createPaymentForWorkout = function(client, workout, response) {
         payment.set("amount", amount)
         payment.set("charged", false)
         console.log("created new payment...")
+        payment.save().then(
+            function(payment) {
+                console.log("payment saved with id " + payment.id + " charged " + payment.charged)
+                response.success(payment)
+            }, 
+            function(error) {
+                console.log("payment failed to save " + error)
+                response.error(error)
+            }
+        )
     }
     else {
-        console.log("updating existing payment")
+        console.log("updating existing payment with id " + payment.id + " charged " + payment.charged + " " + payment.get("chargeId"))
+        var query = new Parse.Query("Payment")
+        query.get(payment.id, {
+            success: function(object) {
+                payment = object
+                console.log("existing payment " + payment.id + " was charged " + payment.charged + " " + payment.get("chargeId"))
+                response.success(payment)
+            }
+            , error: function(error) {
+                console.log("could not load payment")
+                response.error(error)
+            }
+        })
     }
-    // uses promises
-    // WIP: then does not get called; payments don't get saved and callbacks can't be called
-    // is it because of timestamp? use a new workout
-    payment.save().then(
-        function(payment) {
-            console.log("payment saved with id " + payment.id)
-            response.success(payment)
-        }, 
-        function(error) {
-            console.log("payment failed to save " + error)
-            response.error(error)
-        }
-    )
 }
 
 Parse.Cloud.define("chargeCustomer", function(request, response){
@@ -326,26 +335,32 @@ Parse.Cloud.define("chargeCustomer", function(request, response){
                             workout.save().then(
                                 function(object) {
                                     console.log("workout saved with payment id " + workout.get("payment").id)
-
-                                    // charge card
-                                    var customer = client.get("customer_id")
-                                    console.log("client " + client.id + " customer " + client.get("customer_id"))
-                                    createCharge(customer, amt, {
-                                        success: function(chargeId) {
-                                            // fulfill payment
-                                            payment.set("charged", true)
-                                            payment.set("chargeId", chargeId)
-                                            payment.save()
-                                            response.success()
-                                        }, 
-                                        error: function(error) {
-                                            console.log("charge card failed")
-                                            response.error(error)
-                                        }
-                                    })
+                                    if (payment.get("charged") == undefined || payment.get("charged") == false || payment.get("chargeId") == undefined || payment.get("chargeId") == "") {
+                                        // charge card
+                                        var customer = client.get("customer_id")
+                                        console.log("client " + client.id + " customer " + client.get("customer_id"))
+                                        createCharge(customer, amt, {
+                                            success: function(chargeId) {
+                                                // fulfill payment
+                                                payment.set("charged", true)
+                                                payment.set("chargeId", chargeId)
+                                                payment.save()
+                                                response.success()
+                                            }, 
+                                            error: function(error) {
+                                                console.log("charge card failed")
+                                                response.error(error)
+                                            }
+                                        })
+                                    }
+                                    else {
+                                        // payment was already successfully charged
+                                        console.log("payment was already completed. do not double charge: continue with workout")
+                                        response.success()
+                                    }
                                 }, 
                                 function(error) {
-                                    console.log("customer failed to save " + error)
+                                    console.log("workout failed to save with payment. error: " + error)
                                 }
                             )
 
