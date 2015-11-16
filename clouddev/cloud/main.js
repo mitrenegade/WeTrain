@@ -1,7 +1,7 @@
 var Stripe = require('stripe');
 var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
-Stripe.initialize(STRIPE_SECRET_PROD);
+Stripe.initialize(STRIPE_SECRET_DEV);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
@@ -242,10 +242,10 @@ Parse.Cloud.define("startWorkout", function(request, response) {
         success: function(workout){
             var amt = 0.0
             if (workout.get("length") == 60) {
-                amt = 1.0 //22.0
+                amt = 25.0
             }
             else {
-                amt = 0.5 //17.0
+                amt = 17.0
             }
             chargeCustomerBeforeStartingWorkout(clientId, workout, amt, {
                 success: function() {

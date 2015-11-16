@@ -267,7 +267,7 @@
 				TargetAttributes = {
 					AC26A2261BB0ED3A0068EFE3 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = H799H8B8DD;
+						DevelopmentTeam = 46R7H433J6;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -550,15 +550,15 @@
 			baseConfigurationReference = 150346556E958FA747E2755F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Bobby Ren (UQA7D88UV9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bobby Ren (UQA7D88UV9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = WeTrainers/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "90b9727a-1f6f-4c04-a35f-d79dadfd574a";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -567,8 +567,8 @@
 			baseConfigurationReference = 1A28A66F01E4403D66FC9EE0 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Bobby Ren (H799H8B8DD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Bobby Ren (H799H8B8DD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -580,7 +580,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2798b813-f74c-43f6-b547-ac6c54cf189b";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
