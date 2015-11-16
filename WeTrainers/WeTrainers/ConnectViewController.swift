@@ -46,11 +46,6 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         if status == "available" {
             // make a call to load any existing requests that we won't get through notifications because they were made already
             self.loadExistingRequestsWithCompletion({ (results) -> Void in
-                if results == nil || results!.count == 0 {
-                    if !self.hasPushEnabled() {
-                        self.status = "disconnected"
-                    }
-                }
                 self.refreshStatus()
                 self.reloadTable()
             })
@@ -194,7 +189,6 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.buttonAction.enabled = true
         self.buttonAction.alpha = 1
         self.shouldWarnIfRegisterPushFails = false
-        self.updateStatus("off")
     }
     
     // MARK: - Status
@@ -215,11 +209,17 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             else if self.status == "available" {
                 // end a shift
                 self.updateStatus("off")
+                let currentInstallation = PFInstallation.currentInstallation()
+                currentInstallation.removeObject("Trainers", forKey: "channels")
+                currentInstallation.saveInBackground()
             }
             else {
                 //if self.status == "off" || self.status == nil {
                 // start a shift
                 self.updateStatus("available")
+                let currentInstallation = PFInstallation.currentInstallation()
+                currentInstallation.addUniqueObject("Trainers", forKey: "channels")
+                currentInstallation.saveInBackground()
                 self.loadExistingRequestsWithCompletion({ (results) -> Void in
                     self.refreshStatus()
                     self.reloadTable()
@@ -228,7 +228,7 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         else if sender == self.buttonAction {
-            if self.status == "disconnected" {
+            if self.hasPushEnabled() == false {
                 // skip notifications
                 let user = PFUser.currentUser()!
                 let trainer = user.objectForKey("trainer") as! PFObject
@@ -272,9 +272,12 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func refreshStatus() {
+        let user = PFUser.currentUser()!
+        let trainer = user.objectForKey("trainer") as! PFObject
+        status = trainer.objectForKey("status") as? String
         self.tableView.hidden = true
         
-        if status == "disconnected" {
+        if self.hasPushEnabled() == false {
             self.labelStatus.text = "Notifications are not enabled"
             self.buttonShift.setTitle("Enable Notifications", forState: .Normal)
             self.buttonAction.setTitle("Remind me later", forState: .Normal)

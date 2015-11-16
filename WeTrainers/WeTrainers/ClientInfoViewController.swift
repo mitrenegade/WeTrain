@@ -434,22 +434,26 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     }
     
     func startWorkout() {
+        self.buttonAction.enabled = false
         let params: [String: AnyObject] = ["workoutId":self.request.objectId!, "clientId":self.client!.objectId!]
         PFCloud.callFunctionInBackground("startWorkout", withParameters: params) { (results, error) -> Void in
             print("results: \(results) error: \(error)")
             if error != nil {
                 self.simpleAlert("Could not start workout", message: "Please try again")
+                self.buttonAction.enabled = true
             }
             else {
                 if let updatedWorkout: PFObject = results as! PFObject {
                     self.request = updatedWorkout
                     self.status = self.request.objectForKey("status") as! String
                     self.refreshState()
+                    self.buttonAction.enabled = true
                 }
                 else {
                     self.request.fetchInBackgroundWithBlock({ (object, error) -> Void in
                         self.status = self.request.objectForKey("status") as! String
                         self.refreshState()
+                        self.buttonAction.enabled = true
                     })
                 }
             }

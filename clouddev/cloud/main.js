@@ -242,7 +242,7 @@ Parse.Cloud.define("startWorkout", function(request, response) {
         success: function(workout){
             var amt = 0.0
             if (workout.get("length") == 60) {
-                amt = 22.0
+                amt = 25.0
             }
             else {
                 amt = 17.0
