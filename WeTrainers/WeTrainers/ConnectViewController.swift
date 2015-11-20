@@ -479,6 +479,12 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         self.nearbyWorkouts = sorted
 
+        if self.nearbyWorkouts!.count == 0 {
+            self.tableView.hidden = true
+        }
+        else {
+            self.tableView.hidden = false
+        }
         self.tableView.reloadData()
     }
 }
