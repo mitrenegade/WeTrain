@@ -443,7 +443,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 var message = "Please try again"
                 if let userInfo: [String: AnyObject] = error!.userInfo as! [String: AnyObject] {
                     if let msg = userInfo["error"] {
-                        message = msg
+                        message = "Error: \(msg)"
                     }
                 }
                 self.simpleAlert("Could not start workout", message:message)
