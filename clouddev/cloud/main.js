@@ -64,7 +64,9 @@ var sendPushWorkout = function(clientId, requestId, testing) {
 
 
 var randomPasscode = function() {
-    return "workout"
+    var passcodes = ["workout", "cardio", "health", "biceps", "pushups", "burpees", "squats"]
+    var index = Math.random() * 6 + 0
+    return "workout" //passcodes[index]
 }
 
 Parse.Cloud.define("acceptWorkoutRequest", function(request, response) {
@@ -281,9 +283,7 @@ var chargeCustomerBeforeStartingWorkout = function(clientId, workout, amt, respo
                             console.log("workout saved with payment id " + workout.get("payment").id)
                             if (payment.get("charged") == undefined || payment.get("charged") == false || payment.get("chargeId") == undefined || payment.get("chargeId") == "") {
                                 // charge customer
-                                var customer = client.get("customer_id")
-                                console.log("client " + client.id + " customer " + client.get("customer_id"))
-                                createCharge(customer, payment, {
+                                createCharge(client, payment, {
                                     success: function(chargeId) {
                                         response.success()
                                     }, 
@@ -358,30 +358,42 @@ var createPaymentForWorkout = function(client, workout, amount, response) {
     }
 }
 
-var createCharge = function(customer, payment, response) {
-    var amt = payment.get("amount")
-    Stripe.Charges.create({
-        amount: amt * 100.00, // expressed in minimum currency unit (cents)
-        currency: "usd",
-        customer: customer
-    },{
-        success: function(httpResponse) {
-            console.log("stripe purchase made id: " + httpResponse.id)
-            var chargeId = httpResponse.id
-            // fulfill payment
-            payment.set("charged", true)
-            payment.set("chargeId", chargeId)
-            payment.save()
-            response.success();
-        },
-        error: function(error) {
-            console.log("stripe purchase error " + error)
-            payment.set("charged", false)
-            payment.set("stripeError", error) // record stripe error
-            payment.save()
-            response.error(error);
-        }
-    });
+var createCharge = function(client, payment, response) {
+    var customer = client.get("customer_id")
+    console.log("client " + client.id + " customer " + client.get("customer_id") + " paymentOverride " + client.get("paymentOverride"))
 
+    var amt = payment.get("amount")
+    var successFunc = function(httpResponse) {
+        console.log("response: " + httpResponse)
+        var chargeId = httpResponse.id;
+        // fulfill payment
+        payment.set("charged", true);
+        payment.set("chargeId", chargeId);
+        payment.save();
+        response.success();
+    }
+
+    if (client.get("paymentOverride") == true) {
+        console.log("client override skipping create payment")
+        var httpResponse = {id: "no_charge"}
+        successFunc(httpResponse)
+    }
+    else {
+        console.log("creating charge for client")
+        Stripe.Charges.create({
+            amount: amt * 100.00, // expressed in minimum currency unit (cents)
+            currency: "usd",
+            customer: customer
+        },{
+            success: successFunc,
+            error: function(error) {
+                console.log("stripe purchase error " + error)
+                payment.set("charged", false)
+                payment.set("stripeError", error) // record stripe error
+                payment.save()
+                response.error(error);
+            }
+        });
+    }
 }
 //curl -X POST -H "X-Parse-Application-Id: mxzbQxv3lYPBJoOpbnkMDgnDoFFkFuUW6Sm3Of9d" -H "X-Parse-REST-API-Key: v4uFmG5hgfhJKejsDqLBRFbq15gWBxnA6yZd9Dvm" -H "Content-Type: application/json" -d '{"toEmail":"bobbyren@gmail.com","toName":"Bobby Ren","fromEmail":"bobbyren@gmail.com","fromName":"Bobby Ren","text":"testing ManDrill email","subject":"this is just a test"}' https://api.parse.com/1/functions/sendMail
