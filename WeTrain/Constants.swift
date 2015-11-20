@@ -8,7 +8,7 @@
 
 import Foundation
 
-let TESTING: Int32 = 0 // notiafications sent while training
+let TESTING: Int32 = 1 // notiafications sent while training
 
 let TRAINING_TITLES = ["Healthy Heart", "Liposuction", "Mobi-Fit", "The BLT", "Belly Busters", "Tyrannosaurus Flex", "Sports Endurance", "The Shred Factory"]
 let TRAINING_SUBTITLES = ["Cardio", "Weight Loss", "Mobility", "Butt, Legs, Thighs", "Core", "Strength and Hypertrophy", "Muscular Endurance", "Toning"]
@@ -26,7 +26,7 @@ enum RequestState: String {
 let PHILADELPHIA_LAT = 39.949508
 let PHILADELPHIA_LON = -75.171886
 let SERVICE_RANGE_METERS: Double = 8000 // 5 mile radius
-let REQUEST_DISTANCE_METERS: Double = 16000 // 10 mile radius
+let REQUEST_DISTANCE_METERS: Double = 48000 // 30 mile radius
 
 let GOOGLE_API_APP_KEY = "AIzaSyA7aDRZVW3-ruvbeB25tzJF5WKr0FjyRac"
 let STRIPE_PUBLISHABLE_KEY_DEV = "pk_test_44V2WNWqf37KXEnaJE2CM5rf"
