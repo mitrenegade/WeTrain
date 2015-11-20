@@ -439,7 +439,11 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         PFCloud.callFunctionInBackground("startWorkout", withParameters: params) { (results, error) -> Void in
             print("results: \(results) error: \(error)")
             if error != nil {
-                self.simpleAlert("Could not start workout", message: "Please try again")
+                var message = "Please try again"
+                if error!.userInfo["isCreditCard"] != nil {
+                    message = "There was an issue with your payment. The credit card was not charged."
+                }
+                self.simpleAlert("Could not start workout", message:message)
                 self.buttonAction.enabled = true
             }
             else {
