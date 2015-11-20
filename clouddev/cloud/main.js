@@ -64,9 +64,12 @@ var sendPushWorkout = function(clientId, requestId, testing) {
 
 
 var randomPasscode = function() {
-    var passcodes = ["workout", "cardio", "health", "biceps", "pushups", "burpees", "squats"]
-    var index = Math.random() * 6 + 0
-    return "workout" //passcodes[index]
+    var passcodes = ["workout", "cardio", "health", "biceps", "pushups", "burpees", "squats", "training", "fitness", "muscle", "aerobic", "circuit", "barbell", "dumbbell"]
+//    for (var i = 0; i < 100; i++) {
+    var index = Math.floor(Math.random() * passcodes.length)
+    console.log("random passcode index " + index + " code " + passcodes[index])
+//    }
+    return passcodes[index]
 }
 
 Parse.Cloud.define("acceptWorkoutRequest", function(request, response) {
