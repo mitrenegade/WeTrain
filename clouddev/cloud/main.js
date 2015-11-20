@@ -256,7 +256,7 @@ Parse.Cloud.define("startWorkout", function(request, response) {
                     });
                 },
                 error: function(error) {
-                    console.log("CHARGE_CUSTOMER_BEFORE_STARTING_WORKOUT: error " + error + " credit card? " + error.isCreditCard)
+                    console.log("CHARGE_CUSTOMER_BEFORE_STARTING_WORKOUT: error " + error)
                     response.error(error)
                 }
             })
@@ -286,9 +286,6 @@ var chargeCustomerBeforeStartingWorkout = function(clientId, workout, amt, respo
                                         response.success()
                                     }, 
                                     error: function(error) {
-                                        if (error.isCreditCard) {
-                                            console.log("is creditcard")
-                                        }
                                         response.error(error)
                                     }
                                 })
@@ -388,8 +385,7 @@ var createCharge = function(client, payment, response) {
                 payment.set("charged", false)
                 payment.set("stripeError", error) // record stripe error
                 payment.save()
-                error.isCreditCard = true
-                response.error(error);
+                response.error("Credit card could not be charged");
             }
         });
     }

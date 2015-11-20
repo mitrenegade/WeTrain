@@ -437,11 +437,14 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         self.buttonAction.enabled = false
         let params: [String: AnyObject] = ["workoutId":self.request.objectId!, "clientId":self.client!.objectId!]
         PFCloud.callFunctionInBackground("startWorkout", withParameters: params) { (results, error) -> Void in
-            print("results: \(results) error: \(error)")
+            print("results: \(results) error: \(error!.userInfo)")
             if error != nil {
+                // HACK: sending error objects back from parse cloud is a pain
                 var message = "Please try again"
-                if error!.userInfo["isCreditCard"] != nil {
-                    message = "There was an issue with your payment. The credit card was not charged."
+                if let userInfo: [String: AnyObject] = error!.userInfo as! [String: AnyObject] {
+                    if let msg = userInfo["error"] {
+                        message = msg
+                    }
                 }
                 self.simpleAlert("Could not start workout", message:message)
                 self.buttonAction.enabled = true
