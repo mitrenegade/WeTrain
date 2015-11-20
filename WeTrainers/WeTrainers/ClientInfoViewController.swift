@@ -140,10 +140,10 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         if length != nil {
             info = "Session length: \(length!) minutes"
             if length == 30 {
-                info = "\(info)\nPrice: $17"
+                info = "\(info)\nPrice: $11\n"
             }
             else {
-                info = "\(info)\nPrice: $22"
+                info = "\(info)\nPrice: $17\n"
             }
         }
         if self.status == RequestState.Training.rawValue || self.status == RequestState.Complete.rawValue {
@@ -156,7 +156,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 let timeString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
                 
                 if self.status == RequestState.Complete.rawValue {
-                    info = "Completed workout length: \(timeString)"
+                    info = "\(info)Completed workout length: \(timeString)"
                 }
                 else {
                     info = "Time elapsed: \(timeString)"
