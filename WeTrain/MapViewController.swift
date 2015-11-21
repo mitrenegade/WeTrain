@@ -201,8 +201,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         if let dict: [String: AnyObject] = placemark.addressDictionary as? [String: AnyObject] {
                             if let lines = dict["FormattedAddressLines"] {
                                 print("lines: \(lines)")
-                                self.inputStreet.text = lines[0] as? String
-                                self.inputCity.text = lines[1] as? String
+                                if lines.count > 0 {
+                                    self.inputStreet.text = lines[0] as? String
+                                }
+                                if lines.count > 1 {
+                                    self.inputCity.text = lines[1] as? String
+                                }
+                                else {
+                                    self.inputCity.text = ""
+                                }
                             }
                         }
                     }
