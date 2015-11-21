@@ -140,10 +140,10 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         if length != nil {
             info = "Session length: \(length!) minutes"
             if length == 30 {
-                info = "\(info)\nPrice: $17"
+                info = "\(info)\nPrice: $11\n"
             }
             else {
-                info = "\(info)\nPrice: $22"
+                info = "\(info)\nPrice: $17\n"
             }
         }
         if self.status == RequestState.Training.rawValue || self.status == RequestState.Complete.rawValue {
@@ -156,7 +156,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 let timeString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
                 
                 if self.status == RequestState.Complete.rawValue {
-                    info = "Completed workout length: \(timeString)"
+                    info = "\(info)Completed workout length: \(timeString)"
                 }
                 else {
                     info = "Time elapsed: \(timeString)"
@@ -218,7 +218,14 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         if injuries != nil {
             info = "\(info)\nInjuries: \(injuries!)"
         }
+        
+        if self.request.objectForKey("trainer") != nil && (self.request.objectForKey("trainer") as! PFObject).objectId != self.trainer.objectId {
+            info = "The client is already matched with a different trainer."
+        }
+        
         self.labelInfo.text = info
+        let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20 - self.constraintLabelAddressHeight!.constant))
+        self.constraintLabelInfoHeight!.constant = size.height
         
         if self.status == RequestState.Matched.rawValue || self.status == RequestState.Searching.rawValue {
             if let address: String = request.objectForKey("address") as? String {
@@ -231,8 +238,9 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             }
         }
 
-        let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20 - self.constraintLabelAddressHeight!.constant))
-        self.constraintLabelInfoHeight!.constant = size.height
+        if self.request.objectForKey("trainer") != nil && (self.request.objectForKey("trainer") as! PFObject).objectId != self.trainer.objectId {
+            self.constraintLabelAddressHeight!.constant = 0
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -291,6 +299,15 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")
         }
         
+        // another trainer stole it
+        if self.request.objectForKey("trainer") != nil && (self.request.objectForKey("trainer") as! PFObject).objectId != self.trainer.objectId {
+            self.constraintPasscodeHeight.constant = 0
+            self.buttonAction.setTitle("Close", forState: .Normal)
+            self.buttonAction.enabled = true
+            self.constraintButtonContactHeight.constant = 0
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")
+        }
+
         self.updateLabelInfo()
     }
     
@@ -437,7 +454,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         self.buttonAction.enabled = false
         let params: [String: AnyObject] = ["workoutId":self.request.objectId!, "clientId":self.client!.objectId!]
         PFCloud.callFunctionInBackground("startWorkout", withParameters: params) { (results, error) -> Void in
-            print("results: \(results) error: \(error!.userInfo)")
+            print("results: \(results) error: \(error)")
             if error != nil {
                 // HACK: sending error objects back from parse cloud is a pain
                 var message = "Please try again"

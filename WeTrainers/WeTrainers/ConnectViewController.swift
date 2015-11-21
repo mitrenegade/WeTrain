@@ -383,7 +383,18 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         // do this on Parse Cloudcode.
         // if request successfully updates, set request status to accepted
         // start a workout.
-        self.performSegueWithIdentifier("GoToClientRequest", sender: request)
+        request.fetchInBackgroundWithBlock { (workout, error) -> Void in
+            if workout != nil {
+                if workout!.objectForKey("status") as! String == "requested" {
+                    self.performSegueWithIdentifier("GoToClientRequest", sender: request)
+                    return
+                }
+            }
+            self.simpleAlert("Client not available", message: "This workout is no longer available.", completion: { () -> Void in
+                self.clientsDidChange()
+            })
+        }
+        
     }
     
     // MARK: - ClientInfoDelegate
@@ -479,6 +490,12 @@ class ConnectViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         self.nearbyWorkouts = sorted
 
+        if self.nearbyWorkouts!.count == 0 {
+            self.tableView.hidden = true
+        }
+        else {
+            self.tableView.hidden = false
+        }
         self.tableView.reloadData()
     }
 }
