@@ -207,6 +207,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                                 if lines.count > 1 {
                                     self.inputCity.text = lines[1] as? String
                                 }
+                                else {
+                                    self.inputCity.text = ""
+                                }
                             }
                         }
                     }

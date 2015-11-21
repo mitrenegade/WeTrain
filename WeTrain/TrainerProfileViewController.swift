@@ -204,7 +204,7 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             phone = phonenum.stringByReplacingOccurrencesOfString("(", withString: "").stringByReplacingOccurrencesOfString(")", withString: "").stringByReplacingOccurrencesOfString("-", withString: "").stringByReplacingOccurrencesOfString(" ", withString: "")
         }
         else {
-            self.simpleAlert("Could not contact client", message: "The number we had for \(name) was invalid.")
+            self.simpleAlert("Could not contact trainer", message: "The number we had for \(name) was invalid.")
             return
         }
         if (MFMessageComposeViewController.canSendText() == true) {
@@ -233,11 +233,11 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
         let url = NSURL(string: str) as NSURL?
         if (url != nil) {
             if !UIApplication.sharedApplication().openURL(url!) {
-                self.simpleAlert("Could not contact client", message: "We could not call the number \(phone).")
+                self.simpleAlert("Could not contact trainer", message: "We could not call the number \(phone).")
             }
             return
         }
-        self.simpleAlert("Could not contact client", message: "We could not call the number \(phone).")
+        self.simpleAlert("Could not contact trainer", message: "We could not call the number \(phone).")
     }
     
     // MARK: - Message composer delegate
