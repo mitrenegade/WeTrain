@@ -930,6 +930,7 @@
                         <outlet property="buttonBottom" destination="p2y-bD-uuA" id="2J6-Hw-XsO"/>
                         <outlet property="buttonTop" destination="bty-7b-NE3" id="aOO-pJ-Fc1"/>
                         <outlet property="constraintDetailsHeight" destination="hZ8-F4-UNo" id="65p-KP-O7v"/>
+                        <outlet property="imageViewBG" destination="yWV-RV-TFg" id="BF6-pk-qtX"/>
                         <outlet property="labelMessage" destination="Gi7-vo-gQc" id="n0q-nD-Ynz"/>
                         <outlet property="labelTitle" destination="A7Z-ep-hzq" id="JLb-0K-sws"/>
                         <outlet property="progressView" destination="PTv-ie-5hJ" id="468-zn-fQt"/>

@@ -18,6 +18,8 @@ class RequestStatusViewController: UIViewController {
     @IBOutlet weak var buttonTop: UIButton!
     @IBOutlet weak var buttonBottom: UIButton!
     
+    @IBOutlet weak var imageViewBG: UIImageView!
+    
     @IBOutlet weak var constraintDetailsHeight: NSLayoutConstraint!
     
     @IBOutlet weak var progressView: ProgressView!
@@ -38,6 +40,10 @@ class RequestStatusViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        if self.view.frame.size.height == 480 {
+            self.imageViewBG.image = UIImage(named: "bg_workout1")!
+        }
+        
         if let previousState: String = self.currentRequest?.objectForKey("status") as? String{
             let newState: RequestState = RequestState(rawValue: previousState)!
             if newState == RequestState.Matched {
