@@ -243,14 +243,23 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         }
         */
 
-        /*
         let four = self.inputCreditCard.text
         if four?.characters.count == 0 {
-            self.simpleAlert("Please enter a payment method.", message: nil)
-            return
+            let alert: UIAlertController = UIAlertController(title: "Skip payment method?", message: "Are you sure you want to complete signup without adding your credit card? You won't be able to request a workout. You can add a credit card later.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Continue signup", style: .Default, handler: { (action) -> Void in
+                self.continueProfile()
+            }))
+            alert.addAction(UIAlertAction(title: "Add payment", style: .Cancel, handler: { (action) -> Void in
+                self.inputCreditCard.becomeFirstResponder()
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
         }
-        */
-
+        else {
+            self.continueProfile()
+        }
+    }
+    
+    func continueProfile() {
         // make sure user exists
         let user = PFUser.currentUser()
         if user == nil {

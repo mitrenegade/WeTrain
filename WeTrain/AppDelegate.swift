@@ -159,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let client: PFObject = user!.objectForKey("client") as? PFObject {
                     client.fetchInBackgroundWithBlock({ (object, error) -> Void in
                         if object != nil {
-                            if client.objectForKey("firstName") != nil && client.objectForKey("lastName") != nil && client.objectForKey("phone") != nil && client.objectForKey("stripeToken") != nil {
+                            if client.objectForKey("firstName") != nil && client.objectForKey("lastName") != nil && client.objectForKey("phone") != nil {
                                 let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainTabController") as UIViewController?
                                 self.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
                                 self.window!.rootViewController?.presentViewController(controller!, animated: true, completion: nil)
