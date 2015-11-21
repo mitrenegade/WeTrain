@@ -243,11 +243,13 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         }
         */
 
+        /*
         let four = self.inputCreditCard.text
         if four?.characters.count == 0 {
             self.simpleAlert("Please enter a payment method.", message: nil)
             return
         }
+        */
 
         // make sure user exists
         let user = PFUser.currentUser()
