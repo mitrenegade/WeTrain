@@ -95,6 +95,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
                                 self.buttonPhotoView.layer.cornerRadius = self.buttonPhotoView.frame.size.width / 2
                                 
                                 self.buttonEditPhoto.setTitle("Edit photo", forState: .Normal)
+                                self.selectedPhoto = photo
                             }
                         }
                     }
@@ -217,11 +218,17 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.simpleAlert("Please enter a valid phone number", message: nil)
             return
         }
-        
+
+        if self.isSignup && self.selectedPhoto == nil {
+            self.simpleAlert("Please select a photo", message: "You must add a photo so your trainer can recognize you.")
+            return
+        }
+
         if !self.checked {
             self.simpleAlert("Please agree to the Terms and Conditions", message: "You must read the Terms and Conditions and check the box to continue.")
             return
         }
+        
         /*
         let gender = self.inputGender.text
         if gender?.characters.count == 0 {
