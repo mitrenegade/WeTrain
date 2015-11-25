@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -736,14 +737,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HDq-mK-ZWI">
-                                <rect key="frame" x="240" y="20" width="120" height="120"/>
+                                <rect key="frame" x="210.5" y="20" width="179" height="178.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="16l-dr-jKf"/>
                                     <constraint firstAttribute="width" secondItem="HDq-mK-ZWI" secondAttribute="height" multiplier="1:1" id="b0X-9M-rBW"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meet your Trainer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7r-pv-MK3">
-                                <rect key="frame" x="12" y="148" width="576" height="51"/>
+                                <rect key="frame" x="12" y="206.5" width="576" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="LLc-uZ-oxV"/>
                                 </constraints>
@@ -752,9 +752,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8t-2S-xP0">
-                                <rect key="frame" x="16" y="255" width="568" height="224"/>
+                                <rect key="frame" x="16" y="313.5" width="568" height="165.5"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E1X-7k-Flv">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E1X-7k-Flv">
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="224"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -770,7 +770,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLz-XP-zfb">
-                                <rect key="frame" x="12" y="207" width="576" height="40"/>
+                                <rect key="frame" x="12" y="265.5" width="576" height="40"/>
                                 <color key="backgroundColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Kjm-Tc-mQj"/>
@@ -787,6 +787,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="HDq-mK-ZWI" firstAttribute="height" secondItem="O2g-Bs-KtS" secondAttribute="height" multiplier="1:3" id="3zO-Ai-oMd"/>
                             <constraint firstAttribute="trailing" secondItem="B8t-2S-xP0" secondAttribute="trailing" constant="16" id="74w-kl-Vln"/>
                             <constraint firstItem="F7r-pv-MK3" firstAttribute="top" secondItem="HDq-mK-ZWI" secondAttribute="bottom" constant="8" id="AlH-v3-ha8"/>
                             <constraint firstItem="F7r-pv-MK3" firstAttribute="trailing" secondItem="O2g-Bs-KtS" secondAttribute="trailingMargin" constant="8" id="HG2-n2-3CF"/>
@@ -808,7 +809,6 @@
                     <connections>
                         <outlet property="buttonMeet" destination="CLz-XP-zfb" id="6xy-HB-a8L"/>
                         <outlet property="constraintNameHeight" destination="LLc-uZ-oxV" id="7DV-UO-l9G"/>
-                        <outlet property="constraintPhotoHeight" destination="16l-dr-jKf" id="jzV-8g-iER"/>
                         <outlet property="labelName" destination="F7r-pv-MK3" id="h7r-3i-7ot"/>
                         <outlet property="photoView" destination="HDq-mK-ZWI" id="tYd-bu-chP"/>
                         <outlet property="textViewInfo" destination="E1X-7k-Flv" id="puQ-iY-wTQ"/>

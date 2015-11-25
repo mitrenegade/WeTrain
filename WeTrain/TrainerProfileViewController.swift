@@ -57,12 +57,6 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             }
         })
         
-        if self.view.frame.size.width <= 480 {
-            // iphone 5
-            self.constraintPhotoHeight.constant = 90
-            self.constraintNameHeight.constant = 30
-        }
-
         self.setTitleBarColor(UIColor.blackColor(), tintColor: UIColor.whiteColor())
         self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
     }
