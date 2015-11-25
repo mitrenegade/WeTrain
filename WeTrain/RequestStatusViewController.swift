@@ -55,6 +55,16 @@ class RequestStatusViewController: UIViewController {
                 if !self.hasPushEnabled() {
                     self.registerForRemoteNotifications()
                 }
+                else {
+                    if newState == RequestState.Searching {
+                        if self.currentRequest!.objectId != nil {
+                            let currentInstallation = PFInstallation.currentInstallation()
+                            let requestId: String = self.currentRequest!.objectId!
+                            currentInstallation.addUniqueObject(requestId, forKey: "channels")
+                            currentInstallation.saveInBackground()
+                        }
+                    }
+                }
             }
         }
         
@@ -181,6 +191,8 @@ class RequestStatusViewController: UIViewController {
                 message = "You have cancelled the training session. You have not been charged for this training session since no trainer was matched. Please click OK to go back to the training menu."
             }
             
+            self.unsubscribeToCurrentRequestChannel()
+
             self.currentRequest = nil
             self.updateTitle(title, message: message!, top: nil, bottom: "OK", topHandler: nil, bottomHandler: { () -> Void in
                 // dismiss the current stack and go back
@@ -215,6 +227,9 @@ class RequestStatusViewController: UIViewController {
                 self.timer = nil
             }
             self.progressView.stopActivity()
+            
+            self.unsubscribeToCurrentRequestChannel()
+
         case .Training:
             let title = "Training in session"
             let message = ""
@@ -226,6 +241,9 @@ class RequestStatusViewController: UIViewController {
                 self.timer = nil
             }
             self.progressView.stopActivity()
+
+            self.unsubscribeToCurrentRequestChannel()
+
         default:
             break
         }
@@ -294,11 +312,6 @@ class RequestStatusViewController: UIViewController {
             let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
             UIApplication.sharedApplication().registerUserNotificationSettings(settings)
             UIApplication.sharedApplication().registerForRemoteNotifications()
-            
-            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
-            dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
-                self.warnForRemoteNotificationRegistrationFailure()
-            }
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
@@ -311,6 +324,15 @@ class RequestStatusViewController: UIViewController {
             UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
         }))
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func unsubscribeToCurrentRequestChannel() {
+        if self.currentRequest != nil && self.currentRequest!.objectId != nil {
+            let currentInstallation = PFInstallation.currentInstallation()
+            let requestId: String = self.currentRequest!.objectId!
+            currentInstallation.removeObject(requestId, forKey: "channels")
+            currentInstallation.saveInBackground()
+        }
     }
     
 }

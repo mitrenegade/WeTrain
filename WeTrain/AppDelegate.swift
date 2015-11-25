@@ -229,8 +229,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     /// MARK: - Push
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         // Store the deviceToken in the current Installation and save it to Parse
-        
         NSNotificationCenter.defaultCenter().postNotificationName("push:enabled", object: nil)
+        let installation = PFInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        installation.addUniqueObject("Clients", forKey: "channels") // subscribe to trainers channel
+        installation.saveInBackground()
+        
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

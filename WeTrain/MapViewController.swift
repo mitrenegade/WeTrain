@@ -381,6 +381,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             if success {
                 self.currentRequest = request
                 self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+                
+                // subscribe to channel
+                if request.objectId != nil {
+                    let currentInstallation = PFInstallation.currentInstallation()
+                    let requestId: String = request.objectId!
+                    currentInstallation.addUniqueObject(requestId, forKey: "channels")
+                    currentInstallation.saveInBackground()
+                }
             }
             else {
                 self.simpleAlert("Could not start request", message: "There was an issue requesting a training session. Please try again.")

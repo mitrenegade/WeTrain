@@ -659,7 +659,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.client;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "90b9727a-1f6f-4c04-a35f-d79dadfd574a";
+				PROVISIONING_PROFILE = "54500673-b508-4aed-94e0-ccd365a50f30";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
