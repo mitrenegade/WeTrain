@@ -225,6 +225,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
     }
-    
-}
 
+    /// MARK: - Push
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        // Store the deviceToken in the current Installation and save it to Parse
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("push:enabled", object: nil)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("failed")
+        NSNotificationCenter.defaultCenter().postNotificationName("push:enable:failed", object: nil)
+    }
+}

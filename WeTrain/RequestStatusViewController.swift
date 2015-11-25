@@ -42,15 +42,19 @@ class RequestStatusViewController: UIViewController {
         // Do any additional setup after loading the view.
         let index = arc4random_uniform(3)+1
         self.imageViewBG.image = UIImage(named: "bg_workout\(index)")!
-        
+
         if let previousState: String = self.currentRequest?.objectForKey("status") as? String{
             let newState: RequestState = RequestState(rawValue: previousState)!
-            if newState == RequestState.Matched {
+            if newState == RequestState.Matched || newState == RequestState.Training {
                 self.goToTrainerInfo()
                 return
             }
             else {
                 self.updateRequestState()
+                
+                if !self.hasPushEnabled() {
+                    self.registerForRemoteNotifications()
+                }
             }
         }
         
@@ -271,5 +275,42 @@ class RequestStatusViewController: UIViewController {
             self.trainerController = controller
         }
     }
+    
+    // push
+    func hasPushEnabled() -> Bool {
+        let settings = UIApplication.sharedApplication().currentUserNotificationSettings()
+        if (settings?.types.contains(.Alert) == true){
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func registerForRemoteNotifications() {
+        let alert = UIAlertController(title: "Enable push notifications?", message: "To receive notifications you must enable push. In the next popup, please click Yes.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+            let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+            
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC)))
+            dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+                self.warnForRemoteNotificationRegistrationFailure()
+            }
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 
+    func warnForRemoteNotificationRegistrationFailure() {
+        let alert = UIAlertController(title: "Change notification settings?", message: "Push notifications are disabled, so you can't receive notifications from trainers. Would you like to go to the Settings to update them?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            print("go to settings")
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
 }
