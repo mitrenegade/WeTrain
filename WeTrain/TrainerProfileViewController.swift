@@ -57,9 +57,9 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
             }
         })
         
-        if self.view.frame.size.width <= 568 {
-            // iphone 4/5
-            self.constraintPhotoHeight.constant = 60
+        if self.view.frame.size.width <= 480 {
+            // iphone 5
+            self.constraintPhotoHeight.constant = 90
             self.constraintNameHeight.constant = 30
         }
 
