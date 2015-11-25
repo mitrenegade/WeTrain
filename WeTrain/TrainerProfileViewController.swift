@@ -102,24 +102,14 @@ class TrainerProfileViewController: UIViewController, MFMessageComposeViewContro
                 infoText = "Your trainer cancelled the workout."
             }
         }
-        self.textViewInfo.text = infoText
-/*
-        let attributedString = NSMutableAttributedString(string: text, attributes: [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 16)!])
-        let string = text as NSString
-        var range = string.rangeOfString("Credentials:")
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: 16)!, range: range)
-        range = string.rangeOfString("Specialty:")
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: 16)!, range: range)
-        range = string.rangeOfString("Estimated Time of Arrival:")
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Bold", size: 16)!, range: range)
-        
-        self.labelInfo.attributedText = attributedString
-*/
-        /*
-        let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20))
-        self.constraintInfoHeight.constant = size.height
-        */
-        
+        let attributedString = NSMutableAttributedString(string: infoText, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14)])
+        let string = infoText as NSString
+        if status == RequestState.Matched.rawValue {
+            let passcode: String = self.request!.objectForKey("passcode") as! String
+            let range = string.rangeOfString("\(passcode.uppercaseString)")
+            attributedString.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(14), range: range)
+        }
+        self.textViewInfo.attributedText = attributedString
     }
     
     @IBAction func didClickButton(button: UIButton) {
