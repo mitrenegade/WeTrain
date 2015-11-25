@@ -219,10 +219,12 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             return
         }
 
+        /*
         if self.isSignup && self.selectedPhoto == nil {
             self.simpleAlert("Please select a photo", message: "You must add a photo so your trainer can recognize you.")
             return
         }
+        */
 
         if !self.checked {
             self.simpleAlert("Please agree to the Terms and Conditions", message: "You must read the Terms and Conditions and check the box to continue.")
