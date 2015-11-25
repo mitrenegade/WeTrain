@@ -393,10 +393,10 @@
                                                 </connections>
                                             </button>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ry2-Z4-DSk">
-                                                <rect key="frame" x="20" y="448" width="560" height="185"/>
+                                                <rect key="frame" x="20" y="478" width="560" height="155"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="185" id="2Ot-kt-LZ3"/>
+                                                    <constraint firstAttribute="height" constant="155" id="2Ot-kt-LZ3"/>
                                                 </constraints>
                                                 <string key="text">I have volunteered to participate in the Services (the “Services” as defined in the Terms and Conditions Agreement) provided to me by WeTrain, LLC  (“Company”) through the Company’s third party providers of such Services, which may include, but may not be limited to, resistance training, aerobic training, mobility training, or cardiovascular exercise. In consideration of the Company’s agreement to provide the Services through the Company’s third party providers, I do here now and forever release and discharge and hereby hold harmless the Company and their third party providers, respective agents, heirs, assigns, contractors, and employees from any and all claims, demands, damages, rights of action or causes of action, present or future, arising out of or connected with the Services and/or my participation in this or any exercise program including any injuries resulting there from.
  
@@ -603,7 +603,7 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Credit Card Info" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y45-Ga-bkb">
-                                                <rect key="frame" x="20" y="381" width="560" height="30"/>
+                                                <rect key="frame" x="20" y="411" width="560" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="T4h-Pt-KcM"/>
                                                 </constraints>
@@ -614,13 +614,22 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                                                 </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJA-aZ-RNd">
-                                                <rect key="frame" x="20" y="419" width="560" height="21"/>
+                                                <rect key="frame" x="20" y="449" width="560" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="8BP-qb-Yeh"/>
                                                 </constraints>
                                                 <string key="text">Privacy &amp; Terms of Service
 </string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can enter it now or later, but you'll need a credit card in order to request a trainer." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g04-xO-In8">
+                                                <rect key="frame" x="20" y="373" width="560" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="YLq-pp-2Ue"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -645,7 +654,9 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                                             <constraint firstItem="4Wp-QB-dTM" firstAttribute="top" secondItem="SSF-3c-n76" secondAttribute="bottom" constant="8" id="Bd3-VK-gEV"/>
                                             <constraint firstItem="SlF-hJ-HNX" firstAttribute="leading" secondItem="DhG-7P-k4I" secondAttribute="leading" constant="20" id="CKE-CP-6hq"/>
                                             <constraint firstItem="GJA-aZ-RNd" firstAttribute="top" secondItem="y45-Ga-bkb" secondAttribute="bottom" constant="8" id="CKP-Jy-UoJ"/>
+                                            <constraint firstItem="y45-Ga-bkb" firstAttribute="top" secondItem="g04-xO-In8" secondAttribute="bottom" constant="8" id="CQE-aq-hUb"/>
                                             <constraint firstItem="XOy-wi-pAs" firstAttribute="leading" secondItem="DhG-7P-k4I" secondAttribute="leading" constant="20" id="Cfp-8J-lzi"/>
+                                            <constraint firstItem="g04-xO-In8" firstAttribute="leading" secondItem="DhG-7P-k4I" secondAttribute="leading" constant="20" id="Ds4-6N-bVM"/>
                                             <constraint firstAttribute="height" constant="688" id="GLz-Le-O2h"/>
                                             <constraint firstAttribute="trailing" secondItem="SSF-3c-n76" secondAttribute="trailing" constant="20" id="GYY-Mz-Qix"/>
                                             <constraint firstItem="NEP-cL-Rcg" firstAttribute="centerY" secondItem="CC7-6k-vjo" secondAttribute="centerY" id="HH0-Ef-oPa"/>
@@ -657,9 +668,9 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                                             <constraint firstAttribute="trailing" secondItem="SlF-hJ-HNX" secondAttribute="trailing" constant="20" id="RD0-rF-dqU"/>
                                             <constraint firstItem="9ZU-7B-IAE" firstAttribute="top" secondItem="Ry2-Z4-DSk" secondAttribute="bottom" constant="8" id="SB9-vU-nQ0"/>
                                             <constraint firstAttribute="trailing" secondItem="XOy-wi-pAs" secondAttribute="trailing" constant="20" id="UKZ-dR-Bp6"/>
+                                            <constraint firstAttribute="trailing" secondItem="g04-xO-In8" secondAttribute="trailing" constant="20" id="UQ3-R2-5Km"/>
                                             <constraint firstItem="JxQ-eA-chR" firstAttribute="top" secondItem="Xz7-4x-nfI" secondAttribute="bottom" constant="8" id="VnB-LJ-aB3"/>
                                             <constraint firstItem="SlF-hJ-HNX" firstAttribute="top" secondItem="meJ-HK-GrD" secondAttribute="bottom" constant="8" id="Vv5-qH-Rjl"/>
-                                            <constraint firstItem="y45-Ga-bkb" firstAttribute="top" secondItem="JxQ-eA-chR" secondAttribute="bottom" constant="8" id="Wbm-rI-zCD"/>
                                             <constraint firstAttribute="trailing" secondItem="y45-Ga-bkb" secondAttribute="trailing" constant="20" id="Zc2-it-9fU"/>
                                             <constraint firstItem="jTn-I1-6st" firstAttribute="top" secondItem="XOy-wi-pAs" secondAttribute="bottom" constant="8" id="aIi-dw-evV"/>
                                             <constraint firstItem="Xz7-4x-nfI" firstAttribute="leading" secondItem="DhG-7P-k4I" secondAttribute="leading" constant="20" id="bUL-85-miV"/>
@@ -670,9 +681,11 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                                             <constraint firstItem="Ry2-Z4-DSk" firstAttribute="top" secondItem="GJA-aZ-RNd" secondAttribute="bottom" constant="8" id="l1N-zk-BMY"/>
                                             <constraint firstItem="Ry2-Z4-DSk" firstAttribute="leading" secondItem="DhG-7P-k4I" secondAttribute="leading" constant="20" id="mxx-uu-OVE"/>
                                             <constraint firstItem="thx-26-Z28" firstAttribute="top" secondItem="Ry2-Z4-DSk" secondAttribute="bottom" constant="12" id="qg1-nz-J0V"/>
+                                            <constraint firstItem="g04-xO-In8" firstAttribute="top" secondItem="JxQ-eA-chR" secondAttribute="bottom" id="rQA-K9-rYi"/>
                                             <constraint firstItem="Xz7-4x-nfI" firstAttribute="top" secondItem="SlF-hJ-HNX" secondAttribute="bottom" constant="8" id="sPr-zO-gWX"/>
                                             <constraint firstItem="mop-2A-czn" firstAttribute="top" secondItem="DhG-7P-k4I" secondAttribute="top" constant="8" id="slU-9u-Jb6"/>
                                             <constraint firstItem="JxQ-eA-chR" firstAttribute="leading" secondItem="DhG-7P-k4I" secondAttribute="leading" constant="20" id="wEp-7C-Dbu"/>
+                                            <constraint firstItem="g04-xO-In8" firstAttribute="top" secondItem="JxQ-eA-chR" secondAttribute="bottom" id="x9Z-ee-XW8"/>
                                             <constraint firstAttribute="trailing" secondItem="4Wp-QB-dTM" secondAttribute="trailing" constant="20" id="yvT-cB-3Am"/>
                                             <constraint firstItem="SSF-3c-n76" firstAttribute="leading" secondItem="DhG-7P-k4I" secondAttribute="leading" constant="20" id="zbN-iO-t58"/>
                                         </constraints>

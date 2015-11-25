@@ -45,15 +45,15 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
         let row = indexPath.row
         switch row {
         case 0:
-            cell.textLabel!.text = "About WeTrain"
-        case 1:
             cell.textLabel!.text = "Edit your profile"
-        case 2:
+        case 1:
             cell.textLabel!.text = "Update your credit card"
-        case 3:
+        case 2:
             cell.textLabel!.text = "View tutorials"
-        case 4:
+        case 3:
             cell.textLabel!.text = "Feedback"
+        case 4:
+            cell.textLabel!.text = "Credits"
         case 5:
             cell.textLabel!.text = "Logout"
         default:
@@ -69,12 +69,6 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
         let row = indexPath.row
         switch row {
         case 0:
-            let info = NSBundle.mainBundle().infoDictionary as [NSObject: AnyObject]?
-            let version: AnyObject = info!["CFBundleShortVersionString"]!
-            let message = "Copyright 2015 Bobby Ren\nVersion \(version)"
-            self.simpleAlert("About WeTrain", message: message)
-            break
-        case 1:
             if PFUser.currentUser() == nil {
                 let alert: UIAlertController = UIAlertController(title: "Error editing profile", message: "You are not logged in. Please log in again to edit your profile.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.view.tintColor = UIColor.blackColor()
@@ -90,7 +84,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
                 self.navigationController?.pushViewController(controller, animated: true)
             }
             break
-        case 2:
+        case 1:
             if PFUser.currentUser() == nil {
                 let alert: UIAlertController = UIAlertController(title: "Error editing credit card", message: "You are not logged in. Please log in again to edit payment information.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.view.tintColor = UIColor.blackColor()
@@ -104,10 +98,10 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
             }
             
             break
-        case 3:
+        case 2:
             self.goToTutorials()
             break
-        case 4:
+        case 3:
             if PFUser.currentUser() == nil {
                 let alert: UIAlertController = UIAlertController(title: "Log in first?", message: "You are not logged in. Please log in first so we can respond to you.", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.view.tintColor = UIColor.blackColor()
@@ -121,6 +115,12 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
             else {
                 self.performSegueWithIdentifier("GoToFeedback", sender: self)
             }
+            break
+        case 4:
+            let info = NSBundle.mainBundle().infoDictionary as [NSObject: AnyObject]?
+            let version: AnyObject = info!["CFBundleShortVersionString"]!
+            let message = "Copyright 2015 WeTrain, LLC\nVersion \(version)"
+            self.simpleAlert("Credits", message: message)
             break
         case 5:
             self.appDelegate().logout()

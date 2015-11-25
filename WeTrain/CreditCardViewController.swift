@@ -87,6 +87,9 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymen
                 }
                 self.simpleAlert("Error updating credit card", message: message)
             }
+            else if token == nil {
+                self.simpleAlert("Error updating credit card", message: "There was an unknown error. Please try again.")
+            }
             else {
                 self.saveToken(token!)
             }

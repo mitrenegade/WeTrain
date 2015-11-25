@@ -189,7 +189,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         alert.addAction(UIAlertAction(title: "Logout", style: .Default, handler: { (action) -> Void in
             self.logout()
         }))
-        self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        if self.window?.rootViewController?.presentedViewController != nil {
+            self.window?.rootViewController?.presentedViewController?.presentViewController(alert, animated: true, completion: nil)
+        }
+        else {
+            self.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     func goToLogin() {

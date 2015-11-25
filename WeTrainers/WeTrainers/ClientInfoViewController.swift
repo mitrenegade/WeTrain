@@ -26,8 +26,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     @IBOutlet weak var labelExercise: UILabel!
     @IBOutlet weak var labelAddress: UILabel!
     @IBOutlet weak var constraintLabelAddressHeight: NSLayoutConstraint?
-    @IBOutlet weak var labelInfo: UILabel!
-    @IBOutlet weak var constraintLabelInfoHeight: NSLayoutConstraint?
+    @IBOutlet weak var labelInfo: UITextView!
 
     @IBOutlet weak var viewPasscode: UIView!
     @IBOutlet weak var labelPasscode: UILabel!
@@ -156,10 +155,10 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 let timeString = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
                 
                 if self.status == RequestState.Complete.rawValue {
-                    info = "\(info)Completed workout length: \(timeString)"
+                    info = "\(info)Completed workout length: \(timeString)\n"
                 }
                 else {
-                    info = "Time elapsed: \(timeString)"
+                    info = "Time elapsed: \(timeString)\n"
                     
                     if self.timerClock == nil {
                         self.timerClock = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "tick", userInfo: nil, repeats: true)
@@ -184,7 +183,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 }
                 ago = "\(ago)\(minElapsed)min ago"
             }
-            info = "Training Requested: \(ago)"
+            info = "Training Requested: \(ago)\n"
         }
         else if self.status == RequestState.Cancelled.rawValue {
             if let end = request.objectForKey("end") as? NSDate {
@@ -202,21 +201,21 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                     ago = ""
                 }
                 ago = "\(ago)\(minElapsed)m ago"
-                info = "The training session was cancelled by the client \(ago)"
+                info = "The training session was cancelled by the client \(ago)\n"
             }
             else {
-                info = "The training session was cancelled by the client."
+                info = "The training session was cancelled by the client.\n"
             }
         }
         
         if gender != nil {
-            info = "\(info)\n\nGender: \(gender!)"
+            info = "\(info)Gender: \(gender!)\n"
         }
         if age != nil {
-            info = "\(info)\nAge: \(age!)"
+            info = "\(info)Age: \(age!)\n"
         }
         if injuries != nil {
-            info = "\(info)\nInjuries: \(injuries!)"
+            info = "\(info)Injuries: \(injuries!)\n"
         }
         
         if self.request.objectForKey("trainer") != nil && (self.request.objectForKey("trainer") as! PFObject).objectId != self.trainer.objectId {
@@ -224,8 +223,6 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         }
         
         self.labelInfo.text = info
-        let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20 - self.constraintLabelAddressHeight!.constant))
-        self.constraintLabelInfoHeight!.constant = size.height
         
         if self.status == RequestState.Matched.rawValue || self.status == RequestState.Searching.rawValue {
             if let address: String = request.objectForKey("address") as? String {

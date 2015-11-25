@@ -40,9 +40,8 @@ class RequestStatusViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        if self.view.frame.size.height == 480 {
-            self.imageViewBG.image = UIImage(named: "bg_workout1")!
-        }
+        let index = arc4random_uniform(3)+1
+        self.imageViewBG.image = UIImage(named: "bg_workout\(index)")!
         
         if let previousState: String = self.currentRequest?.objectForKey("status") as? String{
             let newState: RequestState = RequestState(rawValue: previousState)!

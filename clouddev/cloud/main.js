@@ -64,7 +64,7 @@ var sendPushWorkout = function(clientId, requestId, testing) {
 
 
 var randomPasscode = function() {
-    var passcodes = ["workout", "cardio", "health", "biceps", "pushups", "burpees", "squats", "training", "fitness", "muscle", "aerobic", "circuit", "barbell", "dumbbell"]
+    var passcodes = ["sweat", "workout", "absofsteel", "circuit", "training", "marathon", "sprint", "6pack", "crunches", "warmup", "routine", "winning", "swimsuit", "beachbody", "gametime"]
 //    for (var i = 0; i < 100; i++) {
     var index = Math.floor(Math.random() * passcodes.length)
     console.log("random passcode index " + index + " code " + passcodes[index])
