@@ -35,7 +35,7 @@ var sendMail = function(from, fromName, text, subject) {
     });
 }
 
-var sendPushWorkout = function(clientId, requestId, testing) {
+var sendPushWorkoutTrainer = function(clientId, requestId, testing) {
     console.log("inside send push")
     var message = "New training request available"
     if (testing == 1) {
@@ -61,6 +61,33 @@ var sendPushWorkout = function(clientId, requestId, testing) {
         });
     }
 
+var sendPushWorkoutClient = function(trainerId, requestId, testing) {
+    console.log("inside send push")
+    var message = "A trainer has accepted your session"
+    if (testing == 1) {
+        message = "TEST: a trainer has accepted your session"                    
+    }
+    var channelName = "workout_" + requestId
+    console.log("client channel: " + channelName)
+    Parse.Push.send({
+        channels: [ channelName ],
+        data: {
+            alert: message,
+            trainer: trainerId,
+            request: requestId,
+            sound: "default"
+        }
+    }, {
+        success: function()
+        {
+            console.log("Push to Client successful")
+            },
+        error: function(error) {
+            // Handle error
+            console.log("Push to Client failed" + error)
+            }
+        });
+    }
 
 
 var randomPasscode = function() {
@@ -94,6 +121,9 @@ Parse.Cloud.define("acceptWorkoutRequest", function(request, response) {
                         trainerObject.set("workout", trainingObject)
                         Parse.Object.saveAll([trainingObject, trainerObject], {
                             success: function(objects) {
+                                var testing = trainingObject.get("testing")
+                                console.log("ACCEPT_WORKOUT_REQUEST sending push to " + trainerObject.id + " " + trainingObject.id + " testing " + testing)
+                                sendPushWorkoutClient(trainerObject.id, trainingObject.id, testing)
                                 response.success()
                             }, error: function(objects, error) {
                                 response.success()
@@ -179,7 +209,7 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
                     fromName = "WeTrain Team"
                 }
                 var testing = trainingObject.get("testing")
-                sendPushWorkout(clientObject.id, trainingObject.id, testing)
+                sendPushWorkoutTrainer(clientObject.id, trainingObject.id, testing)
             }
             ,
             error : function(error) {

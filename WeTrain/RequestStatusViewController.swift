@@ -42,15 +42,38 @@ class RequestStatusViewController: UIViewController {
         // Do any additional setup after loading the view.
         let index = arc4random_uniform(3)+1
         self.imageViewBG.image = UIImage(named: "bg_workout\(index)")!
-        
+
         if let previousState: String = self.currentRequest?.objectForKey("status") as? String{
             let newState: RequestState = RequestState(rawValue: previousState)!
-            if newState == RequestState.Matched {
+            if newState == RequestState.Matched || newState == RequestState.Training {
                 self.goToTrainerInfo()
                 return
             }
             else {
                 self.updateRequestState()
+                
+                if !self.hasPushEnabled() {
+                    self.registerForRemoteNotifications()
+                }
+                else {
+                    if newState == RequestState.Searching {
+                        if self.currentRequest!.objectId != nil {
+                            let currentInstallation = PFInstallation.currentInstallation()
+                            let requestId: String = self.currentRequest!.objectId!
+                            let channelName = "workout_\(requestId)"
+                            currentInstallation.addUniqueObject(channelName, forKey: "channels")
+                            currentInstallation.saveInBackgroundWithBlock({ (success, error) -> Void in
+                                if success {
+                                    let channels = currentInstallation.objectForKey("channels")
+                                    print("installation registering while searching: channel \(channels)")
+                                }
+                                else {
+                                    print("installation registering error:\(error)")
+                                }
+                            })
+                        }
+                    }
+                }
             }
         }
         
@@ -177,6 +200,8 @@ class RequestStatusViewController: UIViewController {
                 message = "You have cancelled the training session. You have not been charged for this training session since no trainer was matched. Please click OK to go back to the training menu."
             }
             
+            self.unsubscribeToCurrentRequestChannel()
+
             self.currentRequest = nil
             self.updateTitle(title, message: message!, top: nil, bottom: "OK", topHandler: nil, bottomHandler: { () -> Void in
                 // dismiss the current stack and go back
@@ -191,10 +216,10 @@ class RequestStatusViewController: UIViewController {
         case .Searching:
             
             var title = "Searching for an available trainer"
-            var message = ""
+            var message = "Please be patient; this may take a few minutes. If you close the app, we will notify you once a trainer has been matched!"
             if let addressString: String = self.currentRequest?.objectForKey("address") as? String {
                 title = "Searching for an available trainer near:"
-                message = "\(addressString)"
+                message = "\(addressString)\n\n\(message)"
             }
             self.updateTitle(title, message: message, top: nil, bottom: "Cancel Request", topHandler: nil, bottomHandler: { () -> Void in
                 self.promptForCancel()
@@ -211,6 +236,9 @@ class RequestStatusViewController: UIViewController {
                 self.timer = nil
             }
             self.progressView.stopActivity()
+            
+            self.unsubscribeToCurrentRequestChannel()
+
         case .Training:
             let title = "Training in session"
             let message = ""
@@ -222,6 +250,9 @@ class RequestStatusViewController: UIViewController {
                 self.timer = nil
             }
             self.progressView.stopActivity()
+
+            self.unsubscribeToCurrentRequestChannel()
+
         default:
             break
         }
@@ -271,5 +302,50 @@ class RequestStatusViewController: UIViewController {
             self.trainerController = controller
         }
     }
+    
+    // push
+    func hasPushEnabled() -> Bool {
+        if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            return false
+        }
+        let settings = UIApplication.sharedApplication().currentUserNotificationSettings()
+        if (settings?.types.contains(.Alert) == true){
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    func registerForRemoteNotifications() {
+        let alert = UIAlertController(title: "Enable push notifications?", message: "To receive notifications you must enable push. In the next popup, please click Yes.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+            let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 
+    func warnForRemoteNotificationRegistrationFailure() {
+        let alert = UIAlertController(title: "Change notification settings?", message: "Push notifications are disabled, so you can't receive notifications from trainers. Would you like to go to the Settings to update them?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            print("go to settings")
+            UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func unsubscribeToCurrentRequestChannel() {
+        if self.currentRequest != nil && self.currentRequest!.objectId != nil {
+            let currentInstallation = PFInstallation.currentInstallation()
+            let requestId: String = self.currentRequest!.objectId!
+            let channelName = "workout_\(requestId)"
+            currentInstallation.removeObject(channelName, forKey: "channels")
+            currentInstallation.saveInBackground()
+        }
+    }
+    
 }

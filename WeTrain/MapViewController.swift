@@ -381,6 +381,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             if success {
                 self.currentRequest = request
                 self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+                
+                // subscribe to channel
+                if request.objectId != nil {
+                    let currentInstallation = PFInstallation.currentInstallation()
+                    let requestId: String = request.objectId!
+                    let channelName = "workout_\(requestId)"
+                    currentInstallation.addUniqueObject(channelName, forKey: "channels")
+                    currentInstallation.saveInBackgroundWithBlock({ (success, error) -> Void in
+                        if success {
+                            let channels = currentInstallation.objectForKey("channels")
+                            print("installation registering while initiating: channel \(channels)")
+                        }
+                        else {
+                            print("installation registering error:\(error)")
+                        }
+                    })
+                }
             }
             else {
                 self.simpleAlert("Could not start request", message: "There was an issue requesting a training session. Please try again.")
