@@ -60,8 +60,17 @@ class RequestStatusViewController: UIViewController {
                         if self.currentRequest!.objectId != nil {
                             let currentInstallation = PFInstallation.currentInstallation()
                             let requestId: String = self.currentRequest!.objectId!
-                            currentInstallation.addUniqueObject(requestId, forKey: "channels")
-                            currentInstallation.saveInBackground()
+                            let channelName = "workout_\(requestId)"
+                            currentInstallation.addUniqueObject(channelName, forKey: "channels")
+                            currentInstallation.saveInBackgroundWithBlock({ (success, error) -> Void in
+                                if success {
+                                    let channels = currentInstallation.objectForKey("channels")
+                                    print("installation registering while searching: channel \(channels)")
+                                }
+                                else {
+                                    print("installation registering error:\(error)")
+                                }
+                            })
                         }
                     }
                 }
@@ -296,6 +305,9 @@ class RequestStatusViewController: UIViewController {
     
     // push
     func hasPushEnabled() -> Bool {
+        if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            return false
+        }
         let settings = UIApplication.sharedApplication().currentUserNotificationSettings()
         if (settings?.types.contains(.Alert) == true){
             return true
@@ -330,7 +342,8 @@ class RequestStatusViewController: UIViewController {
         if self.currentRequest != nil && self.currentRequest!.objectId != nil {
             let currentInstallation = PFInstallation.currentInstallation()
             let requestId: String = self.currentRequest!.objectId!
-            currentInstallation.removeObject(requestId, forKey: "channels")
+            let channelName = "workout_\(requestId)"
+            currentInstallation.removeObject(channelName, forKey: "channels")
             currentInstallation.saveInBackground()
         }
     }

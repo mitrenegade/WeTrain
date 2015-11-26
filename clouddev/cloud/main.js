@@ -67,8 +67,10 @@ var sendPushWorkoutClient = function(trainerId, requestId, testing) {
     if (testing == 1) {
         message = "TEST: a trainer has accepted your session"                    
     }
+    var channelName = "workout_" + requestId
+    console.log("client channel: " + channelName)
     Parse.Push.send({
-        channels: [ requestId ],
+        channels: [ channelName ],
         data: {
             alert: message,
             trainer: trainerId,

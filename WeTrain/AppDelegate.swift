@@ -39,6 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // google maps
         GMSServices.provideAPIKey(GOOGLE_API_APP_KEY)
 
+        // reregister for relevant channels
+        if UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+        }
+
         UITabBar.appearance().tintColor = UIColor.redColor()
         UITabBar.appearance().selectedImageTintColor = UIColor.orangeColor()
         UITabBar.appearance().shadowImage = nil
@@ -234,11 +241,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation.setDeviceTokenFromData(deviceToken)
         installation.addUniqueObject("Clients", forKey: "channels") // subscribe to trainers channel
         installation.saveInBackground()
-        
+        let channels = installation.objectForKey("channels")
+        print("installation registered for remote notifications: token \(deviceToken) channel \(channels)")
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        print("failed")
+        print("failed: error \(error)")
         NSNotificationCenter.defaultCenter().postNotificationName("push:enable:failed", object: nil)
     }
 }
