@@ -216,10 +216,10 @@ class RequestStatusViewController: UIViewController {
         case .Searching:
             
             var title = "Searching for an available trainer"
-            var message = ""
+            var message = "Please be patient; this may take a few minutes. If you close the app, we will notify you once a trainer has been matched!"
             if let addressString: String = self.currentRequest?.objectForKey("address") as? String {
                 title = "Searching for an available trainer near:"
-                message = "\(addressString)"
+                message = "\(addressString)\n\n\(message)"
             }
             self.updateTitle(title, message: message, top: nil, bottom: "Cancel Request", topHandler: nil, bottomHandler: { () -> Void in
                 self.promptForCancel()
