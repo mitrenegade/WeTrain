@@ -10,8 +10,8 @@ import UIKit
 import Parse
 
 protocol CreditCardDelegate: class {
-    func didSaveCreditCard() // saved to client
-    func didCreateToken(token: STPToken, lastFour: String) // created token
+    func didSaveCreditCard(token: String) // saved to client
+    func didCreateToken(token: String, lastFour: String) // created token
 }
 
 class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymentCardTextFieldDelegate {
@@ -57,9 +57,6 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymen
     }
     
     func close() {
-        if self.delegate != nil {
-            self.delegate!.didSaveCreditCard()
-        }
         self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -108,12 +105,15 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymen
                     self.simpleAlert("Error saving credit card", message: "Please try again.")
                 }
                 else {
+                    if self.delegate != nil {
+                        self.delegate!.didSaveCreditCard(tokenId)
+                    }
                     self.close()
                 }
             }
         }
         else {
-            self.delegate?.didCreateToken(token, lastFour: last4) // tells delegate to store the token
+            self.delegate?.didCreateToken(tokenId, lastFour: last4) // tells delegate to store the token
             self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
         }
     }

@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class SettingsViewController: UITableViewController, TutorialDelegate {
+class SettingsViewController: UITableViewController, TutorialDelegate, CreditCardDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,4 +138,35 @@ class SettingsViewController: UITableViewController, TutorialDelegate {
     func didCloseTutorial() {
         self.navigationController!.popViewControllerAnimated(true)
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "GoToCreditCard" {
+            let nav: UINavigationController = segue.destinationViewController as! UINavigationController
+            let controller: CreditCardViewController = nav.viewControllers[0] as! CreditCardViewController
+            controller.delegate = self
+        }
+    }
+    
+    // MARK: - CreditCardDelegate
+    func didSaveCreditCard(token: String) {
+        if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
+            // actually save credit card
+            PFCloud.callFunctionInBackground("updatePayment", withParameters: ["clientId": client.objectId!, "stripeToken": token]) { (results, error) -> Void in
+                print("results: \(results) error: \(error)")
+                if error != nil {
+                    var message = "Your credit card could not be updated. Please try again."
+                    print("error: \(error)")
+                    if let errorMsg: String = error!.userInfo["error"] as? String {
+                        message = errorMsg
+                    }
+                    self.simpleAlert("Error saving credit card", message: message)
+                }
+            }
+        }
+    }
+    
+    func didCreateToken(token: String, lastFour: String) {
+        self.simpleAlert("Invalid user", message: "Could not store your credit card info because your user is invalid. Please log out and log back in.")
+    }
+
 }

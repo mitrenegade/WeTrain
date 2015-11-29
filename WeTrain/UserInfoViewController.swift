@@ -35,7 +35,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     @IBOutlet var constraintTopOffset: NSLayoutConstraint!
     @IBOutlet var constraintBottomOffset: NSLayoutConstraint!
     
-    var newCreditCardToken: STPToken?
+    var newCreditCardToken: String?
     var newCreditCardLast4: String?
     
     var isSignup:Bool = false
@@ -311,11 +311,11 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         client.setObject(user, forKey: "user")
         
         if self.newCreditCardToken != nil {
-            let tokenId: String = self.newCreditCardToken!.tokenId
+            let tokenId: String = self.newCreditCardToken!
             client.setObject(tokenId, forKey: "stripeToken")
             client.setObject(self.newCreditCardLast4!, forKey: "stripeFour")
         }
-        
+
         if self.selectedPhoto != nil {
             let data: NSData = UIImageJPEGRepresentation(self.selectedPhoto!, 0.8)!
             let file: PFFile = PFFile(name: "profile.jpg", data: data)
@@ -324,7 +324,11 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         
         client.saveInBackgroundWithBlock { (success, error) -> Void in
             if error != nil {
-                self.simpleAlert("Error creating profile", message: "We could not create your user profile.", completion: nil)
+                var message = "We could not create your user profile."
+                if let errorMessage: String = error!.userInfo["error"] as? String {
+                    message = errorMessage
+                }
+                self.simpleAlert("Error creating profile", message: message, completion: nil)
                 return
             }
             else {
@@ -426,15 +430,20 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     }
     
     // MARK: - CreditCardDelegate
-    func didSaveCreditCard() {
+    func didSaveCreditCard(token: String) {
         if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
             if let last4: String = client.objectForKey("stripeFour") as? String{
                 self.inputCreditCard.text = "Credit Card: *\(last4)"
             }
+            
+            // actually save credit card
+            PFCloud.callFunctionInBackground("updatePayment", withParameters: ["clientId": client.objectId!, "stripeToken": token]) { (results, error) -> Void in
+                print("results: \(results) error: \(error)")
+            }
         }
     }
     
-    func didCreateToken(token: STPToken, lastFour: String) {
+    func didCreateToken(token: String, lastFour: String) {
         self.newCreditCardToken = token
         self.newCreditCardLast4 = lastFour
         self.inputCreditCard.text = "Credit Card: *\(self.newCreditCardLast4!)"

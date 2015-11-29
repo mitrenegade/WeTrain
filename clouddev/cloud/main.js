@@ -1,7 +1,7 @@
 var Stripe = require('stripe');
 var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
-Stripe.initialize(STRIPE_SECRET_PROD);
+Stripe.initialize(STRIPE_SECRET_DEV);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
@@ -244,16 +244,54 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
     }
 });
 
-Parse.Cloud.afterSave("Client", function(request, response) {
+Parse.Cloud.beforeSave("Client", function(request, response) {
     var client = request.object
     var customerId = client.get("customer_id")
+
+    // backwards compatibility with client 0.7.0: if clients are created with no customer_id, try saving their customer id
+    // this doesn't allow 0.7.0 to update their credit card; 0.7.1 must call updatePayment to update credit card
     if (customerId == undefined || customerId == "") {
-        createCustomer(client)
+        createCustomer(client, {
+            success: function(success) {
+                console.log("client saved with customer")
+                response.success()
+            },
+            error: function(error) {
+                console.log("client failed to create customer with error " + error)
+                response.error(error)
+            }
+        })
     }
     else {
-        console.log("afterSave client not creating customer because:: customerId " + customerId)
+        response.success()
     }
-});
+})
+
+Parse.Cloud.define("updatePayment", function(request, response) {
+    var clientId = request.params.clientId
+    var stripeToken = request.params.stripeToken
+    var query = new Parse.Query("Client")
+    console.log("UPDATE_PAYMENT: client " + clientId + " token " + stripeToken)
+    query.get(clientId, {
+        success: function(client){
+            createCustomer(client, {
+                success: function(success) {
+                    console.log("UPDATE_PAYMENT: client saved with customer " + client.get("customer_id"))
+                    client.set("stripeToken", stripeToken)
+                    response.success()
+                },
+                error: function(error) {
+                    console.log("UPDATE_PAYMENT: client failed to create customer with error " + error)
+                    client.set("stripeToken", undefined)
+                    response.error(error)
+                }
+            })
+        },
+        error: function(error) {
+            console.log("UPDATE_PAYMENT: Error loading client " + clientId)
+        }
+    })
+})
 
 var createCustomer = function(client, response) {
     var token = client.get("stripeToken")
@@ -269,14 +307,17 @@ var createCustomer = function(client, response) {
             client.save().then(
                 function(object) {
                     console.log("CREATE_CUSTOMER: client saved with customer id " + client.get("customer_id"))
+                    response.success()
                 }, 
                 function(error) {
                     console.log("CREATE_CUSTOMER: customer failed to save " + error)
+                    response.error("Could not save your credit card to your account. Please try again.")
                 }
             )
         },
         error: function(httpResponse) {
             console.log("CREATE_CUSTOMER: Stripe.Customers.Create failed: " + httpResponse);
+            response.error("Please check your credit card number and try again.")
         }
     });
 }
