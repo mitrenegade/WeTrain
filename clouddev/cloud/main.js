@@ -1,7 +1,7 @@
 var Stripe = require('stripe');
 var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
-Stripe.initialize(STRIPE_SECRET_DEV);
+Stripe.initialize(STRIPE_SECRET_PROD);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
