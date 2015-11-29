@@ -282,7 +282,9 @@ Parse.Cloud.define("updatePayment", function(request, response) {
                 },
                 error: function(error) {
                     console.log("UPDATE_PAYMENT: client failed to create customer with error " + error)
-                    client.set("stripeToken", undefined)
+                    client.unset("stripeToken")
+                    client.unset("stripeFour")
+                    client.save()
                     response.error(error)
                 }
             })
