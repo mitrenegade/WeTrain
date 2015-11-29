@@ -246,14 +246,20 @@ Parse.Cloud.afterSave("Workout", function(request, response) {
 
 Parse.Cloud.beforeSave("Client", function(request, response) {
     var client = request.object
-    var customerId = client.get("customer_id")
+    console.log("CLIENT_BEFORESAVE: client " + client.id)    
+    response.success()
+})
 
+Parse.Cloud.afterSave("Client", function(request, response) {
+    var client = request.object
+    console.log("CLIENT_AFTERSAVE: client " + client.id)    
     // backwards compatibility with client 0.7.0: if clients are created with no customer_id, try saving their customer id
     // this doesn't allow 0.7.0 to update their credit card; 0.7.1 must call updatePayment to update credit card
-    if (customerId == undefined || customerId == "") {
+    var customerId = client.get("customer_id")
+    if ((customerId == undefined || customerId == "") && client.get("stripeToken")) {
         createCustomer(client, {
             success: function(success) {
-                console.log("client saved with customer")
+                console.log("CLIENT_BEFORESAVE: client " + client.id + " saved with customer")
                 response.success()
             },
             error: function(error) {
@@ -308,7 +314,7 @@ var createCustomer = function(client, response) {
             client.set("card", card)
             client.save().then(
                 function(object) {
-                    console.log("CREATE_CUSTOMER: client saved with customer id " + client.get("customer_id"))
+                    console.log("CREATE_CUSTOMER: client id " + client.id + " saved with customer id " + client.get("customer_id"))
                     response.success()
                 }, 
                 function(error) {
