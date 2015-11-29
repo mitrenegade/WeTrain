@@ -1,7 +1,7 @@
 var Stripe = require('stripe');
 var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
-Stripe.initialize(STRIPE_SECRET_PROD);
+Stripe.initialize(STRIPE_SECRET_DEV);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
@@ -175,7 +175,21 @@ Parse.Cloud.beforeSave("Workout", function(request, response) {
         trainingObject.set("start", start)
         console.log("started training " + trainingObject.id + " at " + start)
     }
-    response.success()
+    console.log("beforeSave workout status " + trainingObject.get("status"))
+    if (trainingObject.get("status") == "requested") {
+        var client = trainingObject.get("client")
+        var customerId = client.get("customer_id")
+        console.log("beforeSave client customer_id: " + customerId)
+        if (customerId == undefined || customerId == "") {
+            response.error("Your payment method is invalid; please reenter your credit card")
+        }
+        else {
+            response.success()                
+        }
+    }
+    else {
+        response.success()
+    } 
 });
 
 Parse.Cloud.afterSave("Workout", function(request, response) {
