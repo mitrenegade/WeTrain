@@ -202,35 +202,37 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
 
     func didUpdateInfo(sender: AnyObject) {
 
-        let firstName = self.inputFirstName.text
-        if firstName?.characters.count == 0 {
-            self.simpleAlert("Please enter your first name", message: nil)
-            return
-        }
-        let lastName = self.inputLastName.text
-        if lastName?.characters.count == 0 {
-            self.simpleAlert("Please enter your last name", message: nil)
-            return
-        }
+        if TESTING == 0 {
+            let firstName = self.inputFirstName.text
+            if firstName?.characters.count == 0 {
+                self.simpleAlert("Please enter your first name", message: nil)
+                return
+            }
+            let lastName = self.inputLastName.text
+            if lastName?.characters.count == 0 {
+                self.simpleAlert("Please enter your last name", message: nil)
+                return
+            }
+            
+            let phone = self.inputPhone.text
+            if phone?.characters.count == 0 {
+                self.simpleAlert("Please enter a valid phone number", message: nil)
+                return
+            }
         
-        let phone = self.inputPhone.text
-        if phone?.characters.count == 0 {
-            self.simpleAlert("Please enter a valid phone number", message: nil)
-            return
-        }
-
-        /*
-        if self.isSignup && self.selectedPhoto == nil {
+            /*
+            if self.isSignup && self.selectedPhoto == nil {
             self.simpleAlert("Please select a photo", message: "You must add a photo so your trainer can recognize you.")
             return
+            }
+            */
+            
+            if !self.checked {
+                self.simpleAlert("Please agree to the Terms and Conditions", message: "You must read the Terms and Conditions and check the box to continue.")
+                return
+            }
         }
-        */
 
-        if !self.checked {
-            self.simpleAlert("Please agree to the Terms and Conditions", message: "You must read the Terms and Conditions and check the box to continue.")
-            return
-        }
-        
         /*
         let gender = self.inputGender.text
         if gender?.characters.count == 0 {
