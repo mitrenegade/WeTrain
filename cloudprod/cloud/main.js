@@ -175,7 +175,25 @@ Parse.Cloud.beforeSave("Workout", function(request, response) {
         trainingObject.set("start", start)
         console.log("started training " + trainingObject.id + " at " + start)
     }
-    response.success()
+    console.log("beforeSave workout status " + trainingObject.get("status"))
+    /*
+    // TODO: allow clients to request a workout and handle failure on trainer's side, until client's app is released
+    if (trainingObject.get("status") == "requested") {
+        var client = trainingObject.get("client")
+        var customerId = client.get("customer_id")
+        console.log("beforeSave client customer_id: " + customerId)
+        if (customerId == undefined || customerId == "") {
+            response.error("Your payment method is invalid; please reenter your credit card")
+        }
+        else {
+            response.success()                
+        }
+    }
+    else {
+        response.success()
+    } 
+    */
+        response.success()
 });
 
 Parse.Cloud.afterSave("Workout", function(request, response) {
@@ -415,7 +433,7 @@ var createCharge = function(client, payment, response) {
                 payment.set("charged", false)
                 payment.set("stripeError", error) // record stripe error
                 payment.save()
-                response.error("Credit card could not be charged");
+                response.error("Credit card could not be charged. Ask client to reenter their payment info.");
             }
         });
     }

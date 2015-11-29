@@ -1,7 +1,7 @@
 var Stripe = require('stripe');
 var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
-Stripe.initialize(STRIPE_SECRET_DEV);
+Stripe.initialize(STRIPE_SECRET_PROD);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
@@ -176,6 +176,8 @@ Parse.Cloud.beforeSave("Workout", function(request, response) {
         console.log("started training " + trainingObject.id + " at " + start)
     }
     console.log("beforeSave workout status " + trainingObject.get("status"))
+    /*
+    // TODO: allow clients to request a workout and handle failure on trainer's side, until client's app is released
     if (trainingObject.get("status") == "requested") {
         var client = trainingObject.get("client")
         var customerId = client.get("customer_id")
@@ -190,6 +192,8 @@ Parse.Cloud.beforeSave("Workout", function(request, response) {
     else {
         response.success()
     } 
+    */
+        response.success()
 });
 
 Parse.Cloud.afterSave("Workout", function(request, response) {
@@ -429,7 +433,7 @@ var createCharge = function(client, payment, response) {
                 payment.set("charged", false)
                 payment.set("stripeError", error) // record stripe error
                 payment.save()
-                response.error("Credit card could not be charged");
+                response.error("Credit card could not be charged. Ask client to reenter their payment info.");
             }
         });
     }
