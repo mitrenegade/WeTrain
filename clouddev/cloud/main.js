@@ -256,20 +256,23 @@ Parse.Cloud.afterSave("Client", function(request, response) {
     // backwards compatibility with client 0.7.0: if clients are created with no customer_id, try saving their customer id
     // this doesn't allow 0.7.0 to update their credit card; 0.7.1 must call updatePayment to update credit card
     var customerId = client.get("customer_id")
-    if ((customerId == undefined || customerId == "") && client.get("stripeToken")) {
+    if ((customerId == undefined || customerId == "") && (client.get("stripeToken") != undefined)) {
         createCustomer(client, {
             success: function(success) {
-                console.log("CLIENT_BEFORESAVE: client " + client.id + " saved with customer")
-                response.success()
+                console.log("CLIENT_AFTERSAVE: client " + client.id + " saved with customer")
             },
             error: function(error) {
-                console.log("client failed to create customer with error " + error)
+                console.log("CLIENT_AFTERSAVE: client failed to create customer with error " + error)
+
+                client.unset("stripeToken")
+                client.unset("stripeFour")
+                client.unset("card")
+                client.unset("customer_id")
+                client.save()
+
                 response.error(error)
             }
         })
-    }
-    else {
-        response.success()
     }
 })
 
@@ -288,9 +291,6 @@ Parse.Cloud.define("updatePayment", function(request, response) {
                 },
                 error: function(error) {
                     console.log("UPDATE_PAYMENT: client failed to create customer with error " + error)
-                    client.unset("stripeToken")
-                    client.unset("stripeFour")
-                    client.save()
                     response.error(error)
                 }
             })
@@ -312,6 +312,7 @@ var createCustomer = function(client, response) {
             console.log("CREATE_CUSTOMER: created customer for client " + client.id + " token " + client.get("stripeToken"))
             client.set("customer_id", customer_id)
             client.set("card", card)
+            client.unset("stripeToken")
             client.save().then(
                 function(object) {
                     console.log("CREATE_CUSTOMER: client id " + client.id + " saved with customer id " + client.get("customer_id"))
