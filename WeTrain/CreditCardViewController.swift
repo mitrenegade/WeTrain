@@ -10,8 +10,7 @@ import UIKit
 import Parse
 
 protocol CreditCardDelegate: class {
-    func didSaveCreditCard(token: String) // saved to client
-    func didCreateToken(token: String, lastFour: String) // created token
+    func didSaveCreditCard(token: String, lastFour: String) // saved to client
 }
 
 class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymentCardTextFieldDelegate {
@@ -108,25 +107,10 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymen
         let tokenId: String = token.tokenId
         let number: String = self.paymentTextField!.cardNumber!
         let last4:String = number.substringFromIndex(number.endIndex.advancedBy(-4))
-        if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
-            client.setObject(tokenId, forKey: "stripeToken")
-            client.setObject(last4, forKey: "stripeFour")
-            client.saveInBackgroundWithBlock { (success, error) -> Void in
-                if error != nil {
-                    self.simpleAlert("Error saving credit card", message: "Please try again.")
-                }
-                else {
-                    if self.delegate != nil {
-                        self.delegate!.didSaveCreditCard(tokenId)
-                    }
-                    self.close()
-                }
-            }
+        if self.delegate != nil {
+            self.delegate!.didSaveCreditCard(tokenId, lastFour: last4)
         }
-        else {
-            self.delegate?.didCreateToken(tokenId, lastFour: last4) // tells delegate to store the token
-            self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-        }
+        self.close()
     }
     
     /*

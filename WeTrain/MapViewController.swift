@@ -402,10 +402,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             else {
                 var message = "There was an issue requesting a training session. Please try again."
                 print("error: \(error)")
-                if let errorMsg: String = error!.userInfo["error"] as? String {
-                    message = errorMsg
-                }
-                self.simpleAlert("Could not request workout", message: message)
+                self.simpleAlert("Could not request workout", defaultMessage: message, error: error)
             }
         }
     }

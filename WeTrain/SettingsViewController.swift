@@ -148,7 +148,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
     }
     
     // MARK: - CreditCardDelegate
-    func didSaveCreditCard(token: String) {
+    func didSaveCreditCard(token: String, lastFour: String) {
         if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
             // actually save credit card
             PFCloud.callFunctionInBackground("updatePayment", withParameters: ["clientId": client.objectId!, "stripeToken": token]) { (results, error) -> Void in
@@ -156,17 +156,13 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
                 if error != nil {
                     var message = "Your credit card could not be updated. Please try again."
                     print("error: \(error)")
-                    if let errorMsg: String = error!.userInfo["error"] as? String {
-                        message = errorMsg
-                    }
-                    self.simpleAlert("Error saving credit card", message: message)
+                    self.simpleAlert("Error saving credit card", defaultMessage: message, error: error)
+                }
+                else {
+                    client.setObject(lastFour, forKey: "stripeFour")
+                    client.saveInBackground()
                 }
             }
         }
     }
-    
-    func didCreateToken(token: String, lastFour: String) {
-        self.simpleAlert("Invalid user", message: "Could not store your credit card info because your user is invalid. Please log out and log back in.")
-    }
-
 }

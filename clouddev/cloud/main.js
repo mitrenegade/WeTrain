@@ -1,7 +1,7 @@
 var Stripe = require('stripe');
 var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
-Stripe.initialize(STRIPE_SECRET_PROD);
+Stripe.initialize(STRIPE_SECRET_DEV);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
@@ -258,13 +258,13 @@ Parse.Cloud.afterSave("Client", function(request, response) {
     var customerId = client.get("customer_id")
     if ((customerId == undefined || customerId == "") && (client.get("stripeToken") != undefined)) {
         console.log("CLIENT_AFTERSAVE: calling createCustomer with token " + client.get("stripeToken"))
-        createCustomer(client, {
+        createCustomer(client, client.get("stripeToken"), {
             success: function(success) {
                 console.log("CLIENT_AFTERSAVE: client " + client.id + " saved with customer")
             },
             error: function(error) {
                 console.log("CLIENT_AFTERSAVE: client failed to create customer with error " + error)
-                // afterSave does not have success/error calls in response
+                // afterSave does not have success/error calls in httpResponse
             }
         })
     }
@@ -277,7 +277,7 @@ Parse.Cloud.define("updatePayment", function(request, response) {
     console.log("UPDATE_PAYMENT: client " + clientId + " token " + stripeToken)
     query.get(clientId, {
         success: function(client){
-            createCustomer(client, {
+            createCustomer(client, stripeToken, {
                 success: function(success) {
                     console.log("UPDATE_PAYMENT: client saved with customer " + client.get("customer_id"))
                     response.success()
@@ -300,8 +300,11 @@ Parse.Cloud.define("updatePayment", function(request, response) {
     })
 })
 
-var createCustomer = function(client, response) {
-    var token = client.get("stripeToken")
+var createCustomer = function(client, token, response) {
+    console.log("CREATE_CUSTOMER: client" + client.id + " token " + token )
+    if (token == undefined) {
+        token = client.get("stripeToken")
+    }
     Stripe.Customers.create({
         card: token // the token id should be sent from the client
     },{
