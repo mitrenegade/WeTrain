@@ -176,7 +176,6 @@ Parse.Cloud.beforeSave("Workout", function(request, response) {
         console.log("started training " + trainingObject.id + " at " + start)
     }
     console.log("beforeSave workout status " + trainingObject.get("status"))
-    /*
     // TODO: allow clients to request a workout and handle failure on trainer's side, until client's app is released
     if (trainingObject.get("status") == "requested") {
         var client = trainingObject.get("client")
@@ -192,8 +191,6 @@ Parse.Cloud.beforeSave("Workout", function(request, response) {
     else {
         response.success()
     } 
-    */
-        response.success()
 });
 
 Parse.Cloud.afterSave("Workout", function(request, response) {
