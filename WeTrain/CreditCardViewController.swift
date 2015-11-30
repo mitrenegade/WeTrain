@@ -10,8 +10,7 @@ import UIKit
 import Parse
 
 protocol CreditCardDelegate: class {
-    func didSaveCreditCard() // saved to client
-    func didCreateToken(token: STPToken, lastFour: String) // created token
+    func didSaveCreditCard(token: String, lastFour: String) // saved to client
 }
 
 class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymentCardTextFieldDelegate {
@@ -33,12 +32,23 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymen
 
         self.labelCurrentCard.text = "Please enter a new credit card"
         if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
-            print("client: \(client)")
-            if let last4: String = client.objectForKey("stripeFour") as? String{
-                self.labelCurrentCard.text = "Your current credit card is *\(last4)"
-                self.navigationItem.rightBarButtonItem!.title = "Update"
-            }
-        }        
+            client.fetchInBackgroundWithBlock({ (clientObject, error) -> Void in
+                if clientObject != nil {
+                    print("client: \(clientObject)")
+                    if let last4: String = clientObject!.objectForKey("stripeFour") as? String{
+                        self.labelCurrentCard.text = "Your current credit card is *\(last4)"
+                        self.navigationItem.rightBarButtonItem!.title = "Update"
+                    }
+                }
+                else {
+                    print("client: \(client)")
+                    if let last4: String = client.objectForKey("stripeFour") as? String{
+                        self.labelCurrentCard.text = "Your current credit card is *\(last4)"
+                        self.navigationItem.rightBarButtonItem!.title = "Update"
+                    }
+                }
+            })
+        }
 
         self.paymentTextField = STPPaymentCardTextField()
         self.paymentTextField!.delegate = self
@@ -57,9 +67,6 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymen
     }
     
     func close() {
-        if self.delegate != nil {
-            self.delegate!.didSaveCreditCard()
-        }
         self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -100,22 +107,10 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymen
         let tokenId: String = token.tokenId
         let number: String = self.paymentTextField!.cardNumber!
         let last4:String = number.substringFromIndex(number.endIndex.advancedBy(-4))
-        if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
-            client.setObject(tokenId, forKey: "stripeToken")
-            client.setObject(last4, forKey: "stripeFour")
-            client.saveInBackgroundWithBlock { (success, error) -> Void in
-                if error != nil {
-                    self.simpleAlert("Error saving credit card", message: "Please try again.")
-                }
-                else {
-                    self.close()
-                }
-            }
+        if self.delegate != nil {
+            self.delegate!.didSaveCreditCard(tokenId, lastFour: last4)
         }
-        else {
-            self.delegate?.didCreateToken(token, lastFour: last4) // tells delegate to store the token
-            self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-        }
+        self.close()
     }
     
     /*

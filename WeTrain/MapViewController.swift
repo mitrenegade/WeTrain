@@ -285,7 +285,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
 
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
-        let payment = client.objectForKey("stripeToken")
+        let payment = client.objectForKey("customer_id")
         if payment == nil {
             self.simpleAlert("Please enter payment", message: "You must enter a credit card before requesting a trainer. Go to the Account tab to update your payment.")
             return
@@ -400,7 +400,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 }
             }
             else {
-                self.simpleAlert("Could not start request", message: "There was an issue requesting a training session. Please try again.")
+                var message = "There was an issue requesting a training session. Please try again."
+                print("error: \(error)")
+                self.simpleAlert("Could not request workout", defaultMessage: message, error: error)
             }
         }
     }

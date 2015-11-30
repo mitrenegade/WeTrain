@@ -106,21 +106,35 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         user.signUpInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 print("signup succeeded")
-                self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
+                let client: PFObject = PFObject(className: "Client")
+                PFUser.currentUser()!.setObject(client, forKey: "client")
+                PFUser.currentUser()!.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    if success {
+                        self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
+                    }
+                    else {
+                        self.signupError(error)
+                    }
+                })
+
             }
             else {
-                let title = "Signup error"
-                var message: String?
-                if error?.code == 100 {
-                    message = "Please check your internet connection"
-                }
-                else if error?.code == 202 {
-                    message = "Username already taken"
-                }
-                
-                self.simpleAlert(title, message: message)
+                self.signupError(error)
             }
         }
+    }
+    
+    func signupError(error: NSError?) {
+        let title = "Signup error"
+        var message: String?
+        if error?.code == 100 {
+            message = "Please check your internet connection"
+        }
+        else if error?.code == 202 {
+            message = "Username already taken"
+        }
+        
+        self.simpleAlert(title, message: message)
     }
     
     override func didReceiveMemoryWarning() {

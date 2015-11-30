@@ -23,6 +23,16 @@ extension UIViewController {
         }))
         return alert
     }
+
+    func simpleAlert(title: String, defaultMessage: String?, error: NSError?) {
+        if error != nil {
+            if let msg = error!.userInfo["error"] as? String {
+                self.simpleAlert(title, message: msg)
+                return
+            }
+        }
+        self.simpleAlert(title, message: defaultMessage)
+    }
     
     func simpleAlert(title: String, message: String?) {
         self.simpleAlert(title, message: message, completion: nil)
