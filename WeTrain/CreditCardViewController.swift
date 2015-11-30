@@ -33,12 +33,23 @@ class CreditCardViewController: UIViewController, UITextFieldDelegate, STPPaymen
 
         self.labelCurrentCard.text = "Please enter a new credit card"
         if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
-            print("client: \(client)")
-            if let last4: String = client.objectForKey("stripeFour") as? String{
-                self.labelCurrentCard.text = "Your current credit card is *\(last4)"
-                self.navigationItem.rightBarButtonItem!.title = "Update"
-            }
-        }        
+            client.fetchInBackgroundWithBlock({ (clientObject, error) -> Void in
+                if clientObject != nil {
+                    print("client: \(clientObject)")
+                    if let last4: String = clientObject!.objectForKey("stripeFour") as? String{
+                        self.labelCurrentCard.text = "Your current credit card is *\(last4)"
+                        self.navigationItem.rightBarButtonItem!.title = "Update"
+                    }
+                }
+                else {
+                    print("client: \(client)")
+                    if let last4: String = client.objectForKey("stripeFour") as? String{
+                        self.labelCurrentCard.text = "Your current credit card is *\(last4)"
+                        self.navigationItem.rightBarButtonItem!.title = "Update"
+                    }
+                }
+            })
+        }
 
         self.paymentTextField = STPPaymentCardTextField()
         self.paymentTextField!.delegate = self
