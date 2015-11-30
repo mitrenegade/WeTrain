@@ -380,6 +380,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         PFCloud.callFunctionInBackground("updatePayment", withParameters: ["clientId": self.client!.objectId!, "stripeToken": token]) { (results, error) -> Void in
             if error == nil {
                 self.inputCreditCard.text = "Credit Card: *\(lastFour)"
+                self.client!.setObject(lastFour, forKey: "stripeFour")
+                self.client!.saveInBackground()
             }
             else {
                 self.simpleAlert("Could not save credit card", defaultMessage: "There was an error updating your credit card.", error: error)
