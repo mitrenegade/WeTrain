@@ -257,20 +257,14 @@ Parse.Cloud.afterSave("Client", function(request, response) {
     // this doesn't allow 0.7.0 to update their credit card; 0.7.1 must call updatePayment to update credit card
     var customerId = client.get("customer_id")
     if ((customerId == undefined || customerId == "") && (client.get("stripeToken") != undefined)) {
+        console.log("CLIENT_AFTERSAVE: calling createCustomer with token " + client.get("stripeToken"))
         createCustomer(client, {
             success: function(success) {
                 console.log("CLIENT_AFTERSAVE: client " + client.id + " saved with customer")
             },
             error: function(error) {
                 console.log("CLIENT_AFTERSAVE: client failed to create customer with error " + error)
-
-                client.unset("stripeToken")
-                client.unset("stripeFour")
-                client.unset("card")
-                client.unset("customer_id")
-                client.save()
-
-                response.error(error)
+                // afterSave does not have success/error calls in response
             }
         })
     }
@@ -286,11 +280,16 @@ Parse.Cloud.define("updatePayment", function(request, response) {
             createCustomer(client, {
                 success: function(success) {
                     console.log("UPDATE_PAYMENT: client saved with customer " + client.get("customer_id"))
-                    client.set("stripeToken", stripeToken)
                     response.success()
                 },
                 error: function(error) {
                     console.log("UPDATE_PAYMENT: client failed to create customer with error " + error)
+                    client.unset("stripeToken")
+                    client.unset("stripeFour")
+                    client.unset("card")
+                    client.unset("customer_id")
+                    client.save()
+
                     response.error(error)
                 }
             })
