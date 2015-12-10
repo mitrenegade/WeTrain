@@ -660,9 +660,9 @@
 				INFOPLIST_FILE = WeTrain/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.client;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.dev.client;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "eaf97453-79a9-4927-b181-cc543e9abd96";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -690,9 +690,9 @@
 				INFOPLIST_FILE = WeTrain/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.client;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.dev.client;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "d3681380-48f5-4df4-802c-b138c4359da0";
+				PROVISIONING_PROFILE = "70c73c9a-dbe3-4e3c-b3ea-946bf716e568";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

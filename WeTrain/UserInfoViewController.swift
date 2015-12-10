@@ -11,7 +11,7 @@ import Parse
 import Photos
 
 let genders = ["Select gender", "Male", "Female", "Other"]
-class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TutorialDelegate {
+class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var buttonPhotoView: UIButton!
     @IBOutlet weak var buttonEditPhoto: UIButton!
@@ -23,7 +23,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     @IBOutlet var inputAge: UITextField!
     @IBOutlet var inputInjuries: UITextField!
     @IBOutlet var inputCreditCard: UITextField!
-    
     
     var currentInput: UITextField?
     
@@ -38,9 +37,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     var isSignup:Bool = false
     var selectedPhoto: UIImage?
     
-    @IBOutlet var buttonTOS: UIButton!
-    var checked: Bool = false
-
     var client: PFObject?
     
     override func viewDidLoad() {
@@ -79,7 +75,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             self.navigationItem.leftBarButtonItem = left
         }
         
-        self.refreshButton()
         let clientObject: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
         clientObject.fetchInBackgroundWithBlock({ (result, error) -> Void in
             self.client = clientObject
@@ -120,15 +115,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
                 if let last4: String = self.client!.objectForKey("stripeFour") as? String{
                     self.inputCreditCard.text = "Credit Card: *\(last4)"
                 }
-                
-                self.refreshButton()
-                if let checkedTOS: Bool = self.client!.objectForKey("checkedTOS") as? Bool {
-                    self.checked = checkedTOS
-                    self.refreshButton()
-                    if checkedTOS {
-                        self.buttonTOS.enabled = false
-                    }
-                }
             }
             else {
                 // user's client was deleted; create a new one
@@ -139,24 +125,11 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         })
     }
     
-    func refreshButton() {
-        if self.checked {
-            self.buttonTOS.setImage(UIImage(named: "boxChecked")!, forState: .Normal)
-        }
-        else {
-            self.buttonTOS.setImage(UIImage(named: "boxUnchecked")!, forState: .Normal)
-        }
-    }
-    
-    @IBAction func didClickCheck() {
-        self.checked = !self.checked
-        self.refreshButton()
-    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         self.constraintContentWidth.constant = (self.appDelegate().window?.bounds.size.width)!
-        self.constraintContentHeight.constant = self.buttonTOS.frame.origin.y + 300
+        self.constraintContentHeight.constant = self.inputCreditCard.frame.origin.y + self.inputCreditCard.frame.size.height + 40
     }
     
     func nothing() {
@@ -222,11 +195,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             return
             }
             */
-            
-            if !self.checked {
-                self.simpleAlert("Please agree to the Terms and Conditions", message: "You must read the Terms and Conditions and check the box to continue.")
-                return
-            }
         }
 
         /*
@@ -243,6 +211,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         }
         */
 
+        /*
         let four = self.inputCreditCard.text
         if four?.characters.count == 0 {
             let alert: UIAlertController = UIAlertController(title: "Skip payment method?", message: "Are you sure you want to complete signup without adding your credit card? You won't be able to request a workout. You can add a credit card later.", preferredStyle: .Alert)
@@ -257,6 +226,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         else {
             self.updateClientProfile()
         }
+        */
+        self.updateClientProfile()
     }
     
 
@@ -275,7 +246,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         if self.inputInjuries.text != nil {
             clientDict["injuries"] = self.inputInjuries.text!
         }
-        clientDict["checkedTOS"] = self.checked
         
         self.client!.setValuesForKeysWithDictionary(clientDict)
         let user = PFUser.currentUser()!
@@ -480,19 +450,4 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
     }
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-        if segue.identifier == "GoToTutorial" {
-            let controller: TutorialViewController = segue.destinationViewController as! TutorialViewController
-            controller.delegate = self
-        }
-    }
-    
-    func didCloseTutorial() {
-        self.navigationController!.dismissViewControllerAnimated(true) { () -> Void in
-            self.appDelegate().didLogin()
-        }
-    }
 }

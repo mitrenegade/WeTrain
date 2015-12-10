@@ -177,23 +177,29 @@ Parse.Cloud.beforeSave("Workout", function(request, response) {
     }
     console.log("beforeSave workout status " + trainingObject.get("status"))
     // TODO: allow clients to request a workout and handle failure on trainer's side, until client's app is released
-    /*
     if (trainingObject.get("status") == "requested") {
         var client = trainingObject.get("client")
-        var customerId = client.get("customer_id")
-        console.log("beforeSave client customer_id: " + customerId)
-        if (customerId == undefined || customerId == "") {
-            response.error("Your payment method is invalid; please reenter your credit card")
-        }
-        else {
-            response.success()                
-        }
+        var clientQuery = new Parse.Query("Client");
+        clientQuery.get(client.id, {
+            success: function(clientObject) {
+                var customerId = clientObject.get("customer_id")
+                console.log("beforeSave client " + clientObject.id + " card " + clientObject.get("card") + " customer_id: " + customerId)
+                if (customerId == undefined || customerId == "") {
+                    response.error("Your payment method is invalid; please reenter your credit card")
+                }
+                else {
+                    response.success()                
+                }
+            }
+            ,
+            error : function(error) {
+                response.error("Your session is invalid; please log out and log back in")
+            }
+        });
     }
     else {
         response.success()
     } 
-    */
-    response.success()
 });
 
 Parse.Cloud.afterSave("Workout", function(request, response) {

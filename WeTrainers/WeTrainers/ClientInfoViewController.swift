@@ -34,9 +34,12 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     @IBOutlet weak var constraintPasscodeHeight: NSLayoutConstraint!
     
     @IBOutlet weak var buttonAction: UIButton!
+    @IBOutlet weak var constraintButtonActionRight: NSLayoutConstraint!
 
     @IBOutlet weak var buttonContact: UIButton!
     @IBOutlet weak var constraintButtonContactHeight: NSLayoutConstraint!
+    @IBOutlet weak var constraintButtonContactTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintButtonContactLeft: NSLayoutConstraint!
 
     weak var delegate: ClientInfoDelegate?
     
@@ -158,7 +161,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                     info = "\(info)Completed workout length: \(timeString)\n"
                 }
                 else {
-                    info = "Time elapsed: \(timeString)\n"
+                    info = "\(info)Time elapsed: \(timeString)\n"
                     
                     if self.timerClock == nil {
                         self.timerClock = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "tick", userInfo: nil, repeats: true)
@@ -183,7 +186,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
                 }
                 ago = "\(ago)\(minElapsed)min ago"
             }
-            info = "Training Requested: \(ago)\n"
+            info = "\(info)Training Requested: \(ago)\n"
         }
         else if self.status == RequestState.Cancelled.rawValue {
             if let end = request.objectForKey("end") as? NSDate {
@@ -238,6 +241,8 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         if self.request.objectForKey("trainer") != nil && (self.request.objectForKey("trainer") as! PFObject).objectId != self.trainer.objectId {
             self.constraintLabelAddressHeight!.constant = 0
         }
+
+        self.labelInfo.contentOffset = CGPointZero
     }
     
     override func didReceiveMemoryWarning() {
@@ -294,6 +299,17 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             self.buttonAction.enabled = true
             self.constraintButtonContactHeight.constant = 40
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .Done, target: self, action: "close")
+        }
+        
+        if self.view.frame.size.height <= 480 {
+            if self.constraintButtonContactHeight.constant == 0 {
+                self.constraintButtonActionRight.constant = self.viewInfo.frame.size.width
+            }
+            else {
+                self.constraintButtonContactTop.constant = -self.buttonAction.frame.size.height
+                self.constraintButtonActionRight.constant = -self.viewInfo.frame.size.width / 2
+                self.constraintButtonContactLeft.constant = self.viewInfo.frame.size.width / 2
+            }
         }
         
         // another trainer stole it

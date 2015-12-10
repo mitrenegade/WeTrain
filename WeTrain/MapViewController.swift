@@ -285,41 +285,46 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
 
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
-        let photo = client.objectForKey("photo")
-        if photo == nil {
-            self.simpleAlert("Please add photo", message: "You must add a profile photo before requesting a trainer. Go to the Account tab to update your photo.")
-            return
-        }
-        
-        if self.currentLocation != nil {
-            if self.inputStreet.text != nil && self.inputCity.text != nil {
-                let addressString = "\(self.inputStreet.text!) \(self.inputCity.text!)"
-                self.confirmRequestForAddress(addressString, coordinate: self.currentLocation!.coordinate)
+        client.refreshInBackgroundWithBlock { (object, error) -> Void in
+            if client.objectForKey("firstName") == nil || client.objectForKey("lastName") == nil || client.objectForKey("phone") == nil || client.objectForKey("photo") == nil {
+                self.simpleAlert("Please complete profile", message: "You must add your name, phone, and photo before requesting a trainer so that they can contact you. Go to the Account tab edit your profile.")
                 return
             }
-            let coder = GMSGeocoder()
-            coder.reverseGeocodeCoordinate(self.currentLocation!.coordinate, completionHandler: { (response, error) -> Void in
-                if let gmresponse:GMSReverseGeocodeResponse = response as GMSReverseGeocodeResponse! {
-                    let results: [AnyObject] = gmresponse.results()
-                    let addresses: [GMSAddress] = results as! [GMSAddress]
-                    let address: GMSAddress = addresses.first!
-                    
-                    var addressString: String = ""
-                    let lines: [String] = address.lines as! [String]
-                    for line: String in lines {
-                        addressString = "\(addressString)\n\(line)"
+            if client.objectForKey("card") == nil {
+                self.simpleAlert("Please add a credit card", message: "You must add a credit card before requesting a trainer. Your card won't be charged until you and the trainer agree to start a workout.")
+                return
+            }
+            
+            if self.currentLocation != nil {
+                if self.inputStreet.text != nil && self.inputCity.text != nil {
+                    let addressString = "\(self.inputStreet.text!) \(self.inputCity.text!)"
+                    self.confirmRequestForAddress(addressString, coordinate: self.currentLocation!.coordinate)
+                    return
+                }
+                let coder = GMSGeocoder()
+                coder.reverseGeocodeCoordinate(self.currentLocation!.coordinate, completionHandler: { (response, error) -> Void in
+                    if let gmresponse:GMSReverseGeocodeResponse = response as GMSReverseGeocodeResponse! {
+                        let results: [AnyObject] = gmresponse.results()
+                        let addresses: [GMSAddress] = results as! [GMSAddress]
+                        let address: GMSAddress = addresses.first!
+                        
+                        var addressString: String = ""
+                        let lines: [String] = address.lines as! [String]
+                        for line: String in lines {
+                            addressString = "\(addressString)\n\(line)"
+                        }
+                        print("Address: \(addressString)")
+                        
+                        self.confirmRequestForAddress(addressString, coordinate: address.coordinate)
                     }
-                    print("Address: \(addressString)")
-                    
-                    self.confirmRequestForAddress(addressString, coordinate: address.coordinate)
-                }
-                else {
-                    self.simpleAlert("Invalid location", message: "We could not request a session; your current location is invalid")
-                }
-            })
-        }
-        else {
-            self.simpleAlert("Invalid location", message: "We could not request a session; your current location was invalid")
+                    else {
+                        self.simpleAlert("Invalid location", message: "We could not request a session; your current location is invalid")
+                    }
+                })
+            }
+            else {
+                self.simpleAlert("Invalid location", message: "We could not request a session; your current location was invalid")
+            }
         }
     }
     
