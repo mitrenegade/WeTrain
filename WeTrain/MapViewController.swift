@@ -285,9 +285,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
 
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
-        let photo = client.objectForKey("photo")
-        if photo == nil {
-            self.simpleAlert("Please add photo", message: "You must add a profile photo before requesting a trainer. Go to the Account tab to update your photo.")
+        if client.objectForKey("firstName") == nil || client.objectForKey("lastName") == nil || client.objectForKey("phone") == nil || client.objectForKey("photo") == nil {
+            self.simpleAlert("Please complete profile", message: "You must add your name, phone, and photo before requesting a trainer so that they can contact you. Go to the Account tab edit your profile.")
             return
         }
         

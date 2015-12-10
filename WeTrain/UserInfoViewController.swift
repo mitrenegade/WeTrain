@@ -211,6 +211,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         }
         */
 
+        /*
         let four = self.inputCreditCard.text
         if four?.characters.count == 0 {
             let alert: UIAlertController = UIAlertController(title: "Skip payment method?", message: "Are you sure you want to complete signup without adding your credit card? You won't be able to request a workout. You can add a credit card later.", preferredStyle: .Alert)
@@ -225,6 +226,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         else {
             self.updateClientProfile()
         }
+        */
+        self.updateClientProfile()
     }
     
 
