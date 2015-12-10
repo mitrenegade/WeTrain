@@ -14,12 +14,9 @@ class TrainerProfileViewController: UIViewController {
 
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var labelName: UILabel!
-    @IBOutlet weak var buttonMeet: UIButton!
     
     @IBOutlet weak var viewInfo: UIView!
-    @IBOutlet weak var labelInfo: UILabel!
-
-    @IBOutlet weak var constraintInfoHeight: NSLayoutConstraint!
+    @IBOutlet weak var labelInfo: UITextView!
     
     var trainer: PFObject?
 
@@ -31,8 +28,6 @@ class TrainerProfileViewController: UIViewController {
         self.photoView.layer.borderColor = UIColor(red: 112/255.0, green: 150/255.0, blue: 67/255.0, alpha: 1).CGColor
         self.photoView.layer.cornerRadius = 5
         
-        self.buttonMeet.layer.cornerRadius = 5
-
         self.viewInfo.layer.borderWidth = 1
         self.viewInfo.layer.borderColor = UIColor(red: 112/255.0, green: 150/255.0, blue: 67/255.0, alpha: 1).CGColor
         self.viewInfo.layer.cornerRadius = 5
@@ -45,8 +40,6 @@ class TrainerProfileViewController: UIViewController {
         trainer?.fetchInBackgroundWithBlock({ (object, error) -> Void in
             self.updateTrainerInfo()
         })
-        
-        self.buttonMeet.hidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,16 +68,9 @@ class TrainerProfileViewController: UIViewController {
             infoText = "\(bio)\n\n"
         }
         self.labelInfo.text = infoText
-
-        let size = self.labelInfo.sizeThatFits(CGSize(width: self.labelInfo.frame.size.width, height: self.viewInfo.frame.size.height - 20))
-        self.constraintInfoHeight.constant = size.height
-        
+        self.labelInfo.contentOffset = CGPointMake(0, 0)
     }
     
-    @IBAction func didClickButton(button: UIButton) {
-//        self.performSegueWithIdentifier("GoToEditProfile", sender: nil)
-    }
-
     /*
     // MARK: - Navigation
 
