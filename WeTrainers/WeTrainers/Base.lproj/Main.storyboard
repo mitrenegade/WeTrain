@@ -381,7 +381,10 @@
                     <connections>
                         <outlet property="buttonAction" destination="kxe-ID-Vzj" id="xuY-0S-2N6"/>
                         <outlet property="buttonContact" destination="bHx-yj-kRW" id="OBp-PW-aVu"/>
+                        <outlet property="constraintButtonActionRight" destination="n2d-Jc-620" id="APC-R1-lUR"/>
                         <outlet property="constraintButtonContactHeight" destination="x2V-pQ-aGi" id="Aac-3u-rBN"/>
+                        <outlet property="constraintButtonContactLeft" destination="UF5-47-SvM" id="Ph7-tW-kap"/>
+                        <outlet property="constraintButtonContactTop" destination="5RU-qm-nwb" id="MJX-3F-Gro"/>
                         <outlet property="constraintLabelAddressHeight" destination="UC0-no-KLG" id="vQa-aN-Nce"/>
                         <outlet property="constraintPasscodeHeight" destination="QAC-Cu-xfw" id="Hge-Ld-q05"/>
                         <outlet property="iconExercise" destination="Nmj-r0-vjh" id="BP3-qU-L8A"/>
