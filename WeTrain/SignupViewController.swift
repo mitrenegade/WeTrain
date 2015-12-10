@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, TutorialDelegate {
     @IBOutlet var inputUsername: UITextField!
     @IBOutlet var inputPassword: UITextField!
     @IBOutlet var inputConfirmation: UITextField!
@@ -214,6 +214,15 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
             let controller: UserInfoViewController = segue.destinationViewController as! UserInfoViewController
             controller.isSignup = true
         }
+        if segue.identifier == "GoToTutorial" {
+            let controller: TutorialViewController = segue.destinationViewController as! TutorialViewController
+            controller.delegate = self
+        }
     }
 
+    func didCloseTutorial() {
+        self.navigationController!.dismissViewControllerAnimated(true) { () -> Void in
+            self.appDelegate().didLogin()
+        }
+    }
 }

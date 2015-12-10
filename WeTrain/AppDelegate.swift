@@ -166,25 +166,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let client: PFObject = user!.objectForKey("client") as? PFObject {
                     client.fetchInBackgroundWithBlock({ (object, error) -> Void in
                         if object != nil {
-                            if client.objectForKey("firstName") != nil && client.objectForKey("lastName") != nil && client.objectForKey("phone") != nil {
-                                let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainTabController") as UIViewController?
-                                self.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-                                self.window!.rootViewController?.presentViewController(controller!, animated: true, completion: nil)
-                            }
-                            else {
-                                self.promptToCompleteSignup()
-                            }
+                            self.goToMain()
                         }
                         else {
-                            self.promptToCompleteSignup()
+                            self.createClient()
                         }
                     })
                 }
                 else {
-                    self.promptToCompleteSignup()
+                    self.createClient()
                 }
             }
         })
+    }
+    
+    func createClient() {
+        let client: PFObject = PFObject(className: "Client")
+        client.setObject(false, forKey: "checkedTOS")
+        client.saveInBackgroundWithBlock({ (success, error) -> Void in
+            PFUser.currentUser()!.setObject(client, forKey: "client")
+            PFUser.currentUser()!.saveInBackgroundWithBlock({ (success, error) -> Void in
+                if success {
+                    self.goToMain()
+                }
+                else {
+                    self.invalidLogin()
+                }
+            })
+        })
+    }
+    
+    func goToMain() {
+        let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainTabController") as UIViewController?
+        self.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.window!.rootViewController?.presentViewController(controller!, animated: true, completion: nil)
     }
     
     func promptToCompleteSignup() {
