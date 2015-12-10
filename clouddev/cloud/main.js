@@ -1,7 +1,7 @@
 var Stripe = require('stripe');
 var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
-Stripe.initialize(STRIPE_SECRET_PROD);
+Stripe.initialize(STRIPE_SECRET_DEV);
 
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
@@ -179,14 +179,23 @@ Parse.Cloud.beforeSave("Workout", function(request, response) {
     // TODO: allow clients to request a workout and handle failure on trainer's side, until client's app is released
     if (trainingObject.get("status") == "requested") {
         var client = trainingObject.get("client")
-        var customerId = client.get("customer_id")
-        console.log("beforeSave client customer_id: " + customerId)
-        if (customerId == undefined || customerId == "") {
-            response.error("Your payment method is invalid; please reenter your credit card")
-        }
-        else {
-            response.success()                
-        }
+        var clientQuery = new Parse.Query("Client");
+        clientQuery.get(client.id, {
+            success: function(clientObject) {
+                var customerId = clientObject.get("customer_id")
+                console.log("beforeSave client " + clientObject.id + " card " + clientObject.get("card") + " customer_id: " + customerId)
+                if (customerId == undefined || customerId == "") {
+                    response.error("Your payment method is invalid; please reenter your credit card")
+                }
+                else {
+                    response.success()                
+                }
+            }
+            ,
+            error : function(error) {
+                response.error("Your session is invalid; please log out and log back in")
+            }
+        });
     }
     else {
         response.success()
