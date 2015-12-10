@@ -22,6 +22,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     @IBOutlet var constraintTopOffset: NSLayoutConstraint!
     @IBOutlet var constraintBottomOffset: NSLayoutConstraint!
 
+    @IBOutlet var buttonTOS: UIButton!
+    var checked: Bool = false
+    @IBOutlet weak var textView: UITextView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,6 +44,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         self.view.addGestureRecognizer(tap2)
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Done, target: self, action: "close")
+        self.refreshButton()
     }
     
     func close() {
@@ -52,7 +57,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         super.viewDidLayoutSubviews()
         
         self.constraintContentWidth.constant = (self.appDelegate().window?.bounds.size.width)!
-        self.constraintContentHeight.constant = self.inputConfirmation.frame.origin.y + self.inputConfirmation.frame.size.height + 50
+        self.constraintContentHeight.constant = self.scrollView.frame.size.height//self.textView.frame.origin.y + self.textView.frame.size.height + 50
+        
+        self.textView.setContentOffset(CGPointMake(0, 0), animated: true)
     }
 
     func handleGesture(sender: UIGestureRecognizer) {
@@ -73,6 +80,20 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         return true
     }
     
+    func refreshButton() {
+        if self.checked {
+            self.buttonTOS.setImage(UIImage(named: "boxChecked")!, forState: .Normal)
+        }
+        else {
+            self.buttonTOS.setImage(UIImage(named: "boxUnchecked")!, forState: .Normal)
+        }
+    }
+    
+    @IBAction func didClickCheck() {
+        self.checked = !self.checked
+        self.refreshButton()
+    }
+
     func didSignup(sender: AnyObject) {
         if self.inputUsername.text?.characters.count == 0 {
             self.simpleAlert("Please enter your email as a username", message: nil)
@@ -95,6 +116,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
             self.simpleAlert("Please make sure password matches confirmation", message: nil)
             return
         }
+        if !self.checked {
+            self.simpleAlert("Please agree to the Terms and Conditions", message: "You must read the Terms and Conditions and check the box to continue.")
+            return
+        }
         
         let username = self.inputUsername.text
         let password = self.inputPassword.text
@@ -103,20 +128,23 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         user.username = username
         user.password = password
         
+        self.navigationItem.rightBarButtonItem?.enabled = false
         user.signUpInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 print("signup succeeded")
                 let client: PFObject = PFObject(className: "Client")
-                PFUser.currentUser()!.setObject(client, forKey: "client")
-                PFUser.currentUser()!.saveInBackgroundWithBlock({ (success, error) -> Void in
-                    if success {
-                        self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
-                    }
-                    else {
-                        self.signupError(error)
-                    }
+                client.setObject(self.checked, forKey: "checkedTOS")
+                client.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    PFUser.currentUser()!.setObject(client, forKey: "client")
+                    PFUser.currentUser()!.saveInBackgroundWithBlock({ (success, error) -> Void in
+                        if success {
+                            self.performSegueWithIdentifier("GoToTutorial", sender: nil)
+                        }
+                        else {
+                            self.signupError(error)
+                        }
+                    })
                 })
-
             }
             else {
                 self.signupError(error)
@@ -125,6 +153,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
     }
     
     func signupError(error: NSError?) {
+        self.navigationItem.rightBarButtonItem?.enabled = true
         let title = "Signup error"
         var message: String?
         if error?.code == 100 {
