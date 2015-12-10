@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 import Parse
-import Bolts
+import Boltsa
 import Fabric
 import Crashlytics
 import GoogleMaps
