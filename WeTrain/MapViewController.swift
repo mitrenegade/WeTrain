@@ -289,6 +289,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.simpleAlert("Please complete profile", message: "You must add your name, phone, and photo before requesting a trainer so that they can contact you. Go to the Account tab edit your profile.")
             return
         }
+        if client.objectForKey("card") == nil {
+            self.simpleAlert("Please add a credit card", message: "You must add a credit card before requesting a trainer. Your card won't be charged until you and the trainer agree to start a workout.")
+            return
+        }
         
         if self.currentLocation != nil {
             if self.inputStreet.text != nil && self.inputCity.text != nil {
