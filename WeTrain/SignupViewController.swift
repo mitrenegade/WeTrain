@@ -43,14 +43,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         let tap2 = UITapGestureRecognizer(target: self, action: "handleGesture:")
         self.view.addGestureRecognizer(tap2)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Done, target: self, action: "close")
+        var left: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Done, target: self, action: "close")
+        left.tintColor = UIColor.orangeColor()
+        self.navigationItem.leftBarButtonItem = left
         self.refreshButton()
-    }
-    
-    func close() {
-        let controller: LoginViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        self.appDelegate().window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-        self.appDelegate().window!.rootViewController!.presentViewController(controller, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -60,6 +56,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         self.constraintContentHeight.constant = self.scrollView.frame.size.height//self.textView.frame.origin.y + self.textView.frame.size.height + 50
         
         self.textView.setContentOffset(CGPointMake(0, 0), animated: true)
+    }
+
+    func close() {
+        self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 
     func handleGesture(sender: UIGestureRecognizer) {

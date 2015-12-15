@@ -25,6 +25,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         let tap = UITapGestureRecognizer(target: self, action: "handleGesture:")
         tap.delegate = self
         self.view.addGestureRecognizer(tap)
+        
+        var left: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Done, target: self, action: "close")
+        left.tintColor = UIColor.orangeColor()
+        self.navigationItem.leftBarButtonItem = left
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,6 +49,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         if sender.isKindOfClass(UITapGestureRecognizer) {
             self.view.endEditing(true)
         }
+    }
+    
+    func close() {
+        self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
@@ -98,7 +106,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     }
     
     func loggedIn() {
-        self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.close()
     }
     
     // MARK: - TextFieldDelegate
