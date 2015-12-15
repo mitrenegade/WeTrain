@@ -430,9 +430,10 @@ var createPaymentForWorkout = function(client, workout, amount, response) {
         payment.set("workout", workout)
         payment.set("amount", amount)
         payment.set("charged", false)
+        payment.set("trainer", workout.get("trainer"))
         payment.save().then(
             function(payment) {
-                console.log("CREATE_PAYMENT_FOR_WORKOUT: payment saved with id " + payment.id + " charged " + payment.charged)
+                console.log("CREATE_PAYMENT_FOR_WORKOUT: payment saved with id " + payment.id + " charged " + payment.charged + " trainer " + workout.get("trainer"))
                 response.success(payment)
             }, 
             function(error) {
