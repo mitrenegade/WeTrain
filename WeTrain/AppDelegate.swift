@@ -16,7 +16,7 @@ import GoogleMaps
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
 
     var window: UIWindow?
 
@@ -54,11 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // delay for 0.5 seconds
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(1.5 * Double(NSEC_PER_SEC)))
         dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
-            if (PFUser.currentUser() != nil) {
-                self.didLogin()
+            if NSUserDefaults.standardUserDefaults().boolForKey("tutorial:dismissed") {
+                self.goToMain()
             }
             else {
-                self.goToLogin()
+                self.goToTutorial()
             }
         }
         return true
@@ -151,7 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func didLogin() {
+    func refreshUser() {
         PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user: PFObject?, error) -> Void in
             if error != nil {
                 if let userInfo: [NSObject: AnyObject] = error!.userInfo {
@@ -179,6 +179,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         })
     }
+
+    func goToMain() {
+        let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainTabController") as UIViewController?
+        self.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.window!.rootViewController?.presentViewController(controller!, animated: true, completion: nil)
+    }
+    
+    func goToTutorial() {
+        let nav: UINavigationController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("TutorialNavigationController") as! UINavigationController
+        let controller: TutorialViewController = nav.viewControllers[0] as! TutorialViewController
+        controller.delegate = self
+        self.window!.rootViewController?.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    // MARK: - TutorialDelegate
+    func didCloseTutorial() {
+        self.refreshUser()
+        self.goToMain()
+    }
     
     func createClient() {
         let client: PFObject = PFObject(className: "Client")
@@ -194,12 +213,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             })
         })
-    }
-    
-    func goToMain() {
-        let controller: UIViewController?  = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("MainTabController") as UIViewController?
-        self.window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-        self.window!.rootViewController?.presentViewController(controller!, animated: true, completion: nil)
     }
     
     func promptToCompleteSignup() {

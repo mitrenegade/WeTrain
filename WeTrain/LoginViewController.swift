@@ -98,7 +98,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     }
     
     func loggedIn() {
-        self.appDelegate().didLogin()
+        self.appDelegate().goToMain()
     }
     
     // MARK: - TextFieldDelegate

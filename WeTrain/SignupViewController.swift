@@ -222,7 +222,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
 
     func didCloseTutorial() {
         self.navigationController!.dismissViewControllerAnimated(true) { () -> Void in
-            self.appDelegate().didLogin()
+            self.appDelegate().goToMain()
         }
     }
 }
