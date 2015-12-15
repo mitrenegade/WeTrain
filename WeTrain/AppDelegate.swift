@@ -164,17 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
             }
             else {
                 if let client: PFObject = user!.objectForKey("client") as? PFObject {
-                    client.fetchInBackgroundWithBlock({ (object, error) -> Void in
-                        if object != nil {
-                            self.goToMain()
-                        }
-                        else {
-                            self.createClient()
-                        }
-                    })
-                }
-                else {
-                    self.createClient()
+                    client.fetchInBackground()
                 }
             }
         })

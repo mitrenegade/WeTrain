@@ -91,6 +91,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             // can come here if location permission has already be requested, was initially denied then enabled through settings, but now doesn't start location
             locationManager.startUpdatingLocation()
         }
+        
+        self.appDelegate().refreshUser()
     }
 
     func warnForLocationPermission() {
@@ -152,6 +154,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func inServiceRange() -> Bool {
         // create a user flag instead of checking current location
+        if PFUser.currentUser() == nil {
+            return true
+        }
+        
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
         if let override: Bool = client.objectForKey("locationOverride") as? Bool {
             if override == true {
@@ -279,6 +285,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.warnForLocationPermission()
             return
         }
+        
+        if PFUser.currentUser() == nil {
+            let alert: UIAlertController = UIAlertController(title: "Please log in or sign up", message: "Before you start using WeTrain, you must create a user! Sign up now?", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.view.tintColor = UIColor.blackColor()
+            alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                print("cancel")
+            }))
+            alert.addAction(UIAlertAction(title: "Log in", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                self.login()
+            }))
+            alert.addAction(UIAlertAction(title: "Sign up", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                self.signup()
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
+            return
+        }
+
         if !self.inServiceRange() {
             self.warnAboutService()
             return
@@ -419,5 +442,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         else if segue.identifier == "GoToViewTrainer" {
             let controller: TrainerProfileViewController = segue.destinationViewController as! TrainerProfileViewController
         }
+    }
+    
+    // MARK: - Log in
+    func login() {
+        let controller: LoginViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        let nav = UINavigationController(rootViewController: controller)
+        self.navigationController!.presentViewController(nav, animated: true, completion: nil)
+    }
+
+    func signup() {
+        let controller: SignupViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("SignupViewController") as! SignupViewController
+        let nav = UINavigationController(rootViewController: controller)
+        self.navigationController!.presentViewController(nav, animated: true, completion: nil)
     }
 }

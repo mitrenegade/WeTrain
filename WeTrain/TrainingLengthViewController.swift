@@ -65,44 +65,46 @@ class TrainingLengthViewController: UIViewController {
     
     func loadExistingRequest() {
         if let client: PFObject = PFUser.currentUser()!.objectForKey("client") as? PFObject {
-            if let request: PFObject = client.objectForKey("workout") as? PFObject {
-                request.fetchInBackgroundWithBlock({ (requestObject, error) -> Void in
-                    if let state = request.objectForKey("status") as? String {
-                        print("state \(state) object \(requestObject)")
-                        if state == RequestState.Matched.rawValue {
-                            self.performSegueWithIdentifier("GoToRequestState", sender: nil)
-                        }
-                        else if state == RequestState.Searching.rawValue {
-                            if let time = request.objectForKey("time") as? NSDate {
-                                let minElapsed = NSDate().timeIntervalSinceDate(time) / 60
-                                if Int(minElapsed) > 60 { // cancel after 60 minutes of searching
-                                    print("request cancelled")
-                                    request.setObject(RequestState.Cancelled.rawValue, forKey: "status")
-                                    request.saveInBackground()
+            client.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                if let request: PFObject = client.objectForKey("workout") as? PFObject {
+                    request.fetchInBackgroundWithBlock({ (requestObject, error) -> Void in
+                        if let state = request.objectForKey("status") as? String {
+                            print("state \(state) object \(requestObject)")
+                            if state == RequestState.Matched.rawValue {
+                                self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+                            }
+                            else if state == RequestState.Searching.rawValue {
+                                if let time = request.objectForKey("time") as? NSDate {
+                                    let minElapsed = NSDate().timeIntervalSinceDate(time) / 60
+                                    if Int(minElapsed) > 60 { // cancel after 60 minutes of searching
+                                        print("request cancelled")
+                                        request.setObject(RequestState.Cancelled.rawValue, forKey: "status")
+                                        request.saveInBackground()
+                                    }
+                                    else {
+                                        self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+                                    }
                                 }
-                                else {
-                                    self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+                            }
+                            else if state == RequestState.Training.rawValue {
+                                if let start = request.objectForKey("start") as? NSDate {
+                                    let minElapsed = NSDate().timeIntervalSinceDate(start) / 60
+                                    let length = request.objectForKey("length") as! Int
+                                    print("started at \(start) time passed \(minElapsed) workout length \(length)")
+                                    if Int(minElapsed) > length * 2 { // cancel after 2x the workout time
+                                        print("completing training")
+                                        request.setObject(RequestState.Complete.rawValue, forKey: "status")
+                                        request.saveInBackground()
+                                    }
+                                    else {
+                                        self.performSegueWithIdentifier("GoToRequestState", sender: nil)
+                                    }
                                 }
                             }
                         }
-                        else if state == RequestState.Training.rawValue {
-                            if let start = request.objectForKey("start") as? NSDate {
-                                let minElapsed = NSDate().timeIntervalSinceDate(start) / 60
-                                let length = request.objectForKey("length") as! Int
-                                print("started at \(start) time passed \(minElapsed) workout length \(length)")
-                                if Int(minElapsed) > length * 2 { // cancel after 2x the workout time
-                                    print("completing training")
-                                    request.setObject(RequestState.Complete.rawValue, forKey: "status")
-                                    request.saveInBackground()
-                                }
-                                else {
-                                    self.performSegueWithIdentifier("GoToRequestState", sender: nil)
-                                }
-                            }
-                        }
-                    }
-                })
-            }
+                    })
+                }
+            })
         }
     }
 }

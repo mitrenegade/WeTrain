@@ -98,7 +98,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     }
     
     func loggedIn() {
-        self.appDelegate().goToMain()
+        self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - TextFieldDelegate

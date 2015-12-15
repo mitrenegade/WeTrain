@@ -266,7 +266,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             else {
                 print("signup succeeded")
                 if self.isSignup {
-                    self.performSegueWithIdentifier("GoToTutorial", sender: nil)
+                    self.navigationController!.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
                 }
                 else {
                     self.navigationController!.popToRootViewControllerAnimated(true)
