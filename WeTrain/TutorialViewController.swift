@@ -25,10 +25,8 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let right: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "done")
+        let right: UIBarButtonItem = UIBarButtonItem(title: "Start", style: .Done, target: self, action: "start")
         self.navigationItem.rightBarButtonItem = right
-        let left: UIBarButtonItem = UIBarButtonItem(title: "", style: .Done, target: self, action: "nothing")
-        self.navigationItem.leftBarButtonItem = left
 
         self.navigationItem.rightBarButtonItem?.enabled = false
     }
@@ -47,14 +45,11 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
         }
     }
     
-    func done() {
+    func start() {
         self.delegate!.didCloseTutorial()
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "tutorial:seen")
     }
     
-    func nothing() {
-        // hides left button
-    }
-
     // MARK: TutorialScrollDelegate
     func didScrollToPage(page: Int32) {
         if Int(page) == self.allPages.count - 1 {

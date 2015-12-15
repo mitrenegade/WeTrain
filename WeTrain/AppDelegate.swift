@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
         // delay for 0.5 seconds
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(1.5 * Double(NSEC_PER_SEC)))
         dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
-            if NSUserDefaults.standardUserDefaults().boolForKey("tutorial:dismissed") {
+            if NSUserDefaults.standardUserDefaults().boolForKey("tutorial:seen") {
                 self.goToMain()
             }
             else {
@@ -187,7 +187,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
     }
     
     func goToTutorial() {
-        let nav: UINavigationController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("TutorialNavigationController") as! UINavigationController
+        let nav: UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TutorialNavigationController") as! UINavigationController
         let controller: TutorialViewController = nav.viewControllers[0] as! TutorialViewController
         controller.delegate = self
         self.window!.rootViewController?.presentViewController(nav, animated: true, completion: nil)
