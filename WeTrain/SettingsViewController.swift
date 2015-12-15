@@ -35,7 +35,19 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return 6
+        if PFUser.currentUser() != nil {
+            return 6
+        }
+        else {
+            return 5
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.appDelegate().refreshUser()
+        self.tableView.reloadData()
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -43,21 +55,39 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
 
         // Configure the cell...
         let row = indexPath.row
-        switch row {
-        case 0:
-            cell.textLabel!.text = "Edit your profile"
-        case 1:
-            cell.textLabel!.text = "Update your credit card"
-        case 2:
-            cell.textLabel!.text = "View tutorials"
-        case 3:
-            cell.textLabel!.text = "Feedback"
-        case 4:
-            cell.textLabel!.text = "Credits"
-        case 5:
-            cell.textLabel!.text = "Logout"
-        default:
-            break
+        if PFUser.currentUser() != nil {
+            switch row {
+            case 0:
+                cell.textLabel!.text = "Edit your profile"
+            case 1:
+                cell.textLabel!.text = "Update your credit card"
+            case 2:
+                cell.textLabel!.text = "View tutorials"
+            case 3:
+                cell.textLabel!.text = "Feedback"
+            case 4:
+                cell.textLabel!.text = "Credits"
+            case 5:
+                cell.textLabel!.text = "Logout"
+            default:
+                break
+            }
+        }
+        else {
+            switch row {
+            case 0:
+                cell.textLabel!.text = "Log in"
+            case 1:
+                cell.textLabel!.text = "Sign up"
+            case 2:
+                cell.textLabel!.text = "View tutorials"
+            case 3:
+                cell.textLabel!.text = "Feedback"
+            case 4:
+                cell.textLabel!.text = "Credits"
+            default:
+                break
+            }
         }
 
         return cell
@@ -70,11 +100,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
         switch row {
         case 0:
             if PFUser.currentUser() == nil {
-                let alert: UIAlertController = UIAlertController(title: "Error editing profile", message: "You are not logged in. Please log in again to edit your profile.", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.view.tintColor = UIColor.blackColor()
-                alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-                }))
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.login()
                 return
             }
             else {
@@ -86,11 +112,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
             break
         case 1:
             if PFUser.currentUser() == nil {
-                let alert: UIAlertController = UIAlertController(title: "Error editing credit card", message: "You are not logged in. Please log in again to edit payment information.", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.view.tintColor = UIColor.blackColor()
-                alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-                }))
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.signup()
                 return
             }
             else {
@@ -123,7 +145,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
             self.simpleAlert("Credits", message: message)
             break
         case 5:
-            self.appDelegate().logout()
+            self.logout()
         default:
             break
         }
@@ -165,4 +187,22 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
             }
         }
     }
-}
+    
+    func logout() {
+        PFUser.logOutInBackgroundWithBlock { (error) -> Void in
+            self.tableView.reloadData()
+        }
+    }
+    
+    // MARK: - Log in
+    func login() {
+        let controller: LoginViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        let nav = UINavigationController(rootViewController: controller)
+        self.navigationController!.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    func signup() {
+        let controller: SignupViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("SignupViewController") as! SignupViewController
+        let nav = UINavigationController(rootViewController: controller)
+        self.navigationController!.presentViewController(nav, animated: true, completion: nil)
+    }}

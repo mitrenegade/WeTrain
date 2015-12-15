@@ -113,7 +113,7 @@
                                     <action selector="didClickLogin:" destination="sZv-Un-zab" eventType="touchUpInside" id="JLZ-P9-Mos"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVe-s9-tY1">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVe-s9-tY1">
                                 <rect key="frame" x="0.0" y="328" width="600" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -483,7 +483,7 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                         <outlet property="scrollView" destination="1lh-9f-MYB" id="ets-gQ-vbM"/>
                         <outlet property="textView" destination="rcc-2P-9eH" id="NIV-mw-ywq"/>
                         <outlet property="viewScrollContent" destination="UG0-RT-boq" id="CSd-z8-TG4"/>
-                        <segue destination="i45-8x-25e" kind="push" identifier="GoToTutorial" id="bOf-YB-BUa"/>
+                        <segue destination="civ-Bp-HRs" kind="show" identifier="GoToUserInfo" id="PUr-M3-ypy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nqz-DM-CWC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -499,10 +499,10 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                         <viewControllerLayoutGuide type="bottom" id="HRJ-Sv-LQi"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IvC-Eu-JZC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="86m-9D-qAA">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86m-9D-qAA">
                                 <rect key="frame" x="0.0" y="48" width="600" height="688"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DhG-7P-k4I">
@@ -698,7 +698,7 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                                     <constraint firstItem="DhG-7P-k4I" firstAttribute="top" secondItem="86m-9D-qAA" secondAttribute="top" id="yCw-6V-fcP"/>
                                 </constraints>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter your personal, medical and payment information." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fnI-Zb-d8R">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your personal, medical and payment information." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fnI-Zb-d8R">
                                 <rect key="frame" x="20" y="8" width="560" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="xhn-ib-8bB"/>
@@ -743,49 +743,7 @@ You may not assign these Terms without WeTrain’s prior written approval. WeTra
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CgM-iP-tNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1310" y="1167"/>
-        </scene>
-        <!--Tutorial View Controller-->
-        <scene sceneID="yC0-gt-sdZ">
-            <objects>
-                <viewController storyboardIdentifier="TutorialViewController" id="i45-8x-25e" customClass="TutorialViewController" customModule="WeTrain" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="P66-b2-Fh7"/>
-                        <viewControllerLayoutGuide type="bottom" id="ztT-oj-azu"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3jH-st-VZM">
-                        <rect key="frame" x="0.0" y="64" width="600" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFx-Ow-Mgy" customClass="TutorialScrollView">
-                                <rect key="frame" x="20" y="191.5" width="560" height="524.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="logoBlack" translatesAutoresizingMaskIntoConstraints="NO" id="C2r-CI-EnH">
-                                <rect key="frame" x="20" y="20" width="560" height="163"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="C2r-CI-EnH" firstAttribute="top" secondItem="P66-b2-Fh7" secondAttribute="bottom" constant="20" id="2W5-HR-xFE"/>
-                            <constraint firstItem="DFx-Ow-Mgy" firstAttribute="leading" secondItem="3jH-st-VZM" secondAttribute="leading" constant="20" id="9KQ-Bu-Kso"/>
-                            <constraint firstItem="C2r-CI-EnH" firstAttribute="leading" secondItem="3jH-st-VZM" secondAttribute="leadingMargin" id="9yA-nO-kac"/>
-                            <constraint firstItem="C2r-CI-EnH" firstAttribute="height" secondItem="3jH-st-VZM" secondAttribute="height" multiplier="2:9" id="BOP-aw-E4c"/>
-                            <constraint firstAttribute="trailing" secondItem="DFx-Ow-Mgy" secondAttribute="trailing" constant="20" id="TFk-ZH-VDA"/>
-                            <constraint firstItem="ztT-oj-azu" firstAttribute="top" secondItem="DFx-Ow-Mgy" secondAttribute="bottom" constant="20" id="cQk-fj-sWX"/>
-                            <constraint firstItem="DFx-Ow-Mgy" firstAttribute="top" secondItem="C2r-CI-EnH" secondAttribute="bottom" constant="8" id="dX9-hP-8gS"/>
-                            <constraint firstItem="C2r-CI-EnH" firstAttribute="trailing" secondItem="3jH-st-VZM" secondAttribute="trailingMargin" id="fGY-pi-8ZD"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="8Ak-LJ-7bj"/>
-                    <connections>
-                        <outlet property="tutorialView" destination="DFx-Ow-Mgy" id="Ezw-mM-dia"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TO4-7c-Ntp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1446" y="223"/>
+            <point key="canvasLocation" x="1424" y="258"/>
         </scene>
     </scenes>
     <resources>

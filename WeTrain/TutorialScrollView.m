@@ -63,6 +63,14 @@
     pageControl.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height - 40);
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    int page = scrollView.contentOffset.x / self.bounds.size.width;
+    [pageControl setCurrentPage:page];
+    if (self.delegate != nil) {
+        [self.delegate didScrollToPage:page];
+    }
+}
+
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     int page = scrollView.contentOffset.x / self.bounds.size.width;
     [pageControl setCurrentPage:page];
