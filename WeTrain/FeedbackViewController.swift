@@ -150,7 +150,7 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         self.resetStars()
         for var i=0; i<sender.tag; i++ {
             let star: UIButton = self.stars[i]
-            star.tintColor = UIColor(red: 55/255.0, green: 123/255.0, blue: 181/255.0, alpha: 1)
+            star.tintColor = UIColor(red: 94/255.0, green: 221/255.0, blue: 161/255.0, alpha: 1)
         }
         self.rating = sender.tag as Int
     }
@@ -186,7 +186,9 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         let feedback: PFObject = PFObject(className: "Feedback", dictionary: dict)
         feedback.saveInBackgroundWithBlock { (success, error) -> Void in
             if success {
-                self.simpleAlert("Thanks!", message: "Your feedback has been submitted")
+                self.simpleAlert("Thanks!", message: "Your feedback has been submitted", completion: { () -> Void in
+                    self.navigationController!.presentingViewController!.dismissViewControllerAnimated(true, completion: nil)
+                })
             }
             else {
                 self.simpleAlert("Error submitting feedback", message: "There was an issue sending your feedback. Please try again!")

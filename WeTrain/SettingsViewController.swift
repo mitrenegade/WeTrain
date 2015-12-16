@@ -129,7 +129,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
                 alert.view.tintColor = UIColor.blackColor()
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                 }))
-                alert.addAction(UIAlertAction(title: "Leave Anonymous Feedback", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                alert.addAction(UIAlertAction(title: "Leave Anonymous Feedback", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     self.performSegueWithIdentifier("GoToFeedback", sender: self)
                 }))
                 self.presentViewController(alert, animated: true, completion: nil)
