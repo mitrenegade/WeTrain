@@ -129,7 +129,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
                 alert.view.tintColor = UIColor.blackColor()
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
                 }))
-                alert.addAction(UIAlertAction(title: "Leave Anonymous Feedback", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                alert.addAction(UIAlertAction(title: "Leave Anonymous Feedback", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                     self.performSegueWithIdentifier("GoToFeedback", sender: self)
                 }))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -152,7 +152,7 @@ class SettingsViewController: UITableViewController, TutorialDelegate, CreditCar
     }
     
     func goToTutorials() {
-        let controller: TutorialViewController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("TutorialViewController") as! TutorialViewController
+        let controller: TutorialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TutorialViewController") as! TutorialViewController
         controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }

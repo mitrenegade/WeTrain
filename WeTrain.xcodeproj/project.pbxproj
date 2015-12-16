@@ -667,7 +667,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Bobby Ren (D7D4KH399W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -676,9 +677,9 @@
 				INFOPLIST_FILE = WeTrain/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.dev.client;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.client;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "fa657c49-57a3-4402-8216-a8359e10b002";
+				PROVISIONING_PROFILE = "d3681380-48f5-4df4-802c-b138c4359da0";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -692,7 +693,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Bobby Ren (46R7H433J6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -706,9 +708,9 @@
 				INFOPLIST_FILE = WeTrain/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.dev.client;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.client;
 				PRODUCT_NAME = WeTrain;
-				PROVISIONING_PROFILE = "70c73c9a-dbe3-4e3c-b3ea-946bf716e568";
+				PROVISIONING_PROFILE = "d3681380-48f5-4df4-802c-b138c4359da0";
 				SWIFT_OBJC_BRIDGING_HEADER = "WeTrain/WeTrain-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
