@@ -161,6 +161,11 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
     
     func submit() {
         let email = self.inputEmail.text
+        let emailString: NSString = email as! NSString
+        if !emailString.isValidEmail() {
+            self.simpleAlert("Please enter a valid email so we can get back to you!", message: nil)
+            return
+        }
         let category = self.inputCategory.text
         let rating = self.rating
         var message = self.inputMessage.text

@@ -156,7 +156,7 @@ Parse.Cloud.afterSave("Feedback", function(request) {
     console.log("feedback email " + feedback.get("email"))
 
     var subject = "Feedback received"
-    var text = "Feedback id: " + feedback.id + "\nMessage: \n" + feedback.get("message")
+    var text = "Feedback id: " + feedback.id + "\nMessage: \n" + feedback.get("message") + " Rating: " + feedback.get("rating") 
 
     email = feedback.get("email")
     fromName = email
