@@ -66,6 +66,13 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
                 self.inputEmail.text = PFUser.currentUser()!.email
                 self.navigationItem.rightBarButtonItem?.enabled = true
             }
+            else if PFUser.currentUser()!.username != nil {
+                let usernameString: NSString = PFUser.currentUser()!.username! as NSString
+                if usernameString.isValidEmail() {
+                    self.inputEmail.text = usernameString as String
+                    self.navigationItem.rightBarButtonItem?.enabled = true
+                }
+            }
         }
         
         let tap = UITapGestureRecognizer(target: self, action: "handleGesture:")
