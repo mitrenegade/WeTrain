@@ -372,7 +372,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             let title = TRAINING_TITLES[self.requestedTrainingType!]
             message = "\(message)\n\(title)"
         }
-        message = "\(message)\n\(addressString)"
+        message = "\(message)\n\(addressString)\n\nYou will not be charged until you meet the trainer and your session starts."
         
         let alert: UIAlertController = UIAlertController(title: "Just to confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.view.tintColor = UIColor.blackColor()
