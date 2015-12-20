@@ -33,7 +33,7 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
         
         self.bgView = UIImageView(image: UIImage(named: "runnerBG")!)
         self.bgView!.frame = self.view.frame
-        self.view.addSubview(self.bgView!)
+        self.view.insertSubview(self.bgView!, atIndex: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,7 +48,9 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
             self.tutorialCreated = true
             self.tutorialView.delegate = self
         }
-        self.bgView!.frame = self.view.frame
+        var frame = self.view.frame
+        frame.origin.y = 0
+        self.bgView!.frame = frame
     }
     
     func start() {
