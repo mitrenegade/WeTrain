@@ -138,6 +138,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
                     PFUser.currentUser()!.setObject(client, forKey: "client")
                     PFUser.currentUser()!.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if success {
+                            self.appDelegate().refreshUser()
                             self.performSegueWithIdentifier("GoToUserInfo", sender: nil)
                         }
                         else {

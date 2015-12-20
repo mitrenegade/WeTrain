@@ -159,6 +159,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
         
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        do {
+            try client.fetchIfNeeded()
+        }
+        catch _ {
+            print("no")
+            return true
+        }
+        
         if let override: Bool = client.objectForKey("locationOverride") as? Bool {
             if override == true {
                 return true
@@ -364,7 +372,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             let title = TRAINING_TITLES[self.requestedTrainingType!]
             message = "\(message)\n\(title)"
         }
-        message = "\(message)\n\(addressString)"
+        message = "\(message)\n\(addressString)\n\nYou will not be charged until you meet the trainer and your session starts."
         
         let alert: UIAlertController = UIAlertController(title: "Just to confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.view.tintColor = UIColor.blackColor()

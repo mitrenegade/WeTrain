@@ -80,6 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        self.refreshUser()
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -163,8 +165,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
                 }
             }
             else {
+                if PFUser.currentUser()!.objectForKey("username") != nil {
+                    let email: String = PFUser.currentUser()!.objectForKey("username") as! String
+                    Crashlytics.sharedInstance().setUserEmail(email)
+                }
+                
+                if PFUser.currentUser()!.objectId != nil {
+                    Crashlytics.sharedInstance().setUserIdentifier(PFUser.currentUser()!.objectId)
+                }
+
                 if let client: PFObject = user!.objectForKey("client") as? PFObject {
-                    client.fetchInBackground()
+                    client.fetchInBackgroundWithBlock({ (object, error) -> Void in
+                        if object != nil {
+                            var name: String = ""
+                            if client.objectForKey("firstName") != nil {
+                                let firstName: String = client.objectForKey("firstName") as! String
+                                if firstName != "" {
+                                    name = "\(firstName)"
+                                }
+                            }
+                            if client.objectForKey("lastName") != nil {
+                                let lastName: String = client.objectForKey("lastName") as! String
+                                if lastName != "" {
+                                    if name != "" {
+                                        name = "\(name) \(lastName))"
+                                    }
+                                    else {
+                                        name = lastName
+                                    }
+                                }
+                            }
+                            if name != "" {
+                                Crashlytics.sharedInstance().setUserName(name)
+                            }
+                        }
+                    })
                 }
             }
         })
