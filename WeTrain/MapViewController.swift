@@ -159,6 +159,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
         
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+        do {
+            try client.fetchIfNeeded()
+        }
+        catch _ {
+            print("no")
+            return true
+        }
+        
         if let override: Bool = client.objectForKey("locationOverride") as? Bool {
             if override == true {
                 return true
