@@ -106,6 +106,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     }
     
     func loggedIn() {
+        appDelegate().refreshUser()
         self.close()
     }
     
