@@ -18,6 +18,7 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
     @IBOutlet weak var tutorialView: TutorialScrollView!
     var tutorialCreated: Bool = false
     weak var delegate: TutorialDelegate?
+    var bgView: UIImageView?
     
     var allPages: [String] = ["IntroTutorial0", "IntroTutorial1", "IntroTutorial2", "IntroTutorial3", "IntroTutorial4", "IntroTutorial5", "IntroTutorial6"]
     
@@ -29,6 +30,10 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
         self.navigationItem.rightBarButtonItem = right
 
         self.navigationItem.rightBarButtonItem?.enabled = false
+        
+        self.bgView = UIImageView(image: UIImage(named: "runnerBG")!)
+        self.bgView!.frame = self.view.frame
+        self.view.addSubview(self.bgView!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,6 +48,7 @@ class TutorialViewController: UIViewController, TutorialScrollDelegate {
             self.tutorialCreated = true
             self.tutorialView.delegate = self
         }
+        self.bgView!.frame = self.view.frame
     }
     
     func start() {
