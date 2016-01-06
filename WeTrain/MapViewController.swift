@@ -194,7 +194,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             else {
                 var message: String? = nil
                 if error != nil {
-                    if let msg: String = error!.userInfo["message"] as! String {
+                    if let msg: String = error!.userInfo["error"] as? String {
                         message = msg
                     }
                 }

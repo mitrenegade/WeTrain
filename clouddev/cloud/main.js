@@ -287,7 +287,7 @@ Parse.Cloud.define("inServiceRange", function(request, response) {
         response.success({"distance":dist_in_km})
     }
     else {
-        response.error({"distance":dist_in_km, "message": "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!!"})
+        response.error("Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!")
     }
 })
 
