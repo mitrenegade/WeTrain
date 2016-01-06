@@ -452,14 +452,18 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
     }
     
     func validatePasscode() {
-        let text = self.inputPasscode.text
-        let validCode = self.request.objectForKey("passcode") as? String
+        let text = self.inputPasscode.text?.lowercaseString
+        var validCode = self.request.objectForKey("passcode") as? String
         
-        if validCode == nil || text?.lowercaseString == validCode!.lowercaseString {
+        if validCode == nil || text == validCode!.lowercaseString {
             self.startWorkout()
         }
         else {
             self.simpleAlert("Invalid passcode", message: "Please enter the correct passcode given to you by your client.")
+            let log: PFObject = PFObject(className: "Log")
+            log.setObject("incorrect passcode", forKey: "type")
+            log.setObject("code should be \(validCode), entered \(text)")
+            log.saveEventually()
         }
     }
     
