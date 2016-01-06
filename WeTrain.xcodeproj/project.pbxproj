@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		49598075F067030CF7F480EA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A7B8DD840A03B62D311EAEE /* libPods.a */; };
+		5194DE9C04ED4E4AD0B981D5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA18564C5D296AFC29AD5CE7 /* Pods.framework */; };
 		AC03A6481BEA98440085FAE2 /* IntroTutorial6.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC03A6471BEA98440085FAE2 /* IntroTutorial6.xib */; };
 		AC0503741BC82426008022BD /* TutorialScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0503731BC82426008022BD /* TutorialScrollView.m */; };
 		AC0503791BC8242F008022BD /* IntroTutorial0.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503751BC8242F008022BD /* IntroTutorial0.xib */; };
@@ -15,8 +15,6 @@
 		AC05037B1BC8242F008022BD /* IntroTutorial2.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503771BC8242F008022BD /* IntroTutorial2.xib */; };
 		AC05037C1BC8242F008022BD /* IntroTutorial3.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0503781BC8242F008022BD /* IntroTutorial3.xib */; };
 		AC0503801BC82541008022BD /* IntroTutorial4.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC05037F1BC82541008022BD /* IntroTutorial4.xib */; };
-		AC05584F1BB79DFB0065D21E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584D1BB79DFB0065D21E /* Bolts.framework */; };
-		AC0558501BB79DFB0065D21E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC05584E1BB79DFB0065D21E /* Parse.framework */; };
 		AC0558521BB79ED80065D21E /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */; };
 		AC235FF91BB51F06000AEA40 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC235FF81BB51F06000AEA40 /* SignupViewController.swift */; };
 		AC26F2CF1BDE69BD003E9B4E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC26F2CE1BDE69BD003E9B4E /* MessageUI.framework */; };
@@ -42,8 +40,6 @@
 		AC7909761B6D516F00085FB6 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909751B6D516F00085FB6 /* libsqlite3.dylib */; };
 		AC7909781B6D517B00085FB6 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909771B6D517B00085FB6 /* Accounts.framework */; };
 		AC79097A1B6D517E00085FB6 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7909791B6D517E00085FB6 /* Social.framework */; };
-		AC79097E1B6D549700085FB6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC79097C1B6D549700085FB6 /* Fabric.framework */; };
-		AC79097F1B6D549700085FB6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC79097D1B6D549700085FB6 /* Crashlytics.framework */; };
 		AC7909831B6D618C00085FB6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7909821B6D618C00085FB6 /* MapViewController.swift */; };
 		AC7909851B6D710900085FB6 /* Login.Storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC7909841B6D710900085FB6 /* Login.Storyboard */; };
 		AC84CB631BF1002600F47F97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC84CB621BF1002600F47F97 /* LaunchScreen.storyboard */; };
@@ -73,7 +69,6 @@
 
 /* Begin PBXFileReference section */
 		2161FFB5DEECA8224FEC534E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		2A7B8DD840A03B62D311EAEE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC03A6471BEA98440085FAE2 /* IntroTutorial6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial6.xib; sourceTree = "<group>"; };
 		AC0503721BC82426008022BD /* TutorialScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialScrollView.h; sourceTree = "<group>"; };
 		AC0503731BC82426008022BD /* TutorialScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialScrollView.m; sourceTree = "<group>"; };
@@ -82,8 +77,6 @@
 		AC0503771BC8242F008022BD /* IntroTutorial2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial2.xib; sourceTree = "<group>"; };
 		AC0503781BC8242F008022BD /* IntroTutorial3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial3.xib; sourceTree = "<group>"; };
 		AC05037F1BC82541008022BD /* IntroTutorial4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroTutorial4.xib; sourceTree = "<group>"; };
-		AC05584D1BB79DFB0065D21E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		AC05584E1BB79DFB0065D21E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		AC0558511BB79ED80065D21E /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		AC235FF81BB51F06000AEA40 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		AC26F2CE1BDE69BD003E9B4E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -115,8 +108,6 @@
 		AC7909751B6D516F00085FB6 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		AC7909771B6D517B00085FB6 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AC7909791B6D517E00085FB6 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		AC79097C1B6D549700085FB6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		AC79097D1B6D549700085FB6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		AC7909821B6D618C00085FB6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AC7909841B6D710900085FB6 /* Login.Storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.Storyboard; sourceTree = "<group>"; };
 		AC84CB621BF1002600F47F97 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -133,6 +124,7 @@
 		ACA6B8F21B6EE81A00AAA992 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		ACE69C5B1BDD345400128687 /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		C5FF6A4040152AFBAF0CF503 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		FA18564C5D296AFC29AD5CE7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,22 +134,18 @@
 			files = (
 				AC3E61461BDE88B400C90055 /* Photos.framework in Frameworks */,
 				AC26F2CF1BDE69BD003E9B4E /* MessageUI.framework in Frameworks */,
-				AC05584F1BB79DFB0065D21E /* Bolts.framework in Frameworks */,
 				AC79097A1B6D517E00085FB6 /* Social.framework in Frameworks */,
 				AC7909781B6D517B00085FB6 /* Accounts.framework in Frameworks */,
 				AC7909761B6D516F00085FB6 /* libsqlite3.dylib in Frameworks */,
 				AC7909741B6D516800085FB6 /* libz.dylib in Frameworks */,
 				AC7909721B6D516200085FB6 /* SystemConfiguration.framework in Frameworks */,
-				AC0558501BB79DFB0065D21E /* Parse.framework in Frameworks */,
 				AC79096E1B6D515900085FB6 /* Security.framework in Frameworks */,
 				AC79096C1B6D515500085FB6 /* QuartzCore.framework in Frameworks */,
 				AC79096A1B6D515000085FB6 /* CoreLocation.framework in Frameworks */,
 				AC7909681B6D514C00085FB6 /* CoreGraphics.framework in Frameworks */,
-				AC79097F1B6D549700085FB6 /* Crashlytics.framework in Frameworks */,
 				AC7909661B6D514700085FB6 /* CFNetwork.framework in Frameworks */,
-				AC79097E1B6D549700085FB6 /* Fabric.framework in Frameworks */,
 				AC7909641B6D514200085FB6 /* AudioToolbox.framework in Frameworks */,
-				49598075F067030CF7F480EA /* libPods.a in Frameworks */,
+				5194DE9C04ED4E4AD0B981D5 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,10 +173,6 @@
 			children = (
 				AC3E61451BDE88B400C90055 /* Photos.framework */,
 				AC26F2CE1BDE69BD003E9B4E /* MessageUI.framework */,
-				AC05584D1BB79DFB0065D21E /* Bolts.framework */,
-				AC05584E1BB79DFB0065D21E /* Parse.framework */,
-				AC79097C1B6D549700085FB6 /* Fabric.framework */,
-				AC79097D1B6D549700085FB6 /* Crashlytics.framework */,
 				AC7909791B6D517E00085FB6 /* Social.framework */,
 				AC7909771B6D517B00085FB6 /* Accounts.framework */,
 				AC7909751B6D516F00085FB6 /* libsqlite3.dylib */,
@@ -200,7 +184,7 @@
 				AC7909671B6D514C00085FB6 /* CoreGraphics.framework */,
 				AC7909651B6D514700085FB6 /* CFNetwork.framework */,
 				AC7909631B6D514200085FB6 /* AudioToolbox.framework */,
-				2A7B8DD840A03B62D311EAEE /* libPods.a */,
+				FA18564C5D296AFC29AD5CE7 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -517,7 +501,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 70160b7dec925a91c6fe09e38bf1f8659c1eda41 0fa711cea5cca0c6a4b57c1a8955f0518514bfdd7a9e6f28b3eca2c60d905a9c";
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 70160b7dec925a91c6fe09e38bf1f8659c1eda41 0fa711cea5cca0c6a4b57c1a8955f0518514bfdd7a9e6f28b3eca2c60d905a9c";
 		};
 /* End PBXShellScriptBuildPhase section */
 

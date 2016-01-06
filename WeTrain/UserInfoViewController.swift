@@ -253,7 +253,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         
         if self.selectedPhoto != nil {
             let data: NSData = UIImageJPEGRepresentation(self.selectedPhoto!, 0.8)!
-            let file: PFFile = PFFile(name: "profile.jpg", data: data)
+            let file: PFFile = PFFile(name: "profile.jpg", data: data)!
             self.client!.setObject(file, forKey: "photo")
         }
         
