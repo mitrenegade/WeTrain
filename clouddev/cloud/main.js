@@ -3,6 +3,9 @@ var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
 Stripe.initialize(STRIPE_SECRET_DEV);
 
+var PHILADELPHIA_LAT = 39.949508
+var PHILADELPHIA_LON = -75.171886
+
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
     Mandrill.initialize('aC8uXsVJlJHJw46uo8kTqA');
@@ -279,14 +282,12 @@ Parse.Cloud.afterSave("Client", function(request, response) {
 Parse.Cloud.define("inServiceRange", function(request, response) {
     var lat = request.params.latitude
     var lon = request.params.longitude
-    var PHILADELPHIA_LAT = 39.949508
-    var PHILADELPHIA_LON = -75.171886
     var dist_in_km = getDistanceFromLatLonInKm(lat, lon, PHILADELPHIA_LAT, PHILADELPHIA_LON) 
     if (dist_in_km <= 8) {
         response.success({"distance":dist_in_km})
     }
     else {
-        response.error({"distance":dist_in_km})
+        response.error({"distance":dist_in_km, "message": "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!!"})
     }
 })
 

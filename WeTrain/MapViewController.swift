@@ -106,9 +106,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    func warnAboutService() {
+    func warnAboutService(string: String?) {
         self.warnedAboutService = true
-        self.simpleAlert("WeTrain unavailable", message: "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!")
+        var message = "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!"
+        if string != nil {
+            message = string!
+        }
+        self.simpleAlert("WeTrain unavailable", message: message)
     }
 
     // MARK: - CLLocationManagerDelegate
@@ -137,9 +141,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.updateMapToCurrentLocation()
             
             if self.warnedAboutService == false {
-                self.inServiceRange({ (inServiceRange) -> Void in
-                    if !inServiceRange && !self.warnedAboutService {
-                        self.warnAboutService()
+                self.inServiceRange({ (inRange, message) -> Void in
+                    if inRange == false && self.warnedAboutService == false {
+                        self.warnAboutService(message)
                     }
                 })
             }
@@ -154,10 +158,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.mapView.camera = GMSCameraPosition(target: self.currentLocation!.coordinate, zoom: zoom, bearing: 0, viewingAngle: 0)
     }
     
-    func inServiceRange(completion:((Bool) -> Void)) {
+    func inServiceRange(completion:((Bool, message: String?) -> Void)) {
         // create a user flag instead of checking current location
         if PFUser.currentUser() == nil {
-            completion(true)
+            completion(true, message: nil)
             return
         }
         
@@ -167,28 +171,34 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
         catch _ {
             print("no")
-            completion(true)
+            completion(true, message: nil)
             return
         }
         
         if self.currentLocation == nil {
-            completion(true)
+            completion(false, message: "WeTrain could not determine your GPS location.")
             return
         }
 
         if let override: Bool = client.objectForKey("locationOverride") as? Bool {
             if override == true {
-                completion(true)
+                completion(true, message: nil)
                 return
             }
         }
         
         PFCloud.callFunctionInBackground("inServiceRange", withParameters: ["latitude": self.currentLocation!.coordinate.latitude, "longitude": self.currentLocation!.coordinate.longitude]) { (results, error) -> Void in
-            if results {
-                completion(true)
+            if results != nil {
+                completion(true, message: nil)
             }
             else {
-                completion(false)
+                var message: String? = nil
+                if error != nil {
+                    if let msg: String = error!.userInfo["message"] as! String {
+                        message = msg
+                    }
+                }
+                completion(false, message: message)
             }
         }
     }
@@ -319,9 +329,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             return
         }
 
-        self.inServiceRange { (inServiceRange) -> Void in
-            if !inServiceRange {
-                self.warnAboutService()
+        self.inServiceRange { (inRange, message) -> Void in
+            if !inRange {
+                self.warnAboutService(message)
             }
             else {
                 
