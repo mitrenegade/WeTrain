@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Stripe
 
 protocol CreditCardDelegate: class {
     func didSaveCreditCard(token: String, lastFour: String) // saved to client

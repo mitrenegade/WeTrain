@@ -13,6 +13,7 @@ import Bolts
 import Fabric
 import Crashlytics
 import GoogleMaps
+import Stripe
 
 @UIApplicationMain
 
