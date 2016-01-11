@@ -82,6 +82,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) -> Void in
             print("logged in")
             if user != nil {
+                
+                NSUserDefaults.standardUserDefaults().setObject(username, forKey: "username:cached")
+                NSUserDefaults.standardUserDefaults().setObject(password, forKey: "password:cached")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
                 self.loggedIn()
             }
             else {

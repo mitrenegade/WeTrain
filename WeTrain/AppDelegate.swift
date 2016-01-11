@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        Parse.enableLocalDatastore()
+
         if TESTING == 0 {
             Parse.setApplicationId(PARSE_APP_ID_PROD, clientKey: PARSE_CLIENT_KEY_PROD)
             Stripe.setDefaultPublishableKey(STRIPE_PUBLISHABLE_KEY_PROD)
@@ -155,6 +157,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
     }
     
     func refreshUser() {
+        if PFUser.currentUser() == nil {
+            if let cachedUsername: String = NSUserDefaults.standardUserDefaults().objectForKey("username:cached") as? String {
+                if let cachedPassword: String = NSUserDefaults.standardUserDefaults().objectForKey("password:cached") as? String {
+                    // HACK: load cached username and password and log user in. This is to fix a Parse bug (?) that PFUser.currentUser does not persist across app updates
+                    PFUser.logInWithUsernameInBackground(cachedUsername, password: cachedPassword) { (user, error) -> Void in
+                        self.refreshUser()
+                    }
+                    return
+                }
+            }
+        }
         PFUser.currentUser()?.fetchInBackgroundWithBlock({ (user: PFObject?, error) -> Void in
             if error != nil {
                 if let userInfo: [NSObject: AnyObject] = error!.userInfo {
@@ -275,6 +288,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
     }
     
     func logout() {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("username:cached")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("password:cached")
+        NSUserDefaults.standardUserDefaults().synchronize()
+
         PFUser.logOutInBackgroundWithBlock { (error) -> Void in
             self.goToLogin()
         }
