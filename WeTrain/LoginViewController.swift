@@ -14,7 +14,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     @IBOutlet var inputLogin: UITextField!
     @IBOutlet var inputPassword: UITextField!
     @IBOutlet var buttonLogin: UIButton!
-    @IBOutlet var buttonSignup: UIButton!
+    @IBOutlet var buttonForgot: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +58,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         if gestureRecognizer.isKindOfClass(UITapGestureRecognizer) {
             let location: CGPoint = touch.locationInView(self.view)
-            for input: UIView in [self.inputLogin, self.inputPassword, self.buttonLogin, self.buttonSignup] {
+            for input: UIView in [self.inputLogin, self.inputPassword, self.buttonLogin, self.buttonForgot] {
                 if CGRectContainsPoint(input.frame, location) {
                     return false
                 }
@@ -82,6 +82,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) -> Void in
             print("logged in")
             if user != nil {
+                
+                NSUserDefaults.standardUserDefaults().setObject(username, forKey: "username:cached")
+                NSUserDefaults.standardUserDefaults().setObject(password, forKey: "password:cached")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                
                 self.loggedIn()
             }
             else {
@@ -103,6 +108,30 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIScrollViewDe
         let nav: UINavigationController = UIStoryboard(name: "Login", bundle: nil).instantiateViewControllerWithIdentifier("SignupNavigationController") as! UINavigationController
         self.appDelegate().window!.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
         self.appDelegate().window!.rootViewController!.presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    @IBAction func didClickForgot(sender: UIButton) {
+        if self.inputLogin.text?.characters.count == 0 {
+            self.simpleAlert("Please enter your email to reset the password", message: nil)
+            return
+        }
+        
+        PFUser.requestPasswordResetForEmailInBackground(self.inputLogin.text!) { (success, error) -> Void in
+            if success {
+                self.simpleAlert("Password reset sent", message: "Please check your email for password reset instructions.")
+            }
+            else {
+                if error!.code == 125 {
+                    self.simpleAlert("Invalid email", message: "Please enter a valid email to send a reset link.")
+                }
+                else if error!.code == 205 {
+                    self.simpleAlert("Invalid user", message: "No user was found with that email. Please contact us directly for help.")
+                }
+                else {
+                    self.simpleAlert("Error resetting password", defaultMessage: "Could not send a password reset link.", error: error)
+                }
+            }
+        }
     }
     
     func loggedIn() {

@@ -132,6 +132,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate, UIGestureReco
         user.signUpInBackgroundWithBlock { (success, error) -> Void in
             if success {
                 print("signup succeeded")
+                
+                NSUserDefaults.standardUserDefaults().setObject(username, forKey: "username:cached")
+                NSUserDefaults.standardUserDefaults().setObject(password, forKey: "password:cached")
+                NSUserDefaults.standardUserDefaults().synchronize()
+
                 let client: PFObject = PFObject(className: "Client")
                 client.setObject(self.checked, forKey: "checkedTOS")
                 client.saveInBackgroundWithBlock({ (success, error) -> Void in
