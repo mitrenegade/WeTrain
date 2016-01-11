@@ -179,6 +179,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
                 }
             }
             else {
+                if user != nil {
+                    do {
+                        try user!.pin()
+                    } catch {
+                        
+                    }
+                }
+
                 if PFUser.currentUser()!.objectForKey("username") != nil {
                     let email: String = PFUser.currentUser()!.objectForKey("username") as! String
                     Crashlytics.sharedInstance().setUserEmail(email)
@@ -292,6 +300,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TutorialDelegate {
         NSUserDefaults.standardUserDefaults().removeObjectForKey("password:cached")
         NSUserDefaults.standardUserDefaults().synchronize()
 
+        if PFUser.currentUser() != nil {
+            do {
+                try PFUser.currentUser()!.unpin()
+            } catch {
+                
+            }
+        }
+
+        
         PFUser.logOutInBackgroundWithBlock { (error) -> Void in
             self.goToLogin()
         }
