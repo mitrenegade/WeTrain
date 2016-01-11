@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2VA-Od-DVj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2VA-Od-DVj">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -113,19 +113,19 @@
                                     <action selector="didClickLogin:" destination="sZv-Un-zab" eventType="touchUpInside" id="JLZ-P9-Mos"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVe-s9-tY1">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVe-s9-tY1">
                                 <rect key="frame" x="0.0" y="328" width="600" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7QL-s0-EEk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Don't have an account? Sign up here">
+                                <state key="normal" title="I forgot my password">
                                     <color key="titleColor" red="0.32549019610000002" green="0.86666666670000003" blue="0.62352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didClickSignup:" destination="sZv-Un-zab" eventType="touchUpInside" id="imZ-L7-srV"/>
+                                    <action selector="didClickForgot:" destination="sZv-Un-zab" eventType="touchUpInside" id="VfR-sq-Yen"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -162,8 +162,8 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="buttonForgot" destination="ZVe-s9-tY1" id="rBv-Ws-NoU"/>
                         <outlet property="buttonLogin" destination="P0b-rH-MOx" id="NsG-Cf-x2A"/>
-                        <outlet property="buttonSignup" destination="ZVe-s9-tY1" id="3BV-kI-Mzm"/>
                         <outlet property="inputLogin" destination="Kxj-tp-d5Y" id="WtO-iW-kGL"/>
                         <outlet property="inputPassword" destination="981-hP-HSD" id="f86-e4-NqW"/>
                     </connections>
