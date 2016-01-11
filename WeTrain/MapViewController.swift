@@ -106,9 +106,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    func warnAboutService() {
+    func warnAboutService(string: String?) {
         self.warnedAboutService = true
-        self.simpleAlert("WeTrain unavailable", message: "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!")
+        var message = "Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!"
+        if string != nil {
+            message = string!
+        }
+        self.simpleAlert("WeTrain unavailable", message: message)
     }
 
     // MARK: - CLLocationManagerDelegate
@@ -137,9 +141,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.updateMapToCurrentLocation()
             
             if self.warnedAboutService == false {
-                if !self.inServiceRange() {
-                    self.warnAboutService()
-                }
+                self.inServiceRange({ (inRange, message) -> Void in
+                    if inRange == false && self.warnedAboutService == false {
+                        self.warnAboutService(message)
+                    }
+                })
             }
         }
     }
@@ -152,10 +158,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.mapView.camera = GMSCameraPosition(target: self.currentLocation!.coordinate, zoom: zoom, bearing: 0, viewingAngle: 0)
     }
     
-    func inServiceRange() -> Bool {
+    func inServiceRange(completion:((Bool, message: String?) -> Void)) {
         // create a user flag instead of checking current location
         if PFUser.currentUser() == nil {
-            return true
+            completion(true, message: nil)
+            return
         }
         
         let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
@@ -164,26 +171,38 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
         catch _ {
             print("no")
-            return true
+            completion(true, message: nil)
+            return
         }
         
+        if self.currentLocation == nil {
+            completion(false, message: "WeTrain could not determine your GPS location.")
+            return
+        }
+
         if let override: Bool = client.objectForKey("locationOverride") as? Bool {
             if override == true {
-                return true
+                completion(true, message: nil)
+                return
             }
         }
         
-        let phila: CLLocation = CLLocation(latitude: PHILADELPHIA_LAT, longitude: PHILADELPHIA_LON)
-        if self.currentLocation == nil {
-            return false
+        PFCloud.callFunctionInBackground("inServiceRange", withParameters: ["latitude": self.currentLocation!.coordinate.latitude, "longitude": self.currentLocation!.coordinate.longitude]) { (results, error) -> Void in
+            if results != nil {
+                completion(true, message: nil)
+            }
+            else {
+                var message: String? = nil
+                if error != nil {
+                    if let msg: String = error!.userInfo["error"] as? String {
+                        message = msg
+                    }
+                }
+                completion(false, message: message)
+            }
         }
-        let dist = self.currentLocation!.distanceFromLocation(phila)
-        print("distance from center city: \(dist)")
-        if dist > SERVICE_RANGE_METERS {
-            return false
-        }
-        return true
     }
+    
     // MARK: - GMSMapView  delegate
     func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
         self.view.endEditing(true)
@@ -310,51 +329,54 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             return
         }
 
-        if !self.inServiceRange() {
-            self.warnAboutService()
-            return
-        }
-
-        let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
-        client.refreshInBackgroundWithBlock { (object, error) -> Void in
-            if client.objectForKey("firstName") == nil || client.objectForKey("lastName") == nil || client.objectForKey("phone") == nil || client.objectForKey("photo") == nil {
-                self.simpleAlert("Please complete profile", message: "You must add your name, phone, and photo before requesting a trainer so that they can contact you. Go to the Account tab edit your profile.")
-                return
-            }
-            if client.objectForKey("card") == nil {
-                self.simpleAlert("Please add a credit card", message: "You must add a credit card before requesting a trainer. Your card won't be charged until you and the trainer agree to start a workout.")
-                return
-            }
-            
-            if self.currentLocation != nil {
-                if self.inputStreet.text != nil && self.inputCity.text != nil {
-                    let addressString = "\(self.inputStreet.text!) \(self.inputCity.text!)"
-                    self.confirmRequestForAddress(addressString, coordinate: self.currentLocation!.coordinate)
-                    return
-                }
-                let coder = GMSGeocoder()
-                coder.reverseGeocodeCoordinate(self.currentLocation!.coordinate, completionHandler: { (response, error) -> Void in
-                    if let gmresponse:GMSReverseGeocodeResponse = response as GMSReverseGeocodeResponse! {
-                        let results: [AnyObject] = gmresponse.results()
-                        let addresses: [GMSAddress] = results as! [GMSAddress]
-                        let address: GMSAddress = addresses.first!
-                        
-                        var addressString: String = ""
-                        let lines: [String] = address.lines as! [String]
-                        for line: String in lines {
-                            addressString = "\(addressString)\n\(line)"
-                        }
-                        print("Address: \(addressString)")
-                        
-                        self.confirmRequestForAddress(addressString, coordinate: address.coordinate)
-                    }
-                    else {
-                        self.simpleAlert("Invalid location", message: "We could not request a session; your current location is invalid")
-                    }
-                })
+        self.inServiceRange { (inRange, message) -> Void in
+            if !inRange {
+                self.warnAboutService(message)
             }
             else {
-                self.simpleAlert("Invalid location", message: "We could not request a session; your current location was invalid")
+                
+                let client: PFObject = PFUser.currentUser()!.objectForKey("client") as! PFObject
+                client.refreshInBackgroundWithBlock { (object, error) -> Void in
+                    if client.objectForKey("firstName") == nil || client.objectForKey("lastName") == nil || client.objectForKey("phone") == nil || client.objectForKey("photo") == nil {
+                        self.simpleAlert("Please complete profile", message: "You must add your name, phone, and photo before requesting a trainer so that they can contact you. Go to the Account tab edit your profile.")
+                        return
+                    }
+                    if client.objectForKey("card") == nil {
+                        self.simpleAlert("Please add a credit card", message: "You must add a credit card before requesting a trainer. Your card won't be charged until you and the trainer agree to start a workout.")
+                        return
+                    }
+                    
+                    if self.currentLocation != nil {
+                        if self.inputStreet.text != nil && self.inputCity.text != nil {
+                            let addressString = "\(self.inputStreet.text!) \(self.inputCity.text!)"
+                            self.confirmRequestForAddress(addressString, coordinate: self.currentLocation!.coordinate)
+                            return
+                        }
+                        let coder = GMSGeocoder()
+                        coder.reverseGeocodeCoordinate(self.currentLocation!.coordinate, completionHandler: { (response, error) -> Void in
+                            if let gmresponse:GMSReverseGeocodeResponse = response as GMSReverseGeocodeResponse! {
+                                let results: [AnyObject] = gmresponse.results()
+                                let addresses: [GMSAddress] = results as! [GMSAddress]
+                                let address: GMSAddress = addresses.first!
+                                
+                                var addressString: String = ""
+                                let lines: [String] = address.lines as! [String]
+                                for line: String in lines {
+                                    addressString = "\(addressString)\n\(line)"
+                                }
+                                print("Address: \(addressString)")
+                                
+                                self.confirmRequestForAddress(addressString, coordinate: address.coordinate)
+                            }
+                            else {
+                                self.simpleAlert("Invalid location", message: "We could not request a session; your current location is invalid")
+                            }
+                        })
+                    }
+                    else {
+                        self.simpleAlert("Invalid location", message: "We could not request a session; your current location was invalid")
+                    }
+                }
             }
         }
     }

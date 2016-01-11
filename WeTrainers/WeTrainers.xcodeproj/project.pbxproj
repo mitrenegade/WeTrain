@@ -24,7 +24,7 @@
 		ACEA83EE1BE4018100D0CFFE /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACEA83ED1BE4018100D0CFFE /* UIViewController+Utils.swift */; };
 		ACFA6F111BB41D6100AC3927 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F101BB41D6100AC3927 /* LoginViewController.swift */; };
 		ACFA6F141BB42CC100AC3927 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA6F131BB42CC100AC3927 /* SignupViewController.swift */; };
-		D85DF688BAA691AA4613E87E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBE5EDDF73FB68B5782D451 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D85DF688BAA691AA4613E87E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBE5EDDF73FB68B5782D451 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

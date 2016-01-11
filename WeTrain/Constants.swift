@@ -25,7 +25,7 @@ enum RequestState: String {
 
 let PHILADELPHIA_LAT = 39.949508
 let PHILADELPHIA_LON = -75.171886
-let SERVICE_RANGE_METERS: Double = 16000 // 10 mile radius
+let SERVICE_RANGE_METERS: Double = 8046 // 5 mile radius
 let REQUEST_DISTANCE_METERS: Double = 48000 // 30 mile radius
 
 let GOOGLE_API_APP_KEY = "AIzaSyA7aDRZVW3-ruvbeB25tzJF5WKr0FjyRac"

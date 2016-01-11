@@ -3,6 +3,9 @@ var STRIPE_SECRET_DEV = 'sk_test_phPQmWWwqRos3GtE7THTyfT0'
 var STRIPE_SECRET_PROD = 'sk_live_zBV55nOjxgtWUZsHTJM5kNtD'
 Stripe.initialize(STRIPE_SECRET_PROD);
 
+var PHILADELPHIA_LAT = 39.949508
+var PHILADELPHIA_LON = -75.171886
+
 var sendMail = function(from, fromName, text, subject) {
     var Mandrill = require('mandrill');
     Mandrill.initialize('aC8uXsVJlJHJw46uo8kTqA');
@@ -17,8 +20,8 @@ var sendMail = function(from, fromName, text, subject) {
             from_name: fromName,
             to: [
             {
-                email: "bobbyren@gmail.com",
-                name: "WeTrain Dispatch"
+                email: "zachary.hertzel@jefferson.edu",
+                name: "WeTrain feedback"
             }
             ]
         },
@@ -276,6 +279,18 @@ Parse.Cloud.afterSave("Client", function(request, response) {
     }
 })
 
+Parse.Cloud.define("inServiceRange", function(request, response) {
+    var lat = request.params.latitude
+    var lon = request.params.longitude
+    var dist_in_km = getDistanceFromLatLonInKm(lat, lon, PHILADELPHIA_LAT, PHILADELPHIA_LON) 
+    if (dist_in_km <= 8) {
+        response.success({"distance":dist_in_km})
+    }
+    else {
+        response.error("Sorry, WeTrain is not available in your area. We currently service the Philadelphia area. Please stay tuned for more cities!")
+    }
+})
+
 Parse.Cloud.define("updatePayment", function(request, response) {
     var clientId = request.params.clientId
     var stripeToken = request.params.stripeToken
@@ -497,4 +512,24 @@ var createCharge = function(client, payment, response) {
         });
     }
 }
+
+// calculates distance between lat and lon
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
 //curl -X POST -H "X-Parse-Application-Id: mxzbQxv3lYPBJoOpbnkMDgnDoFFkFuUW6Sm3Of9d" -H "X-Parse-REST-API-Key: v4uFmG5hgfhJKejsDqLBRFbq15gWBxnA6yZd9Dvm" -H "Content-Type: application/json" -d '{"toEmail":"bobbyren@gmail.com","toName":"Bobby Ren","fromEmail":"bobbyren@gmail.com","fromName":"Bobby Ren","text":"testing ManDrill email","subject":"this is just a test"}' https://api.parse.com/1/functions/sendMail

@@ -178,7 +178,7 @@ class FeedbackViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         var message = self.inputMessage.text
         print("email: \(email) category: \(category) message: \(message) rating: \(rating)")
 
-        var dict: [NSObject: AnyObject] = ["email": email!]
+        var dict: [String: AnyObject] = ["email": email!]
         
         let info = NSBundle.mainBundle().infoDictionary as [NSObject: AnyObject]?
         let version: AnyObject = info!["CFBundleShortVersionString"]!

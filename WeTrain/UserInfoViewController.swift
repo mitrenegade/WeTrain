@@ -253,7 +253,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         
         if self.selectedPhoto != nil {
             let data: NSData = UIImageJPEGRepresentation(self.selectedPhoto!, 0.8)!
-            let file: PFFile = PFFile(name: "profile.jpg", data: data)
+            let file: PFFile = PFFile(name: "profile.jpg", data: data)!
             self.client!.setObject(file, forKey: "photo")
         }
         
@@ -285,14 +285,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
         let size = n.userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size
         
         //        self.constraintTopOffset.constant = -size!.height
-        //self.constraintBottomOffset.constant = size!.height
+        self.constraintBottomOffset.constant = size!.height
         //self.view.layoutIfNeeded()
-        if self.currentInput != nil {
-            print("current input frame: \(self.currentInput!.frame)")
-            var frame = self.currentInput!.frame
-            frame.origin.y = frame.origin.y + self.scrollView.frame.size.height - 80
-            self.scrollView.scrollRectToVisible(frame, animated: false)
-        }
     }
     
     func keyboardWillHide(n: NSNotification) {
@@ -332,6 +326,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate, CreditCardD
             return false
         }
         self.currentInput = textField
+
         return true
     }
     
