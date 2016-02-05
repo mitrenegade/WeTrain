@@ -462,7 +462,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
             self.simpleAlert("Invalid passcode", message: "Please enter the correct passcode given to you by your client.")
             let log: PFObject = PFObject(className: "Log")
             log.setObject("incorrect passcode", forKey: "type")
-            log.setObject("code should be \(validCode), entered \(text)")
+            log.setObject("code should be \(validCode), entered \(text)", forKey: "message")
             log.saveEventually()
         }
     }
