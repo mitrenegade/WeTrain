@@ -136,7 +136,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         let age = self.ageOfClient(self.client!) as String?
         let injuries = self.client!.objectForKey("injuries") as? String
         let length = self.request.objectForKey("length") as? Int
-        let notes = self.client!.objectForKey("client_notes") as? String
+        var notes = self.client!.objectForKey("client_notes") as? String
         
         self.labelExercise.text = "Exercise: \(exercise!)"
         let index = TRAINING_TITLES.indexOf(exercise!)
@@ -230,13 +230,34 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         if self.request.objectForKey("trainer") != nil && (self.request.objectForKey("trainer") as! PFObject).objectId != self.trainer.objectId {
             info = "The client is already matched with a different trainer."
         }
-        var attributedInfo: NSAttributedString = NSAttributedString(string: info)
+        let attributedInfo: NSMutableAttributedString = NSMutableAttributedString(string: info)
         self.labelInfo.attributedText = attributedInfo
         
         if notes != nil {
-            attributedInfo = NSAttributedString(string:"\(info)\nClient notes:\n\n\(notes!)")
+            // Parse notes
+            let notesTitle: NSMutableAttributedString = NSMutableAttributedString(string: "\nClient notes:\n\n")
+            let attrs: [String: AnyObject] = [NSFontAttributeName : UIFont(name: "Helvetica-Bold", size: 14)!] as [String: AnyObject]
+            let rangeTitle = NSRange.init(location: 0, length: 15)
+            notesTitle.addAttributes(attrs, range: rangeTitle)
+            attributedInfo.appendAttributedString(notesTitle)
             
-            // Todo: parse notes
+            // split by newline
+            let lines = notes!.componentsSeparatedByString("\\n")
+            for line: String in lines {
+                let attributedLine: NSMutableAttributedString = NSMutableAttributedString(string: line)
+                if let range = line.rangeOfString(":") {
+                    let startIndex: Int = line.startIndex.distanceTo(range.startIndex)
+                    let range2 = NSRange.init(location: 0, length: startIndex)
+                    let myNSString = line as NSString
+                    let title = myNSString.substringWithRange(range2)
+                    
+                    print("notes: \n\(notes!) title \(title) ")
+                    let attrs: [String: AnyObject] = [NSFontAttributeName : UIFont(name: "Helvetica-Bold", size: 14)!] as [String: AnyObject]
+                    attributedLine.addAttributes(attrs, range: range2)
+                }
+                attributedInfo.appendAttributedString(attributedLine)
+                attributedInfo.appendAttributedString(NSAttributedString(string: "\n"))
+            }
         }
         self.labelInfo.attributedText = attributedInfo
         
