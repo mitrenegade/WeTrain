@@ -579,7 +579,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetrain.app.trainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d6aa212b-372a-44e8-b550-3818965bb2d3";
+				PROVISIONING_PROFILE = "50bbe7b9-7282-4455-b9f4-c40a24844136";
 			};
 			name = Release;
 		};
