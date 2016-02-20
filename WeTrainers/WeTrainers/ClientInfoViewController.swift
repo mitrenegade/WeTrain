@@ -136,6 +136,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         let age = self.ageOfClient(self.client!) as String?
         let injuries = self.client!.objectForKey("injuries") as? String
         let length = self.request.objectForKey("length") as? Int
+        let notes = self.client!.objectForKey("client_notes") as? String
         
         self.labelExercise.text = "Exercise: \(exercise!)"
         let index = TRAINING_TITLES.indexOf(exercise!)
@@ -229,8 +230,15 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         if self.request.objectForKey("trainer") != nil && (self.request.objectForKey("trainer") as! PFObject).objectId != self.trainer.objectId {
             info = "The client is already matched with a different trainer."
         }
+        var attributedInfo: NSAttributedString = NSAttributedString(string: info)
+        self.labelInfo.attributedText = attributedInfo
         
-        self.labelInfo.text = info
+        if notes != nil {
+            attributedInfo = NSAttributedString(string:"\(info)\nClient notes:\n\n\(notes!)")
+            
+            // Todo: parse notes
+        }
+        self.labelInfo.attributedText = attributedInfo
         
         if self.status == RequestState.Matched.rawValue || self.status == RequestState.Searching.rawValue {
             if let address: String = request.objectForKey("address") as? String {
