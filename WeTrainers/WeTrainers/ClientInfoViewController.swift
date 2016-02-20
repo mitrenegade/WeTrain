@@ -115,6 +115,11 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         self.labelAddress.superview!.addGestureRecognizer(tap)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.refreshState()
+    }
     func ageOfClient(client: PFObject) -> String? {
         // TODO: use birthdate to calculate age
         if let age = client.objectForKey("age") as? String {
@@ -303,7 +308,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         
         if self.view.frame.size.height <= 480 {
             if self.constraintButtonContactHeight.constant == 0 {
-                self.constraintButtonActionRight.constant = self.viewInfo.frame.size.width
+                self.constraintButtonActionRight.constant = 0
             }
             else {
                 self.constraintButtonContactTop.constant = -self.buttonAction.frame.size.height
