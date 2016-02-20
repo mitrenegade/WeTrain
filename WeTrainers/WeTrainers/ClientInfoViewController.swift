@@ -115,6 +115,11 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         self.labelAddress.superview!.addGestureRecognizer(tap)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.refreshState()
+    }
     func ageOfClient(client: PFObject) -> String? {
         // TODO: use birthdate to calculate age
         if let age = client.objectForKey("age") as? String {
@@ -131,6 +136,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         let age = self.ageOfClient(self.client!) as String?
         let injuries = self.client!.objectForKey("injuries") as? String
         let length = self.request.objectForKey("length") as? Int
+        var notes = self.client!.objectForKey("client_notes") as? String
         
         self.labelExercise.text = "Exercise: \(exercise!)"
         let index = TRAINING_TITLES.indexOf(exercise!)
@@ -224,8 +230,36 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         if self.request.objectForKey("trainer") != nil && (self.request.objectForKey("trainer") as! PFObject).objectId != self.trainer.objectId {
             info = "The client is already matched with a different trainer."
         }
+        let attributedInfo: NSMutableAttributedString = NSMutableAttributedString(string: info)
+        self.labelInfo.attributedText = attributedInfo
         
-        self.labelInfo.text = info
+        if notes != nil {
+            // Parse notes
+            let notesTitle: NSMutableAttributedString = NSMutableAttributedString(string: "\nClient notes:\n\n")
+            let attrs: [String: AnyObject] = [NSFontAttributeName : UIFont(name: "Helvetica-Bold", size: 14)!] as [String: AnyObject]
+            let rangeTitle = NSRange.init(location: 0, length: 15)
+            notesTitle.addAttributes(attrs, range: rangeTitle)
+            attributedInfo.appendAttributedString(notesTitle)
+            
+            // split by newline
+            let lines = notes!.componentsSeparatedByString("\\n")
+            for line: String in lines {
+                let attributedLine: NSMutableAttributedString = NSMutableAttributedString(string: line)
+                if let range = line.rangeOfString(":") {
+                    let startIndex: Int = line.startIndex.distanceTo(range.startIndex)
+                    let range2 = NSRange.init(location: 0, length: startIndex)
+                    let myNSString = line as NSString
+                    let title = myNSString.substringWithRange(range2)
+                    
+                    print("notes: \n\(notes!) title \(title) ")
+                    let attrs: [String: AnyObject] = [NSFontAttributeName : UIFont(name: "Helvetica-Bold", size: 14)!] as [String: AnyObject]
+                    attributedLine.addAttributes(attrs, range: range2)
+                }
+                attributedInfo.appendAttributedString(attributedLine)
+                attributedInfo.appendAttributedString(NSAttributedString(string: "\n"))
+            }
+        }
+        self.labelInfo.attributedText = attributedInfo
         
         if self.status == RequestState.Matched.rawValue || self.status == RequestState.Searching.rawValue {
             if let address: String = request.objectForKey("address") as? String {
@@ -303,7 +337,7 @@ class ClientInfoViewController: UIViewController, UITextFieldDelegate, MFMessage
         
         if self.view.frame.size.height <= 480 {
             if self.constraintButtonContactHeight.constant == 0 {
-                self.constraintButtonActionRight.constant = self.viewInfo.frame.size.width
+                self.constraintButtonActionRight.constant = 0
             }
             else {
                 self.constraintButtonContactTop.constant = -self.buttonAction.frame.size.height
